@@ -50,7 +50,7 @@ async function main() {
   };
   
   // We get the contract to deploy
-  const NounsToken = await ethers.getContractFactory("NounsToken");
+  const NounsToken = await ethers.getContractFactory("NounsvilleToken");
   const nounsToken = await NounsToken.deploy(descriptor, seeder, developer, committee, priceSeed, proxy);
 
   await nounsToken.deployed();

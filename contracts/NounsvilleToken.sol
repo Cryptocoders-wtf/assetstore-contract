@@ -28,7 +28,7 @@ import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 
-contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
+contract NounsvilleToken is INounsToken, Ownable, ERC721Checkpointable {
     using Strings for uint256;
 
     // nouns fes committee address.
