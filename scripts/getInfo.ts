@@ -1,24 +1,13 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const nounsToken = process.env.NOUNSVILLE_ADDRESS as string;
-  const priceSeed = {
-    maxPrice:    String(3 * 10 ** 18),  // 3 ether;
-    minPrice:    String(25 * 10 ** 15), // 0.025 ether; = 25 * 10^-3
-    priceDelta:  String(50 * 10 ** 15), // 0.050 ether; = 50 * 10^-3
-    timeDelta: 60, // 1 minutes; 
-    expirationTime: 90 * 60, // 90 minutes;
-  };
+  const contractAddress = process.env.NOUNSVILLE_ADDRESS as string;
 
   // We get the contract to deploy
-  const NounsToken = await ethers.getContractFactory("NounsvilleToken");
-  const descriptorContract = NounsToken.attach(nounsToken);
-
-  await descriptorContract.setPriceData(priceSeed);
-
-  const data = await descriptorContract.getPriceData();
+  const factory = await ethers.getContractFactory("NounsvilleToken");
+  const contract = factory.attach(contractAddress);
+  const data = await contract.getPriceData();
   console.log(data);
-
 }
 
 // We recommend this pattern to be able to use async/await everywhere
