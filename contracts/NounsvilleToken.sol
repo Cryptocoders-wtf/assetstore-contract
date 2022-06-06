@@ -207,8 +207,8 @@ contract NounsvilleToken is INounsToken, Ownable, ERC721Checkpointable {
         require(_exists(tokenId), 'NounsToken: URI query for nonexistent token');
 
         string memory nounId = tokenId.toString();
-        string memory name = string(abi.encodePacked('Noun lover ', nounId));
-        string memory description = string(abi.encodePacked('Noun lover ', nounId, ' is a fun of the Nouns DAO and Nouns Art Festival'));
+        string memory name = string(abi.encodePacked('Nounville ', nounId));
+        string memory description = string(abi.encodePacked('Nounville ', nounId, ' is a fun of the Nouns DAO and Nouns Art Festival'));
 
         return descriptor.genericDataURI(name, description, seeds[tokenId]);
         // return descriptor.dataURI(tokenId, seeds[tokenId]);
