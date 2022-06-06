@@ -22,7 +22,7 @@ async function main() {
   // await hre.run('compile');
 
   const isRinkeby = network.name == "rinkeby";
-  console.log("deploying...", network.name, isRinkeby ? "testnet": "*");
+  console.log("deploying...", network.name, isRinkeby ? "testnet": "*", process.env.ALCHEMY_API_KEY);
 
   const minter = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
   const descriptor = isRinkeby ? "0x292c84894c1B86140A784eec99711d6007005f21":"0x0cfdb3ba1694c2bb2cfacb0339ad7b1ae5932b63";
