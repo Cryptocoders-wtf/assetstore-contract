@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const nounsToken = "0xb1B25Eeb1026cB947b3f65a5cc123FC28B13EEe6";
+  const nounsToken = "0x2DfB7180669396D812Ec7F90011857d81873af55";
   const priceSeed = {
     maxPrice:    String(3 * 10 ** 18),  // 3 ether;
     minPrice:    String(25 * 10 ** 15), // 0.025 ether; = 25 * 10^-3

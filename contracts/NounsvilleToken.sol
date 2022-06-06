@@ -77,7 +77,7 @@ contract NounsvilleToken is INounsToken, Ownable, ERC721Checkpointable {
         address _committee,
         PriceSeed memory _priceSeed,
         IProxyRegistry _proxyRegistry
-    ) ERC721('Nouns love', 'NOUN') {
+    ) ERC721('Nounsville', 'NOUNSVILLE') {
         descriptor = _descriptor;
         seeder = _seeder;
         developer = _developer;
