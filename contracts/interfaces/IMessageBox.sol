@@ -12,12 +12,12 @@ struct Message {
 	address sender;    // sender
 	address receiver;  // receiver
 	string text;       // text representation
-	string imageURL;      // thumbnail representation
-	address app;       // messager application
-	uint256 messageId; // message id
-	uint256 timestamp; 
-	bool isRead;
-	bool isDeleted;
+	string imageURL;   // thumbnail representation (optional)
+	address app;       // messager application (optional)
+	uint256 messageId; // message id (optional, but required with app)
+	uint256 timestamp; // will be set to block.timestamp
+	bool isRead;       // receiver's state
+	bool isDeleted;    // receiver's state
 }
 
 interface IMessageBox {
@@ -28,7 +28,8 @@ interface IMessageBox {
 	function markRead(uint256 _index, bool _isRead) external returns (Message memory);
 	function markDeleted(uint256 _index, bool _isDeleted) external returns (Message memory);
 	event MessageReceived(address _from, address _to, uint256 _index);
-	event MessageRead(address _from, address _to, uint256 _index);
+	event MessageRead(address _from, address _to, uint256 _index, bool _isRead);
+	event MessageDeleted(address _from, address _to, uint256 _index, bool _isDeleted);
 }
 
 interface ISpamFilter {
