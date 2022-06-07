@@ -11,6 +11,7 @@ contract MessageBox is Ownable, IMessageBox {
 
 	function send(address _to, Message memory _message) external override returns (uint256) {
     require(msg.sender == _message.sender);
+    _message.receiver = _to;
     _message.isRead = false;
     _message.isDeleted = false;
     _message.timestamp = block.timestamp;
@@ -18,6 +19,7 @@ contract MessageBox is Ownable, IMessageBox {
     uint256 index = counts[_to];
     queue[index] = _message;
     counts[_to] = index + 1;
+    emit MessageReceived(msg.sender, _to, index);
     return index;
   }
 
@@ -29,14 +31,17 @@ contract MessageBox is Ownable, IMessageBox {
     return messages[_to][_index];
   }
 
-	function markRead(address _to, uint256 _index, bool _isRead) external override returns (Message memory) {
-    Message storage message = messages[_to][_index];
+	function markRead(uint256 _index, bool _isRead) external override returns (Message memory) {
+    Message storage message = messages[msg.sender][_index];
     message.isRead = _isRead;
+    if (_isRead) {
+      emit MessageRead(message.sender, msg.sender, _index);
+    }
     return message;
   }
 
-	function markDeleted(address _to, uint256 _index, bool _isDeleted) external override returns (Message memory) {
-    Message storage message = messages[_to][_index];
+	function markDeleted(uint256 _index, bool _isDeleted) external override returns (Message memory) {
+    Message storage message = messages[msg.sender][_index];
     message.isDeleted = _isDeleted;
     return message;
   }
