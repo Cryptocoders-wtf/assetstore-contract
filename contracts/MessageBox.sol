@@ -23,12 +23,12 @@ contract MessageBox is Ownable, IMessageBox {
     return index;
   }
 
-	function count(address _to) external view override returns (uint256) {
-    return counts[_to];
+	function count() external view override returns (uint256) {
+    return counts[msg.sender];
   }
 
-	function get(address _to, uint256 _index) external view override returns (Message memory) {
-    return messages[_to][_index];
+	function get(uint256 _index) external view override returns (Message memory) {
+    return messages[msg.sender][_index];
   }
 
 	function markRead(uint256 _index, bool _isRead) external override returns (Message memory) {
