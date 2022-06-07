@@ -19,6 +19,11 @@ struct Message {
 	bool isDeleted;    // receiver's state
 }
 
+/*
+ * @notice
+ * This ia the message box interface, which allows messenger applications to exchange
+ * on-chain messages. 
+*/
 interface IMessageBox {
 	function send(address _to, string memory _text) external returns (uint256);
 	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
