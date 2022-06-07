@@ -13,15 +13,15 @@ struct Message {
 	uint256 id;        // message id
 	address sender;    // sender
 	address receiver;  // receiver
-	string message;    // text representation
-	string url;        // thumbnail representation
+	string text;    // text representation
+	string image;        // thumbnail representation
 	uint256 timestamp; 
 	bool isRead;
 	bool isDeleted;
 }
 
 interface IMessageBox {
-	function send(address _to, Message memory _message) external returns (uint256);
+	function send(address _to, string memory _text) external returns (uint256);
 	function count() external returns (uint256);
 	function get(uint256 _index) external returns (Message memory);
 	function markRead(uint256 _index, bool _isRead) external returns (Message memory);
