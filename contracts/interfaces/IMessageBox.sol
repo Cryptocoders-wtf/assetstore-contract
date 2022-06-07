@@ -4,18 +4,17 @@ pragma solidity ^0.8.6;
 
 /*
  * @notice
- * The "messenger" optionaly specifies the messenger application, which offers additional
- * capabilities such as attachments, collaborations and games. 
- * The "id" is a unique id within that particular application.
+ * The "app" optionaly specifies the associated messenge application, 
+ * which offers additional capabilities such as encryption and attachments. 
 */
 struct Message {
 	address sender;    // sender
 	address receiver;  // receiver
 	string text;       // text representation
-	string imageURL;   // thumbnail representation (optional)
-	address app;       // messager application (optional)
-	uint256 messageId; // message id (optional, but required with app)
-	uint256 timestamp; // will be set to block.timestamp
+	string imageURL;   // image representation (optional)
+	address app;       // the contract address of message application (optional)
+	uint256 messageId; // message id (optional, specific to the app)
+	uint256 timestamp; // block.timestamp
 	bool isRead;       // receiver's state
 	bool isDeleted;    // receiver's state
 }
@@ -34,5 +33,5 @@ interface IMessageBox {
 
 interface ISpamFilter {
 	function isSpam(address _to, Message memory _message) external returns (bool);
-	function reportSpan(address _to, Message memory _message) external;
+	function reportSpam(address _to, Message memory _message) external;
 }
