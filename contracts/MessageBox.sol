@@ -9,6 +9,25 @@ contract MessageBox is Ownable, IMessageBox {
   mapping(address => Message[]) messages;
   mapping(address => uint256) counts;
 
+	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external override returns (uint256) {
+    Message memory message;
+    message.sender = msg.sender;
+    message.receiver = _to;
+    message.text = _text;
+    message.imageURL = _imageURL;
+    message.app = _app;
+    message.messageId = _messageId;
+    message.isRead = false;
+    message.isDeleted = false;
+    message.timestamp = block.timestamp;
+    Message[] storage queue = messages[_to];
+    uint256 index = counts[_to];
+    queue[index] = message;
+    counts[_to] = index + 1;
+    emit MessageReceived(msg.sender, _to, index);
+    return index;
+  }
+
 	function send(address _to, string memory _text) external override returns (uint256) {
     Message memory message;
     message.sender = msg.sender;

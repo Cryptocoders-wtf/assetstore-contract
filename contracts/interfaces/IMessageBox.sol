@@ -9,12 +9,12 @@ pragma solidity ^0.8.6;
  * The "id" is a unique id within that particular application.
 */
 struct Message {
-	address messenger; // messager contract
-	uint256 id;        // message id
 	address sender;    // sender
 	address receiver;  // receiver
-	string text;    // text representation
-	string image;        // thumbnail representation
+	string text;       // text representation
+	string imageURL;      // thumbnail representation
+	address app;       // messager application
+	uint256 messageId; // message id
 	uint256 timestamp; 
 	bool isRead;
 	bool isDeleted;
@@ -22,6 +22,7 @@ struct Message {
 
 interface IMessageBox {
 	function send(address _to, string memory _text) external returns (uint256);
+	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
 	function count() external returns (uint256);
 	function get(uint256 _index) external returns (Message memory);
 	function markRead(uint256 _index, bool _isRead) external returns (Message memory);
