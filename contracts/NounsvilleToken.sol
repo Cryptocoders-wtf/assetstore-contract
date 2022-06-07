@@ -105,15 +105,9 @@ contract NounsvilleToken is INounsToken, Ownable, ERC721Checkpointable {
     }
 
     /**
-     * @notice Mint first Noun to the owner,
-     * @dev Call _mintTo with the to address(es).
+     * @notice Anybody can mint one per wallet.
      */
-    function mint() public override onlyOwner returns (uint256) {
-        require(false, 'Disabled'); 
-        return 0;
-    }
-
-    function freeMint() public returns (uint256) {
+    function mint() public override returns (uint256) {
       uint256 tokenId = _currentNounId - 1;
       address from = ownerOf(tokenId);
       address to = msg.sender;
