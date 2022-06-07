@@ -90,7 +90,7 @@ contract NounsvilleToken is INounsToken, Ownable, ERC721Checkpointable {
         priceSeed.timeDelta = _priceSeed.timeDelta;
         priceSeed.expirationTime = _priceSeed.expirationTime;
 
-        mint();
+        _mintTo(address(this), _currentNounId++);
     }
 
     /**
@@ -109,11 +109,24 @@ contract NounsvilleToken is INounsToken, Ownable, ERC721Checkpointable {
      * @dev Call _mintTo with the to address(es).
      */
     function mint() public override onlyOwner returns (uint256) {
-        require(_currentNounId == 0, 'First mint only'); 
-        _mintTo(owner(), _currentNounId++);
-        setMintTime();
-        return _mintTo(address(this), _currentNounId++);
+        require(false, 'Disabled'); 
+        return 0;
     }
+
+    function freeMint() public returns (uint256) {
+      uint256 tokenId = _currentNounId - 1;
+      address from = ownerOf(tokenId);
+      address to = msg.sender;
+      require(from == address(this), 'Owner is not the contract');
+      require(balanceOf(msg.sender) == 0, "You already have one.");
+
+      prices[tokenId] = 0;
+      buyTransfer(msg.sender, tokenId);
+
+      emit NounBought(tokenId, to);
+      return _mintNext(address(this));
+    }
+
     /*
      * @notice
      * Buy noun and mint new noun along with a possible developer reward Noun.
