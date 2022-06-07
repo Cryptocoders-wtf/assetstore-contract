@@ -3,7 +3,7 @@
 pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
-import { IMessageBox, Message } from './interfaces/IMessageBox.sol';
+import { IMessageBox } from './interfaces/IMessageBox.sol';
 
 contract MessageBox is Ownable, IMessageBox {
   mapping(address => Message[]) messages;
