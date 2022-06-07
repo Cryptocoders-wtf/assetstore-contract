@@ -7,7 +7,8 @@ struct Message {
 	uint256 id;        // message id
 	address sender;    // sender
 	string message;    // text representation
-	string url;        // icon
+	string url;        // thumbnail representation
+	uint256 timestamp; 
 	bool isRead;
 	bool isDeleted;
 }

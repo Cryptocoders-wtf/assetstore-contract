@@ -13,6 +13,7 @@ contract MessageBox is Ownable, IMessageBox {
     require(msg.sender == _message.sender);
     _message.isRead = false;
     _message.isDeleted = false;
+    _message.timestamp = block.timestamp;
     Message[] storage queue = messages[_to];
     uint256 index = counts[_to];
     queue[index] = _message;
