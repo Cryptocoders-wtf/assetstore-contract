@@ -8,6 +8,7 @@ import { IMessageBox } from './interfaces/IMessageBox.sol';
 contract MessageBox is Ownable, IMessageBox {
   mapping(uint256 => mapping(uint256 => Message)) messages;
   mapping(uint256 => uint256) numberOfMessages; // for each room
+  mapping(uint256 => mapping(address => bool)) accessRights;
   mapping(address => mapping(address => uint256)) roomsForTwo;
   mapping(address => mapping(uint256 => uint256)) joinedRooms;
   mapping(address => uint256) joinedRoomCount;
@@ -22,6 +23,7 @@ contract MessageBox is Ownable, IMessageBox {
     require(joinedRooms[_address][index] == 0);
     joinedRooms[_address][index] = roomIndex;
     joinedRoomCount[_address] = index + 1;
+    accessRights[roomIndex][_address] = true;
     return index;
   } 
 
@@ -82,11 +84,13 @@ contract MessageBox is Ownable, IMessageBox {
 
 	function messageCount(uint256 _roomIndex) external view override returns (uint256) {
     require(msg.sender != address(0), "roomCount: missing msg.sender");
+    require(accessRights[_roomIndex][msg.sender]);
     require(_roomIndex > 0, "roomCount: Invalid _roomIndex");
     return numberOfMessages[_roomIndex];
   }
 
 	function getMessage(uint256 _roomIndex, uint256 _messageIndex) external view override returns (Message memory) {
+    require(accessRights[_roomIndex][msg.sender]);
     require(_roomIndex > 0, "getMessage: invalid _roomIndex");
     return messages[_roomIndex][_messageIndex];
   }
