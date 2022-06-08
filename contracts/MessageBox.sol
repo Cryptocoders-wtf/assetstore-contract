@@ -20,7 +20,7 @@ contract MessageBox is Ownable, IMessageBox {
   function _joinRoom(address _address, uint256 roomIndex) internal returns (uint256) {
     require(_address != address(0), "_joinRoom: invalid address");
     uint256 index = joinedRoomCount[_address];
-    require(joinedRooms[_address][index] == 0);
+    require(joinedRooms[_address][index] == 0, "_joinRoom: already joined");
     joinedRooms[_address][index] = roomIndex;
     joinedRoomCount[_address] = index + 1;
     accessRights[roomIndex][_address] = true;
@@ -84,8 +84,8 @@ contract MessageBox is Ownable, IMessageBox {
 
 	function messageCount(uint256 _roomIndex) external view override returns (uint256) {
     require(msg.sender != address(0), "roomCount: missing msg.sender");
-    require(accessRights[_roomIndex][msg.sender]);
-    require(_roomIndex > 0, "roomCount: Invalid _roomIndex");
+    require(accessRights[_roomIndex][msg.sender], "roomCount: no access right");
+    require(_roomIndex > 0 && _roomIndex < nextRoom, "roomCount: Invalid _roomIndex");
     return numberOfMessages[_roomIndex];
   }
 
