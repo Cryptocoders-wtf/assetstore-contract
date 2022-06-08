@@ -9,6 +9,9 @@ contract MessageBox is Ownable, IMessageBox {
   mapping(address => Message[]) messages;
   mapping(address => uint256) counts;
 
+  constructor() {
+  }
+
 	function _sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) internal returns (uint256) {
     Message memory message;
     message.sender = msg.sender;
