@@ -6,7 +6,7 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IMessageBox } from './interfaces/IMessageBox.sol';
 
 contract MessageBox is Ownable, IMessageBox {
-  mapping(address => Message[]) messages;
+  mapping(address => mapping(uint256 => Message)) messages;
   mapping(address => uint256) counts;
 
   constructor() {
@@ -23,9 +23,9 @@ contract MessageBox is Ownable, IMessageBox {
     message.isRead = false;
     message.isDeleted = false;
     message.timestamp = block.timestamp;
-    Message[] storage queue = messages[_to];
+
     uint256 index = counts[_to];
-    queue[index] = message;
+    messages[_to][index] = message;
     counts[_to] = index + 1;
     emit MessageReceived(msg.sender, _to, index);
     return index;
