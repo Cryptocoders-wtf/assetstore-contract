@@ -25,15 +25,12 @@ interface IMessageBox {
 		bool isDeleted;    // receiver's state
 	}
 
-	function send(address _to, string memory _text) external returns (uint256);
+	function sendMessage(address _to, string memory _text) external returns (uint256);
 	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
-	function count() external returns (uint256);
-	function get(uint256 _index) external returns (Message memory);
-	function markRead(uint256 _index, bool _isRead) external returns (Message memory);
-	function markDeleted(uint256 _index, bool _isDeleted) external returns (Message memory);
+	function roomCount() external view returns (uint256);
+	function messageCount(uint256 _roomIndex) external view returns (uint256);
+	function getMessage(uint256 _roomIndex, uint256 _messageIndex) external view returns (Message memory);
 	event MessageReceived(address _from, address _to, uint256 _index);
-	event MessageRead(address _from, address _to, uint256 _index, bool _isRead);
-	event MessageDeleted(address _from, address _to, uint256 _index, bool _isDeleted);
 }
 
 interface ISpamFilter {
