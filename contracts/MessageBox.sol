@@ -40,7 +40,9 @@ contract MessageBox is Ownable, IMessageBox {
     roomsForTwo[_from][_to] = roomId;
     roomsForTwo[_to][_from] = roomId;
     _joinRoom(_from, roomId);
-    _joinRoom(_to, roomId);
+    if (_from != _to) {
+      _joinRoom(_to, roomId);
+    }
     members[roomId] = [_from, _to];
     emit RoomCreated(roomId);
     return roomId;
