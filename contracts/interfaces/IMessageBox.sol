@@ -34,8 +34,6 @@ interface IMessageBox {
 	function roomCount() external view returns (uint256);
 	function getRoomId(uint256 _roomIndex) external view returns (uint256);
   function getRoomInfo(uint256 _roomIndex) external view returns (RoomInfo memory);
-	function getMembers(uint256 _roomId) external view  returns (address[] memory);
-	function messageCount(uint256 _roomId) external view returns (uint256);
 	function getMessage(uint256 _roomId, uint256 _messageIndex) external view returns (Message memory);
 	event RoomCreated(uint256 roomId);
 	event MessageReceived(address _sender, uint256 roomId, uint256 _messageIndex);

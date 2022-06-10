@@ -119,14 +119,6 @@ contract MessageBox is Ownable, IMessageBox {
     return roomInfo;
   }
 
-	function getMembers(uint256 _roomId) external view override onlyRoomMember(_roomId) returns (address[] memory) {
-    return members[_roomId];
-  }
-
-	function messageCount(uint256 _roomId) external view override onlyRoomMember(_roomId) returns (uint256) {
-    return numberOfMessages[_roomId];
-  }
-
 	function getMessage(uint256 _roomId, uint256 _messageIndex) external view override onlyRoomMember(_roomId) returns (Message memory) {
     return messages[_roomId][_messageIndex];
   }
