@@ -21,6 +21,11 @@ interface IMessageBox {
 		uint256 messageId; // message id (optional, specific to the app)
 		uint256 timestamp; // block.timestamp
 	}
+	struct RoomInfo {
+		uint256 messageCount;
+    uint256 timestamp;
+    address[] members;
+	}
 
 	function sendMessageToRoom(uint256 _roomId, string memory _text) external returns (uint256);
 	function sendAppMessageToRoom(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
@@ -28,6 +33,7 @@ interface IMessageBox {
 	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
 	function roomCount() external view returns (uint256);
 	function getRoomId(uint256 _roomIndex) external view returns (uint256);
+  function getRoomInfo(uint256 _roomIndex) external view returns (RoomInfo memory);
 	function getMembers(uint256 _roomId) external view  returns (address[] memory);
 	function messageCount(uint256 _roomId) external view returns (uint256);
 	function getMessage(uint256 _roomId, uint256 _messageIndex) external view returns (Message memory);

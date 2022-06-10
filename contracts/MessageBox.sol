@@ -110,6 +110,15 @@ contract MessageBox is Ownable, IMessageBox {
     return joinedRooms[msg.sender][_roomIndex];    
   }
 
+  function getRoomInfo(uint256 _roomId) external view override onlyRoomMember(_roomId) returns (RoomInfo memory) {
+    RoomInfo memory roomInfo;
+    roomInfo.messageCount = numberOfMessages[_roomId];
+    require(roomInfo.messageCount > 0);
+    roomInfo.timestamp = messages[_roomId][roomInfo.messageCount - 1].timestamp;
+    roomInfo.members = members[_roomId];
+    return roomInfo;
+  }
+
 	function getMembers(uint256 _roomId) external view override onlyRoomMember(_roomId) returns (address[] memory) {
     return members[_roomId];
   }
