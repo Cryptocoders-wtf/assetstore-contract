@@ -54,37 +54,47 @@ contract MessageBox is Ownable, IMessageBox {
     return messageIndex;
   }
 
-	function _sendMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) internal returns (uint256) {
-    address _from = msg.sender;
+	function _sendMessage(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) internal returns (uint256) {
     Message memory message;
     message.sender = msg.sender;
-    message.receiver = _to;
     message.text = _text;
     message.imageURL = _imageURL;
     message.app = _app;
     message.messageId = _messageId;
-    message.isRead = false;
-    message.isDeleted = false;
     message.timestamp = block.timestamp;
 
-    uint256 roomId = _getRoomIdForTwo(_from, _to);
-    // DEBUG CODE
-    // require(accessRights[roomIndex][_from], "_sendMessage: no access right _from");
-    // require(accessRights[roomIndex][_to], "_sendMessage: no access right _to");
-
-    uint messageIndex = _addMessage(roomId, message);
-    emit MessageReceived(roomId, messageIndex);
+    uint messageIndex = _addMessage(_roomId, message);
+    emit MessageReceived(msg.sender, _roomId, messageIndex);
     return messageIndex;
-  }
-
-	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external override returns (uint256) {
-    require(msg.sender != address(0), "sendAppMessage: missing msg.sender");
-    return _sendMessage(_to, _text, _imageURL, _app, _messageId);
   }
 
 	function sendMessage(address _to, string memory _text) external override returns (uint256) {
     require(msg.sender != address(0), "sendMessage: missing msg.sender");
-    return _sendMessage(_to, _text, "", address(0), 0);
+    uint256 roomId = _getRoomIdForTwo(msg.sender, _to);
+    return _sendMessage(roomId, _text, "", address(0), 0);
+  }
+
+	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external override returns (uint256) {
+    require(msg.sender != address(0), "sendAppMessage: missing msg.sender");
+    uint256 roomId = _getRoomIdForTwo(msg.sender, _to);
+    return _sendMessage(roomId, _text, _imageURL, _app, _messageId);
+  }
+
+  modifier onlyRoomMember(uint256 _roomId) {
+    require(msg.sender != address(0), "onlyRoomMember: missing msg.sender");
+    require(_roomId > 0 && _roomId < nextRoomId, "onlyRoomMember: Invalid _roomId");
+    require(accessRights[_roomId][msg.sender], "onlyRoomMember: no access right");
+    _;
+  }
+
+  function sendMessageToRoom(uint256 _roomId, string memory _text) external override onlyRoomMember(_roomId) returns (uint256) {
+    require(msg.sender != address(0), "sendMessageToRoom: missing msg.sender");
+    return _sendMessage(_roomId, _text, "", address(0), 0);
+  }
+
+	function sendAppMessageToRoom(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external override onlyRoomMember(_roomId) returns (uint256) {
+    require(msg.sender != address(0), "sendAppMessageToRoom: missing msg.sender");
+    return _sendMessage(_roomId, _text, _imageURL, _app, _messageId);
   }
 
 	function roomCount() external view override returns (uint256) {
@@ -98,24 +108,15 @@ contract MessageBox is Ownable, IMessageBox {
     return joinedRooms[msg.sender][_roomIndex];    
   }
 
-	function getMembers(uint256 _roomId) external view override returns (address[] memory) {
-    require(msg.sender != address(0), "getMembers: missing msg.sender");
-    require(_roomId > 0 && _roomId < nextRoomId, "getMembers: Invalid _roomId");
-    require(accessRights[_roomId][msg.sender], "getMembers: no access right");
+	function getMembers(uint256 _roomId) external view override onlyRoomMember(_roomId) returns (address[] memory) {
     return members[_roomId];
   }
 
-	function messageCount(uint256 _roomId) external view override returns (uint256) {
-    require(msg.sender != address(0), "messageCount: missing msg.sender");
-    require(_roomId > 0 && _roomId < nextRoomId, "messageCount: Invalid _roomId");
-    require(accessRights[_roomId][msg.sender], "messageCount: no access right");
+	function messageCount(uint256 _roomId) external view override onlyRoomMember(_roomId) returns (uint256) {
     return numberOfMessages[_roomId];
   }
 
-	function getMessage(uint256 _roomId, uint256 _messageIndex) external view override returns (Message memory) {
-    require(msg.sender != address(0), "getMessage: missing msg.sender");
-    require(_roomId > 0 && _roomId < nextRoomId, "getMessage: Invalid _roomId");
-    require(accessRights[_roomId][msg.sender], "getMessage: no access right");
+	function getMessage(uint256 _roomId, uint256 _messageIndex) external view override onlyRoomMember(_roomId) returns (Message memory) {
     return messages[_roomId][_messageIndex];
   }
 }

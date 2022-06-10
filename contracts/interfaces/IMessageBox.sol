@@ -15,16 +15,15 @@ interface IMessageBox {
 	*/
 	struct Message {
 		address sender;    // sender
-		address receiver;  // receiver
 		string text;       // text representation
 		string imageURL;   // image representation (optional)
 		address app;       // the contract address of message application (optional)
 		uint256 messageId; // message id (optional, specific to the app)
 		uint256 timestamp; // block.timestamp
-		bool isRead;       // receiver's state
-		bool isDeleted;    // receiver's state
 	}
 
+	function sendMessageToRoom(uint256 _roomId, string memory _text) external returns (uint256);
+	function sendAppMessageToRoom(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
 	function sendMessage(address _to, string memory _text) external returns (uint256);
 	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
 	function roomCount() external view returns (uint256);
@@ -33,7 +32,7 @@ interface IMessageBox {
 	function messageCount(uint256 _roomId) external view returns (uint256);
 	function getMessage(uint256 _roomId, uint256 _messageIndex) external view returns (Message memory);
 	event RoomCreated(uint256 roomId);
-	event MessageReceived(uint256 roomId, uint256 _index);
+	event MessageReceived(address _sender, uint256 roomId, uint256 _messageIndex);
 }
 
 interface ISpamFilter {
