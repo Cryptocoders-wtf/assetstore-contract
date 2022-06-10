@@ -13,7 +13,7 @@ contract MessageBox is Ownable, IMessageBox {
   mapping(address => mapping(address => uint256)) roomsForTwo; // wallet => wallet => roomId
   mapping(address => mapping(uint256 => uint256)) joinedRooms; // wallet => roomIndex => roomId
   mapping(address => uint256) joinedRoomCount; // wallet => roomCount
-  uint256 nextRoom = 1; // 0 also means no such a room
+  uint256 nextRoomId = 1; // 0 also means no such a room
 
   constructor() {
   }
@@ -36,12 +36,13 @@ contract MessageBox is Ownable, IMessageBox {
     if (roomId > 0) {
       return roomId;
     }
-    roomId = nextRoom++;
+    roomId = nextRoomId++;
     roomsForTwo[_from][_to] = roomId;
     roomsForTwo[_to][_from] = roomId;
     _joinRoom(_from, roomId);
     _joinRoom(_to, roomId);
     members[roomId] = [_from, _to];
+    emit RoomCreated(roomId);
     return roomId;
   }
 
@@ -72,7 +73,7 @@ contract MessageBox is Ownable, IMessageBox {
     // require(accessRights[roomIndex][_to], "_sendMessage: no access right _to");
 
     uint messageIndex = _addMessage(roomId, message);
-    emit MessageReceived(_from, _to, messageIndex);
+    emit MessageReceived(roomId, messageIndex);
     return messageIndex;
   }
 

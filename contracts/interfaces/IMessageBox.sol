@@ -31,7 +31,8 @@ interface IMessageBox {
 	function getMembers(uint256 _roomIndex) external view  returns (address[] memory);
 	function messageCount(uint256 _roomIndex) external view returns (uint256);
 	function getMessage(uint256 _roomIndex, uint256 _messageIndex) external view returns (Message memory);
-	event MessageReceived(address _from, address _to, uint256 _index);
+	event RoomCreated(uint256 roomId);
+	event MessageReceived(uint256 roomId, uint256 _index);
 }
 
 interface ISpamFilter {
