@@ -10,7 +10,7 @@ pragma solidity ^0.8.6;
 interface IMessageBox {
 	/*
 	* @notice
-	* The "app" optionaly specifies the associated messenge application, 
+	* The "app" optionally specifies the associated message application, 
 	* which offers additional capabilities such as encryption and attachments. 
 	*/
 	struct Message {
