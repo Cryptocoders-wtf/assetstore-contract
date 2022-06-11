@@ -32,9 +32,11 @@ contract MessageBox is Ownable, IMessageBox {
   function _getRoomIdForMembers(address[] memory addresses) internal returns (uint256) {
     require(msg.sender != address(0), "_getRoomIdForMembers: missing msg.sender");
     require(addresses.length > 0, "_getRoomIdForMembers: members is empty");
-    uint i = 0;
+
+    // Make it sure that the addresses are sorted and contains msg.sender.
     address member = addresses[0]; 
     bool hasMe = (member == msg.sender);
+    uint i = 0;
     for (i = 1; i < addresses.length; i++) {
       address nextMember = addresses[i]; 
       require(member < nextMember, "_getRoomIdForMembers: members is not sorted");
@@ -47,28 +49,26 @@ contract MessageBox is Ownable, IMessageBox {
 
     bytes32 key = keccak256(abi.encodePacked(addresses));
     uint256 roomId = roomsForMembers[key];
-    if (roomId > 0) {
-      return roomId;
+    if (roomId == 0) {
+      roomId = nextRoomId++;
+      roomsForMembers[key] = roomId;
+      for (i = 0; i< addresses.length; i++) {
+        _joinRoom(addresses[i], roomId);
+      }
+      members[roomId] = addresses;
     }
-    roomId = nextRoomId++;
-    roomsForMembers[key] = roomId;
-    for (i = 0; i< addresses.length; i++) {
-      _joinRoom(addresses[i], roomId);
-    }
-    members[roomId] = addresses;
     emit RoomCreated(roomId);
     return roomId;
   }
 
-  function _addMessage(uint256 roomId, Message memory _message) internal returns (uint256) {
-    require(roomId > 0);
+  function _safeAddMessage(uint256 roomId, Message memory _message) internal returns (uint256) {
     uint256 messageIndex = numberOfMessages[roomId];
     messages[roomId][messageIndex] = _message;
     numberOfMessages[roomId] = messageIndex + 1;
     return messageIndex;
   }
 
-	function _sendMessage(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) internal returns (uint256) {
+	function _safeSendMessage(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) internal returns (uint256) {
     Message memory message;
     message.sender = msg.sender;
     message.text = _text;
@@ -77,19 +77,19 @@ contract MessageBox is Ownable, IMessageBox {
     message.messageId = _messageId;
     message.timestamp = block.timestamp;
 
-    uint messageIndex = _addMessage(_roomId, message);
+    uint messageIndex = _safeAddMessage(_roomId, message);
     emit MessageReceived(_roomId, msg.sender, messageIndex);
     return messageIndex;
   }
 
 	function sendMessage(address[] memory _members, string memory _text) external override returns (uint256) {
     uint256 roomId = _getRoomIdForMembers(_members);
-    return _sendMessage(roomId, _text, "", address(0), 0);
+    return _safeSendMessage(roomId, _text, "", address(0), 0);
   }
 
 	function sendAppMessage(address[] memory _members, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external override returns (uint256) {
     uint256 roomId = _getRoomIdForMembers(_members);
-    return _sendMessage(roomId, _text, _imageURL, _app, _messageId);
+    return _safeSendMessage(roomId, _text, _imageURL, _app, _messageId);
   }
 
   modifier onlyRoomMember(uint256 _roomId) {
@@ -100,13 +100,11 @@ contract MessageBox is Ownable, IMessageBox {
   }
 
   function sendMessageToRoom(uint256 _roomId, string memory _text) external override onlyRoomMember(_roomId) returns (uint256) {
-    require(msg.sender != address(0), "sendMessageToRoom: missing msg.sender");
-    return _sendMessage(_roomId, _text, "", address(0), 0);
+    return _safeSendMessage(_roomId, _text, "", address(0), 0);
   }
 
 	function sendAppMessageToRoom(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external override onlyRoomMember(_roomId) returns (uint256) {
-    require(msg.sender != address(0), "sendAppMessageToRoom: missing msg.sender");
-    return _sendMessage(_roomId, _text, _imageURL, _app, _messageId);
+    return _safeSendMessage(_roomId, _text, _imageURL, _app, _messageId);
   }
 
 	function roomCount() external view override returns (uint256) {
