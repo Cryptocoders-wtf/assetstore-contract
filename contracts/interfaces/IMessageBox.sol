@@ -33,14 +33,15 @@ interface IMessageBox {
 
 	function sendMessageToRoom(uint256 _roomId, string memory _text) external returns (uint256);
 	function sendAppMessageToRoom(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
-  // send(App)Message automatically create a room (for two), if necessary.
+  // members must be sorted and includes msg.sender. It automatically creates a room, if necessary.
 	function sendMessage(address[] memory _members, string memory _text) external returns (uint256);
+  // members must be sorted and includes msg.sender. It automatically creates a room, if necessary.
 	function sendAppMessage(address[] memory _members, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
-  // The number of chat rooms the current wallet belongs to.
+  // The number of chat rooms msg.sender belongs to.
 	function roomCount() external view returns (uint256);
   // It maps a wallet-specific room index to a room id. 
 	function getRoomId(uint256 _roomIndex) external view returns (uint256);
-  function getRoomInfo(uint256 _roomIndex) external view returns (RoomInfo memory);
+  function getRoomInfo(uint256 _roomId) external view returns (RoomInfo memory);
 	function getMessage(uint256 _roomId, uint256 _messageIndex) external view returns (Message memory);
 
 	event RoomCreated(uint256 roomId);
