@@ -10,7 +10,7 @@ contract MessageBox is Ownable, IMessageBox {
   mapping(uint256 => uint256) numberOfMessages; // roomId => messageCount
   mapping(uint256 => address[]) members; // roomId => [wallet]
   mapping(uint256 => mapping(address => bool)) accessRights; // roomId => hasRight
-  mapping(address => mapping(address => uint256)) roomsForTwo; // wallet => wallet => roomId
+  mapping(bytes32 => uint256) roomsForMembers; // hash(addresses) => roomId
   mapping(address => mapping(uint256 => uint256)) joinedRooms; // wallet => roomIndex => roomId
   mapping(address => uint256) joinedRoomCount; // wallet => roomCount
   uint256 nextRoomId = 1; // 0 also means no such a room
@@ -29,21 +29,33 @@ contract MessageBox is Ownable, IMessageBox {
   } 
 
   // @notice return the room index for two addresses, creating it if necessary.
-  function _getRoomIdForTwo(address _from, address _to) internal returns (uint256) {
-    require(_from != address(0), "_joinRoom: invalid address for _from");
-    require(_to != address(0), "_joinRoom: invalid address for _to");
-    uint256 roomId = roomsForTwo[_to][_from];
+  function _getRoomIdForMembers(address[] memory addresses) internal returns (uint256) {
+    require(msg.sender != address(0), "_getRoomIdForMembers: missing msg.sender");
+    require(addresses.length > 0, "_getRoomIdForMembers: members is empty");
+    uint i = 0;
+    address member = addresses[0]; 
+    bool hasMe = (member == msg.sender);
+    for (i = 1; i < addresses.length; i++) {
+      address nextMember = addresses[i]; 
+      require(member < nextMember, "_getRoomIdForMembers: members is not sorted");
+      member = nextMember;
+      if (member == msg.sender) {
+        hasMe = true;
+      } 
+    }
+    require(hasMe, "_getRoomIdForMembers: members does not contain msg.sender");
+
+    bytes32 key = keccak256(abi.encodePacked(addresses));
+    uint256 roomId = roomsForMembers[key];
     if (roomId > 0) {
       return roomId;
     }
     roomId = nextRoomId++;
-    roomsForTwo[_from][_to] = roomId;
-    roomsForTwo[_to][_from] = roomId;
-    _joinRoom(_from, roomId);
-    if (_from != _to) {
-      _joinRoom(_to, roomId);
+    roomsForMembers[key] = roomId;
+    for (i = 0; i< addresses.length; i++) {
+      _joinRoom(addresses[i], roomId);
     }
-    members[roomId] = [_from, _to];
+    members[roomId] = addresses;
     emit RoomCreated(roomId);
     return roomId;
   }
@@ -70,15 +82,13 @@ contract MessageBox is Ownable, IMessageBox {
     return messageIndex;
   }
 
-	function sendMessage(address _to, string memory _text) external override returns (uint256) {
-    require(msg.sender != address(0), "sendMessage: missing msg.sender");
-    uint256 roomId = _getRoomIdForTwo(msg.sender, _to);
+	function sendMessage(address[] memory _members, string memory _text) external override returns (uint256) {
+    uint256 roomId = _getRoomIdForMembers(_members);
     return _sendMessage(roomId, _text, "", address(0), 0);
   }
 
-	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external override returns (uint256) {
-    require(msg.sender != address(0), "sendAppMessage: missing msg.sender");
-    uint256 roomId = _getRoomIdForTwo(msg.sender, _to);
+	function sendAppMessage(address[] memory _members, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external override returns (uint256) {
+    uint256 roomId = _getRoomIdForMembers(_members);
     return _sendMessage(roomId, _text, _imageURL, _app, _messageId);
   }
 
