@@ -1,11 +1,11 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier:  GPL-3.0
 
 pragma solidity ^0.8.6;
 
 /*
  * @notice
- * This ia the message box interface, which allows messenger applications to exchange
- * on-chain messages. 
+ * This is the message box interface, which allows messenger applications to exchange
+ * on-chain messages between wallets. 
 */
 interface IMessageBox {
 	/*
@@ -18,9 +18,13 @@ interface IMessageBox {
 		string text;       // text representation
 		string imageURL;   // image representation (optional)
 		address app;       // the contract address of message application (optional)
-		uint256 messageId; // message id (optional, specific to the app)
+		uint256 messageId; // app specific message id (optional)
 		uint256 timestamp; // block.timestamp
 	}
+
+  /*
+  * @notice timestamp is the timestamp of the most recent message. 
+  */
 	struct RoomInfo {
 		uint256 messageCount;
     uint256 timestamp;
@@ -29,14 +33,18 @@ interface IMessageBox {
 
 	function sendMessageToRoom(uint256 _roomId, string memory _text) external returns (uint256);
 	function sendAppMessageToRoom(uint256 _roomId, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
+  // send(App)Message automatically create a room (for two), if necessary.
 	function sendMessage(address _to, string memory _text) external returns (uint256);
 	function sendAppMessage(address _to, string memory _text, string memory _imageURL, address _app, uint256 _messageId) external returns (uint256);
+  // The number of chat rooms the current wallet belongs to.
 	function roomCount() external view returns (uint256);
+  // It maps a wallet-specific room index to a room id. 
 	function getRoomId(uint256 _roomIndex) external view returns (uint256);
   function getRoomInfo(uint256 _roomIndex) external view returns (RoomInfo memory);
 	function getMessage(uint256 _roomId, uint256 _messageIndex) external view returns (Message memory);
+
 	event RoomCreated(uint256 roomId);
-	event MessageReceived(address _sender, uint256 roomId, uint256 _messageIndex);
+	event MessageReceived(uint256 roomId, address _sender, uint256 _messageIndex);
 }
 
 interface ISpamFilter {

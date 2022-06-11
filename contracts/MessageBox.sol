@@ -66,7 +66,7 @@ contract MessageBox is Ownable, IMessageBox {
     message.timestamp = block.timestamp;
 
     uint messageIndex = _addMessage(_roomId, message);
-    emit MessageReceived(msg.sender, _roomId, messageIndex);
+    emit MessageReceived(_roomId, msg.sender, messageIndex);
     return messageIndex;
   }
 
