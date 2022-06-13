@@ -76,14 +76,15 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
       pos[i].y = seed % 1000 + 12;
       seed = _random(seed);
     }
-    bytes memory pack = abi.encodePacked("M", pos[0].x.toString(), ",", pos[0].y.toString());
-    pack = abi.encodePacked(pack, " Q", pos[1].x.toString(), ",", pos[1].y.toString());
-    for (i = 1 ; i < len-1; i++) {
-      pack = abi.encodePacked(pack, ",", ((pos[i].x + pos[i+1].x)/2).toString(), ",",
-                                         ((pos[i].y + pos[i+1].y)/2).toString());
-      pack = abi.encodePacked(pack, ",", pos[i+1].x.toString(), ",", pos[i+1].y.toString());
+    bytes memory pack;
+    pack = abi.encodePacked("M", ((pos[0].x + pos[1].x)/2).toString(), ",",
+                                 ((pos[0].y + pos[1].y)/2).toString());
+    for (i = 1 ; i < len + 1; i++) {
+      uint j = i % len;
+      pack = abi.encodePacked(pack, (i==1)?" Q":",", pos[j].x.toString(), ",", pos[j].y.toString());
+      pack = abi.encodePacked(pack, ",", ((pos[j].x + pos[(j+1)%len].x)/2).toString(), ",",
+                                         ((pos[j].y + pos[(j+1)%len].y)/2).toString());
     }
-    pack = abi.encodePacked(pack, ",", pos[len-1].x.toString(), ",", pos[len-1].y.toString());
     return pack;
   }
 
