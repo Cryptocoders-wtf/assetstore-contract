@@ -64,5 +64,10 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
       )
     );
   }
+
+  function tokenURI(uint256 tokenId) public view override returns (string memory) {
+    return dataURI(tokenId);
+  }
+
 }
 
