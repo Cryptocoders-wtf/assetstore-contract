@@ -43,16 +43,23 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
     emit NounBurned(nounId);
   }
 
-  function generateSVG() public pure returns (string memory) {
-    return string(_generateSVG());
+  function generateSVG(uint256 tokenId) public pure returns (string memory) {
+    return string(_generateSVG(tokenId));
   }
 
-  function _generateSVG() internal pure returns (bytes memory) {
+  function _generateSVG(uint256 tokenId) internal pure returns (bytes memory) {
     return abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
-      '<path d="M100,250 Q250,100,300,250" fill="transparent" stroke="#0000ff80" stroke-width="4" />\n',
+      '<path d="', _randomPath(tokenId), '" fill="transparent" stroke="#0000ff80" stroke-width="10" />\n',
       '</svg>'      
     );   
+  }
+
+
+
+  function _randomPath(uint256 tokenId) internal pure returns (bytes memory) {
+    uint256 seed = uint256(keccak256(abi.encodePacked(tokenId)));
+    return abi.encodePacked("M100,250 Q250,100,300,250,", (seed % 1000).toString());
   }
 
   /**
@@ -60,11 +67,11 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
     * @dev See {IERC721Metadata-tokenURI}.
     */
   function dataURI(uint256 tokenId) public view override returns (string memory) {
-    require(_exists(tokenId) || true, 'NounsToken: URI query for nonexistent token');
+    require(_exists(tokenId), 'NounsToken: URI query for nonexistent token');
     string memory nounId = tokenId.toString();
     string memory name = string(abi.encodePacked('VectorToken ', nounId));
     string memory description = string(abi.encodePacked('VectorToken ', nounId, ' is a fun of the Nouns DAO and Nouns Art Festival'));
-    string memory image = Base64.encode(_generateSVG());
+    string memory image = Base64.encode(_generateSVG(tokenId));
     return string(
       abi.encodePacked(
         'data:application/json;base64,',
