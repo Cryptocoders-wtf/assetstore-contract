@@ -68,23 +68,22 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
   function _randomPath(uint256 tokenId) internal pure returns (bytes memory) {
     uint256 seed = _random(tokenId);
     uint i;
-    Position[32] memory pos;
-    for (i = 0 ; i < 32; i++) {
+    uint len = 16;
+    Position[16] memory pos;
+    for (i = 0 ; i < len; i++) {
       pos[i].x = seed % 1000 + 12;
       seed = _random(seed);
       pos[i].y = seed % 1000 + 12;
       seed = _random(seed);
     }
-    bytes memory pack;
-    for (i = 0 ; i < 32; i++) {
-      if (i==0) {
-        pack = abi.encodePacked("M", pos[i].x.toString(), ",", pos[i].y.toString());
-      } else if (i==1) {
-        pack = abi.encodePacked(pack, " Q", pos[i].x.toString(), ",", pos[i].y.toString());
-      } else {
-        pack = abi.encodePacked(pack, ",", pos[i].x.toString(), ",", pos[i].y.toString());
-      }
+    bytes memory pack = abi.encodePacked("M", pos[0].x.toString(), ",", pos[0].y.toString());
+    pack = abi.encodePacked(pack, " Q", pos[1].x.toString(), ",", pos[1].y.toString());
+    for (i = 1 ; i < len-1; i++) {
+      pack = abi.encodePacked(pack, ",", ((pos[i].x + pos[i+1].x)/2).toString(), ",",
+                                         ((pos[i].y + pos[i+1].y)/2).toString());
+      pack = abi.encodePacked(pack, ",", pos[i+1].x.toString(), ",", pos[i+1].y.toString());
     }
+    pack = abi.encodePacked(pack, ",", pos[len-1].x.toString(), ",", pos[len-1].y.toString());
     return pack;
   }
 
