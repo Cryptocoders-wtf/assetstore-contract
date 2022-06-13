@@ -5,7 +5,7 @@ async function main() {
   const factory = await ethers.getContractFactory("VectorToken");
   const contract = await factory.deploy();
   await contract.deployed();
-  const result = await contract.generateSVG(0);
+  const result = await contract.generateSVG(1);
   console.log(result);
 }
 

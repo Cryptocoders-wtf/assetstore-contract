@@ -48,11 +48,15 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
   }
 
   function _generateSVG(uint256 tokenId) internal pure returns (bytes memory) {
+    bytes memory path = _randomPath(tokenId);
     return abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
-      '<path d="', _randomPath(tokenId), '" fill="transparent" stroke="#ff0000ff" stroke-width="32" />\n',
-      '<path d="', _randomPath(tokenId+1), '" fill="transparent" stroke="#00ff00ff" stroke-width="32" />\n',
-      '<path d="', _randomPath(tokenId+2), '" fill="transparent" stroke="#0000ffff" stroke-width="32" />\n',
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#D12229" stroke-width="32" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#F68A1E" stroke-width="32" transform="translate(0,20)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#FDE01A" stroke-width="32" transform="translate(0,40)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#007940" stroke-width="32" transform="translate(0,60)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#24408E" stroke-width="32" transform="translate(0,80)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#732982" stroke-width="32" transform="translate(0,100)" />\n'),
       '</svg>'      
     );   
   }
@@ -73,9 +77,9 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
     uint len = 8;
     Position[8] memory pos;
     for (i = 0 ; i < len; i++) {
-      pos[i].x = seed % 1000 + 12;
+      pos[i].x = seed % (1024-32) + 16;
       seed = _random(seed);
-      pos[i].y = seed % 1000 + 12;
+      pos[i].y = seed % (1024-32-100) + 16;
       seed = _random(seed);
     }
     bytes memory pack;
