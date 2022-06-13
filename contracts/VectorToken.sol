@@ -50,7 +50,9 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
   function _generateSVG(uint256 tokenId) internal pure returns (bytes memory) {
     return abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
-      '<path d="', _randomPath(tokenId), '" fill="transparent" stroke="#0000ff80" stroke-width="10" />\n',
+      '<path d="', _randomPath(tokenId), '" fill="transparent" stroke="#ff0000ff" stroke-width="32" />\n',
+      '<path d="', _randomPath(tokenId+1), '" fill="transparent" stroke="#00ff00ff" stroke-width="32" />\n',
+      '<path d="', _randomPath(tokenId+2), '" fill="transparent" stroke="#0000ffff" stroke-width="32" />\n',
       '</svg>'      
     );   
   }
@@ -68,8 +70,8 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
   function _randomPath(uint256 tokenId) internal pure returns (bytes memory) {
     uint256 seed = _random(tokenId);
     uint i;
-    uint len = 16;
-    Position[16] memory pos;
+    uint len = 8;
+    Position[8] memory pos;
     for (i = 0 ; i < len; i++) {
       pos[i].x = seed % 1000 + 12;
       seed = _random(seed);
