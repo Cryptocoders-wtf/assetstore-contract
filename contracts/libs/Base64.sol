@@ -13,7 +13,7 @@ library Base64 {
     ch3 = base64map[(n      ) & 0x3f];
   }
 
-  function encode(string memory _str) internal pure returns (string memory) {
+  function encode(string memory _str) external pure returns (string memory) {
     bytes memory src = bytes(_str);
     uint256 extra = src.length % 3;
     bytes memory des = new bytes((src.length + 2) / 3 * 4 - ((3 - extra) % 3));

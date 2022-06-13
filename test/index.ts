@@ -1,9 +1,8 @@
-import { expect } from "chai";
+//import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Base64");
+async function main() {
+    const Greeter = await ethers.getContractFactory("contracts/libs/Base64.sol:Base64");
     const greeter = await Greeter.deploy();
     await greeter.deployed();
 
@@ -11,5 +10,9 @@ describe("Greeter", function () {
     console.log(result);
 
     // expect(await greeter.greet()).to.equal("Hola, mundo!");
-  });
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
 });
