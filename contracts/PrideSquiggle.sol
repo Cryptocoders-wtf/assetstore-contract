@@ -33,13 +33,18 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
   // developer address.
   address public developer;
 
+  // mint limit
+  uint256 public limit;
+
   // OpenSea's Proxy Registry
   IProxyRegistry public immutable proxyRegistry;
 
   constructor(
+      uint256 _limit,
       address _developer,
       IProxyRegistry _proxyRegistry
     ) ERC721('VectorToken', 'VECTORTOKEN') {
+      limit = _limit;
       developer = _developer;
       proxyRegistry = _proxyRegistry;
   }
@@ -60,6 +65,7 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
     */
   function mint() public override returns (uint256) {
     require(balanceOf(msg.sender) == 0, "You already have one.");
+    require(_currentNounId < limit, "Sold out.");
     if (_currentNounId % 20 == 2) {
       _mint(owner(), developer, _currentNounId++);
     }
@@ -187,6 +193,14 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
     */
   function setDeveloper(address _developer) external onlyOwner {
       developer = _developer;
+  }
+
+  /**
+    * @notice Set the limit.
+    * @dev Only callable by the Owner.
+    */
+  function setLimit(uint256 _limit) external onlyOwner {
+      limit = _limit;
   }
 }
 
