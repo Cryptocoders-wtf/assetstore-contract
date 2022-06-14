@@ -74,18 +74,22 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
   function _randomPath(uint256 tokenId) internal pure returns (bytes memory) {
     uint256 seed = _random(tokenId);
     uint i;
-    uint len = 8;
-    Position[8] memory pos;
+    uint len = 9;
+    Position[9] memory pos;
     for (i = 0 ; i < len; i++) {
-      pos[i].x = seed % (1024-32) + 16;
+      pos[i].x = (1024 - 100 * 8) + i * 100;
       seed = _random(seed);
-      pos[i].y = seed % (1024-32-100) + 16;
+      if (i % 2 == 0) {
+        pos[i].y = 512 + 100 + (seed % 380);
+      } else {
+        pos[i].y = 512 - 100 - (seed % 380);
+      }
       seed = _random(seed);
     }
     bytes memory pack;
     pack = abi.encodePacked("M", ((pos[0].x + pos[1].x)/2).toString(), ",",
                                  ((pos[0].y + pos[1].y)/2).toString());
-    for (i = 1 ; i < len + 1; i++) {
+    for (i = 1 ; i < len-1; i++) {
       uint j = i % len;
       pack = abi.encodePacked(pack, (i==1)?" Q":",", pos[j].x.toString(), ",", pos[j].y.toString());
       pack = abi.encodePacked(pack, ",", ((pos[j].x + pos[(j+1)%len].x)/2).toString(), ",",
