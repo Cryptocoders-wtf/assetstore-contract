@@ -16,7 +16,7 @@ async function main() {
   const isRinkeby = network.name == "rinkeby";
   console.log("deploying...", network.name, isRinkeby ? "testnet": "*", process.env.ALCHEMY_API_KEY);
   
-  const limit = 1;
+  const limit = 10000;
   const proxy = "0xa5409ec958c83c3f309868babaca7c86dcb077c1";
   const developer = "0x6a615Ca8D7053c0A0De2d11CACB6f321CA63BD62"; // sn2
 

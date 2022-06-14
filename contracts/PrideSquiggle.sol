@@ -43,7 +43,7 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
       uint256 _limit,
       address _developer,
       IProxyRegistry _proxyRegistry
-    ) ERC721('VectorToken', 'VECTORTOKEN') {
+    ) ERC721('Pride Squiggle 2022', 'PRIDESQUIGGLE22') {
       limit = _limit;
       developer = _developer;
       proxyRegistry = _proxyRegistry;
@@ -164,8 +164,8 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
   function dataURI(uint256 tokenId) public view override returns (string memory) {
     require(_exists(tokenId), 'NounsToken: URI query for nonexistent token');
     string memory nounId = tokenId.toString();
-    string memory name = string(abi.encodePacked('VectorToken ', nounId));
-    string memory description = string(abi.encodePacked('VectorToken ', nounId, ' is a fun of the Nouns DAO and Nouns Art Festival'));
+    string memory name = string(abi.encodePacked('Pride Squiggle #', nounId));
+    string memory description = string(abi.encodePacked('Pride Month 2022'));
     string memory image = Base64.encode(_generateSVG(tokenId));
     return string(
       abi.encodePacked(
