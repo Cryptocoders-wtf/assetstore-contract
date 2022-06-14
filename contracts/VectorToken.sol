@@ -51,12 +51,12 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
     bytes memory path = _randomPath(tokenId);
     return abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#D12229" stroke-width="32" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#F68A1E" stroke-width="32" transform="translate(0,20)" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#FDE01A" stroke-width="32" transform="translate(0,40)" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#007940" stroke-width="32" transform="translate(0,60)" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#24408E" stroke-width="32" transform="translate(0,80)" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#732982" stroke-width="32" transform="translate(0,100)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#D12229" stroke-width="32" stroke-linecap="round" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#F68A1E" stroke-width="32" stroke-linecap="round" transform="translate(0,20)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#FDE01A" stroke-width="32" stroke-linecap="round" transform="translate(0,40)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#007940" stroke-width="32" stroke-linecap="round" transform="translate(0,60)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#24408E" stroke-width="32" stroke-linecap="round" transform="translate(0,80)" />\n'),
+      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#732982" stroke-width="32" stroke-linecap="round" transform="translate(0,100)" />\n'),
       '</svg>'      
     );   
   }
@@ -76,14 +76,18 @@ contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
     uint i;
     uint len = 9;
     Position[9] memory pos;
+    uint256 last = 100;
     for (i = 0 ; i < len; i++) {
+      uint256 next;
       pos[i].x = (1024 - 100 * 8) + i * 100;
       seed = _random(seed);
-      if (i % 2 == 0) {
-        pos[i].y = 512 + 100 + (seed % 380);
+      if (last < 512) {
+        next = last + seed % ((1024 - last) * 8 / 10);
       } else {
-        pos[i].y = 512 - 100 - (seed % 380);
+        next = last - seed % (last * 8 / 10);
       }
+      pos[i].y = next;
+      last = next;
       seed = _random(seed);
     }
     bytes memory pack;
