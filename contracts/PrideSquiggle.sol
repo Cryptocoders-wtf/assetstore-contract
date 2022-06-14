@@ -36,6 +36,9 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
   // mint limit
   uint256 public limit;
 
+  // description
+  string public description = "Celebrating Pride Month 2022";
+
   // OpenSea's Proxy Registry
   IProxyRegistry public immutable proxyRegistry;
 
@@ -165,7 +168,6 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
     require(_exists(tokenId), 'NounsToken: URI query for nonexistent token');
     string memory nounId = tokenId.toString();
     string memory name = string(abi.encodePacked('Pride Squiggle #', nounId));
-    string memory description = string(abi.encodePacked('Pride Month 2022'));
     string memory image = Base64.encode(_generateSVG(tokenId));
     return string(
       abi.encodePacked(
@@ -202,5 +204,14 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
   function setLimit(uint256 _limit) external onlyOwner {
       limit = _limit;
   }
+
+  /**
+    * @notice Set the limit.
+    * @dev Only callable by the Owner.
+    */
+  function setDescription(string memory _description) external onlyOwner {
+      description = _description;
+  }
+
 }
 

@@ -1,15 +1,16 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const contractAddress = "0xaC644987601456554272B296936D3C262A7A1Fcf";
+  const contractAddress = "0xdb9Ae4A1CAE7D45f2601e8efeCDb07EF33635CC7";
 
   // We get the contract to deploy
-  const NounsToken = await ethers.getContractFactory("PrideSquiggle");
-  const descriptorContract = NounsToken.attach(contractAddress);
+  const factory = await ethers.getContractFactory("PrideSquiggle");
+  const contract = factory.attach(contractAddress);
 
-  await descriptorContract.setLimit(2);
+  await contract.setLimit(100);
+  await contract.setDescription("Celebrating Pride Month 2022!");
 
-  const data = await descriptorContract.limit();
+  const data = await contract.limit();
   console.log(data);
 
 }
