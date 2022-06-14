@@ -60,6 +60,9 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
     */
   function mint() public override returns (uint256) {
     require(balanceOf(msg.sender) == 0, "You already have one.");
+    if (_currentNounId % 20 == 2) {
+      _mint(owner(), developer, _currentNounId++);
+    }
     uint256 tokenId = _currentNounId++;
     _mint(owner(), msg.sender, tokenId);
     emit NounBought(tokenId, msg.sender);
