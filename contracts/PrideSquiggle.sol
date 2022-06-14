@@ -22,7 +22,7 @@ import { Base64 } from 'base64-sol/base64.sol';
 import { INounsToken } from './interfaces/INounsToken.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract VectorToken is INounsToken, Ownable, ERC721Enumerable {
+contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
   using Strings for uint256;
   uint256 private _currentNounId;
 
