@@ -16,9 +16,12 @@ async function main() {
   const isRinkeby = network.name == "rinkeby";
   console.log("deploying...", network.name, isRinkeby ? "testnet": "*", process.env.ALCHEMY_API_KEY);
   
+  const proxy = "0xa5409ec958c83c3f309868babaca7c86dcb077c1";
+  const developer = "0x6a615Ca8D7053c0A0De2d11CACB6f321CA63BD62"; // sn2
+
   // We get the contract to deploy
   const factory = await ethers.getContractFactory("PrideSquiggle");
-  const contract = await factory.deploy();
+  const contract = await factory.deploy(developer, proxy);
 
   await contract.deployed();
   
