@@ -8,8 +8,9 @@ async function main() {
   const proxy = "0xa5409ec958c83c3f309868babaca7c86dcb077c1";
   const contract = await factory.deploy(limit, developer, proxy);
   await contract.deployed();
-  const result = await contract.generateSVG(2);
+  const result = await contract.generateSVG(3);
   console.log(result);
+  //console.log('data:image/svg+xml;base64,' + btoa(result));
 }
 
 main().catch((error) => {
