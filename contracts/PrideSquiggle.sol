@@ -137,12 +137,13 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
     uint256 delta = uint256(1024) * 8 / 10 / (len-1);
     uint256 diff = delta / 3;
     uint256 offset = (1024 - delta * (len-1)) / 2 - diff / 2;
+    uint256 height = 1024 - 128;
     for (i = 0 ; i < len; i++) {
       uint256 next;
       pos[i].x = offset + i * delta + seed % diff;
       seed = _random(seed);
-      if (last < 512) {
-        next = last + seed % ((1024 - last) * 8 / 10);
+      if (last < height / 2) {
+        next = last + seed % ((height - last) * 8 / 10);
       } else {
         next = last - seed % (last * 8 / 10);
       }
