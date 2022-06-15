@@ -102,6 +102,7 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
     bytes memory path = _randomPath(tokenId);
     return abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
+      '<rect width="1024" height="1024" fill="#71BCE1" />\n',
       abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#D12229" stroke-width="32" stroke-linecap="round" transform="translate(0,-60)"/>\n'),
       abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#F68A1E" stroke-width="32" stroke-linecap="round" transform="translate(0,-30)" />\n'),
       abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#FDE01A" stroke-width="32" stroke-linecap="round" transform="translate(0,0)" />\n'),
