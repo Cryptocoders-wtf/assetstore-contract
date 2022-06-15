@@ -112,7 +112,7 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
         pack,
         '<path d="', path, 
         '" fill="transparent" stroke="', colors[uint256(i)],
-        '" stroke-width="48" stroke-linecap="round" transform="translate(0,', (i * 40).toString(),
+        '" stroke-width="64" stroke-linecap="round" transform="translate(0,', (i * 54).toString(),
         ')"/>\n');
     }
     return abi.encodePacked(pack, '</svg>');   
