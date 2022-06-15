@@ -100,17 +100,22 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
 
   function _generateSVG(uint256 tokenId) internal pure returns (bytes memory) {
     bytes memory path = _randomPath(tokenId);
-    return abi.encodePacked(
+    string[6] memory colors = [
+      "#D12229", "#F68A1E", "#FDE01A", "#007940", "#24408E", "#732982"
+    ];
+    bytes memory pack = abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
-      '<rect width="1024" height="1024" fill="#71BCE1" />\n',
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#D12229" stroke-width="32" stroke-linecap="round" transform="translate(0,-60)"/>\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#F68A1E" stroke-width="32" stroke-linecap="round" transform="translate(0,-30)" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#FDE01A" stroke-width="32" stroke-linecap="round" transform="translate(0,0)" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#007940" stroke-width="32" stroke-linecap="round" transform="translate(0,30)" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#24408E" stroke-width="32" stroke-linecap="round" transform="translate(0,60)" />\n'),
-      abi.encodePacked('<path d="', path, '" fill="transparent" stroke="#732982" stroke-width="32" stroke-linecap="round" transform="translate(0,90)" />\n'),
-      '</svg>'      
-    );   
+      '<rect width="1024" height="1024" fill="#71BCE1" />\n');
+    uint256 i;
+    for (i=0; i<6; i++) {
+      pack = abi.encodePacked(
+        pack,
+        '<path d="', path, 
+        '" fill="transparent" stroke="', colors[uint256(i)],
+        '" stroke-width="32" stroke-linecap="round" transform="translate(0,', (i * 30).toString(),
+        ')"/>\n');
+    }
+    return abi.encodePacked(pack, '</svg>');   
   }
 
 
