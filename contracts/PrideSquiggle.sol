@@ -118,15 +118,35 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
       '<rect width="1024" height="1024" fill="#71BCE1" />\n');
     string[6] memory classingRainbow = [
-      "#D12229", "#F68A1E", "#FDE01A", "#007940", "#24408E", "#732982"
+      "#E50000", "#FF8D00", "#FFEE00", "#028121", "#004CFF", "#770088"
     ];
     string[6] memory lesbianFlag = [
       "#D62800", "#FF9B56", "#FFFFFF", "#D462A6", "#A40062", "#0"
     ];
+    string[6] memory genderFluidFlag = [
+      "#FE76A2", "#FFFFFF", "#BF12D7", "#000000", "#303CBE", "#0"
+    ];
+    string[6] memory transgenderFlag = [
+      "#5BCFFB", "#F5ABB9", "#FFFFFF", "#F5ABB9", "#5BCFFB", "#0"
+    ];
+    string[6] memory bisexualFlag = [
+      "#D60270", "#D60270", "#9B4F96", "#0038A8", "#0038A8", "#0"
+    ];
+    string[6] memory pansexualFlag = [
+      "#FF1C8D", "#FF1C8D", "#FFD700", "#FFD700", "#1AB3FF", "#1AB3FF"
+    ];
     bytes memory image;
     uint256 seed = _random(tokenId);
-    if (seed % 10 == 0) {
-      image = _generateImages(tokenId, 6, lesbianFlag);
+    if (seed % 20 == 0) {
+      image = _generateImages(tokenId, 5, lesbianFlag);
+    } else if (seed % 100 == 2) {
+      image = _generateImages(tokenId, 5, genderFluidFlag);
+    } else if (seed % 200 == 3) {
+      image = _generateImages(tokenId, 5, transgenderFlag);
+    } else if (seed % 300 == 4) {
+      image = _generateImages(tokenId, 5, bisexualFlag);
+    } else if (seed % 400 == 5) {
+      image = _generateImages(tokenId, 6, pansexualFlag);
     } else {
       image = _generateImages(tokenId, 6, classingRainbow);
     }
