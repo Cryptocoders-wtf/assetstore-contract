@@ -98,24 +98,30 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
     return string(_generateSVG(tokenId));
   }
 
+  function _generateImages(uint256 _tokenId, uint256 _length, string[6] memory _colors) internal pure returns(bytes memory) {
+    bytes memory path = _randomPath(_tokenId);
+    uint256 i;
+    bytes memory pack;
+    for (i=0; i<_length; i++) {
+      pack = abi.encodePacked(
+        pack,
+        '<path d="', path, 
+        '" fill="transparent" stroke="', _colors[uint256(i)],
+        '" stroke-width="64" stroke-linecap="round" transform="translate(0,', (i * 54).toString(),
+        ')"/>\n');
+    }
+    return pack;
+  }
+
   function _generateSVG(uint256 tokenId) internal pure returns (bytes memory) {
-    bytes memory path = _randomPath(tokenId);
     string[6] memory colors = [
       "#D12229", "#F68A1E", "#FDE01A", "#007940", "#24408E", "#732982"
     ];
     bytes memory pack = abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
       '<rect width="1024" height="1024" fill="#71BCE1" />\n');
-    uint256 i;
-    for (i=0; i<6; i++) {
-      pack = abi.encodePacked(
-        pack,
-        '<path d="', path, 
-        '" fill="transparent" stroke="', colors[uint256(i)],
-        '" stroke-width="64" stroke-linecap="round" transform="translate(0,', (i * 54).toString(),
-        ')"/>\n');
-    }
-    return abi.encodePacked(pack, '</svg>');   
+    bytes memory image = _generateImages(tokenId, 6, colors);
+    return abi.encodePacked(pack, image, '</svg>');   
   }
 
 
