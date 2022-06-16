@@ -114,13 +114,22 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
   }
 
   function _generateSVG(uint256 tokenId) internal pure returns (bytes memory) {
-    string[6] memory colors = [
-      "#D12229", "#F68A1E", "#FDE01A", "#007940", "#24408E", "#732982"
-    ];
     bytes memory pack = abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n',
       '<rect width="1024" height="1024" fill="#71BCE1" />\n');
-    bytes memory image = _generateImages(tokenId, 6, colors);
+    string[6] memory classingRainbow = [
+      "#D12229", "#F68A1E", "#FDE01A", "#007940", "#24408E", "#732982"
+    ];
+    string[6] memory lesbianFlag = [
+      "#D62800", "#FF9B56", "#FFFFFF", "#D462A6", "#A40062", "#0"
+    ];
+    bytes memory image;
+    uint256 seed = _random(tokenId);
+    if (seed % 10 == 0) {
+      image = _generateImages(tokenId, 6, lesbianFlag);
+    } else {
+      image = _generateImages(tokenId, 6, classingRainbow);
+    }
     return abi.encodePacked(pack, image, '</svg>');   
   }
 
