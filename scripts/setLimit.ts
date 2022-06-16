@@ -7,7 +7,7 @@ async function main() {
   const factory = await ethers.getContractFactory("PrideSquiggle");
   const contract = factory.attach(contractAddress);
 
-  await contract.setLimit(10);
+  await contract.setLimit(10000);
   await contract.setDescription("Celebrating Pride Month 2022!");
 
   const data = await contract.limit();
