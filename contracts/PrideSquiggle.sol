@@ -113,6 +113,9 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
     return pack;
   }
 
+  /**
+   * https://www.kapwing.com/resources/official-pride-colors-2021-exact-color-codes-for-15-pride-flags/
+   */
   function _generateSVG(uint256 tokenId) internal pure returns (bytes memory) {
     bytes memory pack = abi.encodePacked(
       '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n'
