@@ -46,8 +46,8 @@ describe("Baisc", function () {
   });
   it("tokenURI", async function () {
     const result = await contract.tokenURI(0);
-    console.log(result);
-    expect(result.startsWith("data:image/svg+xml;base64,")).equal(true);    
-    //this test fails, because actual return data:application/json;base64,...;
+    const resJson = JSON.parse(Buffer.from(result.substr('data:application/json;base64,'.length) , "base64").toString());
+    console.log(resJson);
+    expect(resJson.image.startsWith("data:image/svg+xml;base64,")).equal(true);    
   });
 });
