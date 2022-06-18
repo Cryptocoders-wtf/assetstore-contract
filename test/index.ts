@@ -1,20 +1,52 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("Base64", function () {
-  it("Verify encode", async function () {
-    const Base64Factory = await ethers.getContractFactory("contracts/libs/Base64.sol:Base64");
-    const base64 = await Base64Factory.deploy();
-    await base64.deployed();
-  
-    const messages = [
-      "Hello World",
-      "<svg>foobar</svg>",
-    ];
-    const processes = messages.map(async (message) => {
-      const result = await base64.encode(message);
-      expect(atob(result)).to.equal(message);
-    });
-    return Promise.all(processes);
+let contract :any = null;
+
+before(async () => {
+  // Silence expected rules rejections from Firestore SDK. Unexpected rejections
+  // will still bubble up and will be thrown as an error (failing the tests).
+  const factory = await ethers.getContractFactory("PrideSquiggle");    
+  const limit = 10000;
+  const developer = "0x6a615Ca8D7053c0A0De2d11CACB6f321CA63BD62"; // sn2
+  const proxy = "0xa5409ec958c83c3f309868babaca7c86dcb077c1";
+  contract = await factory.deploy(limit, developer, proxy);
+  await contract.deployed();
+});
+describe("Baisc", function () {
+  it("generateSVG", async function () {
+    const result = await contract.generateSVG(3);
+    console.log(result);
+    expect(result.startsWith("<svg width")).equal(true);    
+
+  });
+  it("SetLimit", async function () {
+    await contract.setLimit(3);
+    const data = await contract.limit();
+    console.log(data);
+    expect(data).equal(3);
+  });
+  it("SetDesc", async function () {
+    await contract.setDescription("Test!");
+    const desc = await contract.description();
+    console.log(desc);
+    expect(desc).equal("Test!");
+  });
+  it("Mint", async function () {
+    await contract.mint();
+    const result = await contract.tokenURI(0);
+    console.log(result);
+    expect(result.startsWith("data:image/svg+xml;base64,")).equal(true);    
+    //this test fails, because actual return data:application/json;base64,...;
+  });
+  it("Mint2nd", async function () {
+    try{
+      // mint twice should cause error
+      await contract.mint()
+    } catch(e){
+      console.log(e);
+     return; 
+    }
+    expect.fail("should happen exception")
   });
 });

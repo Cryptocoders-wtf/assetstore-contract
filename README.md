@@ -53,3 +53,8 @@ npx hardhat --network localhost run scripts/deploy.ts
 npx hardhat verify --network mainnet --constructor-args arguments.js CONTRACT_ADDRESS
 ```
 
+# local unit test
+
+```
+npx hardhat test --network hardhat
+```
