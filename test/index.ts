@@ -4,8 +4,6 @@ import { ethers } from "hardhat";
 let contract :any = null;
 
 before(async () => {
-  // Silence expected rules rejections from Firestore SDK. Unexpected rejections
-  // will still bubble up and will be thrown as an error (failing the tests).
   const factory = await ethers.getContractFactory("PrideSquiggle");    
   const limit = 10000;
   const developer = "0x6a615Ca8D7053c0A0De2d11CACB6f321CA63BD62"; // sn2
@@ -18,7 +16,6 @@ describe("Baisc", function () {
     const result = await contract.generateSVG(3);
     console.log(result);
     expect(result.startsWith("<svg width")).equal(true);    
-
   });
   it("SetLimit", async function () {
     await contract.setLimit(3);
@@ -33,11 +30,9 @@ describe("Baisc", function () {
     expect(desc).equal("Test!");
   });
   it("Mint", async function () {
-    await contract.mint();
-    const result = await contract.tokenURI(0);
-    console.log(result);
-    expect(result.startsWith("data:image/svg+xml;base64,")).equal(true);    
-    //this test fails, because actual return data:application/json;base64,...;
+    const transaction = await contract.mint();
+    console.log(transaction);
+    expect(transaction.value).equal(0);
   });
   it("Mint2nd", async function () {
     try{
@@ -48,5 +43,11 @@ describe("Baisc", function () {
      return; 
     }
     expect.fail("should happen exception")
+  });
+  it("tokenURI", async function () {
+    const result = await contract.tokenURI(0);
+    console.log(result);
+    expect(result.startsWith("data:image/svg+xml;base64,")).equal(true);    
+    //this test fails, because actual return data:application/json;base64,...;
   });
 });
