@@ -12,6 +12,7 @@ contract AssetStore is Ownable {
   }
 
   struct Asset {
+    string name;
     uint256[] partsIndeces;
   }
 
@@ -28,7 +29,7 @@ contract AssetStore is Ownable {
     return nextPart-1;    
   }
 
-  function registerAsset(Part[] memory _parts) external returns(uint256) {
+  function registerAsset(string memory _name, Part[] memory _parts) external returns(uint256) {
     uint size = _parts.length;
     uint256[] memory indeces = new uint256[](size);
     uint i;
@@ -36,6 +37,7 @@ contract AssetStore is Ownable {
       indeces[i] = _registerPart(_parts[i]);
     }
     Asset memory asset;
+    asset.name = _name;
     asset.partsIndeces = indeces;
     assets[nextAsset++] = asset;
     return nextAsset-1;

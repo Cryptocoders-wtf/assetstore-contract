@@ -13,7 +13,7 @@ async function main() {
     },
   ];
 
-  let result:any = await contract.registerAsset(parts);
+  let result:any = await contract.registerAsset("Google Material/Favorite", parts);
   result = await contract.getAssetCount();
   console.log("assetCount", result);
   result = await contract.getAsset(0);
