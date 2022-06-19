@@ -16,6 +16,11 @@ contract AssetStore is Ownable {
     uint256[] partsIndeces;
   }
 
+  struct AssetInfo {
+    string name;
+    Part[] parts;
+  }
+
   mapping(uint256 => Asset) private assets;
   uint256 private nextAsset;
   mapping(uint256 => Part) private parts;
@@ -29,7 +34,21 @@ contract AssetStore is Ownable {
     return nextPart-1;    
   }
 
-  function registerAsset(string memory _name, Part[] memory _parts) external returns(uint256) {
+  function registerAsset(AssetInfo memory assetInfo) external onlyOwner returns(uint256) {
+    uint size = assetInfo.parts.length;
+    uint256[] memory indeces = new uint256[](size);
+    uint i;
+    for (i=0; i<size; i++) {
+      indeces[i] = _registerPart(assetInfo.parts[i]);
+    }
+    Asset memory asset;
+    asset.name = assetInfo.name;
+    asset.partsIndeces = indeces;
+    assets[nextAsset++] = asset;
+    return nextAsset-1;
+  }
+
+  function registerAsset2(string memory _name, Part[] memory _parts) external onlyOwner returns(uint256) {
     uint size = _parts.length;
     uint256[] memory indeces = new uint256[](size);
     uint i;
@@ -61,11 +80,11 @@ contract AssetStore is Ownable {
     return nextAsset;
   }
 
-  function getAsset(uint256 _assetIndex) external view returns(Asset memory) {
+  function getAsset(uint256 _assetIndex) external view onlyOwner returns(Asset memory) {
     return assets[_assetIndex];
   }
 
-  function getPart(uint256 _partIndex) external view returns(Part memory) {
+  function getPart(uint256 _partIndex) external view onlyOwner returns(Part memory) {
     return parts[_partIndex];
   }
 
