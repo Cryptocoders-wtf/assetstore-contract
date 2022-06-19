@@ -48,22 +48,7 @@ contract AssetStore is Ownable {
     return nextAsset-1;
   }
 
-  function registerAsset2(string memory _name, Part[] memory _parts) external onlyOwner returns(uint256) {
-    uint size = _parts.length;
-    uint256[] memory indeces = new uint256[](size);
-    uint i;
-    for (i=0; i<size; i++) {
-      indeces[i] = _registerPart(_parts[i]);
-    }
-    Asset memory asset;
-    asset.name = _name;
-    asset.partsIndeces = indeces;
-    assets[nextAsset++] = asset;
-    return nextAsset-1;
-  }
-
-  function generateSVGAsset(uint256 _assetIndex) external view returns(string memory) {
-    require(_assetIndex < nextAsset, "asset index is out of range"); 
+  function _generateSVGAsset(uint256 _assetIndex) internal view returns(bytes memory) {
     Asset storage asset = assets[_assetIndex];
     uint256[] storage indeces = asset.partsIndeces;
     bytes memory pack = abi.encodePacked('<g desc="', asset.name, '">\n');
@@ -73,6 +58,14 @@ contract AssetStore is Ownable {
       pack = abi.encodePacked(pack, ' <path d="', part.body, '" fill="#000000" />\n');
     }
     pack = abi.encodePacked(pack, '</g>\n');
+    return pack;
+  }
+
+  function generateSVG(uint256 _assetIndex) external view returns(string memory) {
+    require(_assetIndex < nextAsset, "asset index is out of range"); 
+    bytes memory pack = abi.encodePacked('<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">', 
+      _generateSVGAsset(_assetIndex), 
+      '</svg>');
     return string(pack);
   }
 

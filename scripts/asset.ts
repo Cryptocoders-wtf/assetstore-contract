@@ -23,8 +23,8 @@ async function main() {
   //console.log("getAsset", result);
   result = await contract.getPart(0);
   //console.log("getPart", result);
-  result = await contract.generateSVGAsset(0);
-  console.log('<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">', result, '</svg>');
+  result = await contract.generateSVG(0);
+  console.log(result);
   //console.log('data:image/svg+xml;base64,' + btoa(result));
 }
 
