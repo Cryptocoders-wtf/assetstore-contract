@@ -34,18 +34,31 @@ contract AssetStore is Ownable {
     return nextPart-1;    
   }
 
-  function registerAsset(AssetInfo memory assetInfo) external onlyOwner returns(uint256) {
-    uint size = assetInfo.parts.length;
+  function _safeRegisterAsset(AssetInfo memory _assetInfo) internal returns(uint256) {
+    uint size = _assetInfo.parts.length;
     uint256[] memory indeces = new uint256[](size);
     uint i;
     for (i=0; i<size; i++) {
-      indeces[i] = _registerPart(assetInfo.parts[i]);
+      indeces[i] = _registerPart(_assetInfo.parts[i]);
     }
     Asset memory asset;
-    asset.name = assetInfo.name;
+    asset.name = _assetInfo.name;
     asset.partsIndeces = indeces;
     assets[nextAsset++] = asset;
     return nextAsset-1;
+  }
+
+  function registerAsset(AssetInfo memory _assetInfo) external onlyOwner returns(uint256) {
+    return _safeRegisterAsset(_assetInfo);
+  }
+
+  function registerAssets(AssetInfo[] memory _assetInfos) external onlyOwner returns(uint256) {
+    uint i;
+    uint assetIndex;
+    for (i=0; i<_assetInfos.length; i++) {
+      assetIndex = _safeRegisterAsset(_assetInfos[i]);
+    }
+    return assetIndex;
   }
 
   function _generateSVGAsset(uint256 _assetIndex) internal view returns(bytes memory) {

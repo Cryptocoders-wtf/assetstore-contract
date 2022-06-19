@@ -5,7 +5,7 @@ async function main() {
   const factory = await ethers.getContractFactory("AssetStore");
   const contract = await factory.deploy();
   await contract.deployed();
-  const asset = {
+  const assets = [{
     name: "Google Material/Favorite",
     parts:[
     {
@@ -14,9 +14,9 @@ async function main() {
         color: "red"
       },
     ]
-} ;
+   }];
 
-  let result:any = await contract.registerAsset(asset);
+  let result:any = await contract.registerAssets(assets);
   result = await contract.getAssetCount();
   //console.log("assetCount", result);
   result = await contract.getAsset(0);
