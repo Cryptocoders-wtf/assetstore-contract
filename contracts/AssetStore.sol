@@ -12,7 +12,7 @@ contract AssetStore is Ownable {
   }
 
   struct Asset {
-    string group;
+    uint32 groupId; // index to groups + 1
     string category;
     string name;
     uint256[] partsIndeces;
@@ -29,11 +29,21 @@ contract AssetStore is Ownable {
   uint256 private nextAsset;
   mapping(uint256 => Part) private parts;
   uint256 private nextPart;
-
-  mapping(string => uint256) private grouped;
-  mapping(string => uint256) private categorized;
+  mapping(uint32 => string) private groups;
+  uint32 private nextGroup; 
+  mapping(string => uint32) private groupIds; // index+1
 
   constructor() {
+  }
+
+  function _getGroupId(string memory group) internal returns(uint32) {
+    uint32 groupId = groupIds[group];
+    if (groupId == 0) {
+      groups[nextGroup++] = group;
+      groupId = nextGroup; // idex + 1
+      groupIds[group] = groupId; 
+    }
+    return groupId;
   }
 
   function _registerPart(Part memory _part) internal returns(uint256) {
@@ -51,11 +61,9 @@ contract AssetStore is Ownable {
     uint256 assetId = nextAsset++;
     Asset memory asset;
     asset.name = _assetInfo.name;
-    asset.group = _assetInfo.group;
+    asset.groupId = _getGroupId(_assetInfo.group);
     asset.category = _assetInfo.category;
     asset.partsIndeces = indeces;
-    grouped[_assetInfo.group] = assetId;
-    categorized[string(abi.encodePacked(_assetInfo.group, "/", _assetInfo.category))];
     assets[assetId] = asset;
     return assetId;
   }
@@ -73,10 +81,14 @@ contract AssetStore is Ownable {
     return assetIndex;
   }
 
+  function _getDescription(Asset storage asset) internal view returns(bytes memory) {
+    return abi.encodePacked(groups[asset.groupId - 1], '/', asset.category, '/', asset.name);
+  }
+
   function _generateSVGAsset(uint256 _assetIndex) internal view returns(bytes memory) {
     Asset storage asset = assets[_assetIndex];
     uint256[] storage indeces = asset.partsIndeces;
-    bytes memory pack = abi.encodePacked(' <g desc="', asset.group, '/', asset.category, '/', asset.name, '">\n');
+    bytes memory pack = abi.encodePacked(' <g desc="', _getDescription(asset), '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
       Part memory part = parts[indeces[i]];
