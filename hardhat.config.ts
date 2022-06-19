@@ -44,7 +44,7 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  defaultNetwork: "rinkeby",
+  defaultNetwork: "localhost",
   networks: {
     hardhat: {
       chainId: 1337,
