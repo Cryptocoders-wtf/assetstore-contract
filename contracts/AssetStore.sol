@@ -48,4 +48,9 @@ contract AssetStore is Ownable {
   function getAsset(uint256 _assetIndex) external view returns(Asset memory) {
     return assets[_assetIndex];
   }
+
+  function getPart(uint256 _partIndex) external view returns(Part memory) {
+    return parts[_partIndex];
+  }
+
 }
