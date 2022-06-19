@@ -15,11 +15,13 @@ async function main() {
 
   let result:any = await contract.registerAsset("Google Material/Favorite", parts);
   result = await contract.getAssetCount();
-  console.log("assetCount", result);
+  //console.log("assetCount", result);
   result = await contract.getAsset(0);
-  console.log("getAsset", result);
+  //console.log("getAsset", result);
   result = await contract.getPart(0);
-  console.log("getPart", result);
+  //console.log("getPart", result);
+  result = await contract.generateSVGAsset(0);
+  console.log('<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">', result, '</svg>');
   //console.log('data:image/svg+xml;base64,' + btoa(result));
 }
 

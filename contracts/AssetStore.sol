@@ -43,6 +43,20 @@ contract AssetStore is Ownable {
     return nextAsset-1;
   }
 
+  function generateSVGAsset(uint256 _assetIndex) external view returns(string memory) {
+    require(_assetIndex < nextAsset, "asset index is out of range"); 
+    Asset storage asset = assets[_assetIndex];
+    uint256[] storage indeces = asset.partsIndeces;
+    bytes memory pack = abi.encodePacked('<g desc="', asset.name, '">\n');
+    uint i;
+    for (i=0; i<indeces.length; i++) {
+      Part memory part = parts[indeces[i]];
+      pack = abi.encodePacked(pack, ' <path d="', part.body, '" fill="#000000" />\n');
+    }
+    pack = abi.encodePacked(pack, '</g>\n');
+    return string(pack);
+  }
+
   function getAssetCount() external view returns(uint256) {
     return nextAsset;
   }
