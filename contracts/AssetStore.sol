@@ -12,11 +12,15 @@ contract AssetStore is Ownable {
   }
 
   struct Asset {
+    string group;
+    string category;
     string name;
     uint256[] partsIndeces;
   }
 
   struct AssetInfo {
+    string group;
+    string category;
     string name;
     Part[] parts;
   }
@@ -25,6 +29,9 @@ contract AssetStore is Ownable {
   uint256 private nextAsset;
   mapping(uint256 => Part) private parts;
   uint256 private nextPart;
+
+  mapping(string => uint256) private grouped;
+  mapping(string => uint256) private categorized;
 
   constructor() {
   }
@@ -41,11 +48,16 @@ contract AssetStore is Ownable {
     for (i=0; i<size; i++) {
       indeces[i] = _registerPart(_assetInfo.parts[i]);
     }
+    uint256 assetId = nextAsset++;
     Asset memory asset;
     asset.name = _assetInfo.name;
+    asset.group = _assetInfo.group;
+    asset.category = _assetInfo.category;
     asset.partsIndeces = indeces;
-    assets[nextAsset++] = asset;
-    return nextAsset-1;
+    grouped[_assetInfo.group] = assetId;
+    categorized[string(abi.encodePacked(_assetInfo.group, "/", _assetInfo.category))];
+    assets[assetId] = asset;
+    return assetId;
   }
 
   function registerAsset(AssetInfo memory _assetInfo) external onlyOwner returns(uint256) {
@@ -64,19 +76,20 @@ contract AssetStore is Ownable {
   function _generateSVGAsset(uint256 _assetIndex) internal view returns(bytes memory) {
     Asset storage asset = assets[_assetIndex];
     uint256[] storage indeces = asset.partsIndeces;
-    bytes memory pack = abi.encodePacked('<g desc="', asset.name, '">\n');
+    bytes memory pack = abi.encodePacked(' <g desc="', asset.group, '/', asset.category, '/', asset.name, '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
       Part memory part = parts[indeces[i]];
-      pack = abi.encodePacked(pack, ' <path d="', part.body, '" fill="', part.color ,'" />\n');
+      pack = abi.encodePacked(pack, '  <path d="', part.body, '" fill="', part.color ,'" />\n');
     }
-    pack = abi.encodePacked(pack, '</g>\n');
+    pack = abi.encodePacked(pack, ' </g>\n');
     return pack;
   }
 
   function generateSVG(uint256 _assetIndex) external view returns(string memory) {
     require(_assetIndex < nextAsset, "asset index is out of range"); 
-    bytes memory pack = abi.encodePacked('<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">', 
+    bytes memory pack = abi.encodePacked(
+      '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n', 
       _generateSVGAsset(_assetIndex), 
       '</svg>');
     return string(pack);
