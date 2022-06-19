@@ -32,7 +32,10 @@ describe("Baisc", function () {
   it("generateSVG", async function () {
     await contract.registerAsset(assetDone);
     expect(await contract.getAssetCount()).equal(1);    
+    expect(await contract.getGroupCount()).equal(1);    
     await contract.registerAsset(assetSettings);
     expect(await contract.getAssetCount()).equal(2);    
+    expect(await contract.getGroupCount()).equal(1);    
+    expect(await contract.getGroupNameAtIndex(0)).equal("Material Icons");    
   });
 });
