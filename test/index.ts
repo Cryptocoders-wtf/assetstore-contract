@@ -47,7 +47,7 @@ before(async () => {
 
 describe("Baisc", function () {
   let result;
-  it("generateSVG", async function () {
+  it("First Group", async function () {
     await contract.registerAsset(assetDone);
     expect(await contract.getAssetCount()).equal(1);    
     expect(await contract.getGroupCount()).equal(1);    
@@ -55,9 +55,14 @@ describe("Baisc", function () {
     expect(await contract.getAssetCount()).equal(2);    
     expect(await contract.getGroupCount()).equal(1);    
     expect(await contract.getGroupNameAtIndex(0)).equal(assetDone.group);    
+  });
+  it("Second Group", async function () {
     await contract.registerAsset(assetAccount);
     expect(await contract.getAssetCount()).equal(3);    
     expect(await contract.getGroupCount()).equal(2);    
     expect(await contract.getGroupNameAtIndex(1)).equal(assetAccount.group);    
+    await contract.registerAsset(assetHome);
+    expect(await contract.getAssetCount()).equal(4);    
+    expect(await contract.getGroupCount()).equal(2);    
   });
 });
