@@ -27,9 +27,9 @@ contract AssetStore is Ownable {
 
   // asset & part database
   mapping(uint256 => Asset) private assets;
-  uint256 private nextAssetIndex;
+  uint256 private nextAssetIndex = 1; // 0 indicates an error
   mapping(uint256 => Part) private parts;
-  uint256 private nextPartIndex;
+  uint256 private nextPartIndex = 1; // 0 indicates an error
 
   // Groups (for browsing)
   mapping(uint32 => string) private groups;
@@ -167,13 +167,13 @@ contract AssetStore is Ownable {
 
   // returns a SVG part with the specified assetId
   function generateSVGPart(uint256 _assetId) external view returns(string memory) {
-    require(_assetId < nextAssetIndex, "asset index is out of range"); 
+    require(_assetId > 0 && _assetId < nextAssetIndex, "asset index is out of range"); 
     return string(_safeGenerateSVGPart(_assetId));
   }
 
   // returns a full SVG with the specified assetId
   function generateSVG(uint256 _assetId) external view returns(string memory) {
-    require(_assetId < nextAssetIndex, "asset index is out of range"); 
+    require(_assetId > 0 && _assetId < nextAssetIndex, "asset index is out of range"); 
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n', 
       _safeGenerateSVGPart(_assetId), 
@@ -183,16 +183,18 @@ contract AssetStore is Ownable {
 
   // Returns the number of registered assets
   function getAssetCount() external view returns(uint256) {
-    return nextAssetIndex;
+    return nextAssetIndex - 1;
   }
 
-  // returns the raw asset data speicified by the assetId (0,1, ..., count-1)
+  // returns the raw asset data speicified by the assetId (1, ..., count)
   function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
+    require(_assetId > 0 && _assetId < nextAssetIndex, "assetId is out of range");
     return assets[_assetId];
   }
 
-  // returns the raw part data specified by the assetId (0, 1, ... count-1)
-  function getRawPart(uint256 _assetId) external view onlyOwner returns(Part memory) {
-    return parts[_assetId];
+  // returns the raw part data specified by the assetId (1, ... count)
+  function getRawPart(uint256 _partId) external view onlyOwner returns(Part memory) {
+    require(_partId > 0 && _partId < nextPartIndex, "partId is out of range");
+    return parts[_partId];
   }
 }
