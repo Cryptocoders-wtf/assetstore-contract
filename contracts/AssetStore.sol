@@ -3,8 +3,11 @@
 pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract AssetStore is Ownable {
+  using Strings for uint16;
+
   struct Part {
     string body;
     string mask;
@@ -12,16 +15,20 @@ contract AssetStore is Ownable {
   }
 
   struct Asset {
-    uint32 groupId; // index to groups + 1
-    uint32 categoryId;
+    uint32 groupId;    // index to groups + 1
+    uint32 categoryId; // index to categories + 1
+    uint16 width;
+    uint16 height;
     string name;
-    uint256[] partsIndeces;
+    uint256[] partsIds;
   }
 
   struct AssetInfo {
     string group;
     string category;
     string name;
+    uint16 width;
+    uint16 height;
     Part[] parts;
   }
 
@@ -122,17 +129,19 @@ contract AssetStore is Ownable {
   function _registerAsset(AssetInfo memory _assetInfo) internal returns(uint256) {
     require(assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
     uint size = _assetInfo.parts.length;
-    uint256[] memory indeces = new uint256[](size);
+    uint256[] memory partsIds = new uint256[](size);
     uint i;
     for (i=0; i<size; i++) {
-      indeces[i] = _registerPart(_assetInfo.parts[i]);
+      partsIds[i] = _registerPart(_assetInfo.parts[i]);
     }
     uint256 assetId = nextAssetIndex++;
     Asset memory asset;
     asset.name = _assetInfo.name;
+    asset.width = _assetInfo.width;
+    asset.height = _assetInfo.height;
     asset.groupId = _getGroupId(_assetInfo.group);
     asset.categoryId = _getCategoryId(_assetInfo.group, _assetInfo.category);
-    asset.partsIndeces = indeces;
+    asset.partsIds = partsIds;
     assets[assetId] = asset;
     assetIdsInCategory[_assetInfo.group][_assetInfo.category][nextAssetIndecesInCategory[_assetInfo.group][_assetInfo.category]++] = assetId;
     assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] = assetId;
@@ -160,7 +169,7 @@ contract AssetStore is Ownable {
 
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
     Asset storage asset = assets[_assetId];
-    uint256[] storage indeces = asset.partsIndeces;
+    uint256[] storage indeces = asset.partsIds;
     bytes memory pack = abi.encodePacked(' <g desc="', _getDescription(asset), '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
@@ -184,8 +193,9 @@ contract AssetStore is Ownable {
   // returns a full SVG with the specified assetId
   function generateSVG(uint256 _assetId) external view returns(string memory) {
     require(_assetId > 0 && _assetId < nextAssetIndex, "asset index is out of range"); 
+    Asset storage asset = assets[_assetId];
     bytes memory pack = abi.encodePacked(
-      '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n', 
+      '<svg viewBox="0 0 ', (asset.width).toString(), ' ', (asset.height).toString(), '"  xmlns="http://www.w3.org/2000/svg">\n', 
       _safeGenerateSVGPart(_assetId), 
       '</svg>');
     return string(pack);
