@@ -13,7 +13,7 @@ contract AssetStore is Ownable {
 
   struct Asset {
     uint32 groupId; // index to groups + 1
-    string category;
+    uint32 categoryId;
     string name;
     uint256[] partsIndeces;
   }
@@ -33,6 +33,10 @@ contract AssetStore is Ownable {
   uint32 private nextGroup; 
   mapping(string => uint32) private groupIds; // index+1
 
+  mapping(string => mapping(uint32 => string)) categories;
+  mapping(string => uint32) nextCategory;
+  mapping(string => mapping(string => uint32)) private categoryIds; // index+1
+
   constructor() {
   }
 
@@ -44,6 +48,16 @@ contract AssetStore is Ownable {
       groupIds[group] = groupId; 
     }
     return groupId;
+  }
+
+  function _getCategoryId(string memory group, string memory category) internal returns(uint32) {
+    uint32 categoryId = categoryIds[group][category];
+    if (categoryId == 0) {
+      categories[group][nextCategory[group]++] = category;
+      categoryId = nextCategory[group]; // index + 1
+      categoryIds[group][category] = categoryId;
+    }
+    return categoryId;
   }
 
   function getGroupCount() external view returns(uint32) {
@@ -71,7 +85,7 @@ contract AssetStore is Ownable {
     Asset memory asset;
     asset.name = _assetInfo.name;
     asset.groupId = _getGroupId(_assetInfo.group);
-    asset.category = _assetInfo.category;
+    asset.categoryId = _getCategoryId(_assetInfo.group, _assetInfo.category);
     asset.partsIndeces = indeces;
     assets[assetId] = asset;
     return assetId;
@@ -91,7 +105,8 @@ contract AssetStore is Ownable {
   }
 
   function _getDescription(Asset storage asset) internal view returns(bytes memory) {
-    return abi.encodePacked(groups[asset.groupId - 1], '/', asset.category, '/', asset.name);
+    string memory group = groups[asset.groupId - 1];
+    return abi.encodePacked(group, '/', categories[group][asset.categoryId - 1], '/', asset.name);
   }
 
   function _generateSVGAsset(uint256 _assetIndex) internal view returns(bytes memory) {
