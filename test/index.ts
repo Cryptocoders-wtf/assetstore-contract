@@ -73,10 +73,14 @@ describe("Baisc", function () {
     expect(await contract.getGroupNameAtIndex(1)).equal(assetAccount.group);    
     expect(await contract.getCategoryCount(assetAccount.group)).equal(1);    
     expect(await contract.getCategoryNameAtIndex(assetAccount.group, 0)).equal(assetAccount.category);    
+    expect(await contract.getAssetCountInCategory(assetAccount.group, assetAccount.category)).equal(1);    
+    expect(await contract.getAssetIdInCategory(assetAccount.group, assetAccount.category, 0)).equal(2);    
     await contract.registerAsset(assetHome);
     expect(await contract.getAssetCount()).equal(4);    
     expect(await contract.getGroupCount()).equal(2);    
-    expect(await contract.getCategoryCount(assetAccount.group)).equal(2);    
-    expect(await contract.getCategoryNameAtIndex(assetAccount.group, 1)).equal(assetHome.category);    
+    expect(await contract.getCategoryCount(assetHome.group)).equal(2);    
+    expect(await contract.getCategoryNameAtIndex(assetHome.group, 1)).equal(assetHome.category);    
+    expect(await contract.getAssetCountInCategory(assetHome.group, assetHome.category)).equal(1);    
+    expect(await contract.getAssetIdInCategory(assetHome.group, assetHome.category, 0)).equal(3);    
   });
 });

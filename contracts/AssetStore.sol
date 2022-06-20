@@ -82,7 +82,7 @@ contract AssetStore is Ownable {
   }
 
   function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view returns(string memory) {
-    require(categoryIndex < nextCategory[group], "The categirt index is out of range");
+    require(categoryIndex < nextCategory[group], "The categoryIndex index is out of range");
     return categories[group][categoryIndex];
   }
 
@@ -91,6 +91,7 @@ contract AssetStore is Ownable {
   }
 
   function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view returns(uint256) {
+    require(assetIndex < nextAssetIndeces[group][category], "The assetIndex is out of range");
     return assetIds[group][category][assetIndex];
   }
 
