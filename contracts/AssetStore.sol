@@ -86,6 +86,10 @@ contract AssetStore is Ownable {
     return categories[group][categoryIndex];
   }
 
+  function getAssetCountInCategory(string memory group, string memory category) external view returns(uint32) {
+    return nextAssetIndeces[group][category];
+  }
+
   function getAssetId(string memory group, string memory category, uint32 assetIndex) external view returns(uint256) {
     return assetIds[group][category][assetIndex];
   }
