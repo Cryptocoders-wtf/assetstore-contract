@@ -25,7 +25,7 @@ contract AssetStore is Ownable {
     Part[] parts;
   }
 
-  // They are core data
+  // asset & part database
   mapping(uint256 => Asset) private assets;
   uint256 private nextAssetIndex;
   mapping(uint256 => Part) private parts;
@@ -42,8 +42,8 @@ contract AssetStore is Ownable {
   mapping(string => mapping(string => uint32)) private categoryIds; // index+1
 
   // Grouped and categorized assetIds (for browsing)
-  mapping(string => mapping(string => mapping(uint32 => uint256))) private assetIds;
-  mapping(string => mapping(string => uint32)) private nextAssetIndeces;
+  mapping(string => mapping(string => mapping(uint32 => uint256))) private assetIdsInCategory;
+  mapping(string => mapping(string => uint32)) private nextAssetIndecesInCategory;
 
   constructor() {
   }
@@ -87,12 +87,12 @@ contract AssetStore is Ownable {
   }
 
   function getAssetCountInCategory(string memory group, string memory category) external view returns(uint32) {
-    return nextAssetIndeces[group][category];
+    return nextAssetIndecesInCategory[group][category];
   }
 
   function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view returns(uint256) {
-    require(assetIndex < nextAssetIndeces[group][category], "The assetIndex is out of range");
-    return assetIds[group][category][assetIndex];
+    require(assetIndex < nextAssetIndecesInCategory[group][category], "The assetIndex is out of range");
+    return assetIdsInCategory[group][category][assetIndex];
   }
 
   function _registerPart(Part memory _part) internal returns(uint256) {
@@ -114,7 +114,7 @@ contract AssetStore is Ownable {
     asset.categoryId = _getCategoryId(_assetInfo.group, _assetInfo.category);
     asset.partsIndeces = indeces;
     assets[assetId] = asset;
-    assetIds[_assetInfo.group][_assetInfo.category][nextAssetIndeces[_assetInfo.group][_assetInfo.category]++] = assetId;
+    assetIdsInCategory[_assetInfo.group][_assetInfo.category][nextAssetIndecesInCategory[_assetInfo.group][_assetInfo.category]++] = assetId;
 
     return assetId;
   }
