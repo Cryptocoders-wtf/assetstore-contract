@@ -27,7 +27,7 @@ contract AssetStore is Ownable {
 
   // They are core data
   mapping(uint256 => Asset) private assets;
-  uint256 private nextAsset;
+  uint256 private nextAssetIndex;
   mapping(uint256 => Part) private parts;
   uint256 private nextPart;
 
@@ -107,7 +107,7 @@ contract AssetStore is Ownable {
     for (i=0; i<size; i++) {
       indeces[i] = _registerPart(_assetInfo.parts[i]);
     }
-    uint256 assetId = nextAsset++;
+    uint256 assetId = nextAssetIndex++;
     Asset memory asset;
     asset.name = _assetInfo.name;
     asset.groupId = _getGroupId(_assetInfo.group);
@@ -151,7 +151,7 @@ contract AssetStore is Ownable {
   }
 
   function generateSVG(uint256 _assetIndex) external view returns(string memory) {
-    require(_assetIndex < nextAsset, "asset index is out of range"); 
+    require(_assetIndex < nextAssetIndex, "asset index is out of range"); 
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n', 
       _generateSVGAsset(_assetIndex), 
@@ -160,7 +160,7 @@ contract AssetStore is Ownable {
   }
 
   function getAssetCount() external view returns(uint256) {
-    return nextAsset;
+    return nextAssetIndex;
   }
 
   function getAsset(uint256 _assetIndex) external view onlyOwner returns(Asset memory) {
