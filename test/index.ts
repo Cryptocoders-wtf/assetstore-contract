@@ -55,6 +55,7 @@ describe("Baisc", function () {
     expect(await contract.getCategoryCount(assetDone.group)).equal(1);    
     expect(await contract.getCategoryNameAtIndex(assetDone.group, 0)).equal(assetDone.category);   
     expect(await contract.getAssetCountInCategory(assetDone.group, assetDone.category)).equal(1);    
+    expect(await contract.getAssetIdInCategory(assetDone.group, assetDone.category, 0)).equal(0);    
      
     await contract.registerAsset(assetSettings);
     expect(await contract.getAssetCount()).equal(2);    
@@ -63,6 +64,7 @@ describe("Baisc", function () {
     expect(await contract.getCategoryCount(assetDone.group)).equal(1);    
     expect(await contract.getCategoryNameAtIndex(assetDone.group, 0)).equal(assetDone.category);    
     expect(await contract.getAssetCountInCategory(assetDone.group, assetDone.category)).equal(2);    
+    expect(await contract.getAssetIdInCategory(assetDone.group, assetDone.category, 1)).equal(1);    
   });
   it("Second Group with two categories", async function () {
     await contract.registerAsset(assetAccount);
