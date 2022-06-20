@@ -38,7 +38,7 @@ contract AssetStore is Ownable {
 
   // Grouped categories (for browsing)
   mapping(string => mapping(uint32 => string)) categories;
-  mapping(string => uint32) nextCategory;
+  mapping(string => uint32) nextCategoryIndeces;
   mapping(string => mapping(string => uint32)) private categoryIds; // index+1
 
   // Grouped and categorized assetIds (for browsing)
@@ -66,8 +66,8 @@ contract AssetStore is Ownable {
   function _getCategoryId(string memory group, string memory category) internal returns(uint32) {
     uint32 categoryId = categoryIds[group][category];
     if (categoryId == 0) {
-      categories[group][nextCategory[group]++] = category;
-      categoryId = nextCategory[group]; // index + 1
+      categories[group][nextCategoryIndeces[group]++] = category;
+      categoryId = nextCategoryIndeces[group]; // index + 1
       categoryIds[group][category] = categoryId;
     }
     return categoryId;
@@ -86,25 +86,27 @@ contract AssetStore is Ownable {
 
   // Returns the number of categories in the specified group.
   function getCategoryCount(string memory group) external view returns(uint32) {
-    return nextCategory[group];
+    return nextCategoryIndeces[group];
   }
 
   // Returns the name of category specified with group/categoryIndex pair.
   function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view returns(string memory) {
-    require(categoryIndex < nextCategory[group], "The categoryIndex index is out of range");
+    require(categoryIndex < nextCategoryIndeces[group], "The categoryIndex index is out of range");
     return categories[group][categoryIndex];
   }
 
+  // Returns the number of asset in the specified group/category. 
   function getAssetCountInCategory(string memory group, string memory category) external view returns(uint32) {
     return nextAssetIndecesInCategory[group][category];
   }
 
+  // Returns the assetId of the specified group/category/assetIndex. 
   function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view returns(uint256) {
     require(assetIndex < nextAssetIndecesInCategory[group][category], "The assetIndex is out of range");
     return assetIdsInCategory[group][category][assetIndex];
   }
 
-  function _registerPart(Part memory _part) internal returns(uint256) {
+  function _safeRegisterPart(Part memory _part) internal returns(uint256) {
     parts[nextPartIndex++] = _part;
     return nextPartIndex-1;    
   }
@@ -114,7 +116,7 @@ contract AssetStore is Ownable {
     uint256[] memory indeces = new uint256[](size);
     uint i;
     for (i=0; i<size; i++) {
-      indeces[i] = _registerPart(_assetInfo.parts[i]);
+      indeces[i] = _safeRegisterPart(_assetInfo.parts[i]);
     }
     uint256 assetId = nextAssetIndex++;
     Asset memory asset;
@@ -159,25 +161,28 @@ contract AssetStore is Ownable {
     return pack;
   }
 
-  function generateSVG(uint256 _assetIndex) external view returns(string memory) {
-    require(_assetIndex < nextAssetIndex, "asset index is out of range"); 
+  // returns a full SVG with the specified assetId
+  function generateSVG(uint256 _assetId) external view returns(string memory) {
+    require(_assetId < nextAssetIndex, "asset index is out of range"); 
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n', 
-      _generateSVGAsset(_assetIndex), 
+      _generateSVGAsset(_assetId), 
       '</svg>');
     return string(pack);
   }
 
+  // Returns the number of registered assets
   function getAssetCount() external view returns(uint256) {
     return nextAssetIndex;
   }
 
-  function getAsset(uint256 _assetIndex) external view onlyOwner returns(Asset memory) {
-    return assets[_assetIndex];
+  // returns the raw asset data speicified by the assetId (0,1, ..., count-1)
+  function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
+    return assets[_assetId];
   }
 
-  function getPart(uint256 _partIndex) external view onlyOwner returns(Part memory) {
-    return parts[_partIndex];
+  // returns the raw part data specified by the assetId (0, 1, ... count-1)
+  function getRawPart(uint256 _assetId) external view onlyOwner returns(Part memory) {
+    return parts[_assetId];
   }
-
 }
