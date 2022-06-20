@@ -11,7 +11,7 @@ async function main() {
     category: "Action",
     parts:[{
         body: "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z",
-        mask: "", color: "black"
+        mask: "", color: "red"
     }]
   },{
     name: "Settings",

@@ -155,7 +155,11 @@ contract AssetStore is Ownable {
     uint i;
     for (i=0; i<indeces.length; i++) {
       Part memory part = parts[indeces[i]];
-      pack = abi.encodePacked(pack, '  <path d="', part.body, '" fill="', part.color ,'" />\n');
+      if (bytes(part.color).length > 0) {
+        pack = abi.encodePacked(pack, '  <path d="', part.body, '" fill="', part.color ,'" />\n');
+      } else {
+        pack = abi.encodePacked(pack, '  <path d="', part.body, '" />\n');
+      }
     }
     pack = abi.encodePacked(pack, ' </g>\n');
     return pack;
