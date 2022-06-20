@@ -25,17 +25,25 @@ contract AssetStore is Ownable {
     Part[] parts;
   }
 
+  // They are core data
   mapping(uint256 => Asset) private assets;
   uint256 private nextAsset;
   mapping(uint256 => Part) private parts;
   uint256 private nextPart;
+
+  // Groups (for browsing)
   mapping(uint32 => string) private groups;
   uint32 private nextGroup; 
   mapping(string => uint32) private groupIds; // index+1
 
+  // Grouped categories (for browsing)
   mapping(string => mapping(uint32 => string)) categories;
   mapping(string => uint32) nextCategory;
   mapping(string => mapping(string => uint32)) private categoryIds; // index+1
+
+  // Grouped and categorized assetIds (for browsing)
+  mapping(string => mapping(string => mapping(uint32 => uint256))) private assetIds;
+  mapping(string => mapping(string => uint32)) private nextAssetIndeces;
 
   constructor() {
   }
@@ -78,6 +86,10 @@ contract AssetStore is Ownable {
     return categories[group][categoryIndex];
   }
 
+  function getAssetId(string memory group, string memory category, uint32 assetIndex) external view returns(uint256) {
+    return assetIds[group][category][assetIndex];
+  }
+
   function _registerPart(Part memory _part) internal returns(uint256) {
     parts[nextPart++] = _part;
     return nextPart-1;    
@@ -97,6 +109,8 @@ contract AssetStore is Ownable {
     asset.categoryId = _getCategoryId(_assetInfo.group, _assetInfo.category);
     asset.partsIndeces = indeces;
     assets[assetId] = asset;
+    assetIds[_assetInfo.group][_assetInfo.category][nextAssetIndeces[_assetInfo.group][_assetInfo.category]++] = assetId;
+
     return assetId;
   }
 
