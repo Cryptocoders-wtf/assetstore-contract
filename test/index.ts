@@ -44,6 +44,15 @@ before(async () => {
   contract = await factory.deploy();
   await contract.deployed();
 });
+const catchError = async (callback: any) => {
+  try {
+    await callback();
+    return false;
+  } catch(e:any) {
+    // console.log(e.reason);
+    return true;
+  }
+};
 
 describe("Baisc", function () {
   let asset:any;
@@ -93,5 +102,11 @@ describe("Baisc", function () {
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(4);    
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(4);
+  });
+  it("Duplicate", async function () {
+    expect(await catchError(async ()=>{ await contract.registerAsset(assetDone); })).equal(true);
+    expect(await catchError(async ()=>{ await contract.registerAsset(assetSettings); })).equal(true);
+    expect(await catchError(async ()=>{ await contract.registerAsset(assetAccount); })).equal(true);
+    expect(await catchError(async ()=>{ await contract.registerAsset(assetHome); })).equal(true);
   });
 });
