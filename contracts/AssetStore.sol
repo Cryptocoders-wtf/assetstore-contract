@@ -48,6 +48,8 @@ contract AssetStore is Ownable {
   constructor() {
   }
 
+  // Returns the groupId of the specified group, creating a new Id if necessary.
+  // @notice gruopId == groupIndex + 1
   function _getGroupId(string memory group) internal returns(uint32) {
     uint32 groupId = groupIds[group];
     if (groupId == 0) {
@@ -58,6 +60,9 @@ contract AssetStore is Ownable {
     return groupId;
   }
 
+  // Returns the categoryId of the specified category in a group, creating a new Id if necessary.
+  // The categoryId is unique only within that group. 
+  // @notice categoryId == categoryIndex + 1
   function _getCategoryId(string memory group, string memory category) internal returns(uint32) {
     uint32 categoryId = categoryIds[group][category];
     if (categoryId == 0) {
@@ -68,19 +73,23 @@ contract AssetStore is Ownable {
     return categoryId;
   }
 
+  // Returns the number of registered groups.
   function getGroupCount() external view returns(uint32) {
     return nextGroup;
   }
 
+  // Returns the name of a group specified with groupIndex. 
   function getGroupNameAtIndex(uint32 groupIndex) external view returns(string memory) {
     require(groupIndex < nextGroup, "The group index is out of range");
     return groups[groupIndex];
   }
 
+  // Returns the number of categories in the specified group.
   function getCategoryCount(string memory group) external view returns(uint32) {
     return nextCategory[group];
   }
 
+  // Returns the name of category specified with group/categoryIndex pair.
   function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view returns(string memory) {
     require(categoryIndex < nextCategory[group], "The categoryIndex index is out of range");
     return categories[group][categoryIndex];
