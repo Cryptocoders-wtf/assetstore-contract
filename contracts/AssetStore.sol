@@ -119,7 +119,7 @@ contract AssetStore is Ownable {
     return nextPartIndex-1;    
   }
 
-  function _RegisterAsset(AssetInfo memory _assetInfo) internal returns(uint256) {
+  function _registerAsset(AssetInfo memory _assetInfo) internal returns(uint256) {
     require(assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
     uint size = _assetInfo.parts.length;
     uint256[] memory indeces = new uint256[](size);
@@ -141,14 +141,14 @@ contract AssetStore is Ownable {
   }
 
   function registerAsset(AssetInfo memory _assetInfo) external onlyOwner returns(uint256) {
-    return _RegisterAsset(_assetInfo);
+    return _registerAsset(_assetInfo);
   }
 
   function registerAssets(AssetInfo[] memory _assetInfos) external onlyOwner returns(uint256) {
     uint i;
     uint assetIndex;
     for (i=0; i<_assetInfos.length; i++) {
-      assetIndex = _RegisterAsset(_assetInfos[i]);
+      assetIndex = _registerAsset(_assetInfos[i]);
     }
     return assetIndex;
   }
