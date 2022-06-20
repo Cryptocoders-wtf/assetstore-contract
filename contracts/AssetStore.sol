@@ -69,6 +69,15 @@ contract AssetStore is Ownable {
     return groups[groupIndex];
   }
 
+  function getCategoryCount(string memory group) external view returns(uint32) {
+    return nextCategory[group];
+  }
+
+  function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view returns(string memory) {
+    require(categoryIndex < nextCategory[group], "The categirt index is out of range");
+    return categories[group][categoryIndex];
+  }
+
   function _registerPart(Part memory _part) internal returns(uint256) {
     parts[nextPart++] = _part;
     return nextPart-1;    
