@@ -56,7 +56,8 @@ describe("Baisc", function () {
     expect(await contract.getCategoryCount(asset.group)).equal(1);    
     expect(await contract.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);   
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
-    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(1);    
+    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(1);
+    expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(1);
   });
   it("Settings", async function () {
     asset = assetSettings;
@@ -68,6 +69,7 @@ describe("Baisc", function () {
     expect(await contract.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);    
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(2);    
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 1)).equal(2);    
+    expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(2);
   });
   it("Account", async function () {
     asset = assetAccount;
@@ -79,6 +81,7 @@ describe("Baisc", function () {
     expect(await contract.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);    
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(3);    
+    expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(3);
   });
   it("Home", async function () {
     asset = assetHome;
@@ -89,5 +92,6 @@ describe("Baisc", function () {
     expect(await contract.getCategoryNameAtIndex(asset.group, 1)).equal(asset.category);    
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(4);    
+    expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(4);
   });
 });

@@ -109,6 +109,11 @@ contract AssetStore is Ownable {
     return assetIdsInCategory[group][category][assetIndex];
   }
 
+  // Returns the assetId of the specified group/category/name. 
+  function getAssetIdWithName(string memory group, string memory category, string memory name) external view returns(uint256) {
+    return assetIdsLookup[group][category][name];
+  }
+
   function _safeRegisterPart(Part memory _part) internal returns(uint256) {
     parts[nextPartIndex++] = _part;
     return nextPartIndex-1;    
