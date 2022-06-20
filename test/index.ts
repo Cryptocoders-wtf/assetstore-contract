@@ -32,7 +32,7 @@ const assetAccount:any = {
 const assetHome:any = {
   name: "Home",
   group: "Material Icons 2",
-  category: "Action",
+  category: "Action 2",
   parts:[{
       body: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z",
       mask: "", color: "red"
@@ -61,13 +61,17 @@ describe("Baisc", function () {
     expect(await contract.getCategoryCount(assetDone.group)).equal(1);    
     expect(await contract.getCategoryNameAtIndex(assetDone.group, 0)).equal(assetDone.category);    
   });
-  it("Second Group", async function () {
+  it("Second Group with two categories", async function () {
     await contract.registerAsset(assetAccount);
     expect(await contract.getAssetCount()).equal(3);    
     expect(await contract.getGroupCount()).equal(2);    
     expect(await contract.getGroupNameAtIndex(1)).equal(assetAccount.group);    
+    expect(await contract.getCategoryCount(assetAccount.group)).equal(1);    
+    expect(await contract.getCategoryNameAtIndex(assetAccount.group, 0)).equal(assetAccount.category);    
     await contract.registerAsset(assetHome);
     expect(await contract.getAssetCount()).equal(4);    
     expect(await contract.getGroupCount()).equal(2);    
+    expect(await contract.getCategoryCount(assetAccount.group)).equal(2);    
+    expect(await contract.getCategoryNameAtIndex(assetAccount.group, 1)).equal(assetHome.category);    
   });
 });
