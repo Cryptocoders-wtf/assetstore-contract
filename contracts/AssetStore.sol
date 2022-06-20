@@ -45,6 +45,9 @@ contract AssetStore is Ownable {
   mapping(string => mapping(string => mapping(uint32 => uint256))) private assetIdsInCategory;
   mapping(string => mapping(string => uint32)) private nextAssetIndecesInCategory;
 
+  // Group/Category/Name => assetId
+  mapping(string => mapping(string => mapping(string => uint256))) private assetIdsLookup;
+
   constructor() {
   }
 
@@ -126,6 +129,7 @@ contract AssetStore is Ownable {
     asset.partsIndeces = indeces;
     assets[assetId] = asset;
     assetIdsInCategory[_assetInfo.group][_assetInfo.category][nextAssetIndecesInCategory[_assetInfo.group][_assetInfo.category]++] = assetId;
+    assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] = assetId;
 
     return assetId;
   }

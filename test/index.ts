@@ -46,44 +46,48 @@ before(async () => {
 });
 
 describe("Baisc", function () {
-  let result;
+  let asset:any;
   it("Done", async function () {
-    await contract.registerAsset(assetDone);
+    asset = assetDone;
+    await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(1);    
     expect(await contract.getGroupCount()).equal(1);    
-    expect(await contract.getGroupNameAtIndex(0)).equal(assetDone.group);    
-    expect(await contract.getCategoryCount(assetDone.group)).equal(1);    
-    expect(await contract.getCategoryNameAtIndex(assetDone.group, 0)).equal(assetDone.category);   
-    expect(await contract.getAssetCountInCategory(assetDone.group, assetDone.category)).equal(1);    
-    expect(await contract.getAssetIdInCategory(assetDone.group, assetDone.category, 0)).equal(1);    
+    expect(await contract.getGroupNameAtIndex(0)).equal(asset.group);    
+    expect(await contract.getCategoryCount(asset.group)).equal(1);    
+    expect(await contract.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);   
+    expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
+    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(1);    
   });
   it("Settings", async function () {
-    await contract.registerAsset(assetSettings);
+    asset = assetSettings;
+    await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(2);    
     expect(await contract.getGroupCount()).equal(1);    
-    expect(await contract.getGroupNameAtIndex(0)).equal(assetSettings.group);    
-    expect(await contract.getCategoryCount(assetSettings.group)).equal(1);    
-    expect(await contract.getCategoryNameAtIndex(assetSettings.group, 0)).equal(assetSettings.category);    
-    expect(await contract.getAssetCountInCategory(assetSettings.group, assetSettings.category)).equal(2);    
-    expect(await contract.getAssetIdInCategory(assetSettings.group, assetSettings.category, 1)).equal(2);    
+    expect(await contract.getGroupNameAtIndex(0)).equal(asset.group);    
+    expect(await contract.getCategoryCount(asset.group)).equal(1);    
+    expect(await contract.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);    
+    expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(2);    
+    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 1)).equal(2);    
   });
   it("Account", async function () {
-    await contract.registerAsset(assetAccount);
+    asset = assetAccount;
+    await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(3);    
     expect(await contract.getGroupCount()).equal(2);    
-    expect(await contract.getGroupNameAtIndex(1)).equal(assetAccount.group);    
-    expect(await contract.getCategoryCount(assetAccount.group)).equal(1);    
-    expect(await contract.getCategoryNameAtIndex(assetAccount.group, 0)).equal(assetAccount.category);    
-    expect(await contract.getAssetCountInCategory(assetAccount.group, assetAccount.category)).equal(1);    
-    expect(await contract.getAssetIdInCategory(assetAccount.group, assetAccount.category, 0)).equal(3);    
+    expect(await contract.getGroupNameAtIndex(1)).equal(asset.group);    
+    expect(await contract.getCategoryCount(asset.group)).equal(1);    
+    expect(await contract.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);    
+    expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
+    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(3);    
   });
   it("Home", async function () {
-    await contract.registerAsset(assetHome);
+    asset = assetHome;
+    await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(4);    
     expect(await contract.getGroupCount()).equal(2);    
-    expect(await contract.getCategoryCount(assetHome.group)).equal(2);    
-    expect(await contract.getCategoryNameAtIndex(assetHome.group, 1)).equal(assetHome.category);    
-    expect(await contract.getAssetCountInCategory(assetHome.group, assetHome.category)).equal(1);    
-    expect(await contract.getAssetIdInCategory(assetHome.group, assetHome.category, 0)).equal(4);    
+    expect(await contract.getCategoryCount(asset.group)).equal(2);    
+    expect(await contract.getCategoryNameAtIndex(asset.group, 1)).equal(asset.category);    
+    expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
+    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(4);    
   });
 });
