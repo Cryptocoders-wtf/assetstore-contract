@@ -29,7 +29,7 @@ contract AssetStore is Ownable {
   mapping(uint256 => Asset) private assets;
   uint256 private nextAssetIndex;
   mapping(uint256 => Part) private parts;
-  uint256 private nextPart;
+  uint256 private nextPartIndex;
 
   // Groups (for browsing)
   mapping(uint32 => string) private groups;
@@ -105,8 +105,8 @@ contract AssetStore is Ownable {
   }
 
   function _registerPart(Part memory _part) internal returns(uint256) {
-    parts[nextPart++] = _part;
-    return nextPart-1;    
+    parts[nextPartIndex++] = _part;
+    return nextPartIndex-1;    
   }
 
   function _safeRegisterAsset(AssetInfo memory _assetInfo) internal returns(uint256) {
