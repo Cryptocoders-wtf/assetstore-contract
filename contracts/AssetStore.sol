@@ -148,8 +148,8 @@ contract AssetStore is Ownable {
     return abi.encodePacked(group, '/', categories[group][asset.categoryId - 1], '/', asset.name);
   }
 
-  function _generateSVGAsset(uint256 _assetIndex) internal view returns(bytes memory) {
-    Asset storage asset = assets[_assetIndex];
+  function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
+    Asset storage asset = assets[_assetId];
     uint256[] storage indeces = asset.partsIndeces;
     bytes memory pack = abi.encodePacked(' <g desc="', _getDescription(asset), '">\n');
     uint i;
@@ -161,12 +161,18 @@ contract AssetStore is Ownable {
     return pack;
   }
 
+  // returns a SVG part with the specified assetId
+  function generateSVGPart(uint256 _assetId) external view returns(string memory) {
+    require(_assetId < nextAssetIndex, "asset index is out of range"); 
+    return string(_safeGenerateSVGPart(_assetId));
+  }
+
   // returns a full SVG with the specified assetId
   function generateSVG(uint256 _assetId) external view returns(string memory) {
     require(_assetId < nextAssetIndex, "asset index is out of range"); 
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n', 
-      _generateSVGAsset(_assetId), 
+      _safeGenerateSVGPart(_assetId), 
       '</svg>');
     return string(pack);
   }

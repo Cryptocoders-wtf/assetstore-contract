@@ -58,9 +58,9 @@ async function main() {
   let result:any = await contract.registerAssets(assets);
   result = await contract.getAssetCount();
   //console.log("assetCount", result);
-  result = await contract.getAsset(0);
+  result = await contract.getRawAsset(0);
   //console.log("getAsset", result);
-  result = await contract.getPart(0);
+  result = await contract.getRawPart(0);
   //console.log("getPart", result);
   result = await contract.generateSVG(0);
   console.log(result);
