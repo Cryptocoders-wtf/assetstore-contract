@@ -74,38 +74,16 @@ async function main() {
   //console.log("materialToken address", assetStore.address);
 
   result = await assetStore.registerAssets(assets);
-  /*
-  console.log("waiting");
-  await delay(10 * 1000);
-  console.log("waiti is done");
-  result = await assetStore.getAssetCount();
-  console.log("assetCount", result);
-  result = await assetStore.getRawAsset(1);
-  console.log("getAsset", result);
-  result = await assetStore.getRawPart(1);
-  console.log("getPart", result);
-  result = await assetStore.generateSVG(1);
-  console.log(result);
-  //console.log('data:image/svg+xml;base64,' + btoa(result));
-  */
 
   await materialToken.mint();
-  //console.log("minted 0");
   await materialToken.mint();
-  //console.log("minted 1");
   await materialToken.mint();
-  //console.log("minted 2");
   const tokenId = 1;
-  //console.log("token", materialToken.address, tokenId);
   const uri = await materialToken.tokenURI(tokenId);
   const data = atob(uri.substring(29));
-  //console.log("data", data);
   const json = JSON.parse(data);
-  //console.log("json", json);
   const imageData = json.image.substring(26);
-  //console.log("json", imageData);
   console.log(atob(imageData));
-
 }
 
 main().catch((error) => {
