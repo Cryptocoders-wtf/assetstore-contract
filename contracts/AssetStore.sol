@@ -40,7 +40,11 @@ contract AssetStore is Ownable, IAssetStore {
   // Group/Category/Name => assetId
   mapping(string => mapping(string => mapping(string => uint256))) private assetIdsLookup;
 
+  // Whitelist
+  mapping(address => bool) whitelist;
+
   constructor() {
+    whitelist[msg.sender] = true;
   }
 
   // Returns the groupId of the specified group, creating a new Id if necessary.
@@ -134,11 +138,20 @@ contract AssetStore is Ownable, IAssetStore {
     return assetId;
   }
 
-  function registerAsset(AssetInfo memory _assetInfo) external override returns(uint256) {
+  function setWhitelistStatus(address _address, bool _status) external onlyOwner {
+    whitelist[_address] = _status;
+  }
+
+  modifier onlyWhitelist {
+    require(whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
+    _;
+  }
+
+  function registerAsset(AssetInfo memory _assetInfo) external override onlyWhitelist returns(uint256) {
     return _registerAsset(_assetInfo);
   }
 
-  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyOwner returns(uint256) {
+  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyWhitelist returns(uint256) {
     uint i;
     uint assetIndex;
     for (i=0; i<_assetInfos.length; i++) {
