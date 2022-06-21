@@ -5,11 +5,14 @@ pragma solidity ^0.8.6;
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import { IAssetStore } from './interfaces/IAssetStore.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract MaterialToken is Ownable, ERC721Enumerable {
   using Strings for uint256;
+
+  IAssetStore assetStore;
 
   // description
   string public description = "Celebrating Pride Month 2022";
@@ -17,7 +20,8 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   // The internal token ID tracker
   uint256 private _currentTokenId;
 
-  constructor() ERC721("Material Icons", "MATERIAL") {
+  constructor(IAssetStore _assetStore) ERC721("Material Icons", "MATERIAL") {
+    assetStore = _assetStore;
   }
 
   function mint() external onlyOwner returns(uint256) {
@@ -34,7 +38,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     require(_exists(tokenId), 'MaterialToken: URI query for nonexistent token');
     string memory stringId = tokenId.toString();
     string memory name = string(abi.encodePacked('Pride Squiggle #', stringId));
-    string memory image = Base64.encode("abc");
+    string memory image = assetStore.generateSVG(0);
     return string(
       abi.encodePacked(
         'data:application/json;base64,',

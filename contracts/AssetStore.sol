@@ -3,9 +3,10 @@
 pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
+import { IAssetStore } from './interfaces/IAssetStore.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract AssetStore is Ownable {
+contract AssetStore is Ownable, IAssetStore {
   using Strings for uint16;
 
   struct Part {
@@ -117,7 +118,7 @@ contract AssetStore is Ownable {
   }
 
   // Returns the assetId of the specified group/category/name. 
-  function getAssetIdWithName(string memory group, string memory category, string memory name) external view returns(uint256) {
+  function getAssetIdWithName(string memory group, string memory category, string memory name) external override view returns(uint256) {
     return assetIdsLookup[group][category][name];
   }
 
@@ -191,7 +192,7 @@ contract AssetStore is Ownable {
   }
 
   // returns a full SVG with the specified assetId
-  function generateSVG(uint256 _assetId) external view returns(string memory) {
+  function generateSVG(uint256 _assetId) external override view returns(string memory) {
     require(_assetId > 0 && _assetId < nextAssetIndex, "asset index is out of range"); 
     Asset storage asset = assets[_assetId];
     bytes memory pack = abi.encodePacked(
