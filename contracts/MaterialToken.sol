@@ -12,7 +12,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract MaterialToken is Ownable, ERC721Enumerable {
   using Strings for uint256;
 
-  IAssetStore assetStore;
+  IAssetStore public immutable assetStore;
 
   // description
   string public description = "Celebrating Pride Month 2022";
@@ -37,8 +37,8 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   function tokenURI(uint256 tokenId) public view override returns (string memory) {
     require(_exists(tokenId), 'MaterialToken: URI query for nonexistent token');
     string memory stringId = tokenId.toString();
-    string memory name = string(abi.encodePacked('Pride Squiggle #', stringId));
-    string memory image = assetStore.generateSVG(1);
+    string memory name = string(abi.encodePacked('Material Icon #', stringId));
+    string memory image = Base64.encode(bytes(assetStore.generateSVG(tokenId + 1)));
     return string(
       abi.encodePacked(
         'data:application/json;base64,',
