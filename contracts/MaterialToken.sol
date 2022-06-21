@@ -42,7 +42,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n',
       '<defs>\n',
       ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n',
-      '  <feOffset result="offOut" in="SourceAlpha" dx="0.3" dy="0.5" />\n',
+      '  <feOffset result="offOut" in="SourceAlpha" dx="0.6" dy="1.0" />\n',
       '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n',
       '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n',
       ' </filter>\n',
