@@ -14,6 +14,8 @@ contract MaterialToken is Ownable, ERC721Enumerable {
 
   IAssetStore public immutable assetStore;
 
+  mapping(uint256 => uint256) assetIds; // tokenId => assetId
+
   // description
   string public description = "Celebrating Pride Month 2022";
 
@@ -27,6 +29,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   function mint() external onlyOwner returns(uint256) {
     uint256 tokenId = _currentTokenId++;
     _mint(owner(), tokenId);
+    assetIds[tokenId] = tokenId + 1;
     return tokenId;    
   }
 
@@ -48,7 +51,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       ' </filter>\n',
       '</defs>\n',
       '<g fill="blue" filter="url(#f1)">\n',
-      assetStore.generateSVGPart(tokenId + 1),
+      assetStore.generateSVGPart(assetIds[tokenId]),
       '</g>\n',
       '</svg>')));
     return string(

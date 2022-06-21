@@ -95,7 +95,7 @@ async function main() {
   //console.log("minted 1");
   await materialToken.mint();
   //console.log("minted 2");
-  const tokenId = 0;
+  const tokenId = 1;
   //console.log("token", materialToken.address, tokenId);
   const uri = await materialToken.tokenURI(tokenId);
   const data = atob(uri.substring(29));
