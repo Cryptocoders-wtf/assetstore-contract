@@ -40,7 +40,9 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     string memory name = string(abi.encodePacked('Material Icon #', stringId));
     string memory image = Base64.encode(bytes(abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">',
+      '<g fill="red">',
       assetStore.generateSVGPart(tokenId + 1),
+      '</g>',
       '</svg>')));
     return string(
       abi.encodePacked(
