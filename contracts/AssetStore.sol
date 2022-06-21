@@ -187,13 +187,13 @@ contract AssetStore is Ownable, IAssetStore {
 
   // returns a SVG part with the specified assetId
   function generateSVGPart(uint256 _assetId) external view returns(string memory) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "asset index is out of range"); 
+    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore.generateSVGPart: asset index is out of range"); 
     return string(_safeGenerateSVGPart(_assetId));
   }
 
   // returns a full SVG with the specified assetId
   function generateSVG(uint256 _assetId) external override view returns(string memory) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "asset index is out of range"); 
+    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore.generateSVG: asset index is out of range"); 
     Asset storage asset = assets[_assetId];
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 ', (asset.width).toString(), ' ', (asset.height).toString(), '"  xmlns="http://www.w3.org/2000/svg">\n', 
@@ -209,7 +209,7 @@ contract AssetStore is Ownable, IAssetStore {
 
   // returns the raw asset data speicified by the assetId (1, ..., count)
   function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "assetId is out of range");
+    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore.getRawAsset: assetId is out of range");
     return assets[_assetId];
   }
 
