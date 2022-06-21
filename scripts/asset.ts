@@ -67,11 +67,11 @@ async function main() {
   const assetStoreFactory = await ethers.getContractFactory("AssetStore");
   const assetStore = await assetStoreFactory.deploy();
   await assetStore.deployed();
-  console.log("assetStore address", assetStore.address);
+  //console.log("assetStore address", assetStore.address);
   const materialTokenStoreFactory = await ethers.getContractFactory("MaterialToken");
   const materialToken = await materialTokenStoreFactory.deploy(assetStore.address);
   await materialToken.deployed();
-  console.log("materialToken address", assetStore.address);
+  //console.log("materialToken address", assetStore.address);
 
   result = await assetStore.registerAssets(assets);
   /*
@@ -90,15 +90,21 @@ async function main() {
   */
 
   await materialToken.mint();
-  console.log("minted 0");
+  //console.log("minted 0");
   await materialToken.mint();
-  console.log("minted 1");
+  //console.log("minted 1");
   await materialToken.mint();
-  console.log("minted 2");
+  //console.log("minted 2");
   const tokenId = 0;
-  console.log("token", materialToken.address, tokenId);
+  //console.log("token", materialToken.address, tokenId);
   const uri = await materialToken.tokenURI(tokenId);
-  console.log("uri", uri);
+  const data = atob(uri.substring(29));
+  //console.log("data", data);
+  const json = JSON.parse(data);
+  //console.log("json", json);
+  const imageData = json.image.substring(26);
+  //console.log("json", imageData);
+  console.log(atob(imageData));
 
 }
 
