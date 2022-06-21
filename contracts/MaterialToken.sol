@@ -27,9 +27,10 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   }
 
   function mint(IAssetStore.AssetInfo memory _assetInfo) external onlyOwner returns(uint256) {
+    uint256 assetId = assetStore.registerAsset(_assetInfo);
     uint256 tokenId = _currentTokenId++;
     _mint(owner(), tokenId);
-    assetIds[tokenId] = tokenId + 1;
+    assetIds[tokenId] = assetId;
     return tokenId;    
   }
 

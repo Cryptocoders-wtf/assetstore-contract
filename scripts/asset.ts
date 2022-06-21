@@ -64,8 +64,6 @@ async function main() {
   asset.parts[0].body = material.body;
   //console.log(asset);
 
-  result = await assetStore.registerAsset(asset);
-
   await materialToken.mint(asset);
   const tokenId = 0;
   const uri = await materialToken.tokenURI(tokenId);

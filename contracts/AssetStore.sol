@@ -134,7 +134,7 @@ contract AssetStore is Ownable, IAssetStore {
     return assetId;
   }
 
-  function registerAsset(AssetInfo memory _assetInfo) external override onlyOwner returns(uint256) {
+  function registerAsset(AssetInfo memory _assetInfo) external override returns(uint256) {
     return _registerAsset(_assetInfo);
   }
 
