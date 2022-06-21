@@ -8,13 +8,6 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract AssetStore is Ownable, IAssetStore {
   using Strings for uint16;
-
-  struct Part {
-    string body;
-    string mask;
-    string color;
-  }
-
   struct Asset {
     uint32 groupId;    // index to groups + 1
     uint32 categoryId; // index to categories + 1
@@ -22,15 +15,6 @@ contract AssetStore is Ownable, IAssetStore {
     uint16 height;
     string name;
     uint256[] partsIds;
-  }
-
-  struct AssetInfo {
-    string group;
-    string category;
-    string name;
-    uint16 width;
-    uint16 height;
-    Part[] parts;
   }
 
   // asset & part database
@@ -150,11 +134,11 @@ contract AssetStore is Ownable, IAssetStore {
     return assetId;
   }
 
-  function registerAsset(AssetInfo memory _assetInfo) external onlyOwner returns(uint256) {
+  function registerAsset(AssetInfo memory _assetInfo) external override onlyOwner returns(uint256) {
     return _registerAsset(_assetInfo);
   }
 
-  function registerAssets(AssetInfo[] memory _assetInfos) external onlyOwner returns(uint256) {
+  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyOwner returns(uint256) {
     uint i;
     uint assetIndex;
     for (i=0; i<_assetInfos.length; i++) {
