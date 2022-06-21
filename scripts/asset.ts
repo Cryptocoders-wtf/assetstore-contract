@@ -66,9 +66,7 @@ async function main() {
 
   result = await assetStore.registerAsset(asset);
 
-  await materialToken.mint();
-  await materialToken.mint();
-  await materialToken.mint();
+  await materialToken.mint(asset);
   const tokenId = 0;
   const uri = await materialToken.tokenURI(tokenId);
   const data = atob(uri.substring(29));
