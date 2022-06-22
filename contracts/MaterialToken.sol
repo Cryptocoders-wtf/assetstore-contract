@@ -45,10 +45,13 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return tokenId;    
   }
 
-  function mint(IAssetStore.AssetInfo memory _assetInfo) external returns(uint256) {
+  function mint(IAssetStore.AssetInfo memory _assetInfo, uint256 _affiliate) external returns(uint256) {
     uint256 assetId = assetStore.registerAsset(_assetInfo);
     uint256 tokenId = _safeMintWithAssetId(msg.sender, assetId, true);
     _safeMintWithAssetId(msg.sender, assetId, false);
+    if (_affiliate > 0 && _exists(_affiliate)) {
+      _safeMintWithAssetId(ownerOf(_affiliate), assetId, false);
+    }
     return tokenId;    
   }
 
@@ -98,7 +101,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
         uint16 y = (i / 2 % 2) * 24;
         image = abi.encodePacked(image,
           ' <use href="', assetTag ,'" fill="', colors[(i + tokenId) % 4], 
-              '" x="', x.toString(), '" y="', y.toString(), '" transform="scale(1)"/> \n');
+              '" x="', x.toString(), '" y="', y.toString(), '"/> \n');
       }
     }
     image = abi.encodePacked(image,'</g>\n</svg>');
