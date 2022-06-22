@@ -187,34 +187,34 @@ contract AssetStore is AppStoreRegistory {
   }
 
   // Returns the number of registered groups.
-  function getGroupCount() external view returns(uint32) {
+  function getGroupCount() external view override returns(uint32) {
     return nextGroup;
   }
 
   // Returns the name of a group specified with groupIndex (groupId - 1). 
-  function getGroupNameAtIndex(uint32 groupIndex) external view returns(string memory) {
+  function getGroupNameAtIndex(uint32 groupIndex) external view override returns(string memory) {
     require(groupIndex < nextGroup, "The group index is out of range");
     return groups[groupIndex];
   }
 
   // Returns the number of categories in the specified group.
-  function getCategoryCount(string memory group) external view returns(uint32) {
+  function getCategoryCount(string memory group) external view override returns(uint32) {
     return nextCategoryIndeces[group];
   }
 
   // Returns the name of category specified with group/categoryIndex pair.
-  function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view returns(string memory) {
+  function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view override returns(string memory) {
     require(categoryIndex < nextCategoryIndeces[group], "The categoryIndex index is out of range");
     return categories[group][categoryIndex];
   }
 
   // Returns the number of asset in the specified group/category. 
-  function getAssetCountInCategory(string memory group, string memory category) external view returns(uint32) {
+  function getAssetCountInCategory(string memory group, string memory category) external view override returns(uint32) {
     return nextAssetIndecesInCategory[group][category];
   }
 
   // Returns the assetId of the specified group/category/assetIndex. 
-  function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view returns(uint256) {
+  function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view override returns(uint256) {
     require(assetIndex < nextAssetIndecesInCategory[group][category], "The assetIndex is out of range");
     return assetIdsInCategory[group][category][assetIndex];
   }
