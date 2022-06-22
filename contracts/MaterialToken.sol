@@ -90,15 +90,15 @@ contract MaterialToken is Ownable, ERC721Enumerable {
         ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />');
     } else {
       image = abi.encodePacked(image,
-        '<g filter="url(#f1)" transform="scale(0.1)">\n');
+        '<g filter="url(#f1)" transform="scale(0.5)">\n');
       string[4] memory colors = ["#4285F4", "#34A853", "#FBBC05", "#EA4335"]; 
       uint16 i;
-      for (i=0; i<20; i++) {
-        uint16 x = (i * 60) % 240;
-        uint16 y = (i * 20) % 240;
+      for (i=0; i<4; i++) {
+        uint16 x = (i % 2) * 24;
+        uint16 y = (i / 2 % 2) * 24;
         image = abi.encodePacked(image,
-          ' <use href="', assetTag ,'" fill="', colors[i % 4], 
-              '" x="', x.toString(), '" y="', y.toString(), '" />');
+          ' <use href="', assetTag ,'" fill="', colors[(i + tokenId) % 4], 
+              '" x="', x.toString(), '" y="', y.toString(), '" transform="scale(1)"/> \n');
       }
     }
     image = abi.encodePacked(image,'</g>\n</svg>');
