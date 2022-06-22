@@ -73,10 +73,10 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       '</defs>\n',
       abi.encodePacked(
       '<g filter="url(#f1)">\n',
-      ' <use href="#asset', assetId.toString() ,'" fill="#4285F4" clip-path="url(#nw)" />',
-      ' <use href="#asset', assetId.toString() ,'" fill="#34A853" clip-path="url(#sw)" />',
-      ' <use href="#asset', assetId.toString() ,'" fill="#FBBC05" clip-path="url(#ne)" />',
-      ' <use href="#asset', assetId.toString() ,'" fill="#EA4335" clip-path="url(#se)" />',
+      ' <use href="#asset', assetId.toString() ,'" fill="#4285F4" clip-path="url(#ne)" />',
+      ' <use href="#asset', assetId.toString() ,'" fill="#34A853" clip-path="url(#se)" />',
+      ' <use href="#asset', assetId.toString() ,'" fill="#FBBC05" clip-path="url(#sw)" />',
+      ' <use href="#asset', assetId.toString() ,'" fill="#EA4335" clip-path="url(#nw)" />',
       '</g>\n'),
       '</svg>')));
     return string(
