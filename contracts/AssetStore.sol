@@ -22,6 +22,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract AssetStore is Ownable, IAssetStore {
   using Strings for uint16;
+  using Strings for uint256;
   struct Asset {
     uint32 groupId;    // index to groups + 1
     uint32 categoryId; // index to categories + 1
@@ -200,7 +201,7 @@ contract AssetStore is Ownable, IAssetStore {
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
     Asset storage asset = assets[_assetId];
     uint256[] storage indeces = asset.partsIds;
-    bytes memory pack = abi.encodePacked(' <g desc="', _getDescription(asset), '">\n');
+    bytes memory pack = abi.encodePacked(' <g id="asset', _assetId.toString(), '" desc="', _getDescription(asset), '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
       Part memory part = parts[indeces[i]];
