@@ -80,20 +80,22 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       ' <clipPath id="ne"><rect x="12" y="0" width="12" height="12" /></clipPath>\n',
       ' <clipPath id="se"><rect x="12" y="12" width="12" height="12" /></clipPath>\n',
       assetStore.generateSVGPart(assetId),
-      '</defs>\n',
-      '<g filter="url(#f1)">\n');
+      '</defs>\n');
     if (primaries[tokenId]) {
       image = abi.encodePacked(image,
+        '<g filter="url(#f1)">\n',
         ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />',
         ' <use href="', assetTag ,'" fill="#34A853" clip-path="url(#se)" />',
         ' <use href="', assetTag ,'" fill="#FBBC05" clip-path="url(#sw)" />',
         ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />');
     } else {
+      image = abi.encodePacked(image,
+        '<g filter="url(#f1)" transform="scale(0.1)">\n');
       string[4] memory colors = ["#4285F4", "#34A853", "#FBBC05", "#EA4335"]; 
       uint16 i;
       for (i=0; i<20; i++) {
-        uint16 x = (i * 6) % 24;
-        uint16 y = (i * 2) % 24;
+        uint16 x = (i * 60) % 240;
+        uint16 y = (i * 20) % 240;
         image = abi.encodePacked(image,
           ' <use href="', assetTag ,'" fill="', colors[i % 4], 
               '" x="', x.toString(), '" y="', y.toString(), '" />');
