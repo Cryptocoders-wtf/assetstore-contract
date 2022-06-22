@@ -161,8 +161,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
 
 }
 
-// Private functions for Admin (owner)
-abstract contract AppStoreAdmin is AssetStoreCore {
+// Adminstrative functions for the owner
+abstract contract AssetStoreAdmin is AssetStoreCore {
   function setWhitelistStatus(address _address, bool _status) external onlyOwner {
     whitelist[_address] = _status;
   }
@@ -171,21 +171,8 @@ abstract contract AppStoreAdmin is AssetStoreCore {
     disabled[_assetId] = _status;
   }
 
-  function registerAsset(AssetInfo memory _assetInfo) external override onlyWhitelist returns(uint256) {
-    return _registerAsset(_assetInfo);
-  }
-
-  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyWhitelist returns(uint256) {
-    uint i;
-    uint assetIndex;
-    for (i=0; i<_assetInfos.length; i++) {
-      assetIndex = _registerAsset(_assetInfos[i]);
-    }
-    return assetIndex;
-  }
-
   // Returns the number of registered assets
-  function getAssetCount() external view returns(uint256) {
+  function getAssetCount() external view onlyOwner returns(uint256) {
     return nextAssetIndex - 1;
   }
 
@@ -201,8 +188,24 @@ abstract contract AppStoreAdmin is AssetStoreCore {
   }
 }
 
+// Private functions for registering contracts
+abstract contract AppStoreRegistory is AssetStoreAdmin {
+  function registerAsset(AssetInfo memory _assetInfo) external override onlyWhitelist returns(uint256) {
+    return _registerAsset(_assetInfo);
+  }
+
+  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyWhitelist returns(uint256) {
+    uint i;
+    uint assetIndex;
+    for (i=0; i<_assetInfos.length; i++) {
+      assetIndex = _registerAsset(_assetInfos[i]);
+    }
+    return assetIndex;
+  }
+}
+
 // Public functions (all views)
-contract AssetStore is AppStoreAdmin {
+contract AssetStore is AppStoreRegistory {
   using Strings for uint16;
 
   // Returns the number of registered groups.
