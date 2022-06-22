@@ -56,6 +56,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     require(_exists(tokenId), 'MaterialToken.tokenURI: nonexistent token');
     string memory stringId = tokenId.toString();
     string memory name = string(abi.encodePacked('Material Icon #', stringId));
+    uint256 assetId = assetIds[tokenId];
     string memory image = Base64.encode(bytes(abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n',
       '<defs>\n',
@@ -64,9 +65,10 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n',
       '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n',
       ' </filter>\n',
+      assetStore.generateSVGPart(assetId),
       '</defs>\n',
       '<g fill="blue" filter="url(#f1)">\n',
-      assetStore.generateSVGPart(assetIds[tokenId]),
+      ' <use href="#asset', assetId.toString() ,'" />',
       '</g>\n',
       '</svg>')));
     return string(
