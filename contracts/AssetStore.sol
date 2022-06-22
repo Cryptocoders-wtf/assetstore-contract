@@ -23,7 +23,7 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore } from './interfaces/IAssetStore.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract AssetStore is Ownable, IAssetStore {
+abstract contract AssetStoreCore is Ownable, IAssetStore {
   using Strings for uint16;
   using Strings for uint256;
   struct Asset {
@@ -42,8 +42,8 @@ contract AssetStore is Ownable, IAssetStore {
   uint256 private nextPartIndex = 1; // 0 indicates an error
 
   // Groups (for browsing)
-  mapping(uint32 => string) private groups;
-  uint32 private nextGroup; 
+  mapping(uint32 => string) internal groups;
+  uint32 internal nextGroup; 
   mapping(string => uint32) private groupIds; // index+1
 
   // Grouped categories (for browsing)
@@ -52,11 +52,11 @@ contract AssetStore is Ownable, IAssetStore {
   mapping(string => mapping(string => uint32)) private categoryIds; // index+1
 
   // Grouped and categorized assetIds (for browsing)
-  mapping(string => mapping(string => mapping(uint32 => uint256))) private assetIdsInCategory;
-  mapping(string => mapping(string => uint32)) private nextAssetIndecesInCategory;
+  mapping(string => mapping(string => mapping(uint32 => uint256))) internal assetIdsInCategory;
+  mapping(string => mapping(string => uint32)) internal nextAssetIndecesInCategory;
 
   // Group/Category/Name => assetId
-  mapping(string => mapping(string => mapping(string => uint256))) private assetIdsLookup;
+  mapping(string => mapping(string => mapping(string => uint256))) internal assetIdsLookup;
 
   // Whitelist
   mapping(address => bool) whitelist;
@@ -91,44 +91,6 @@ contract AssetStore is Ownable, IAssetStore {
       categoryIds[group][category] = categoryId;
     }
     return categoryId;
-  }
-
-  // Returns the number of registered groups.
-  function getGroupCount() external view returns(uint32) {
-    return nextGroup;
-  }
-
-  // Returns the name of a group specified with groupIndex. 
-  function getGroupNameAtIndex(uint32 groupIndex) external view returns(string memory) {
-    require(groupIndex < nextGroup, "The group index is out of range");
-    return groups[groupIndex];
-  }
-
-  // Returns the number of categories in the specified group.
-  function getCategoryCount(string memory group) external view returns(uint32) {
-    return nextCategoryIndeces[group];
-  }
-
-  // Returns the name of category specified with group/categoryIndex pair.
-  function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view returns(string memory) {
-    require(categoryIndex < nextCategoryIndeces[group], "The categoryIndex index is out of range");
-    return categories[group][categoryIndex];
-  }
-
-  // Returns the number of asset in the specified group/category. 
-  function getAssetCountInCategory(string memory group, string memory category) external view returns(uint32) {
-    return nextAssetIndecesInCategory[group][category];
-  }
-
-  // Returns the assetId of the specified group/category/assetIndex. 
-  function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view returns(uint256) {
-    require(assetIndex < nextAssetIndecesInCategory[group][category], "The assetIndex is out of range");
-    return assetIdsInCategory[group][category][assetIndex];
-  }
-
-  // Returns the assetId of the specified group/category/name. 
-  function getAssetIdWithName(string memory group, string memory category, string memory name) external override view returns(uint256) {
-    return assetIdsLookup[group][category][name];
   }
 
   function _registerPart(Part memory _part) internal returns(uint256) {
@@ -247,5 +209,45 @@ contract AssetStore is Ownable, IAssetStore {
   function getRawPart(uint256 _partId) external view onlyOwner returns(Part memory) {
     require(_partId > 0 && _partId < nextPartIndex, "partId is out of range");
     return parts[_partId];
+  }
+}
+
+contract AssetStore is AssetStoreCore {
+  // Returns the number of registered groups.
+  function getGroupCount() external view returns(uint32) {
+    return nextGroup;
+  }
+
+  // Returns the name of a group specified with groupIndex (groupId - 1). 
+  function getGroupNameAtIndex(uint32 groupIndex) external view returns(string memory) {
+    require(groupIndex < nextGroup, "The group index is out of range");
+    return groups[groupIndex];
+  }
+
+  // Returns the number of categories in the specified group.
+  function getCategoryCount(string memory group) external view returns(uint32) {
+    return nextCategoryIndeces[group];
+  }
+
+  // Returns the name of category specified with group/categoryIndex pair.
+  function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view returns(string memory) {
+    require(categoryIndex < nextCategoryIndeces[group], "The categoryIndex index is out of range");
+    return categories[group][categoryIndex];
+  }
+
+  // Returns the number of asset in the specified group/category. 
+  function getAssetCountInCategory(string memory group, string memory category) external view returns(uint32) {
+    return nextAssetIndecesInCategory[group][category];
+  }
+
+  // Returns the assetId of the specified group/category/assetIndex. 
+  function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view returns(uint256) {
+    require(assetIndex < nextAssetIndecesInCategory[group][category], "The assetIndex is out of range");
+    return assetIdsInCategory[group][category][assetIndex];
+  }
+
+  // Returns the assetId of the specified group/category/name. 
+  function getAssetIdWithName(string memory group, string memory category, string memory name) external override view returns(uint256) {
+    return assetIdsLookup[group][category][name];
   }
 }
