@@ -70,7 +70,7 @@ async function main() {
   
   // await assetStore.setDisabled(assetId, true);
 
-  const uri = await materialToken.tokenURI(0);
+  const uri = await materialToken.tokenURI(1);
   const data = atob(uri.substring(29));
   const json = JSON.parse(data);
   const imageData = json.image.substring(26);
