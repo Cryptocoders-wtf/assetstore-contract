@@ -2,11 +2,14 @@
 
 /*
  * On-chain asset store, which allows multiple smart contracts to shara vector assets.
- * All assets registered to this store will be treated as either cc0 (public domain) or 
- * CC-BY(attribution). In case of CC-BY, the creater's name must be in either "Group"
- * or "Category".
  *
- * All registered assets will be available to other smart contracts for free.
+ * All assets registered to this store will be treated as cc0 (public domain), 
+ * CC-BY(attribution), Apache 2.0 or MIT (should be specified in the "group"). 
+ * In case of CC-BY, the creater's name should be in the "group", "category" or "name".
+ *
+ * All registered assets will be available to other smart contracts for free, including
+ * commecial services. Therefore, it is not allowed to register assets that require
+ * any form of commercial licenses. 
  *
  * Once an asset is registed with group/category/name, it is NOT possible to update,
  * which guaranttees the availability in future.  
