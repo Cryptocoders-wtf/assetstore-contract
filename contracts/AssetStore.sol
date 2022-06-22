@@ -57,6 +57,9 @@ contract AssetStore is Ownable, IAssetStore {
   // Whitelist
   mapping(address => bool) whitelist;
 
+  // Disabled (just in case...)
+  mapping(uint256 => bool) disabled;
+
   constructor() {
     whitelist[msg.sender] = true;
   }
@@ -160,6 +163,20 @@ contract AssetStore is Ownable, IAssetStore {
     require(whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
     _;
   }
+   
+  modifier exists(uint256 _assetId) {
+    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
+    _;
+  }
+
+  modifier enabled(uint256 _assetId) {
+    require(disabled[_assetId] != true);
+    _;    
+  }
+
+  function setDisabled(uint256 _assetId, bool _status) external exists(_assetId) onlyOwner {
+    disabled[_assetId] = _status;
+  }
 
   function registerAsset(AssetInfo memory _assetInfo) external override onlyWhitelist returns(uint256) {
     return _registerAsset(_assetInfo);
@@ -197,14 +214,12 @@ contract AssetStore is Ownable, IAssetStore {
   }
 
   // returns a SVG part with the specified assetId
-  function generateSVGPart(uint256 _assetId) external override view returns(string memory) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore.generateSVGPart: asset index is out of range"); 
+  function generateSVGPart(uint256 _assetId) external override view exists(_assetId) returns(string memory) {
     return string(_safeGenerateSVGPart(_assetId));
   }
 
   // returns a full SVG with the specified assetId
-  function generateSVG(uint256 _assetId) external override view returns(string memory) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore.generateSVG: asset index is out of range"); 
+  function generateSVG(uint256 _assetId) external override view exists(_assetId) returns(string memory) {
     Asset storage asset = assets[_assetId];
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 ', (asset.width).toString(), ' ', (asset.height).toString(), '" xmlns="http://www.w3.org/2000/svg">\n', 
@@ -219,8 +234,7 @@ contract AssetStore is Ownable, IAssetStore {
   }
 
   // returns the raw asset data speicified by the assetId (1, ..., count)
-  function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore.getRawAsset: assetId is out of range");
+  function getRawAsset(uint256 _assetId) external view onlyOwner exists(_assetId) returns(Asset memory) {
     return assets[_assetId];
   }
 
