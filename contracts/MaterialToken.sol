@@ -65,6 +65,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     string memory stringId = tokenId.toString();
     string memory name = string(abi.encodePacked('Material Icon #', stringId));
     uint256 assetId = assetIds[tokenId];
+    bytes memory assetTag = abi.encodePacked('#asset', assetId.toString());
     bytes memory image = abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n',
       '<defs>\n',
@@ -78,23 +79,19 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       ' <clipPath id="ne"><rect x="12" y="0" width="12" height="12" /></clipPath>\n',
       ' <clipPath id="se"><rect x="12" y="12" width="12" height="12" /></clipPath>\n',
       assetStore.generateSVGPart(assetId),
-      '</defs>\n');
+      '</defs>\n',
+      '<g filter="url(#f1)">\n');
     if (primaries[tokenId]) {
       image = abi.encodePacked(image,
-        '<g filter="url(#f1)">\n',
-        ' <use href="#asset', assetId.toString() ,'" fill="#4285F4" clip-path="url(#ne)" />',
-        ' <use href="#asset', assetId.toString() ,'" fill="#34A853" clip-path="url(#se)" />',
-        ' <use href="#asset', assetId.toString() ,'" fill="#FBBC05" clip-path="url(#sw)" />',
-        ' <use href="#asset', assetId.toString() ,'" fill="#EA4335" clip-path="url(#nw)" />',
-        '</g>\n',
-        '</svg>');
+        ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />',
+        ' <use href="', assetTag ,'" fill="#34A853" clip-path="url(#se)" />',
+        ' <use href="', assetTag ,'" fill="#FBBC05" clip-path="url(#sw)" />',
+        ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />');
     } else {
       image = abi.encodePacked(image,
-        '<g filter="url(#f1)">\n',
-        ' <use href="#asset', assetId.toString() ,'" fill="#4285F4" />',
-        '</g>\n',
-        '</svg>');
+        ' <use href="', assetTag ,'" fill="#4285F4" />');
     }
+    image = abi.encodePacked(image,'</g>\n</svg>');
 
     return string(
       abi.encodePacked(
