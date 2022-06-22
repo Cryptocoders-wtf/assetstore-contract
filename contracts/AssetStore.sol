@@ -58,14 +58,10 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
   // Group/Category/Name => assetId
   mapping(string => mapping(string => mapping(string => uint256))) internal assetIdsLookup;
 
-  // Whitelist
-  mapping(address => bool) whitelist;
-
   // Disabled (just in case...)
   mapping(uint256 => bool) disabled;
 
   constructor() {
-    whitelist[msg.sender] = true;
   }
 
   // Returns the groupId of the specified group, creating a new Id if necessary.
@@ -121,11 +117,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
     return assetId;
   }
 
-  modifier onlyWhitelist {
-    require(whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
-    _;
-  }
-   
   modifier exists(uint256 _assetId) {
     require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
     _;
@@ -163,6 +154,13 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
 
 // Adminstrative functions for the owner
 abstract contract AssetStoreAdmin is AssetStoreCore {
+  constructor() {
+    whitelist[msg.sender] = true;
+  }
+
+  // Whitelist
+  mapping(address => bool) whitelist;
+
   function setWhitelistStatus(address _address, bool _status) external onlyOwner {
     whitelist[_address] = _status;
   }
@@ -190,6 +188,11 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
 
 // Private functions for registering contracts
 abstract contract AppStoreRegistory is AssetStoreAdmin {
+  modifier onlyWhitelist {
+    require(whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
+    _;
+  }
+   
   function registerAsset(AssetInfo memory _assetInfo) external override onlyWhitelist returns(uint256) {
     return _registerAsset(_assetInfo);
   }
