@@ -113,4 +113,10 @@ describe("Baisc", function () {
     expect(await catchError(async ()=>{ await contract.registerAsset(assetAccount); })).equal(true);
     expect(await catchError(async ()=>{ await contract.registerAsset(assetHome); })).equal(true);
   });
+  it("Disable", async function () {
+    await contract.setDisabled(1, true);
+    expect(await catchError(async ()=>{ await contract.generateSVG(1); })).equal(true);
+    await contract.setDisabled(1, false);
+    expect(await catchError(async ()=>{ await contract.generateSVG(1); })).equal(false);
+  });
 });
