@@ -49,8 +49,12 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     uint256 assetId = assetStore.registerAsset(_assetInfo);
     uint256 tokenId = _safeMintWithAssetId(msg.sender, assetId, true);
     _safeMintWithAssetId(msg.sender, assetId, false);
+    
     if (_affiliate > 0 && _exists(_affiliate)) {
-      _safeMintWithAssetId(ownerOf(_affiliate), assetId, false);
+      address affiliater = ownerOf(_affiliate); 
+      if (affiliater != msg.sender) {
+        _safeMintWithAssetId(ownerOf(_affiliate), assetId, false);
+      }
     }
     return tokenId;    
   }
