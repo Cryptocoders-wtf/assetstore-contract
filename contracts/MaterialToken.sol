@@ -43,12 +43,17 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return tokenId;    
   }
 
+  function getAssetId(uint256 _tokenId) external view returns(uint256) {
+    require(_exists(_tokenId), 'MaterialToken.getAssetId: nonexistent token');
+    return assetIds[_tokenId];
+  }
+
   /**
     * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
     * @dev See {IERC721Metadata-tokenURI}.
     */
   function tokenURI(uint256 tokenId) public view override returns (string memory) {
-    require(_exists(tokenId), 'MaterialToken: URI query for nonexistent token');
+    require(_exists(tokenId), 'MaterialToken.tokenURI: nonexistent token');
     string memory stringId = tokenId.toString();
     string memory name = string(abi.encodePacked('Material Icon #', stringId));
     string memory image = Base64.encode(bytes(abi.encodePacked(

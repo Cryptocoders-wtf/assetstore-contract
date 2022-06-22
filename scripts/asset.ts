@@ -66,11 +66,11 @@ async function main() {
   //console.log(asset);
 
   await materialToken.mint(asset);
+  const assetId = await materialToken.getAssetId(0);
+  
+  // await assetStore.setDisabled(assetId, true);
 
-  // await assetStore.setDisabled(1, true);
-
-  const tokenId = 0;
-  const uri = await materialToken.tokenURI(tokenId);
+  const uri = await materialToken.tokenURI(0);
   const data = atob(uri.substring(29));
   const json = JSON.parse(data);
   const imageData = json.image.substring(26);
