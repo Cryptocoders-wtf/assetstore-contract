@@ -65,7 +65,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     string memory stringId = tokenId.toString();
     string memory name = string(abi.encodePacked('Material Icon #', stringId));
     uint256 assetId = assetIds[tokenId];
-    string memory image = Base64.encode(bytes(abi.encodePacked(
+    bytes memory image = abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n',
       '<defs>\n',
       ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n',
@@ -86,13 +86,17 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       ' <use href="#asset', assetId.toString() ,'" fill="#FBBC05" clip-path="url(#sw)" />',
       ' <use href="#asset', assetId.toString() ,'" fill="#EA4335" clip-path="url(#nw)" />',
       '</g>\n'),
-      '</svg>')));
+      '</svg>');
+
     return string(
       abi.encodePacked(
         'data:application/json;base64,',
         Base64.encode(
           bytes(
-            abi.encodePacked('{"name":"', name, '", "description":"', description, '", "image": "', 'data:image/svg+xml;base64,', image, '"}')
+            abi.encodePacked('{"name":"', name, '","description":"', description, 
+               '","image":"', 'data:image/svg+xml;base64,', 
+              Base64.encode(image), 
+              '"}')
           )
         )
       )
