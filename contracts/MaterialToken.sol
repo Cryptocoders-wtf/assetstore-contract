@@ -1,4 +1,13 @@
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: MIT
+
+/*
+ * Material Icon NFT (ERC721). The mint function takes IAssetStore.AssetInfo as a parameter.
+ * It registers the specified asset to the AssetStore and mint a token which represents
+ * the "uplaoder" of the asset (who paid the gas fee). After that, the asset will beome
+ * available to other smart contracts either as CC0 or CC-BY (see the AssetStore for details).
+ * 
+ * Created by Satoshi Nakajima (@snakajima)
+ */
 
 pragma solidity ^0.8.6;
 

@@ -1,4 +1,18 @@
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: MIT
+
+/*
+ * On-chain asset store, which allows multiple smart contracts to shara vector assets.
+ * All assets registered to this store will be treated as either cc0 (public domain) or 
+ * CC-BY(attribution). In case of CC-BY, the creater's name must be in either "Group"
+ * or "Category".
+ *
+ * All registered assets will be available to other smart contracts for free.
+ *
+ * Once an asset is registed with group/category/name, it is NOT possible to update,
+ * which guaranttees the availability in future.  
+ * 
+ * Created by Satoshi Nakajima (@snakajima)
+ */
 
 pragma solidity ^0.8.6;
 
