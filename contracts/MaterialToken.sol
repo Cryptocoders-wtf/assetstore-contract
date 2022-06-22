@@ -20,6 +20,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract MaterialToken is Ownable, ERC721Enumerable {
   using Strings for uint256;
+  using Strings for uint16;
 
   IAssetStore public immutable assetStore;
 
@@ -88,8 +89,15 @@ contract MaterialToken is Ownable, ERC721Enumerable {
         ' <use href="', assetTag ,'" fill="#FBBC05" clip-path="url(#sw)" />',
         ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />');
     } else {
-      image = abi.encodePacked(image,
-        ' <use href="', assetTag ,'" fill="#4285F4" />');
+      string[4] memory colors = ["#4285F4", "#34A853", "#FBBC05", "#EA4335"]; 
+      uint16 i;
+      for (i=0; i<20; i++) {
+        uint16 x = (i * 6) % 24;
+        uint16 y = (i * 2) % 24;
+        image = abi.encodePacked(image,
+          ' <use href="', assetTag ,'" fill="', colors[i % 4], 
+              '" x="', x.toString(), '" y="', y.toString(), '" />');
+      }
     }
     image = abi.encodePacked(image,'</g>\n</svg>');
 
