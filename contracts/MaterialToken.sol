@@ -65,11 +65,19 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n',
       '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n',
       ' </filter>\n',
+      ' <clipPath id="nw"><rect x="0" y="0" width="12" height="12" /></clipPath>\n',
+      ' <clipPath id="sw"><rect x="0" y="12" width="12" height="12" /></clipPath>\n',
+      ' <clipPath id="ne"><rect x="12" y="0" width="12" height="12" /></clipPath>\n',
+      ' <clipPath id="se"><rect x="12" y="12" width="12" height="12" /></clipPath>\n',
       assetStore.generateSVGPart(assetId),
       '</defs>\n',
-      '<g fill="blue" filter="url(#f1)">\n',
-      ' <use href="#asset', assetId.toString() ,'" />',
-      '</g>\n',
+      abi.encodePacked(
+      '<g filter="url(#f1)">\n',
+      ' <use href="#asset', assetId.toString() ,'" fill="#4285F4" clip-path="url(#nw)" />',
+      ' <use href="#asset', assetId.toString() ,'" fill="#34A853" clip-path="url(#sw)" />',
+      ' <use href="#asset', assetId.toString() ,'" fill="#FBBC05" clip-path="url(#ne)" />',
+      ' <use href="#asset', assetId.toString() ,'" fill="#EA4335" clip-path="url(#se)" />',
+      '</g>\n'),
       '</svg>')));
     return string(
       abi.encodePacked(
