@@ -66,6 +66,9 @@ async function main() {
   //console.log(asset);
 
   await materialToken.mint(asset);
+
+  // await assetStore.setDisabled(1, true);
+
   const tokenId = 0;
   const uri = await materialToken.tokenURI(tokenId);
   const data = atob(uri.substring(29));

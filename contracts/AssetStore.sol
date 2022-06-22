@@ -170,7 +170,8 @@ contract AssetStore is Ownable, IAssetStore {
   }
 
   modifier enabled(uint256 _assetId) {
-    require(disabled[_assetId] != true);
+    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
+    require(disabled[_assetId] != true, "AssetStore: this asset is diabled");
     _;    
   }
 
@@ -214,12 +215,12 @@ contract AssetStore is Ownable, IAssetStore {
   }
 
   // returns a SVG part with the specified assetId
-  function generateSVGPart(uint256 _assetId) external override view exists(_assetId) returns(string memory) {
+  function generateSVGPart(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
     return string(_safeGenerateSVGPart(_assetId));
   }
 
   // returns a full SVG with the specified assetId
-  function generateSVG(uint256 _assetId) external override view exists(_assetId) returns(string memory) {
+  function generateSVG(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
     Asset storage asset = assets[_assetId];
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 ', (asset.width).toString(), ' ', (asset.height).toString(), '" xmlns="http://www.w3.org/2000/svg">\n', 
