@@ -58,25 +58,21 @@ async function main() {
   await assetStore.setWhitelistStatus(materialToken.address, true);
 
   let asset = Object.assign({}, assetBase);
-  let material = materials[1];
-  asset.name = material.name;
-  asset.group = material.group;
-  asset.category = material.category;
-  asset.parts[0].body = material.body;
-  await materialToken.mint(asset, 0);
+  let i:number;
+  for(i = 0; i < 6; i++) {
+    let material = materials[i];
+    asset.name = material.name;
+    asset.group = material.group;
+    asset.category = material.category;
+    asset.parts[0].body = material.body;
+    await materialToken.mint(asset, 0);
+  }
 
-  material = materials[2];
-  asset.name = material.name;
-  asset.group = material.group;
-  asset.category = material.category;
-  asset.parts[0].body = material.body;
-  await materialToken.mint(asset, 1);
-
-  const assetId = await materialToken.getAssetId(0);
+  const assetId = await materialToken.getAssetId(11);
   
   // await assetStore.setDisabled(assetId, true);
 
-  const uri = await materialToken.tokenURI(3);
+  const uri = await materialToken.tokenURI(11);
   const data = atob(uri.substring(29));
   const json = JSON.parse(data);
   const imageData = json.image.substring(26);
