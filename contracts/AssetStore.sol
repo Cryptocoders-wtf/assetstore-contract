@@ -20,10 +20,10 @@
 pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
-import { IAssetStore } from './interfaces/IAssetStore.sol';
+import { IAssetStoreRegistry } from './interfaces/IAssetStore.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-abstract contract AssetStoreCore is Ownable, IAssetStore {
+abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   using Strings for uint16;
   using Strings for uint256;
   struct Asset {

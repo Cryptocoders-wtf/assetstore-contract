@@ -22,8 +22,10 @@ interface IAssetStore {
   function getAssetIdWithName(string memory group, string memory category, string memory name) external view returns(uint256);
   function generateSVG(uint256 _assetId) external view returns(string memory);
   function generateSVGPart(uint256 _assetId) external view returns(string memory);
+}
 
-  // Private functions
+interface IAssetStoreRegistry is IAssetStore {
+  // Private functions available only to registering contracts in the whitelist.
   function registerAsset(AssetInfo memory _assetInfo) external returns(uint256);
   function registerAssets(AssetInfo[] memory _assetInfos) external returns(uint256);
 }
