@@ -58,12 +58,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
   // Group/Category/Name => assetId
   mapping(string => mapping(string => mapping(string => uint256))) internal assetIdsLookup;
 
-  // Disabled (just in case...)
-  mapping(uint256 => bool) disabled;
-
-  constructor() {
-  }
-
   // Returns the groupId of the specified group, creating a new Id if necessary.
   // @notice gruopId == groupIndex + 1
   function _getGroupId(string memory group) internal returns(uint32) {
@@ -117,11 +111,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
     return assetId;
   }
 
-  modifier exists(uint256 _assetId) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
-    _;
-  }
-
   function _getDescription(Asset storage asset) internal view returns(bytes memory) {
     string memory group = groups[asset.groupId - 1];
     return abi.encodePacked(group, '/', categories[group][asset.categoryId - 1], '/', asset.name);
@@ -143,7 +132,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
     pack = abi.encodePacked(pack, ' </g>\n');
     return pack;
   }
-
 }
 
 // Adminstrative functions for the owner
@@ -154,6 +142,14 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
 
   // Whitelist
   mapping(address => bool) whitelist;
+
+  // Disabled (just in case...)
+  mapping(uint256 => bool) disabled;
+
+  modifier exists(uint256 _assetId) {
+    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
+    _;
+  }
 
   function setWhitelistStatus(address _address, bool _status) external onlyOwner {
     whitelist[_address] = _status;
