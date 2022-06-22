@@ -122,12 +122,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
     _;
   }
 
-  modifier enabled(uint256 _assetId) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
-    require(disabled[_assetId] != true, "AssetStore: this asset is diabled");
-    _;    
-  }
-
   function _getDescription(Asset storage asset) internal view returns(bytes memory) {
     string memory group = groups[asset.groupId - 1];
     return abi.encodePacked(group, '/', categories[group][asset.categoryId - 1], '/', asset.name);
@@ -210,6 +204,12 @@ abstract contract AppStoreRegistory is AssetStoreAdmin {
 // Public functions (all views)
 contract AssetStore is AppStoreRegistory {
   using Strings for uint16;
+
+  modifier enabled(uint256 _assetId) {
+    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
+    require(disabled[_assetId] != true, "AssetStore: this asset is diabled");
+    _;    
+  }
 
   // Returns the number of registered groups.
   function getGroupCount() external view returns(uint32) {
