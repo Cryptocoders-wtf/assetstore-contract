@@ -30,7 +30,7 @@ const materials = [{
 
 const assetBase:any = {
   width: 24, height: 24,
-  group: "Material Icons",
+  group: "Material Icons (Apache 2.0)",
   parts:[{
       mask: "", color: ""
   }]
