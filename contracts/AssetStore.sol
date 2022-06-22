@@ -36,10 +36,10 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
   }
 
   // asset & part database
-  mapping(uint256 => Asset) private assets;
-  uint256 private nextAssetIndex = 1; // 0 indicates an error
-  mapping(uint256 => Part) private parts;
-  uint256 private nextPartIndex = 1; // 0 indicates an error
+  mapping(uint256 => Asset) internal assets;
+  uint256 internal nextAssetIndex = 1; // 0 indicates an error
+  mapping(uint256 => Part) internal parts;
+  uint256 internal nextPartIndex = 1; // 0 indicates an error
 
   // Groups (for browsing)
   mapping(uint32 => string) internal groups;
@@ -47,8 +47,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
   mapping(string => uint32) private groupIds; // index+1
 
   // Grouped categories (for browsing)
-  mapping(string => mapping(uint32 => string)) categories;
-  mapping(string => uint32) nextCategoryIndeces;
+  mapping(string => mapping(uint32 => string)) internal categories;
+  mapping(string => uint32) internal nextCategoryIndeces;
   mapping(string => mapping(string => uint32)) private categoryIds; // index+1
 
   // Grouped and categorized assetIds (for browsing)
@@ -121,10 +121,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
     return assetId;
   }
 
-  function setWhitelistStatus(address _address, bool _status) external onlyOwner {
-    whitelist[_address] = _status;
-  }
-
   modifier onlyWhitelist {
     require(whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
     _;
@@ -139,23 +135,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
     require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
     require(disabled[_assetId] != true, "AssetStore: this asset is diabled");
     _;    
-  }
-
-  function setDisabled(uint256 _assetId, bool _status) external exists(_assetId) onlyOwner {
-    disabled[_assetId] = _status;
-  }
-
-  function registerAsset(AssetInfo memory _assetInfo) external override onlyWhitelist returns(uint256) {
-    return _registerAsset(_assetInfo);
-  }
-
-  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyWhitelist returns(uint256) {
-    uint i;
-    uint assetIndex;
-    for (i=0; i<_assetInfos.length; i++) {
-      assetIndex = _registerAsset(_assetInfos[i]);
-    }
-    return assetIndex;
   }
 
   function _getDescription(Asset storage asset) internal view returns(bytes memory) {
@@ -180,19 +159,29 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
     return pack;
   }
 
-  // returns a SVG part with the specified assetId
-  function generateSVGPart(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
-    return string(_safeGenerateSVGPart(_assetId));
+}
+
+// Private functions for Admin (owner)
+abstract contract AppStoreAdmin is AssetStoreCore {
+  function setWhitelistStatus(address _address, bool _status) external onlyOwner {
+    whitelist[_address] = _status;
   }
 
-  // returns a full SVG with the specified assetId
-  function generateSVG(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
-    Asset storage asset = assets[_assetId];
-    bytes memory pack = abi.encodePacked(
-      '<svg viewBox="0 0 ', (asset.width).toString(), ' ', (asset.height).toString(), '" xmlns="http://www.w3.org/2000/svg">\n', 
-      _safeGenerateSVGPart(_assetId), 
-      '</svg>');
-    return string(pack);
+  function setDisabled(uint256 _assetId, bool _status) external exists(_assetId) onlyOwner {
+    disabled[_assetId] = _status;
+  }
+
+  function registerAsset(AssetInfo memory _assetInfo) external override onlyWhitelist returns(uint256) {
+    return _registerAsset(_assetInfo);
+  }
+
+  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyWhitelist returns(uint256) {
+    uint i;
+    uint assetIndex;
+    for (i=0; i<_assetInfos.length; i++) {
+      assetIndex = _registerAsset(_assetInfos[i]);
+    }
+    return assetIndex;
   }
 
   // Returns the number of registered assets
@@ -212,7 +201,10 @@ abstract contract AssetStoreCore is Ownable, IAssetStore {
   }
 }
 
-contract AssetStore is AssetStoreCore {
+// Public functions (all views)
+contract AssetStore is AppStoreAdmin {
+  using Strings for uint16;
+
   // Returns the number of registered groups.
   function getGroupCount() external view returns(uint32) {
     return nextGroup;
@@ -249,5 +241,20 @@ contract AssetStore is AssetStoreCore {
   // Returns the assetId of the specified group/category/name. 
   function getAssetIdWithName(string memory group, string memory category, string memory name) external override view returns(uint256) {
     return assetIdsLookup[group][category][name];
+  }
+
+  // returns a SVG part with the specified assetId
+  function generateSVGPart(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
+    return string(_safeGenerateSVGPart(_assetId));
+  }
+
+  // returns a full SVG with the specified assetId
+  function generateSVG(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
+    Asset storage asset = assets[_assetId];
+    bytes memory pack = abi.encodePacked(
+      '<svg viewBox="0 0 ', (asset.width).toString(), ' ', (asset.height).toString(), '" xmlns="http://www.w3.org/2000/svg">\n', 
+      _safeGenerateSVGPart(_assetId), 
+      '</svg>');
+    return string(pack);
   }
 }
