@@ -23,6 +23,9 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
+/*
+ * Abstract contract that implements the categolized asset storage system. 
+ */
 abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   using Strings for uint16;
   using Strings for uint256;
@@ -60,7 +63,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
 
   // Returns the groupId of the specified group, creating a new Id if necessary.
   // @notice gruopId == groupIndex + 1
-  function _getGroupId(string memory group) internal returns(uint32) {
+  function _getGroupId(string memory group) private returns(uint32) {
     uint32 groupId = groupIds[group];
     if (groupId == 0) {
       groups[nextGroup++] = group;
@@ -73,7 +76,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // Returns the categoryId of the specified category in a group, creating a new Id if necessary.
   // The categoryId is unique only within that group. 
   // @notice categoryId == categoryIndex + 1
-  function _getCategoryId(string memory group, string memory category) internal returns(uint32) {
+  function _getCategoryId(string memory group, string memory category) private returns(uint32) {
     uint32 categoryId = categoryIds[group][category];
     if (categoryId == 0) {
       categories[group][nextCategoryIndeces[group]++] = category;
@@ -83,7 +86,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     return categoryId;
   }
 
-  function _registerPart(Part memory _part) internal returns(uint256) {
+  function _registerPart(Part memory _part) private returns(uint256) {
     parts[nextPartIndex++] = _part;
     return nextPartIndex-1;    
   }
@@ -112,7 +115,10 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   }
 }
 
-// Adminstrative functions for the owner
+/*
+ * Abstract contract that implements various adminstrative functions, such as
+ * managing the whitelist, disable/enable assets and accessing the raw data.
+ */
 abstract contract AssetStoreAdmin is AssetStoreCore {
   constructor() {
     whitelist[msg.sender] = true;
@@ -154,7 +160,10 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
   }
 }
 
-// Private functions for registering contracts
+/*
+ * Concreate contract that implements IAssetStoreRegistory
+ * We will never deploy this contract. 
+ */
 contract AppStoreRegistory is AssetStoreAdmin {
   modifier onlyWhitelist {
     require(whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
@@ -175,7 +184,10 @@ contract AppStoreRegistory is AssetStoreAdmin {
   }
 }
 
-// Public functions (all views)
+/*
+ * Concreate contract that implements both IAssetStore and IAssetStoreRegistory
+ * This is the contract we deploy to the blockchain.
+ */
 contract AssetStore is AppStoreRegistory, IAssetStore {
   using Strings for uint16;
   using Strings for uint256;
