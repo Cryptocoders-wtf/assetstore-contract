@@ -31,6 +31,7 @@ const materials = [{
 const assetBase:any = {
   width: 24, height: 24,
   group: "Material Icons (Apache 2.0)",
+  minterName: "nounsfes",
   parts:[{
       mask: "", color: ""
   }]
@@ -60,6 +61,9 @@ async function main() {
     asset.name = material.name;
     asset.category = material.category;
     asset.parts[0].body = material.body;
+    if (i % 2 == 0) {
+      asset.minterName = "";
+    }
     await materialToken.mint(asset, 0);
   }
 
