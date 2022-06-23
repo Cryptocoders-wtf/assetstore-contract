@@ -40,9 +40,9 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
 
   // asset & part database
   mapping(uint256 => Asset) internal assets;
-  uint256 internal nextAssetIndex = 1; // 0 indicates an error
+  uint256 private nextAssetIndex = 1; // 0 indicates an error
   mapping(uint256 => Part) internal parts;
-  uint256 internal nextPartIndex = 1; // 0 indicates an error
+  uint256 private nextPartIndex = 1; // 0 indicates an error
 
   // Groups (for browsing)
   mapping(uint32 => string) internal groups;
@@ -113,6 +113,21 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
 
     return assetId;
   }
+
+  // Returns the number of registered assets
+  function getAssetCount() external view onlyOwner returns(uint256) {
+    return nextAssetIndex - 1;
+  }
+
+  modifier exists(uint256 _assetId) {
+    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
+    _;
+  }
+
+  modifier partExists(uint256 _partId) {
+    require(_partId > 0 && _partId < nextPartIndex, "partId is out of range");
+    _;
+  }
 }
 
 /*
@@ -130,11 +145,6 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
   // Disabled (just in case...)
   mapping(uint256 => bool) disabled;
 
-  modifier exists(uint256 _assetId) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
-    _;
-  }
-
   function setWhitelistStatus(address _address, bool _status) external onlyOwner {
     whitelist[_address] = _status;
   }
@@ -143,19 +153,13 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
     disabled[_assetId] = _status;
   }
 
-  // Returns the number of registered assets
-  function getAssetCount() external view onlyOwner returns(uint256) {
-    return nextAssetIndex - 1;
-  }
-
   // returns the raw asset data speicified by the assetId (1, ..., count)
   function getRawAsset(uint256 _assetId) external view onlyOwner exists(_assetId) returns(Asset memory) {
     return assets[_assetId];
   }
 
   // returns the raw part data specified by the assetId (1, ... count)
-  function getRawPart(uint256 _partId) external view onlyOwner returns(Part memory) {
-    require(_partId > 0 && _partId < nextPartIndex, "partId is out of range");
+  function getRawPart(uint256 _partId) external view onlyOwner partExists(_partId) returns(Part memory) {
     return parts[_partId];
   }
 }
@@ -193,7 +197,6 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   using Strings for uint256;
 
   modifier enabled(uint256 _assetId) {
-    require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
     require(disabled[_assetId] != true, "AssetStore: this asset is diabled");
     _;    
   }
@@ -259,7 +262,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // returns a SVG part with the specified assetId
-  function generateSVGPart(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
+  function generateSVGPart(uint256 _assetId) external override view exists(_assetId) enabled(_assetId) returns(string memory) {
     return string(_safeGenerateSVGPart(_assetId));
   }
 
