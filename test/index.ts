@@ -81,6 +81,7 @@ describe("AssetStore Component Test", function () {
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(assetId);
     const attr: any = await contract.getAttributes(assetId);
     expect(attr.name == asset.name && attr.group == asset.group && attr.category==asset.category).equal(true);
+    expect(attr.minterName == asset.minterName).equal(true);
   });
   it("Register 'Settings'", async function () {
     asset = assetSettings;
@@ -98,6 +99,7 @@ describe("AssetStore Component Test", function () {
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(assetId);
     const attr: any = await contract.getAttributes(assetId);
     expect(attr.name == asset.name && attr.group == asset.group && attr.category==asset.category).equal(true);
+    expect(attr.minterName == asset.minterName).equal(true);
   });
   it("Register 'Account'", async function () {
     asset = assetAccount;

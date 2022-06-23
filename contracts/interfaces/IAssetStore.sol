@@ -18,6 +18,7 @@ interface IAssetStore {
     string group;
     string category;
     string name;
+    string minterName;
     uint16 width;
     uint16 height;
   }
