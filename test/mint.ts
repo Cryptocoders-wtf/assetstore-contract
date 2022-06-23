@@ -110,4 +110,10 @@ describe("Baisc", function () {
     expect(await catchError(async ()=>{ await assetStore1.getRawAsset(1); })).equal(true);
     expect(await catchError(async ()=>{ await assetStore1.getRawPart(1); })).equal(true);
   });
+  it("Raw Data", async function () {
+    const asset = await assetStore.getRawAsset(1);
+    const part = await assetStore.getRawAsset(1);
+    //console.log(asset);
+    //console.log(part);
+  });
 });
