@@ -20,7 +20,7 @@
 pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
-import { IAssetStoreRegistry } from './interfaces/IAssetStore.sol';
+import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
@@ -176,7 +176,7 @@ abstract contract AppStoreRegistory is AssetStoreAdmin {
 }
 
 // Public functions (all views)
-contract AssetStore is AppStoreRegistory {
+contract AssetStore is AppStoreRegistory, IAssetStore {
   using Strings for uint16;
   using Strings for uint256;
 

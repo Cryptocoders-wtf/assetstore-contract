@@ -14,7 +14,7 @@ pragma solidity ^0.8.6;
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import { IAssetStoreRegistry } from './interfaces/IAssetStore.sol';
+import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
@@ -22,7 +22,8 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   using Strings for uint256;
   using Strings for uint16;
 
-  IAssetStoreRegistry public immutable assetStore;
+  IAssetStoreRegistry public immutable registry;
+  IAssetStore public immutable assetStore;
 
   mapping(uint256 => uint256) assetIds; // tokenId => assetId
   mapping(uint256 => bool) primaries;
@@ -33,7 +34,8 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   // The internal token ID tracker
   uint256 private _currentTokenId;
 
-  constructor(IAssetStoreRegistry _assetStore) ERC721("Material Icons", "MATERIAL") {
+  constructor(IAssetStoreRegistry _registry, IAssetStore _assetStore) ERC721("Material Icons", "MATERIAL") {
+    registry = _registry;
     assetStore = _assetStore;
   }
 
@@ -46,7 +48,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   }
 
   function mint(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external returns(uint256) {
-    uint256 assetId = assetStore.registerAsset(_assetInfo);
+    uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _safeMintWithAssetId(msg.sender, assetId, true);
     _safeMintWithAssetId(msg.sender, assetId, false);
 

@@ -47,7 +47,7 @@ async function main() {
   await assetStore.deployed();
   //console.log("assetStore address", assetStore.address);
   const materialTokenStoreFactory = await ethers.getContractFactory("MaterialToken");
-  const materialToken = await materialTokenStoreFactory.deploy(assetStore.address);
+  const materialToken = await materialTokenStoreFactory.deploy(assetStore.address, assetStore.address);
   await materialToken.deployed();
   //console.log("materialToken address", assetStore.address);
   await assetStore.setWhitelistStatus(materialToken.address, true);
