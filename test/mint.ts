@@ -52,7 +52,6 @@ before(async () => {
   materialToken = await materialTokenStoreFactory.deploy(assetStore.address, assetStore.address);
   await materialToken.deployed();
   //console.log("materialToken address", assetStore.address);
-  await assetStore.setWhitelistStatus(materialToken.address, true);
 });
 const catchError = async (callback: any) => {
   try {
@@ -66,19 +65,30 @@ const catchError = async (callback: any) => {
 
 describe("Baisc", function () {
   let asset:any;
+  it("Without Whitelist", async function () {
+    expect(await catchError(async ()=>{ await await materialToken.mint(assetDone, 0); })).equal(true);
+  });
   it("First mint", async function () {
+    const [owner] = await ethers.getSigners();
+    await assetStore.setWhitelistStatus(materialToken.address, true);
+    await materialToken.mint(assetDone, 0);
+    expect(await materialToken.balanceOf(owner.address)).equal(2);    
+  });
+  it("Affiliate", async function () {
     const [owner, user1, user2] = await ethers.getSigners();
     const materialToken1 = materialToken.connect(user1);
     const materialToken2 = materialToken.connect(user2);
-    await materialToken1.mint(assetDone, 0);
-    expect(await materialToken.balanceOf(user1.address)).equal(2);    
-    await materialToken2.mint(assetSettings, 1);
+    await materialToken1.mint(assetSettings, 0);
+    expect(await materialToken.balanceOf(user1.address)).equal(2);   
+    const tokenId = await materialToken.tokenOfOwnerByIndex(user1.address, 0); 
+    await materialToken2.mint(assetAccount, tokenId);
     expect(await materialToken.balanceOf(user2.address)).equal(2);    
     expect(await materialToken.balanceOf(user1.address)).equal(3); // affiliate    
   });
-  it("Settings", async function () {
-  });
-  it("Account", async function () {
+  it("Duplicate", async function () {
+    expect(await catchError(async ()=>{ await await materialToken.mint(assetDone, 0); })).equal(true);
+    expect(await catchError(async ()=>{ await await materialToken.mint(assetSettings, 0); })).equal(true);
+    expect(await catchError(async ()=>{ await await materialToken.mint(assetAccount, 0); })).equal(true);
   });
   it("Home", async function () {
   });
