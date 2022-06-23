@@ -14,8 +14,16 @@ interface IAssetStore {
   function getAssetIdWithName(string memory group, string memory category, string memory name) external view returns(uint256);
 
   // Fetching
+  struct AssetAttribute {
+    string group;
+    string category;
+    string name;
+    uint16 width;
+    uint16 height;
+  }
   function generateSVG(uint256 _assetId) external view returns(string memory);
   function generateSVGPart(uint256 _assetId) external view returns(string memory);
+  function getAttribute(uint256 _assetId) external view returns(AssetAttribute memory);
 }
 
 // IAssetStoreRegistry is the interface for contracts who registers assets to the AssetStore.

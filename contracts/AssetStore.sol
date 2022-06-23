@@ -278,12 +278,12 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     return pack;
   }
 
-  // returns a SVG part with the specified assetId
+  // returns a SVG part with the specified asset
   function generateSVGPart(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
     return string(_safeGenerateSVGPart(_assetId));
   }
 
-  // returns a full SVG with the specified assetId
+  // returns a full SVG with the specified asset
   function generateSVG(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
     Asset memory asset = _getAsset(_assetId);
     bytes memory pack = abi.encodePacked(
@@ -292,4 +292,17 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
       '</svg>');
     return string(pack);
   }
+
+  // returns the attributes of the specified asset
+  function getAttribute(uint256 _assetId) external view override returns(AssetAttribute memory) {
+    Asset memory asset = _getAsset(_assetId);
+    AssetAttribute memory attr;
+    attr.name = asset.name;
+    attr.group = groups[asset.groupId - 1];
+    attr.category = categories[attr.group][asset.categoryId - 1];
+    attr.width = asset.width;
+    attr.height = asset.height;
+    return attr;
+  }
+
 }
