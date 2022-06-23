@@ -41,7 +41,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // asset & part database
   mapping(uint256 => Asset) private assets;
   uint256 private nextAssetIndex = 1; // 0 indicates an error
-  mapping(uint256 => Part) internal parts;
+  mapping(uint256 => Part) private parts;
   uint256 private nextPartIndex = 1; // 0 indicates an error
 
   // Groups (for browsing)
@@ -132,6 +132,10 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   function _getAsset(uint256 _assetId) internal view assetExists(_assetId) returns(Asset memory) {
     return assets[_assetId];
   }
+
+  function _getPart(uint256 _partId) internal view partExists(_partId) returns(Part memory) {
+    return parts[_partId];
+  }
 }
 
 /*
@@ -163,8 +167,8 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
   }
 
   // returns the raw part data specified by the assetId (1, ... count)
-  function getRawPart(uint256 _partId) external view onlyOwner partExists(_partId) returns(Part memory) {
-    return parts[_partId];
+  function getRawPart(uint256 _partId) external view onlyOwner returns(Part memory) {
+    return _getPart(_partId);
   }
 }
 
@@ -254,7 +258,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     bytes memory pack = abi.encodePacked(' <g id="asset', _assetId.toString(), '" desc="', _getDescription(asset), '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
-      Part memory part = parts[indeces[i]];
+      Part memory part = _getPart(indeces[i]);
       if (bytes(part.color).length > 0) {
         pack = abi.encodePacked(pack, '  <path d="', part.body, '" fill="', part.color ,'" />\n');
       } else {
