@@ -58,9 +58,9 @@ const catchError = async (callback: any) => {
   }
 };
 
-describe("Baisc", function () {
+describe("AssetStore Component Test", function () {
   let asset:any;
-  it("Done", async function () {
+  it("Register 'Done'", async function () {
     asset = assetDone;
     await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(1);    
@@ -72,7 +72,7 @@ describe("Baisc", function () {
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(1);
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(1);
   });
-  it("Settings", async function () {
+  it("Register 'Settings'", async function () {
     asset = assetSettings;
     await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(2);    
@@ -84,7 +84,7 @@ describe("Baisc", function () {
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 1)).equal(2);    
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(2);
   });
-  it("Account", async function () {
+  it("Register 'Account'", async function () {
     asset = assetAccount;
     await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(3);    
@@ -96,7 +96,7 @@ describe("Baisc", function () {
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(3);    
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(3);
   });
-  it("Home", async function () {
+  it("Register 'Home'", async function () {
     asset = assetHome;
     await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(4);    
