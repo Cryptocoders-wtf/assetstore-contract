@@ -67,7 +67,7 @@ const catchError = async (callback: any) => {
 describe("Baisc", function () {
   let asset:any;
   it("Without Whitelist", async function () {
-    expect(await catchError(async ()=>{ await await materialToken.mint(assetDone, 0); })).equal(true);
+    expect(await catchError(async ()=>{ await materialToken.mint(assetDone, 0); })).equal(true);
   });
   it("First mint", async function () {
     const [owner] = await ethers.getSigners();
@@ -95,7 +95,11 @@ describe("Baisc", function () {
     expect(await catchError(async ()=>{ await materialToken.mint(assetSettings, 0); })).equal(true);
     expect(await catchError(async ()=>{ await materialToken.mint(assetAccount, 0); })).equal(true);
   });
-  it("Misc", async function () {
+  it("DisableWhitelist", async function () {
+    await assetStore.setWhitelistStatus(materialToken.address, false);
+    expect(await catchError(async ()=>{ await materialToken.mint(assetHome, 0); })).equal(true);
+    await assetStore.setDisableWhitelist(true);
+    await materialToken.mint(assetHome, 0);
   });
   it("Misc", async function () {
   });

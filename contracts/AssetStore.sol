@@ -153,6 +153,7 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
 
   // Whitelist
   mapping(address => bool) whitelist;
+  bool disableWhitelist = false;
 
   // Disabled (just in case...)
   mapping(uint256 => bool) disabled;
@@ -164,6 +165,10 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
   function setDisabled(uint256 _assetId, bool _status) external assetExists(_assetId) onlyOwner {
     disabled[_assetId] = _status;
   }
+
+  function setDisableWhitelist(bool _disable) external onlyOwner {
+    disableWhitelist = _disable;
+  } 
 
   // returns the raw asset data speicified by the assetId (1, ..., count)
   function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
@@ -182,7 +187,7 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
  */
 contract AppStoreRegistory is AssetStoreAdmin {
   modifier onlyWhitelist {
-    require(whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
+    require(disableWhitelist || whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
     _;
   }
    
