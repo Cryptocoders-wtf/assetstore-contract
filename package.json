@@ -38,6 +38,9 @@
     "typechain": "^5.1.2",
     "typescript": "^4.5.2"
   },
+  "scripts": {
+    "test" : "hardhat test --network hardhat"
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^4.6.0",
     "agent-base": "^6.0.2",
