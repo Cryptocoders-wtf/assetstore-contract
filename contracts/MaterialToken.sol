@@ -29,7 +29,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   mapping(uint256 => bool) primaries;
 
   // description
-  string public description = "Celebrating Pride Month 2022";
+  string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.xyz].";
 
   // The internal token ID tracker
   uint256 private _currentTokenId;
@@ -72,9 +72,9 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     */
   function tokenURI(uint256 tokenId) public view override returns (string memory) {
     require(_exists(tokenId), 'MaterialToken.tokenURI: nonexistent token');
-    string memory stringId = tokenId.toString();
-    string memory name = string(abi.encodePacked('Material Icon #', stringId));
     uint256 assetId = assetIds[tokenId];
+    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
+    string memory name = string(abi.encodePacked(attr.name));
     bytes memory assetTag = abi.encodePacked('#asset', assetId.toString());
     bytes memory image = abi.encodePacked(
       '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n',
