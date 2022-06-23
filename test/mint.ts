@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 
 let assetStore :any = null;
+let materialToken: any = null;
 const assetDone:any = {
   name: "Done",
   group: "Material Icons",
@@ -47,6 +48,11 @@ before(async () => {
   const factory = await ethers.getContractFactory("AssetStore");    
   assetStore = await factory.deploy();
   await assetStore.deployed();
+  const materialTokenStoreFactory = await ethers.getContractFactory("MaterialToken");
+  materialToken = await materialTokenStoreFactory.deploy(assetStore.address, assetStore.address);
+  await materialToken.deployed();
+  //console.log("materialToken address", assetStore.address);
+  await assetStore.setWhitelistStatus(materialToken.address, true);
 });
 const catchError = async (callback: any) => {
   try {
@@ -60,17 +66,15 @@ const catchError = async (callback: any) => {
 
 describe("Baisc", function () {
   let asset:any;
-  it("Done", async function () {
-    asset = assetDone;
-    await assetStore.registerAsset(asset);
-    expect(await assetStore.getAssetCount()).equal(1);    
-    expect(await assetStore.getGroupCount()).equal(1);    
-    expect(await assetStore.getGroupNameAtIndex(0)).equal(asset.group);    
-    expect(await assetStore.getCategoryCount(asset.group)).equal(1);    
-    expect(await assetStore.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);   
-    expect(await assetStore.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
-    expect(await assetStore.getAssetIdInCategory(asset.group, asset.category, 0)).equal(1);
-    expect(await assetStore.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(1);
+  it("First mint", async function () {
+    const [owner, user1, user2] = await ethers.getSigners();
+    const materialToken1 = materialToken.connect(user1);
+    const materialToken2 = materialToken.connect(user2);
+    await materialToken1.mint(assetDone, 0);
+    expect(await materialToken.balanceOf(user1.address)).equal(2);    
+    await materialToken2.mint(assetSettings, 1);
+    expect(await materialToken.balanceOf(user2.address)).equal(2);    
+    expect(await materialToken.balanceOf(user1.address)).equal(3); // affiliate    
   });
   it("Settings", async function () {
   });
