@@ -56,6 +56,7 @@ before(async () => {
 const catchError = async (callback: any) => {
   try {
     await callback();
+    console.log("success");
     return false;
   } catch(e:any) {
     // console.log(e.reason);
@@ -73,6 +74,10 @@ describe("Baisc", function () {
     await assetStore.setWhitelistStatus(materialToken.address, true);
     await materialToken.mint(assetDone, 0);
     expect(await materialToken.balanceOf(owner.address)).equal(2);    
+
+    await assetStore.setWhitelistStatus(materialToken.address, false);
+    expect(await catchError(async ()=>{ await materialToken.mint(assetHome, 0); })).equal(true);
+    await assetStore.setWhitelistStatus(materialToken.address, true);
   });
   it("Affiliate", async function () {
     const [owner, user1, user2] = await ethers.getSigners();
@@ -86,16 +91,12 @@ describe("Baisc", function () {
     expect(await materialToken.balanceOf(user1.address)).equal(3); // affiliate    
   });
   it("Duplicate", async function () {
-    expect(await catchError(async ()=>{ await await materialToken.mint(assetDone, 0); })).equal(true);
-    expect(await catchError(async ()=>{ await await materialToken.mint(assetSettings, 0); })).equal(true);
-    expect(await catchError(async ()=>{ await await materialToken.mint(assetAccount, 0); })).equal(true);
+    expect(await catchError(async ()=>{ await materialToken.mint(assetDone, 0); })).equal(true);
+    expect(await catchError(async ()=>{ await materialToken.mint(assetSettings, 0); })).equal(true);
+    expect(await catchError(async ()=>{ await materialToken.mint(assetAccount, 0); })).equal(true);
   });
-  it("Remove from Whitelist", async function () {
-    await assetStore.setWhitelistStatus(materialToken.address, true);
-    expect(await catchError(async ()=>{ await await materialToken.mint(assetDone, 0); })).equal(true);
+  it("Misc", async function () {
   });
-  it("Duplicate", async function () {
-  });
-  it("Disable", async function () {
+  it("Misc", async function () {
   });
 });
