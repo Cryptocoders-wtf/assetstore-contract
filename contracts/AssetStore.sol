@@ -294,9 +294,9 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // returns the attributes of the specified asset
-  function getAttribute(uint256 _assetId) external view override returns(AssetAttribute memory) {
+  function getAttributes(uint256 _assetId) external view override returns(AssetAttributes memory) {
     Asset memory asset = _getAsset(_assetId);
-    AssetAttribute memory attr;
+    AssetAttributes memory attr;
     attr.name = asset.name;
     attr.group = groups[asset.groupId - 1];
     attr.category = categories[attr.group][asset.categoryId - 1];
