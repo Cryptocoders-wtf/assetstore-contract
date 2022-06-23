@@ -63,30 +63,32 @@ describe("AssetStore Component Test", function () {
   it("Register 'Done'", async function () {
     asset = assetDone;
     await contract.registerAsset(asset);
-    expect(await contract.getAssetCount()).equal(1);    
+    const assetId = 1;
+    expect(await contract.getAssetCount()).equal(assetId);    
     expect(await contract.getGroupCount()).equal(1);    
     expect(await contract.getGroupNameAtIndex(0)).equal(asset.group);    
     expect(await contract.getCategoryCount(asset.group)).equal(1);    
     expect(await contract.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);   
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
-    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(1);
-    expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(1);
-    const attr: any = await contract.getAttributes(1);
-    console.log(attr);
+    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(assetId);
+    expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(assetId);
+    const attr: any = await contract.getAttributes(assetId);
+    expect(attr.name == asset.name && attr.group == asset.group && attr.category==asset.category).equal(true);
   });
   it("Register 'Settings'", async function () {
     asset = assetSettings;
     await contract.registerAsset(asset);
-    expect(await contract.getAssetCount()).equal(2);    
+    const assetId = 2;
+    expect(await contract.getAssetCount()).equal(assetId);    
     expect(await contract.getGroupCount()).equal(1);    
     expect(await contract.getGroupNameAtIndex(0)).equal(asset.group);    
     expect(await contract.getCategoryCount(asset.group)).equal(1);    
     expect(await contract.getCategoryNameAtIndex(asset.group, 0)).equal(asset.category);    
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(2);    
-    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 1)).equal(2);    
-    expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(2);
-    const attr: any = await contract.getAttributes(2);
-    console.log(attr);
+    expect(await contract.getAssetIdInCategory(asset.group, asset.category, 1)).equal(assetId);    
+    expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(assetId);
+    const attr: any = await contract.getAttributes(assetId);
+    expect(attr.name == asset.name && attr.group == asset.group && attr.category==asset.category).equal(true);
   });
   it("Register 'Account'", async function () {
     asset = assetAccount;
