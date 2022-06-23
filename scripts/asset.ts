@@ -50,7 +50,8 @@ async function main() {
   const materialToken = await materialTokenStoreFactory.deploy(assetStore.address, assetStore.address);
   await materialToken.deployed();
   //console.log("materialToken address", assetStore.address);
-  await assetStore.setWhitelistStatus(materialToken.address, true);
+  const tx = await assetStore.setWhitelistStatus(materialToken.address, true);
+  await tx.wait();
 
   let asset = Object.assign({}, assetBase);
   let i:number;
