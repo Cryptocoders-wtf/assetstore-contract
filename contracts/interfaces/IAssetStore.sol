@@ -19,6 +19,7 @@ interface IAssetStore {
     string category;
     string name;
     string minterName;
+    address minter;
     uint16 width;
     uint16 height;
   }
@@ -40,6 +41,7 @@ interface IAssetStoreRegistry {
     string category;
     string name;
     string minterName;
+    address minter;
     uint16 width;
     uint16 height;
     Part[] parts;
