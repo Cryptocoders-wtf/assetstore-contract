@@ -119,7 +119,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     return nextAssetIndex - 1;
   }
 
-  modifier exists(uint256 _assetId) {
+  modifier assetExists(uint256 _assetId) {
     require(_assetId > 0 && _assetId < nextAssetIndex, "AssetStore: assetId is out of range"); 
     _;
   }
@@ -149,12 +149,12 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
     whitelist[_address] = _status;
   }
 
-  function setDisabled(uint256 _assetId, bool _status) external exists(_assetId) onlyOwner {
+  function setDisabled(uint256 _assetId, bool _status) external assetExists(_assetId) onlyOwner {
     disabled[_assetId] = _status;
   }
 
   // returns the raw asset data speicified by the assetId (1, ..., count)
-  function getRawAsset(uint256 _assetId) external view onlyOwner exists(_assetId) returns(Asset memory) {
+  function getRawAsset(uint256 _assetId) external view onlyOwner assetExists(_assetId) returns(Asset memory) {
     return assets[_assetId];
   }
 
@@ -262,7 +262,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // returns a SVG part with the specified assetId
-  function generateSVGPart(uint256 _assetId) external override view exists(_assetId) enabled(_assetId) returns(string memory) {
+  function generateSVGPart(uint256 _assetId) external override view assetExists(_assetId) enabled(_assetId) returns(string memory) {
     return string(_safeGenerateSVGPart(_assetId));
   }
 
