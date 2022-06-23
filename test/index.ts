@@ -62,8 +62,11 @@ describe("AssetStore Component Test", function () {
   let asset:any;
   it("Register 'Done'", async function () {
     asset = assetDone;
-    await contract.registerAsset(asset);
-    const assetId = 1;
+    const tx = await contract.registerAsset(asset);
+    const result = await tx.wait();
+    const [event] = result.events;
+    expect(event.event).equal("Registered");
+    const assetId = event.args.assetId.toNumber();
     expect(await contract.getAssetCount()).equal(assetId);    
     expect(await contract.getGroupCount()).equal(1);    
     expect(await contract.getGroupNameAtIndex(0)).equal(asset.group);    
@@ -77,8 +80,10 @@ describe("AssetStore Component Test", function () {
   });
   it("Register 'Settings'", async function () {
     asset = assetSettings;
-    await contract.registerAsset(asset);
-    const assetId = 2;
+    const tx = await contract.registerAsset(asset);
+    const result = await tx.wait();
+    const [event] = result.events;
+    const assetId = event.args.assetId.toNumber();
     expect(await contract.getAssetCount()).equal(assetId);    
     expect(await contract.getGroupCount()).equal(1);    
     expect(await contract.getGroupNameAtIndex(0)).equal(asset.group);    

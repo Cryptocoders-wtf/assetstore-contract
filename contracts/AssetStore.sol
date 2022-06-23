@@ -113,6 +113,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     assetIdsInCategory[_assetInfo.group][_assetInfo.category][nextAssetIndecesInCategory[_assetInfo.group][_assetInfo.category]++] = assetId;
     assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] = assetId;
 
+    emit Registered(msg.sender, assetId);
     return assetId;
   }
 
