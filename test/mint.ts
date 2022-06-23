@@ -90,7 +90,9 @@ describe("Baisc", function () {
     expect(await catchError(async ()=>{ await await materialToken.mint(assetSettings, 0); })).equal(true);
     expect(await catchError(async ()=>{ await await materialToken.mint(assetAccount, 0); })).equal(true);
   });
-  it("Home", async function () {
+  it("Remove from Whitelist", async function () {
+    await assetStore.setWhitelistStatus(materialToken.address, true);
+    expect(await catchError(async ()=>{ await await materialToken.mint(assetDone, 0); })).equal(true);
   });
   it("Duplicate", async function () {
   });
