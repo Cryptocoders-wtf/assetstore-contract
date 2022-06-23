@@ -23,6 +23,8 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
+// import "hardhat/console.sol";
+
 /*
  * Abstract contract that implements the categolized asset storage system. 
  */
@@ -93,9 +95,45 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     return nextPartIndex-1;    
   }
 
+  // Validator
+  function validator(AssetInfo memory _assetInfo) internal view returns(bool) {
+    uint size = _assetInfo.parts.length;
+    uint i;
+    for (i=0; i < size; i++) {
+        if (!validateString(_assetInfo.parts[i].body)) {
+            return false;
+        }
+    }
+    return true;
+  }
+
+
+  // Validate String
+  function validateString(string memory str) public view returns (bool){
+      bytes memory b = bytes(str);
+      for(uint i; i<b.length; i++){
+          bytes1 char = b[i];
+          if(
+             !(char >= 0x30 && char <= 0x39) && //0-9
+             !(char >= 0x41 && char <= 0x5A) && //A-Z
+             !(char >= 0x61 && char <= 0x7A) && //a-z
+             !(char == 0x2E) && //.
+             !(char == 0x2C) && //,
+             !(char == 0x2D) && //-
+             !(char == 0x20) //SP
+             ) {
+              // console.log(uint8(char));
+              return false;
+          }
+      }
+      return true;
+  }
+
   // Register an Asset and returns its id, which is its index in assests[].
   function _registerAsset(AssetInfo memory _assetInfo) internal returns(uint256) {
     require(assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
+    require(validator(_assetInfo), "invalid AssetData");
+    
     uint size = _assetInfo.parts.length;
     uint256[] memory partsIds = new uint256[](size);
     uint i;

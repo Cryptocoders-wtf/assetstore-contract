@@ -47,6 +47,17 @@ const assetHome:any = {
   }]
 };
 
+const badAsset:any = {
+  name: "Bad",
+  group: "Fake Material Icons",
+  category: "Action",
+  width: 24, height: 24,
+  parts:[{
+      body: "><script></script><",
+      mask: "", color: "red"
+  }]
+};
+
 before(async () => {
   const factory = await ethers.getContractFactory("AssetStore");    
   contract = await factory.deploy();
@@ -123,6 +134,10 @@ describe("AssetStore Component Test", function () {
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(4);    
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(4);
+  });
+  it("Valid Data", async function () {
+    asset = badAsset;
+    expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
   });
   it("Duplicate", async function () {
     expect(await catchError(async ()=>{ await contract.registerAsset(assetDone); })).equal(true);
