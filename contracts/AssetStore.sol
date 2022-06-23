@@ -155,7 +155,7 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
 }
 
 // Private functions for registering contracts
-abstract contract AppStoreRegistory is AssetStoreAdmin {
+contract AppStoreRegistory is AssetStoreAdmin {
   modifier onlyWhitelist {
     require(whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
     _;
