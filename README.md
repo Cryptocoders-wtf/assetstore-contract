@@ -1,5 +1,10 @@
-# Nouns love
+# Asset Store
 
+## Setup package
+
+```
+yarn install
+```
 
 ## Setup your wallet
 
