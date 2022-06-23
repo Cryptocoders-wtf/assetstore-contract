@@ -39,7 +39,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   }
 
   // asset & part database
-  mapping(uint256 => Asset) internal assets;
+  mapping(uint256 => Asset) private assets;
   uint256 private nextAssetIndex = 1; // 0 indicates an error
   mapping(uint256 => Part) internal parts;
   uint256 private nextPartIndex = 1; // 0 indicates an error
@@ -128,6 +128,10 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     require(_partId > 0 && _partId < nextPartIndex, "partId is out of range");
     _;
   }
+
+  function _getAsset(uint256 _assetId) internal view assetExists(_assetId) returns(Asset memory) {
+    return assets[_assetId];
+  }
 }
 
 /*
@@ -154,8 +158,8 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
   }
 
   // returns the raw asset data speicified by the assetId (1, ..., count)
-  function getRawAsset(uint256 _assetId) external view onlyOwner assetExists(_assetId) returns(Asset memory) {
-    return assets[_assetId];
+  function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
+    return _getAsset(_assetId);
   }
 
   // returns the raw part data specified by the assetId (1, ... count)
@@ -239,14 +243,14 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     return assetIdsLookup[group][category][name];
   }
 
-  function _getDescription(Asset storage asset) internal view returns(bytes memory) {
+  function _getDescription(Asset memory asset) internal view returns(bytes memory) {
     string memory group = groups[asset.groupId - 1];
     return abi.encodePacked(group, '/', categories[group][asset.categoryId - 1], '/', asset.name);
   }
 
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
-    Asset storage asset = assets[_assetId];
-    uint256[] storage indeces = asset.partsIds;
+    Asset memory asset = _getAsset(_assetId);
+    uint256[] memory indeces = asset.partsIds;
     bytes memory pack = abi.encodePacked(' <g id="asset', _assetId.toString(), '" desc="', _getDescription(asset), '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
@@ -262,13 +266,13 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // returns a SVG part with the specified assetId
-  function generateSVGPart(uint256 _assetId) external override view assetExists(_assetId) enabled(_assetId) returns(string memory) {
+  function generateSVGPart(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
     return string(_safeGenerateSVGPart(_assetId));
   }
 
   // returns a full SVG with the specified assetId
   function generateSVG(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
-    Asset storage asset = assets[_assetId];
+    Asset memory asset = _getAsset(_assetId);
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 ', (asset.width).toString(), ' ', (asset.height).toString(), '" xmlns="http://www.w3.org/2000/svg">\n', 
       _safeGenerateSVGPart(_assetId), 
