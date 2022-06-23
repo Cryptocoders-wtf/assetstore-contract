@@ -101,6 +101,13 @@ describe("Baisc", function () {
     await assetStore.setDisableWhitelist(true);
     await materialToken.mint(assetHome, 0);
   });
-  it("Misc", async function () {
+  it("onlyOwner", async function () {
+    const [owner, user1] = await ethers.getSigners();
+    const assetStore1 = assetStore.connect(user1);
+    expect(await catchError(async ()=>{ await assetStore1.setWhitelistStatus(materialToken.address, false); })).equal(true);
+    expect(await catchError(async ()=>{ await assetStore1.setDisableWhitelist(true); })).equal(true);
+    expect(await catchError(async ()=>{ await assetStore1.setDisabled(1, true); })).equal(true);
+    expect(await catchError(async ()=>{ await assetStore1.getRawAsset(1); })).equal(true);
+    expect(await catchError(async ()=>{ await assetStore1.getRawPart(1); })).equal(true);
   });
 });
