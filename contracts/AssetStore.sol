@@ -86,11 +86,13 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     return categoryId;
   }
 
+  // Register a Part and returns its id, which is its index in parts[].
   function _registerPart(Part memory _part) private returns(uint256) {
     parts[nextPartIndex++] = _part;
     return nextPartIndex-1;    
   }
 
+  // Register an Asset and returns its id, which is its index in assests[].
   function _registerAsset(AssetInfo memory _assetInfo) internal returns(uint256) {
     require(assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
     uint size = _assetInfo.parts.length;
@@ -129,10 +131,12 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     _;
   }
 
+  // It allows us to keep the assets private. 
   function _getAsset(uint256 _assetId) internal view assetExists(_assetId) returns(Asset memory) {
     return assets[_assetId];
   }
 
+  // It allows us to keep the parts private. 
   function _getPart(uint256 _partId) internal view partExists(_partId) returns(Part memory) {
     return parts[_partId];
   }
