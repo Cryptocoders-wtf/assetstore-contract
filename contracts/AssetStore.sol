@@ -107,10 +107,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
         return false;
       }
     }
-    if (!validateString(_assetInfo.name) ||
-        !validateString(_assetInfo.minterName)) {
-      return false;
-    }
     return true;
   }
 
