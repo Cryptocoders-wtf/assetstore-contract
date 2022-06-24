@@ -48,7 +48,7 @@ const assetBase:any = {
   }]
 };
 
-const foo = (_asset:any, category:string) => {
+const createAsset = (_asset:any, category:string) => {
   let asset = Object.assign({}, assetBase);
   asset.category = "category";
   asset.name = _asset.name;
@@ -61,9 +61,9 @@ const foo = (_asset:any, category:string) => {
 }
 
 export const actionAssets = actions.map(asset => {
-  return foo(asset, "UI Action");
+  return createAsset(asset, "UI Action");
 });
 
 export const socialAssets = social.map(asset => {
-  return foo(asset, "Social");
+  return createAsset(asset, "Social");
 });
