@@ -17,7 +17,7 @@
 - group:
   - name: Group Name
   - type: string
-- width;
+- width:
   - name: Asset width
   - type: number
 - height:
