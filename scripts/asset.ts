@@ -2,18 +2,10 @@
 import { SSL_OP_EPHEMERAL_RSA } from "constants";
 import { ethers, network } from "hardhat";
 import { actionAssets } from "../data/materials";
+import { deploy } from "../utils/deploy";
 
 async function main() {
-  const assetStoreFactory = await ethers.getContractFactory("AssetStore");
-  const assetStore = await assetStoreFactory.deploy();
-  await assetStore.deployed();
-
-  const materialTokenStoreFactory = await ethers.getContractFactory("MaterialToken");
-  const materialToken = await materialTokenStoreFactory.deploy(assetStore.address, assetStore.address);
-  await materialToken.deployed();
-
-  const tx = await assetStore.setWhitelistStatus(materialToken.address, true);
-  await tx.wait();
+  const { assetStore, materialToken } = await deploy();
 
   const promises:Array<Promise<any>> = actionAssets.map(asset => {
     return materialToken.mint(asset, 0);
