@@ -1,0 +1,22 @@
+name: Asset Test
+
+on:
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  asset_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn run test
