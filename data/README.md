@@ -5,9 +5,12 @@
 - name:
   - name: Asset name
   - type: string
-- minterName:
-  - name: Your minter name
+- minter:
+  - name: Minter's name
   - type: string
+- souldbound:
+  - name: Minter's wallet address
+  - type: address
 - category:
   - name: Category name
   - type: string
@@ -29,11 +32,11 @@
   - name: SVG body.
   - description: The value of d in path
   - type: string
-- mask
+- color
   - name: SVG color. 
   - description: Allow color name(blue), HEX(#4169E1), RGB or RGBA (rgba(0,0,0,0) )
   - type: string
-- color
+- mask
   - name: SVG mask
   - type: string
 

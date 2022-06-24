@@ -26,7 +26,7 @@ const catchError = async (callback: any) => {
   }
 };
 
-describe("Baisc", function () {
+describe("MaterialToken minting test", function () {
   let asset:any;
   it("Without Whitelist", async function () {
     expect(await catchError(async ()=>{ await materialToken.mint(assetDone, 0); })).equal(true);
@@ -42,7 +42,7 @@ describe("Baisc", function () {
     expect(await catchError(async ()=>{ await materialToken.mint(assetHome, 0); })).equal(true);
     await assetStore.setWhitelistStatus(materialToken.address, true);
   });
-  it("Affiliate", async function () {
+  it("Affiliated mint", async function () {
     const [owner, user1, user2] = await ethers.getSigners();
     const materialToken1 = materialToken.connect(user1);
     const materialToken2 = materialToken.connect(user2);
@@ -55,7 +55,7 @@ describe("Baisc", function () {
     expect(await materialToken.balanceOf(user2.address)).equal(2);    
     expect(await materialToken.balanceOf(user1.address)).equal(3); // affiliate    
   });
-  it("Duplicate", async function () {
+  it("Duplicated assets", async function () {
     const [owner] = await ethers.getSigners();
     assetDone.soulbound = owner.address;
     assetSettings.soulbound = owner.address;
@@ -64,7 +64,7 @@ describe("Baisc", function () {
     expect(await catchError(async ()=>{ await materialToken.mint(assetSettings, 0); })).equal(true);
     expect(await catchError(async ()=>{ await materialToken.mint(assetAccount, 0); })).equal(true);
   });
-  it("DisableWhitelist", async function () {
+  it("Disabled Whitelist", async function () {
     await assetStore.setWhitelistStatus(materialToken.address, false);
     const [owner] = await ethers.getSigners();
     assetHome.soulbound = owner.address;
@@ -72,7 +72,7 @@ describe("Baisc", function () {
     await assetStore.setDisableWhitelist(true);
     await materialToken.mint(assetHome, 0);
   });
-  it("onlyOwner", async function () {
+  it("Verify onlyOwner security", async function () {
     const [owner, user1] = await ethers.getSigners();
     const assetStore1 = assetStore.connect(user1);
     expect(await catchError(async ()=>{ await assetStore1.setWhitelistStatus(materialToken.address, false); })).equal(true);
