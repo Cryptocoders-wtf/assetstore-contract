@@ -19,6 +19,7 @@ interface IAssetStore {
     string category;
     string name;
     string minter;
+    address soulbound;
     uint16 width;
     uint16 height;
   }
