@@ -1,5 +1,44 @@
-# Asset format example
+# Asset format
 
+## Asset
+
+- name:
+  - name: Asset name
+  - type: string
+- minterName:
+  - name: Your minter name
+  - type: string
+- category:
+  - name: Category name
+  - type: string
+- group:
+  - name: Group Name
+  - type: string
+- width;
+  - name: Asset width
+  - type: number
+- height:
+  - name: Asset height
+  - type: number
+- parts:
+  - name: Parts data(SVG data)
+  - type: Parts Array
+
+# Parts
+- body
+  - name: SVG body.
+  - description: The value of d in path
+  - type: string
+- mask
+  - name: SVG color. 
+  - description: Allow color name(blue), HEX(#4169E1), RGB or RGBA (rgba(0,0,0,0) )
+  - type: string
+- color
+  - name: SVG mask
+  - type: string
+
+
+# Example
 ```
 {
   name: "Home",
