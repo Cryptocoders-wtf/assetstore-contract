@@ -50,7 +50,7 @@ const assetBase:any = {
 
 const createAsset = (_asset:any, category:string) => {
   let asset = Object.assign({}, assetBase);
-  asset.category = "category";
+  asset.category = category;
   asset.name = _asset.name;
   if (_asset.width) {
     asset.width = _asset.width;
