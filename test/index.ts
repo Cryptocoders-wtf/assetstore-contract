@@ -51,6 +51,7 @@ const badAsset:any = {
   name: "Bad",
   group: "Fake Material Icons",
   category: "Action",
+  minterName: "",
   width: 24, height: 24,
   parts:[{
       body: "><script></script><",
@@ -62,6 +63,7 @@ const badAssetName:any = {
   name: "Bad !$",
   group: "Fake Material Icons",
   category: "Action",
+  minterName: "",
   width: 24, height: 24,
   parts:[{
       body: "><script></script><",
