@@ -66,6 +66,19 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return assetIds[_tokenId];
   }
 
+  function _generateClipPath(IAssetStore.AssetAttributes memory attr) internal pure returns (bytes memory) {
+    string memory hw = (attr.width / 2).toString();
+    string memory hh = (attr.height / 2).toString();
+    return abi.encodePacked(
+        abi.encodePacked(
+        ' <clipPath id="nw"><rect x="0" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n',
+        ' <clipPath id="sw"><rect x="0" y="', hh, '" width="', hw, '" height="', hh, '" /></clipPath>\n'
+        ), abi.encodePacked(
+        ' <clipPath id="ne"><rect x="', hw, '" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n',
+        ' <clipPath id="se"><rect x="', hw, '" y="', hh, '" width="', hw, '" height="', hh, '" /></clipPath>\n'
+        )
+      );
+  }
   /**
     * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
     * @dev See {IERC721Metadata-tokenURI}.
@@ -77,17 +90,14 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     string memory name = string(abi.encodePacked(attr.name));
     bytes memory assetTag = abi.encodePacked('#asset', assetId.toString());
     bytes memory image = abi.encodePacked(
-      '<svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">\n',
+      '<svg viewBox="0 0 ', attr.width.toString() ,' ', attr.height.toString(), '"  xmlns="http://www.w3.org/2000/svg">\n',
       '<defs>\n',
       ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n',
       '  <feOffset result="offOut" in="SourceAlpha" dx="0.6" dy="1.0" />\n',
       '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n',
       '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n',
       ' </filter>\n',
-      ' <clipPath id="nw"><rect x="0" y="0" width="12" height="12" /></clipPath>\n',
-      ' <clipPath id="sw"><rect x="0" y="12" width="12" height="12" /></clipPath>\n',
-      ' <clipPath id="ne"><rect x="12" y="0" width="12" height="12" /></clipPath>\n',
-      ' <clipPath id="se"><rect x="12" y="12" width="12" height="12" /></clipPath>\n',
+      _generateClipPath(attr),
       assetStore.generateSVGPart(assetId),
       '</defs>\n');
     if (primaries[tokenId]) {
