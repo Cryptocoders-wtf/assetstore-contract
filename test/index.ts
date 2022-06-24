@@ -53,6 +53,8 @@ describe("AssetStore Component Test", function () {
   let asset:any;
   it("Register 'Done'", async function () {
     asset = assetDone;
+    const [owner] = await ethers.getSigners();
+    asset.soulbound = owner.address;
     const tx = await contract.registerAsset(asset);
     const result = await tx.wait();
     const [event] = result.events;
@@ -72,6 +74,8 @@ describe("AssetStore Component Test", function () {
   });
   it("Register 'Settings'", async function () {
     asset = assetSettings;
+    const [owner] = await ethers.getSigners();
+    asset.soulbound = owner.address;
     const tx = await contract.registerAsset(asset);
     const result = await tx.wait();
     const [event] = result.events;
@@ -90,6 +94,8 @@ describe("AssetStore Component Test", function () {
   });
   it("Register 'Account'", async function () {
     asset = assetAccount;
+    const [owner] = await ethers.getSigners();
+    asset.soulbound = owner.address;
     await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(3);    
     expect(await contract.getGroupCount()).equal(2);    
@@ -102,6 +108,8 @@ describe("AssetStore Component Test", function () {
   });
   it("Register 'Home'", async function () {
     asset = assetHome;
+    const [owner] = await ethers.getSigners();
+    asset.soulbound = owner.address;
     await contract.registerAsset(asset);
     expect(await contract.getAssetCount()).equal(4);    
     expect(await contract.getGroupCount()).equal(2);    
@@ -113,10 +121,14 @@ describe("AssetStore Component Test", function () {
   });
   it("Valid Data", async function () {
     asset = badAsset;
+    const [owner] = await ethers.getSigners();
+    asset.soulbound = owner.address;
     expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
   });
   it("Valid Data", async function () {
     asset = badAssetName;
+    const [owner] = await ethers.getSigners();
+    asset.soulbound = owner.address;
     expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
   });
   it("Duplicate", async function () {

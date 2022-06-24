@@ -33,6 +33,7 @@ describe("Baisc", function () {
   });
   it("First mint", async function () {
     const [owner] = await ethers.getSigners();
+    assetDone.soulbound = owner.address;
     await assetStore.setWhitelistStatus(materialToken.address, true);
     await materialToken.mint(assetDone, 0);
     expect(await materialToken.balanceOf(owner.address)).equal(2);    
@@ -45,20 +46,28 @@ describe("Baisc", function () {
     const [owner, user1, user2] = await ethers.getSigners();
     const materialToken1 = materialToken.connect(user1);
     const materialToken2 = materialToken.connect(user2);
+    assetSettings.soulbound = user1.address;
     await materialToken1.mint(assetSettings, 0);
     expect(await materialToken.balanceOf(user1.address)).equal(2);   
     const tokenId = await materialToken.tokenOfOwnerByIndex(user1.address, 0); 
+    assetAccount.soulbound = user2.address;
     await materialToken2.mint(assetAccount, tokenId);
     expect(await materialToken.balanceOf(user2.address)).equal(2);    
     expect(await materialToken.balanceOf(user1.address)).equal(3); // affiliate    
   });
   it("Duplicate", async function () {
+    const [owner] = await ethers.getSigners();
+    assetDone.soulbound = owner.address;
+    assetSettings.soulbound = owner.address;
+    assetAccount.soulbound = owner.address;
     expect(await catchError(async ()=>{ await materialToken.mint(assetDone, 0); })).equal(true);
     expect(await catchError(async ()=>{ await materialToken.mint(assetSettings, 0); })).equal(true);
     expect(await catchError(async ()=>{ await materialToken.mint(assetAccount, 0); })).equal(true);
   });
   it("DisableWhitelist", async function () {
     await assetStore.setWhitelistStatus(materialToken.address, false);
+    const [owner] = await ethers.getSigners();
+    assetHome.soulbound = owner.address;
     expect(await catchError(async ()=>{ await materialToken.mint(assetHome, 0); })).equal(true);
     await assetStore.setDisableWhitelist(true);
     await materialToken.mint(assetHome, 0);

@@ -38,6 +38,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint16 height;
     string name;
     string minter;
+    address soulbound;
     uint256[] partsIds;
   }
 
@@ -149,6 +150,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint256 assetId = nextAssetIndex++;
     Asset memory asset;
     asset.name = _assetInfo.name;
+    asset.soulbound = _assetInfo.soulbound;
     asset.minter = _assetInfo.minter;
     asset.width = _assetInfo.width;
     asset.height = _assetInfo.height;
