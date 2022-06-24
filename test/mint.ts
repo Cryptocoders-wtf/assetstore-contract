@@ -1,5 +1,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { actionAssets } from "../data/materials";
+import { deploy } from "../utils/deploy";
 
 let assetStore :any = null;
 let materialToken: any = null;
@@ -49,13 +51,9 @@ const assetHome:any = {
 };
 
 before(async () => {
-  const factory = await ethers.getContractFactory("AssetStore");    
-  assetStore = await factory.deploy();
-  await assetStore.deployed();
-  const materialTokenStoreFactory = await ethers.getContractFactory("MaterialToken");
-  materialToken = await materialTokenStoreFactory.deploy(assetStore.address, assetStore.address);
-  await materialToken.deployed();
-  //console.log("materialToken address", assetStore.address);
+  const result = await deploy(false);
+  assetStore = result.assetStore;
+  materialToken = result.materialToken;
 });
 const catchError = async (callback: any) => {
   try {
