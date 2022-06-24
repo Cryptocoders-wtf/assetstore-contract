@@ -37,7 +37,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint16 width;
     uint16 height;
     string name;
-    string minterName;
+    string minter;
     uint256[] partsIds;
   }
 
@@ -147,7 +147,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint256 assetId = nextAssetIndex++;
     Asset memory asset;
     asset.name = _assetInfo.name;
-    asset.minterName = _assetInfo.minterName;
+    asset.minter = _assetInfo.minterName;
     asset.width = _assetInfo.width;
     asset.height = _assetInfo.height;
     asset.groupId = _getGroupId(_assetInfo.group);
@@ -343,7 +343,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     Asset memory asset = _getAsset(_assetId);
     AssetAttributes memory attr;
     attr.name = asset.name;
-    attr.minterName = asset.minterName;
+    attr.minterName = asset.minter;
     attr.group = groups[asset.groupId - 1];
     attr.category = categories[attr.group][asset.categoryId - 1];
     attr.width = asset.width;
