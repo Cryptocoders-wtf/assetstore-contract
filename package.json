@@ -39,7 +39,8 @@
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "test" : "hardhat test --network hardhat"
+    "test" : "hardhat test --network hardhat",
+    "svg": "hardhat run ./scripts/asset.ts | sed '1d' > cache/test.svg"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.6.0",

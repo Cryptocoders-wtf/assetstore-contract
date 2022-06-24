@@ -64,6 +64,17 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return assetIds[_tokenId];
   }
 
+  function _generateSVGHeader(IAssetStore.AssetAttributes memory attr) internal pure returns (bytes memory) {
+    return abi.encodePacked(
+      '<svg viewBox="0 0 ', attr.width.toString() ,' ', attr.height.toString(), '"  xmlns="http://www.w3.org/2000/svg">\n',
+      '<defs>\n',
+      ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n',
+      '  <feOffset result="offOut" in="SourceAlpha" dx="0.6" dy="1.0" />\n',
+      '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n',
+      '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n',
+      ' </filter>\n');
+  }
+
   function _generateClipPath(IAssetStore.AssetAttributes memory attr) internal pure returns (bytes memory) {
     string memory hw = (attr.width / 2).toString();
     string memory hh = (attr.height / 2).toString();
@@ -88,13 +99,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     string memory name = string(abi.encodePacked(attr.name));
     bytes memory assetTag = abi.encodePacked('#asset', assetId.toString());
     bytes memory image = abi.encodePacked(
-      '<svg viewBox="0 0 ', attr.width.toString() ,' ', attr.height.toString(), '"  xmlns="http://www.w3.org/2000/svg">\n',
-      '<defs>\n',
-      ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n',
-      '  <feOffset result="offOut" in="SourceAlpha" dx="0.6" dy="1.0" />\n',
-      '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n',
-      '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n',
-      ' </filter>\n',
+      _generateSVGHeader(attr),
       _generateClipPath(attr),
       assetStore.generateSVGPart(assetId),
       '</defs>\n');
