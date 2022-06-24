@@ -66,7 +66,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return assetIds[_tokenId];
   }
 
-  function _foo(IAssetStore.AssetAttributes memory attr) internal pure returns (bytes memory) {
+  function _generateClipPath(IAssetStore.AssetAttributes memory attr) internal pure returns (bytes memory) {
     string memory hw = (attr.width / 2).toString();
     string memory hh = (attr.height / 2).toString();
     return abi.encodePacked(
@@ -97,7 +97,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n',
       '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n',
       ' </filter>\n',
-      _foo(attr),
+      _generateClipPath(attr),
       assetStore.generateSVGPart(assetId),
       '</defs>\n');
     if (primaries[tokenId]) {
