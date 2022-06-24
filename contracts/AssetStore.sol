@@ -96,7 +96,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   }
 
   // Validator
-  function validator(AssetInfo memory _assetInfo) internal view returns(bool) {
+  function validator(AssetInfo memory _assetInfo) internal pure returns(bool) {
     uint size = _assetInfo.parts.length;
     uint i;
     for (i=0; i < size; i++) {
@@ -109,7 +109,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
 
 
   // Validate String
-  function validateString(string memory str) public view returns (bool){
+  function validateString(string memory str) public pure returns (bool){
       bytes memory b = bytes(str);
       for(uint i; i<b.length; i++){
           bytes1 char = b[i];
@@ -117,10 +117,11 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
              !(char >= 0x30 && char <= 0x39) && //0-9
              !(char >= 0x41 && char <= 0x5A) && //A-Z
              !(char >= 0x61 && char <= 0x7A) && //a-z
-             !(char == 0x2E) && //.
+             !(char == 0x20) && //SP
+             !(char == 0x23) && // #
              !(char == 0x2C) && //,
              !(char == 0x2D) && //-
-             !(char == 0x20) //SP
+             !(char == 0x2E) // .
              ) {
               // console.log(uint8(char));
               return false;
