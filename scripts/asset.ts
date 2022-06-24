@@ -18,7 +18,7 @@ async function main() {
   await Promise.all(promises);
 
   if (network.name == "hardhat" || network.name == "localhost") {
-    const uri = await materialToken.tokenURI(actionAssets.length * 2 + socialAssets.length * 2 - 2);
+    const uri = await materialToken.tokenURI(actionAssets.length * 2 + socialAssets.length * 2 - 1);
     const data = atob(uri.substring(29));
     const json = JSON.parse(data);
     const imageData = json.image.substring(26);

@@ -113,8 +113,8 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       string[4] memory colors = ["#4285F4", "#34A853", "#FBBC05", "#EA4335"]; 
       uint16 i;
       for (i=0; i<4; i++) {
-        uint16 x = (i % 2) * 24;
-        uint16 y = (i / 2 % 2) * 24;
+        uint16 x = (i % 2) * attr.width;
+        uint16 y = (i / 2 % 2) * attr.height;
         image = abi.encodePacked(image,
           ' <use href="', assetTag ,'" fill="', colors[(i + tokenId) % 4], 
               '" x="', x.toString(), '" y="', y.toString(), '"/> \n');
