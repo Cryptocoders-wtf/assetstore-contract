@@ -26,7 +26,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   IAssetStore public immutable assetStore;
 
   mapping(uint256 => uint256) assetIds; // tokenId => assetId
-  mapping(uint256 => bool) primaries;
+  mapping(uint256 => bool) isSoulbound;
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.xyz].";
@@ -39,11 +39,11 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     assetStore = _assetStore;
   }
 
-  function _safeMintWithAssetId(address _target, uint256 _assetId, bool _primary) internal returns(uint256) {
+  function _safeMintWithAssetId(address _target, uint256 _assetId, bool _isSoulbound) internal returns(uint256) {
     uint256 tokenId = _currentTokenId++;
     _mint(_target, tokenId);
     assetIds[tokenId] = _assetId;
-    primaries[tokenId] = _primary;
+    isSoulbound[tokenId] = _isSoulbound;
     return tokenId;    
   }
 
@@ -100,7 +100,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       _generateClipPath(attr),
       assetStore.generateSVGPart(assetId),
       '</defs>\n');
-    if (primaries[tokenId]) {
+    if (isSoulbound[tokenId]) {
       image = abi.encodePacked(image,
         '<g filter="url(#f1)">\n',
         ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />',
