@@ -6,13 +6,16 @@ import { deploy } from "../utils/deploy";
 
 async function main() {
   const { assetStore, materialToken } = await deploy();
+  const [owner] = await ethers.getSigners();
 
   let promises:Array<Promise<any>> = actionAssets.map(asset => {
+    asset.soulbound = owner.address;
     return materialToken.mint(asset, 0);
   });
   await Promise.all(promises);
 
   promises = socialAssets.map(asset => {
+    asset.soulbound = owner.address;
     return materialToken.mint(asset, 0);
   });
   await Promise.all(promises);
