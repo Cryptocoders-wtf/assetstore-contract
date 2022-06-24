@@ -28,15 +28,15 @@
   - type: Parts Array
 
 # Parts
-- body
+- body:
   - name: SVG body.
   - description: The value of d in path
   - type: string
-- color
+- color:
   - name: SVG color. 
   - description: Allow color name(blue), HEX(#4169E1), RGB or RGBA (rgba(0,0,0,0) )
   - type: string
-- mask
+- mask:
   - name: SVG mask
   - type: string
 
