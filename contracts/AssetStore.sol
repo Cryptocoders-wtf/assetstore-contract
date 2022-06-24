@@ -343,7 +343,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     Asset memory asset = _getAsset(_assetId);
     AssetAttributes memory attr;
     attr.name = asset.name;
-    attr.minterName = asset.minter;
+    attr.minter = asset.minter;
     attr.group = groups[asset.groupId - 1];
     attr.category = categories[attr.group][asset.categoryId - 1];
     attr.width = asset.width;
