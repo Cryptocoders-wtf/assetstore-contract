@@ -122,6 +122,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
          !(char >= 0x61 && char <= 0x7A) && //a-z
          !(char == 0x20) && //SP
          !(char == 0x23) && // #
+         !(char == 0x28) && // (
+         !(char == 0x29) && // )
          !(char == 0x2C) && //,
          !(char == 0x2D) && //-
          !(char == 0x2E) // .
