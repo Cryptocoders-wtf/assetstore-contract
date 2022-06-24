@@ -29,7 +29,31 @@ const badAssetName:any = {
   minter: "",
   width: 24, height: 24,
   parts:[{
-      body: "><script></script><",
+      body: "",
+      mask: "", color: "red"
+  }]
+};
+
+const badAssetCategory:any = {
+  name: "Bad Cat",
+  group: "Fake Material Icons",
+  category: "Action||",
+  minter: "",
+  width: 24, height: 24,
+  parts:[{
+      body: "",
+      mask: "", color: "red"
+  }]
+};
+
+const badAssetGroup: any = {
+  name: "Bad Group",
+  group: "Fake Material Icons+",
+  category: "Action",
+  minter: "",
+  width: 24, height: 24,
+  parts:[{
+      body: "",
       mask: "", color: "red"
   }]
 };
@@ -119,14 +143,26 @@ describe("AssetStore Component Test", function () {
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(4);    
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(4);
   });
-  it("Valid Data", async function () {
+  it("Invalid Data Test", async function () {
     asset = badAsset;
     const [owner] = await ethers.getSigners();
     asset.soulbound = owner.address;
     expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
   });
-  it("Valid Data", async function () {
+  it("Invalid Name Data Test", async function () {
     asset = badAssetName;
+    const [owner] = await ethers.getSigners();
+    asset.soulbound = owner.address;
+    expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
+  });
+  it("Invalid Category Data Test", async function () {
+    asset = badAssetCategory;
+    const [owner] = await ethers.getSigners();
+    asset.soulbound = owner.address;
+    expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
+  });
+  it("Invalid Group Data Test", async function () {
+    asset = badAssetGroup;
     const [owner] = await ethers.getSigners();
     asset.soulbound = owner.address;
     expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
