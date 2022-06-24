@@ -1,4 +1,4 @@
-export const actions = [{
+const actions = [{
   name: "Done",
   body: "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z",
 },{
@@ -27,7 +27,7 @@ const assetBase:any = {
   }]
 };
 
-export const materials = actions.map(action => {
+export const actionAssets = actions.map(action => {
   let asset = Object.assign({}, assetBase);
   asset.category = "Action";
   asset.name = action.name;
