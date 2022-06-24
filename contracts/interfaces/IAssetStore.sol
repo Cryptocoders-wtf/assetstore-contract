@@ -39,7 +39,7 @@ interface IAssetStoreRegistry {
     string group;
     string category;
     string name;
-    string minterName;
+    string minter;
     uint16 width;
     uint16 height;
     Part[] parts;

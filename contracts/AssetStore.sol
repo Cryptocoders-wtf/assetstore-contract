@@ -147,7 +147,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint256 assetId = nextAssetIndex++;
     Asset memory asset;
     asset.name = _assetInfo.name;
-    asset.minter = _assetInfo.minterName;
+    asset.minter = _assetInfo.minter;
     asset.width = _assetInfo.width;
     asset.height = _assetInfo.height;
     asset.groupId = _getGroupId(_assetInfo.group);

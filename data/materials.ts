@@ -42,7 +42,7 @@ const social = [{
 const assetBase:any = {
   width: 24, height: 24,
   group: "Material Icons (Apache 2.0)",
-  minterName: "nounsfes",
+  minter: "nounsfes",
   parts:[{
       mask: "", color: ""
   }]
