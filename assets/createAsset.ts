@@ -14,7 +14,14 @@ export const createAsset = (_asset:any, group:string, category:string) => {
   asset.width = 1000;
   asset.height = 1000;
   if (_asset.parts) {
-    asset.parts = _asset.parts;
+    asset.parts = _asset.parts.map((part:any) => {
+      part.mask = part.mask || "";
+      part.color = part.color || "";
+      part.body = part.body.replace(regex, (str:string)=>{
+        return Math.round(parseFloat(str) * 1000 / width);
+      });
+      return part;
+    });
   } else {
     asset.parts = [{
       mask: "", color: "",
