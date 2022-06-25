@@ -120,11 +120,20 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return abi.encodePacked(image, '</g>\n</svg>');
   }
 
-  function _generateAttributes(uint256 _tokenId, uint256 _assetId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
+  function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
     return abi.encodePacked(
       '{'
         '"trait_type":"Soulbound",'
         '"value":"', isSoulbound[_tokenId] ? 'Yes':'No', '"' 
+      '},{'
+        '"trait_type":"Group",'
+        '"value":"', _attr.group, '"' 
+      '},{'
+        '"trait_type":"Category",'
+        '"value":"', _attr.category, '"' 
+      '},{'
+        '"trait_type":"Minter",'
+        '"value":"', (bytes(_attr.minter).length > 0)?_attr.minter:'(anonymous)', '"' 
       '}'
     );
   }
@@ -147,7 +156,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
             abi.encodePacked(
               '{"name":"', attr.name, 
                 '","description":"', description, 
-                '","attributes":[', _generateAttributes(_tokenId, assetId, attr), 
+                '","attributes":[', _generateTraits(_tokenId, attr), 
                 '],"image":"data:image/svg+xml;base64,', 
                 Base64.encode(image), 
               '"}')
