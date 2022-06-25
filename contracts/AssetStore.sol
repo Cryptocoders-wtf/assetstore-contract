@@ -25,6 +25,34 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 // import "hardhat/console.sol";
 
+interface IStringValidator {
+  function validate(string memory str) external returns (bool);
+}
+
+contract StringValidator is IStringValidator {
+  function validate(string memory str) external pure override returns (bool) {
+    bytes memory b = bytes(str);
+    for(uint i; i < b.length; i++){
+      bytes1 char = b[i];
+        if(!(
+         (char >= 0x30 && char <= 0x39) || //0-9
+         (char >= 0x41 && char <= 0x5A) || //A-Z
+         (char >= 0x61 && char <= 0x7A) || //a-z
+         (char == 0x20) || //SP
+         (char == 0x23) || // #
+         (char == 0x28) || // (
+         (char == 0x29) || // )
+         (char == 0x2C) || //,
+         (char == 0x2D) || //-
+         (char == 0x2E) // .
+        )) {
+          return false;
+      }
+    }
+    return true;
+  }
+}
+
 /*
  * Abstract contract that implements the categolized asset storage system. 
  */
@@ -48,6 +76,9 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     mapping(string => uint32) ids; // index+1
   }
 
+  // Upgradable string validator
+  IStringValidator validator;
+
   // asset & part database
   mapping(uint256 => Asset) private assets;
   uint256 private nextAssetIndex = 1; // 0 indicates an error
@@ -65,12 +96,16 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // Group/Category/Name => assetId
   mapping(string => mapping(string => mapping(string => uint256))) internal assetIdsLookup;
 
+  constructor() {
+    validator = new StringValidator();
+  }
+
   // Returns the groupId of the specified group, creating a new Id if necessary.
   // @notice gruopId == groupIndex + 1
   function _getGroupId(string memory group) private returns(uint32) {
     uint32 groupId = groupSet.ids[group];
     if (groupId == 0) {
-      require(validateString(group), "Invalid AssetData Group");
+      require(validator.validate(group), "Invalid AssetData Group");
       groupSet.names[groupSet.nextIndex++] = group;
       groupId = groupSet.nextIndex; // idex + 1
       groupSet.ids[group] = groupId; 
@@ -85,7 +120,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     StringSet storage categorySet = categorySets[group];
     uint32 categoryId = categorySet.ids[category];
     if (categoryId == 0) {
-      require(validateString(category), "Invalid AssetData Categoy");
+      require(validator.validate(category), "Invalid AssetData Categoy");
       categorySet.names[categorySet.nextIndex++] = category;
       categoryId = categorySet.nextIndex; // index + 1
       categorySet.ids[category] = categoryId;
@@ -105,37 +140,13 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint i;
     for (i=0; i < size; i++) {
       Part memory part = _assetInfo.parts[i];
-      require(validateString(part.body), "Invalid AssetData Body");
-      require(validateString(part.color), "Invalid AssetData Color");
-      require(validateString(part.mask), "Invalid AssetData Mask");
+      require(validator.validate(part.body), "Invalid AssetData Body");
+      require(validator.validate(part.color), "Invalid AssetData Color");
+      require(validator.validate(part.mask), "Invalid AssetData Mask");
     }
-    require(validateString(_assetInfo.name), "Invalid AssetData Name");
+    require(validator.validate(_assetInfo.name), "Invalid AssetData Name");
     // @notice we validate group in _getGroup, category in _getCategory
     _;
-  }
-
-  // Validate String
-  function validateString(string memory str) public pure returns (bool){
-    bytes memory b = bytes(str);
-    for(uint i; i < b.length; i++){
-      bytes1 char = b[i];
-        if(!(
-         (char >= 0x30 && char <= 0x39) || //0-9
-         (char >= 0x41 && char <= 0x5A) || //A-Z
-         (char >= 0x61 && char <= 0x7A) || //a-z
-         (char == 0x20) || //SP
-         (char == 0x23) || // #
-         (char == 0x28) || // (
-         (char == 0x29) || // )
-         (char == 0x2C) || //,
-         (char == 0x2D) || //-
-         (char == 0x2E) // .
-        )) {
-          // console.log(uint8(char));
-          return false;
-      }
-    }
-    return true;
   }
 
   // Register an Asset and returns its id, which is its index in assests[].
