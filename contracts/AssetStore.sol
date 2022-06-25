@@ -24,6 +24,7 @@ import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import { IStringValidator } from './interfaces/IStringValidator.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import { StringValidator } from './StringValidator.sol';
+import './libs/StringSet.sol';
 
 // import "hardhat/console.sol";
 
@@ -31,6 +32,7 @@ import { StringValidator } from './StringValidator.sol';
  * Abstract contract that implements the categolized asset storage system. 
  */
 abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
+  using StringSet for StringSet.Set;
   using Strings for uint16;
   using Strings for uint256;
   struct Asset {
@@ -44,12 +46,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint256[] partsIds;
   }
 
-  struct StringSet {
-    mapping(uint32 => string) names;
-    uint32 nextIndex;
-    mapping(string => uint32) ids; // index+1
-  }
-
   // Upgradable string validator
   IStringValidator validator;
 
@@ -60,8 +56,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   uint256 private nextPartIndex = 1; // 0 indicates an error
 
   // Groups and categories(for browsing)
-  StringSet internal groupSet;
-  mapping(string => StringSet) internal categorySets;
+  StringSet.Set internal groupSet;
+  mapping(string => StringSet.Set) internal categorySets;
   
   // Grouped and categorized assetIds (for browsing)
   mapping(string => mapping(string => mapping(uint32 => uint256))) internal assetIdsInCategory;
@@ -77,6 +73,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // Returns the groupId of the specified group, creating a new Id if necessary.
   // @notice gruopId == groupIndex + 1
   function _getGroupId(string memory group) private returns(uint32) {
+    // return groupSet.getId(group, validator);
     uint32 groupId = groupSet.ids[group];
     if (groupId == 0) {
       require(validator.validate(group), "Invalid AssetData Group");
@@ -91,7 +88,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // The categoryId is unique only within that group. 
   // @notice categoryId == categoryIndex + 1
   function _getCategoryId(string memory group, string memory category) private returns(uint32) {
-    StringSet storage categorySet = categorySets[group];
+    // return categorySets[group].getId(category, validator);
+    StringSet.Set storage categorySet = categorySets[group];
     uint32 categoryId = categorySet.ids[category];
     if (categoryId == 0) {
       require(validator.validate(category), "Invalid AssetData Categoy");
@@ -270,7 +268,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   // Returns the name of category specified with group/categoryIndex pair.
   function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view override returns(string memory) {
-    StringSet storage categorySet = categorySets[group];
+    StringSet.Set storage categorySet = categorySets[group];
     require(categoryIndex <categorySet.nextIndex, "The categoryIndex index is out of range");
     return categorySet.names[categoryIndex];
   }
