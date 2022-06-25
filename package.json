@@ -41,6 +41,7 @@
   "scripts": {
     "test" : "hardhat test --network hardhat",
     "svg": "hardhat run ./scripts/asset.ts | sed '1d' > cache/test.svg",
+    "emoji": "hardhat run ./scripts/emoji.ts | sed '1d' > cache/test.svg",
     "mint": "hardhat run --network rinkeby ./scripts/asset.ts"
   },
   "dependencies": {
