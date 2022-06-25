@@ -70,6 +70,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   function _getGroupId(string memory group) private returns(uint32) {
     uint32 groupId = groupIds[group];
     if (groupId == 0) {
+      require(validateString(group), "Invalid AssetData Group");
       groups[nextGroup++] = group;
       groupId = nextGroup; // idex + 1
       groupIds[group] = groupId; 
@@ -83,6 +84,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   function _getCategoryId(string memory group, string memory category) private returns(uint32) {
     uint32 categoryId = categoryIds[group][category];
     if (categoryId == 0) {
+      require(validateString(category), "Invalid AssetData Categoy");
       categories[group][nextCategoryIndeces[group]++] = category;
       categoryId = nextCategoryIndeces[group]; // index + 1
       categoryIds[group][category] = categoryId;
@@ -106,8 +108,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
       require(validateString(_assetInfo.parts[i].mask), "Invalid AssetData Mask");
     }
     require(validateString(_assetInfo.name), "Invalid AssetData Name");
-    require(validateString(_assetInfo.group), "Invalid AssetData Group");
-    require(validateString(_assetInfo.category), "Invalid AssetData Categoy");
+    // @notice we validate group in _getGroup, category in _getCategory
     _;
   }
 
