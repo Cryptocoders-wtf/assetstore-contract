@@ -23,7 +23,7 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import { IStringValidator } from './interfaces/IStringValidator.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
-import { StringValidator } from './StringValidator.sol';
+import './StringValidator.sol';
 import './libs/StringSet.sol';
 
 // import "hardhat/console.sol";
@@ -67,7 +67,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   mapping(string => mapping(string => mapping(string => uint256))) internal assetIdsLookup;
 
   constructor() {
-    validator = new StringValidator();
+    validator = new StringValidator(); // default validator
   }
 
   // Returns the groupId of the specified group, creating a new Id if necessary.
