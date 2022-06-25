@@ -97,32 +97,19 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   }
 
   // Validator
-  function validator(AssetInfo memory _assetInfo) internal pure returns(bool) {
+  modifier validateAsset(AssetInfo memory _assetInfo) {
     uint size = _assetInfo.parts.length;
     uint i;
     for (i=0; i < size; i++) {
-      if (!validateString(_assetInfo.parts[i].body)) {
-        return false;
-      }
-      if (!validateString(_assetInfo.parts[i].color)) {
-        return false;
-      }
-      if (!validateString(_assetInfo.parts[i].mask)) {
-        return false;
-      }
+      require(validateString(_assetInfo.parts[i].body), "Invalid AssetData Body");
+      require(validateString(_assetInfo.parts[i].color), "Invalid AssetData Color");
+      require(validateString(_assetInfo.parts[i].mask), "Invalid AssetData Mask");
     }
-    if (!validateString(_assetInfo.name)) {
-        return false;
-    }
-    if (!validateString(_assetInfo.group)) {
-        return false;
-    }
-    if (!validateString(_assetInfo.category)) {
-        return false;
-    }
-    return true;
+    require(validateString(_assetInfo.name), "Invalid AssetData Name");
+    require(validateString(_assetInfo.group), "Invalid AssetData Group");
+    require(validateString(_assetInfo.category), "Invalid AssetData Categoy");
+    _;
   }
-
 
   // Validate String
   function validateString(string memory str) public pure returns (bool){
@@ -149,10 +136,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   }
 
   // Register an Asset and returns its id, which is its index in assests[].
-  function _registerAsset(AssetInfo memory _assetInfo) internal returns(uint256) {
+  function _registerAsset(AssetInfo memory _assetInfo) internal validateAsset(_assetInfo) returns(uint256) {
     require(assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
-    require(validator(_assetInfo), "invalid AssetData");
-    
     uint size = _assetInfo.parts.length;
     uint256[] memory partsIds = new uint256[](size);
     uint i;
