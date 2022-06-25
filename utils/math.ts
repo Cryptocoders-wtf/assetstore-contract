@@ -7,5 +7,5 @@ export const gasEstimate = (t3:any) => {
     const gasCostEth = Number.parseFloat(ethers.utils.formatEther(gasCost));
     const ETHUSD = 1000; // assume eth is $1000 usd
     const gasCostUsd = gasCostEth * ETHUSD;
-    return { ETH: gasCostEth, USD: gasCostUsd };
+    return { Unit: gasUsed.toNumber(), ETH: gasCostEth, USD: gasCostUsd };
 };
