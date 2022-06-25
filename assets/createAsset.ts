@@ -1,9 +1,6 @@
 const assetBase:any = {
     width: 24, height: 24,
-    minter: "",
-    parts:[{
-        mask: "", color: ""
-    }]
+    minter: ""
   };
   
   export const createAsset = (_asset:any, group:string, category:string) => {
@@ -15,6 +12,9 @@ const assetBase:any = {
       asset.width = _asset.width;
       asset.height = _asset.height;
     }
-    asset.parts[0].body = _asset.body;
+    asset.parts = [{
+        mask: "", color: "",
+        body: _asset.body
+    }];
     return asset;  
   }
