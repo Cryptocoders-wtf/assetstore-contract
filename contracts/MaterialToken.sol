@@ -41,9 +41,9 @@ contract MaterialToken is Ownable, ERC721Enumerable {
 
   function _safeMintWithAssetId(address _target, uint256 _assetId, bool _isSoulbound) internal returns(uint256) {
     uint256 tokenId = _currentTokenId++;
-    _mint(_target, tokenId);
     assetIds[tokenId] = _assetId;
     isSoulbound[tokenId] = _isSoulbound;
+    _mint(_target, tokenId);
     return tokenId;    
   }
 
