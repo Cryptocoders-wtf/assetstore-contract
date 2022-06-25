@@ -117,18 +117,18 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     bytes memory b = bytes(str);
     for(uint i; i < b.length; i++){
       bytes1 char = b[i];
-        if(
-         !(char >= 0x30 && char <= 0x39) && //0-9
-         !(char >= 0x41 && char <= 0x5A) && //A-Z
-         !(char >= 0x61 && char <= 0x7A) && //a-z
-         !(char == 0x20) && //SP
-         !(char == 0x23) && // #
-         !(char == 0x28) && // (
-         !(char == 0x29) && // )
-         !(char == 0x2C) && //,
-         !(char == 0x2D) && //-
-         !(char == 0x2E) // .
-         ) {
+        if(!(
+         (char >= 0x30 && char <= 0x39) || //0-9
+         (char >= 0x41 && char <= 0x5A) || //A-Z
+         (char >= 0x61 && char <= 0x7A) || //a-z
+         (char == 0x20) || //SP
+         (char == 0x23) || // #
+         (char == 0x28) || // (
+         (char == 0x29) || // )
+         (char == 0x2C) || //,
+         (char == 0x2D) || //-
+         (char == 0x2E) // .
+        )) {
           // console.log(uint8(char));
           return false;
       }
