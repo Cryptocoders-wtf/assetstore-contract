@@ -55,7 +55,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
 
   // Grouped categories (for browsing)
   struct CategoryMap {
-    mapping(uint32 => string) categories;
+    mapping(uint32 => string) names;
     uint32 nextCategoryIndeces;
     mapping(string => uint32) categoryIds; // index+1
   }
@@ -89,7 +89,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint32 categoryId = categoryMap.categoryIds[category];
     if (categoryId == 0) {
       require(validateString(category), "Invalid AssetData Categoy");
-      categoryMap.categories[categoryMap.nextCategoryIndeces++] = category;
+      categoryMap.names[categoryMap.nextCategoryIndeces++] = category;
       categoryId = categoryMap.nextCategoryIndeces; // index + 1
       categoryMap.categoryIds[category] = categoryId;
     }
@@ -290,7 +290,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view override returns(string memory) {
     CategoryMap storage categoryMap = categoryMaps[group];
     require(categoryIndex <categoryMap.nextCategoryIndeces, "The categoryIndex index is out of range");
-    return categoryMap.categories[categoryIndex];
+    return categoryMap.names[categoryIndex];
   }
 
   // Returns the number of asset in the specified group/category. 
@@ -311,7 +311,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   function _getDescription(Asset memory asset) internal view returns(bytes memory) {
     string memory group = groups[asset.groupId - 1];
-    return abi.encodePacked(group, '/', categoryMaps[group].categories[asset.categoryId - 1], '/', asset.name);
+    return abi.encodePacked(group, '/', categoryMaps[group].names[asset.categoryId - 1], '/', asset.name);
   }
 
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
@@ -354,7 +354,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.soulbound = asset.soulbound;
     attr.minter = asset.minter;
     attr.group = groups[asset.groupId - 1];
-    attr.category = categoryMaps[attr.group].categories[asset.categoryId - 1];
+    attr.category = categoryMaps[attr.group].names[asset.categoryId - 1];
     attr.width = asset.width;
     attr.height = asset.height;
     return attr;
