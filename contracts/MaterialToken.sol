@@ -120,6 +120,15 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return abi.encodePacked(image, '</g>\n</svg>');
   }
 
+  function _generateAttributes(uint256 _tokenId, uint256 _assetId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
+    return abi.encodePacked(
+      '{'
+        '"trait_type":"Soulbound",'
+        '"value":"', isSoulbound[_tokenId] ? 'Yes':'No', '"' 
+      '}'
+    );
+  }
+
   /**
     * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
     * @dev See {IERC721Metadata-tokenURI}.
@@ -138,7 +147,8 @@ contract MaterialToken is Ownable, ERC721Enumerable {
             abi.encodePacked(
               '{"name":"', attr.name, 
                 '","description":"', description, 
-                '","image":"data:image/svg+xml;base64,', 
+                '","attributes":[', _generateAttributes(_tokenId, assetId, attr), 
+                '],"image":"data:image/svg+xml;base64,', 
                 Base64.encode(image), 
               '"}')
           )
