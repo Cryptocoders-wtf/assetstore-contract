@@ -64,9 +64,9 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return assetIds[_tokenId];
   }
 
-  function _generateSVGHeader(IAssetStore.AssetAttributes memory attr) internal pure returns (bytes memory) {
+  function _generateSVGHeader(IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
     return abi.encodePacked(
-      '<svg viewBox="0 0 ', attr.width.toString() ,' ', attr.height.toString(), '"  xmlns="http://www.w3.org/2000/svg">\n',
+      '<svg viewBox="0 0 ', _attr.width.toString() ,' ', _attr.height.toString(), '"  xmlns="http://www.w3.org/2000/svg">\n',
       '<defs>\n',
       ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n',
       '  <feOffset result="offOut" in="SourceAlpha" dx="0.6" dy="1.0" />\n',
@@ -75,9 +75,9 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       ' </filter>\n');
   }
 
-  function _generateClipPath(IAssetStore.AssetAttributes memory attr) internal pure returns (bytes memory) {
-    string memory hw = (attr.width / 2).toString();
-    string memory hh = (attr.height / 2).toString();
+  function _generateClipPath(IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
+    string memory hw = (_attr.width / 2).toString();
+    string memory hh = (_attr.height / 2).toString();
     return abi.encodePacked(
         abi.encodePacked(
         ' <clipPath id="nw"><rect x="0" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n',
@@ -89,14 +89,14 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       );
   }
 
-  function _generateSVG(uint256 tokenId, uint256 assetId, IAssetStore.AssetAttributes memory attr) internal view returns (bytes memory) {
-    bytes memory assetTag = abi.encodePacked('#asset', assetId.toString());
+  function _generateSVG(uint256 _tokenId, uint256 _assetId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
+    bytes memory assetTag = abi.encodePacked('#asset', _assetId.toString());
     bytes memory image = abi.encodePacked(
-      _generateSVGHeader(attr),
-      _generateClipPath(attr),
-      assetStore.generateSVGPart(assetId),
+      _generateSVGHeader(_attr),
+      _generateClipPath(_attr),
+      assetStore.generateSVGPart(_assetId),
       '</defs>\n');
-    if (isSoulbound[tokenId]) {
+    if (isSoulbound[_tokenId]) {
       image = abi.encodePacked(image,
         '<g filter="url(#f1)">\n',
         ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />',
@@ -109,10 +109,10 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       string[4] memory colors = ["#4285F4", "#34A853", "#FBBC05", "#EA4335"]; 
       uint16 i;
       for (i=0; i<4; i++) {
-        uint16 x = (i % 2) * attr.width;
-        uint16 y = (i / 2 % 2) * attr.height;
+        uint16 x = (i % 2) * _attr.width;
+        uint16 y = (i / 2 % 2) * _attr.height;
         image = abi.encodePacked(image,
-          ' <use href="', assetTag ,'" fill="', colors[(i + tokenId) % 4], 
+          ' <use href="', assetTag ,'" fill="', colors[(i + _tokenId) % 4], 
               '" x="', x.toString(), '" y="', y.toString(), '"/> \n');
       }
     }
@@ -124,12 +124,12 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
     * @dev See {IERC721Metadata-tokenURI}.
     */
-  function tokenURI(uint256 tokenId) public view override returns (string memory) {
-    require(_exists(tokenId), 'MaterialToken.tokenURI: nonexistent token');
-    uint256 assetId = assetIds[tokenId];
+  function tokenURI(uint256 _tokenId) public view override returns (string memory) {
+    require(_exists(_tokenId), 'MaterialToken.tokenURI: nonexistent token');
+    uint256 assetId = assetIds[_tokenId];
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory name = string(abi.encodePacked(attr.name));
-    bytes memory image = _generateSVG(tokenId, assetId, attr);
+    bytes memory image = _generateSVG(_tokenId, assetId, attr);
 
     return string(
       abi.encodePacked(
