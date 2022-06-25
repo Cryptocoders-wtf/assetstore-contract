@@ -42,9 +42,9 @@ const social = [{
 }];
 
 export const actionAssets = actions.map(asset => {
-  return createAsset(asset, "UI Action");
+  return createAsset(asset, "Material Icons (Apache 2.0)", "UI Action",);
 });
 
 export const socialAssets = social.map(asset => {
-  return createAsset(asset, "Social");
+  return createAsset(asset, "Material Icons (Apache 2.0)", "Social");
 });

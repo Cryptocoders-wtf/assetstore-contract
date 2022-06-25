@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { actionAssets } from "../data/materials";
+import { actionAssets } from "../assets/materials";
 import { deploy } from "../utils/deploy";
 
 let assetStore :any = null;

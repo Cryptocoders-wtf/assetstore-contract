@@ -1,7 +1,7 @@
 
 import { SSL_OP_EPHEMERAL_RSA } from "constants";
 import { ethers, network } from "hardhat";
-import { actionAssets, socialAssets } from "../data/materials";
+import { actionAssets, socialAssets } from "../assets/materials";
 import { deploy } from "../utils/deploy";
 
 async function main() {

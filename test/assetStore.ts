@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { actionAssets, socialAssets } from "../data/materials";
+import { actionAssets, socialAssets } from "../assets/materials";
 
 let contract :any = null;
 const assetDone:any = actionAssets[0];

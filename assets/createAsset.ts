@@ -1,14 +1,14 @@
 const assetBase:any = {
     width: 24, height: 24,
-    group: "Material Icons (Apache 2.0)",
     minter: "",
     parts:[{
         mask: "", color: ""
     }]
   };
   
-  export const createAsset = (_asset:any, category:string) => {
+  export const createAsset = (_asset:any, group:string, category:string) => {
     let asset = Object.assign({}, assetBase);
+    asset.group = group;
     asset.category = category;
     asset.name = _asset.name;
     if (_asset.width) {
