@@ -12,7 +12,7 @@ async function main() {
   let promises = actionAssets.map(async (asset) => {
     asset.soulbound = owner.address;
     const tx = await materialToken.mint(asset, 0);
-    return await tx.wait();
+    return tx.wait();
   });
   let returns = await Promise.all(promises);
   console.log(returns.map(t3 => { 
