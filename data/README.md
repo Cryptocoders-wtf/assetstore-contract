@@ -45,7 +45,8 @@
 ```
 {
   name: "Home",
-  minterName: "nounsfes",
+  minter: "nounsfes",
+  souldbound: "0x4F1CA5Ac1ab5e119b2C8F015cDC53e618ae9559a",
   category: "UI Action",
   group: "Material Icons (Apache 2.0)",
   width: 24,
