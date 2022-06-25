@@ -88,15 +88,8 @@ contract MaterialToken is Ownable, ERC721Enumerable {
         )
       );
   }
-  /**
-    * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
-    * @dev See {IERC721Metadata-tokenURI}.
-    */
-  function tokenURI(uint256 tokenId) public view override returns (string memory) {
-    require(_exists(tokenId), 'MaterialToken.tokenURI: nonexistent token');
-    uint256 assetId = assetIds[tokenId];
-    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
-    string memory name = string(abi.encodePacked(attr.name));
+
+  function _generateSVG(uint256 tokenId, uint256 assetId, IAssetStore.AssetAttributes memory attr) internal view returns (bytes memory) {
     bytes memory assetTag = abi.encodePacked('#asset', assetId.toString());
     bytes memory image = abi.encodePacked(
       _generateSVGHeader(attr),
@@ -124,6 +117,19 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       }
     }
     image = abi.encodePacked(image,'</g>\n</svg>');
+    return image;
+  }
+
+  /**
+    * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
+    * @dev See {IERC721Metadata-tokenURI}.
+    */
+  function tokenURI(uint256 tokenId) public view override returns (string memory) {
+    require(_exists(tokenId), 'MaterialToken.tokenURI: nonexistent token');
+    uint256 assetId = assetIds[tokenId];
+    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
+    string memory name = string(abi.encodePacked(attr.name));
+    bytes memory image = _generateSVG(tokenId, assetId, attr);
 
     return string(
       abi.encodePacked(
