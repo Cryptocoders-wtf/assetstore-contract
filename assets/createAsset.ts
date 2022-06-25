@@ -10,17 +10,16 @@ export const createAsset = (_asset:any, group:string, category:string) => {
   asset.group = group;
   asset.category = category;
   asset.name = _asset.name;
-  if (_asset.width) {
-    asset.width = _asset.width;
-    asset.height = _asset.height;
-  }
+  const width = _asset.width || 24;
+  asset.width = 1000;
+  asset.height = 1000;
   if (_asset.parts) {
     asset.parts = _asset.parts;
   } else {
     asset.parts = [{
       mask: "", color: "",
       body: _asset.body.replace(regex, (str:string)=>{
-        return parseFloat(str)
+        return Math.round(parseFloat(str) * 1000 / width);
       })
     }];
   }
