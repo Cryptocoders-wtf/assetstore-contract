@@ -2,6 +2,7 @@
 import { ethers, network } from "hardhat";
 import { actionAssets, socialAssets } from "../assets/materials";
 import { deploy } from "../utils/deploy";
+import { gasEstimate } from "../utils/math";
 
 async function main() {
   const { assetStore, materialToken } = await deploy();
@@ -15,26 +16,16 @@ async function main() {
     return tx.wait();
   });
   let returns = await Promise.all(promises);
-  console.log(returns.map(t3 => { 
-    const gasUsed = t3.gasUsed;
-    const gasPrice = t3.effectiveGasPrice;
-    const gasCost = gasUsed.mul(gasPrice);
-    const gasCostEth = Number.parseFloat(ethers.utils.formatEther(gasCost));
-    const ETHUSD = 1000; // assume eth is $1000 usd
-    const gasCostUsd = gasCostEth * ETHUSD;
-    return { ETH: gasCostEth, USD: gasCostUsd };    
-  }));
-/*
+  console.log(returns.map(gasEstimate));
+
   console.log("socialAssets");
   promises = socialAssets.map(async (asset) => {
     asset.soulbound = owner.address;
     const tx = await materialToken.mint(asset, 0);
-    const result = await tx.wait();
-    return result.gasUsed.toNumber();
+    return tx.wait();
   });
   returns = await Promise.all(promises);
-  console.log(returns);
-*/
+  console.log(returns.map(gasEstimate));
 }
 
 main().catch((error) => {
