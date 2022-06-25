@@ -59,7 +59,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint32 nextIndex;
     mapping(string => uint32) ids; // index+1
   }
-  mapping(string => StringSet) internal categoryMaps;
+  mapping(string => StringSet) internal categorySets;
   
   // Grouped and categorized assetIds (for browsing)
   mapping(string => mapping(string => mapping(uint32 => uint256))) internal assetIdsInCategory;
@@ -85,13 +85,13 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // The categoryId is unique only within that group. 
   // @notice categoryId == categoryIndex + 1
   function _getCategoryId(string memory group, string memory category) private returns(uint32) {
-    StringSet storage categoryMap = categoryMaps[group];
-    uint32 categoryId = categoryMap.ids[category];
+    StringSet storage categorySet = categorySets[group];
+    uint32 categoryId = categorySet.ids[category];
     if (categoryId == 0) {
       require(validateString(category), "Invalid AssetData Categoy");
-      categoryMap.names[categoryMap.nextIndex++] = category;
-      categoryId = categoryMap.nextIndex; // index + 1
-      categoryMap.ids[category] = categoryId;
+      categorySet.names[categorySet.nextIndex++] = category;
+      categoryId = categorySet.nextIndex; // index + 1
+      categorySet.ids[category] = categoryId;
     }
     return categoryId;
   }
@@ -283,14 +283,14 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   // Returns the number of categories in the specified group.
   function getCategoryCount(string memory group) external view override returns(uint32) {
-    return categoryMaps[group].nextIndex;
+    return categorySets[group].nextIndex;
   }
 
   // Returns the name of category specified with group/categoryIndex pair.
   function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view override returns(string memory) {
-    StringSet storage categoryMap = categoryMaps[group];
-    require(categoryIndex <categoryMap.nextIndex, "The categoryIndex index is out of range");
-    return categoryMap.names[categoryIndex];
+    StringSet storage categorySet = categorySets[group];
+    require(categoryIndex <categorySet.nextIndex, "The categoryIndex index is out of range");
+    return categorySet.names[categoryIndex];
   }
 
   // Returns the number of asset in the specified group/category. 
@@ -311,7 +311,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   function _getDescription(Asset memory asset) internal view returns(bytes memory) {
     string memory group = groups[asset.groupId - 1];
-    return abi.encodePacked(group, '/', categoryMaps[group].names[asset.categoryId - 1], '/', asset.name);
+    return abi.encodePacked(group, '/', categorySets[group].names[asset.categoryId - 1], '/', asset.name);
   }
 
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
@@ -354,7 +354,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.soulbound = asset.soulbound;
     attr.minter = asset.minter;
     attr.group = groups[asset.groupId - 1];
-    attr.category = categoryMaps[attr.group].names[asset.categoryId - 1];
+    attr.category = categorySets[attr.group].names[asset.categoryId - 1];
     attr.width = asset.width;
     attr.height = asset.height;
     return attr;
