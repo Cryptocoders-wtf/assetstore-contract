@@ -1,6 +1,7 @@
 
 import { ethers, network } from "hardhat";
 import { actionAssets, socialAssets } from "../assets/materials";
+import { enojiAssets } from "../assets/openemoji";
 import { deploy } from "../utils/deploy";
 import { gasEstimate } from "../utils/math";
 
@@ -20,6 +21,15 @@ async function main() {
 
   console.log("socialAssets");
   promises = socialAssets.map(async (asset) => {
+    asset.soulbound = owner.address;
+    const tx = await materialToken.mint(asset, 0);
+    return tx.wait();
+  });
+  returns = await Promise.all(promises);
+  console.log(returns.map(gasEstimate));
+
+  console.log("openEmoji");
+  promises = enojiAssets.map(async (asset) => {
     asset.soulbound = owner.address;
     const tx = await materialToken.mint(asset, 0);
     return tx.wait();
