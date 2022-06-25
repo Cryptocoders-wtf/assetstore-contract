@@ -54,12 +54,12 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   mapping(string => uint32) private groupIds; // index+1
 
   // Grouped categories (for browsing)
-  struct CategoryMap {
+  struct StringSet {
     mapping(uint32 => string) names;
-    uint32 nextCategoryIndeces;
-    mapping(string => uint32) categoryIds; // index+1
+    uint32 nextIndex;
+    mapping(string => uint32) ids; // index+1
   }
-  mapping(string => CategoryMap) internal categoryMaps;
+  mapping(string => StringSet) internal categoryMaps;
   
   // Grouped and categorized assetIds (for browsing)
   mapping(string => mapping(string => mapping(uint32 => uint256))) internal assetIdsInCategory;
@@ -85,13 +85,13 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // The categoryId is unique only within that group. 
   // @notice categoryId == categoryIndex + 1
   function _getCategoryId(string memory group, string memory category) private returns(uint32) {
-    CategoryMap storage categoryMap = categoryMaps[group];
-    uint32 categoryId = categoryMap.categoryIds[category];
+    StringSet storage categoryMap = categoryMaps[group];
+    uint32 categoryId = categoryMap.ids[category];
     if (categoryId == 0) {
       require(validateString(category), "Invalid AssetData Categoy");
-      categoryMap.names[categoryMap.nextCategoryIndeces++] = category;
-      categoryId = categoryMap.nextCategoryIndeces; // index + 1
-      categoryMap.categoryIds[category] = categoryId;
+      categoryMap.names[categoryMap.nextIndex++] = category;
+      categoryId = categoryMap.nextIndex; // index + 1
+      categoryMap.ids[category] = categoryId;
     }
     return categoryId;
   }
@@ -283,13 +283,13 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   // Returns the number of categories in the specified group.
   function getCategoryCount(string memory group) external view override returns(uint32) {
-    return categoryMaps[group].nextCategoryIndeces;
+    return categoryMaps[group].nextIndex;
   }
 
   // Returns the name of category specified with group/categoryIndex pair.
   function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view override returns(string memory) {
-    CategoryMap storage categoryMap = categoryMaps[group];
-    require(categoryIndex <categoryMap.nextCategoryIndeces, "The categoryIndex index is out of range");
+    StringSet storage categoryMap = categoryMaps[group];
+    require(categoryIndex <categoryMap.nextIndex, "The categoryIndex index is out of range");
     return categoryMap.names[categoryIndex];
   }
 
