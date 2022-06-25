@@ -66,12 +66,13 @@ contract MaterialToken is Ownable, ERC721Enumerable {
 
   function _generateSVGHeader(IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
     return abi.encodePacked(
-      '<svg viewBox="0 0 ', _attr.width.toString() ,' ', _attr.height.toString(), '"  xmlns="http://www.w3.org/2000/svg">\n',
-      '<defs>\n',
-      ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n',
-      '  <feOffset result="offOut" in="SourceAlpha" dx="0.6" dy="1.0" />\n',
-      '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n',
-      '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n',
+      '<svg viewBox="0 0 ', _attr.width.toString() ,' ', _attr.height.toString(),
+       '"  xmlns="http://www.w3.org/2000/svg">\n'
+      '<defs>\n'
+      ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n'
+      '  <feOffset result="offOut" in="SourceAlpha" dx="0.6" dy="1.0" />\n'
+      '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="0.4" />\n'
+      '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n'
       ' </filter>\n');
   }
 
@@ -80,10 +81,10 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     string memory hh = (_attr.height / 2).toString();
     return abi.encodePacked(
         abi.encodePacked(
-        ' <clipPath id="nw"><rect x="0" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n',
+        ' <clipPath id="nw"><rect x="0" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n'
         ' <clipPath id="sw"><rect x="0" y="', hh, '" width="', hw, '" height="', hh, '" /></clipPath>\n'
         ), abi.encodePacked(
-        ' <clipPath id="ne"><rect x="', hw, '" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n',
+        ' <clipPath id="ne"><rect x="', hw, '" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n'
         ' <clipPath id="se"><rect x="', hw, '" y="', hh, '" width="', hw, '" height="', hh, '" /></clipPath>\n'
         )
       );
@@ -98,10 +99,10 @@ contract MaterialToken is Ownable, ERC721Enumerable {
       '</defs>\n');
     if (isSoulbound[_tokenId]) {
       image = abi.encodePacked(image,
-        '<g filter="url(#f1)">\n',
-        ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />',
-        ' <use href="', assetTag ,'" fill="#34A853" clip-path="url(#se)" />',
-        ' <use href="', assetTag ,'" fill="#FBBC05" clip-path="url(#sw)" />',
+        '<g filter="url(#f1)">\n'
+        ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />'
+        ' <use href="', assetTag ,'" fill="#34A853" clip-path="url(#se)" />'
+        ' <use href="', assetTag ,'" fill="#FBBC05" clip-path="url(#sw)" />'
         ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />');
     } else {
       image = abi.encodePacked(image,
@@ -116,8 +117,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
               '" x="', x.toString(), '" y="', y.toString(), '"/> \n');
       }
     }
-    image = abi.encodePacked(image,'</g>\n</svg>');
-    return image;
+    return abi.encodePacked(image, '</g>\n</svg>');
   }
 
   /**
