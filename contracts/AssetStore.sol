@@ -42,23 +42,20 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint256[] partsIds;
   }
 
+  struct StringSet {
+    mapping(uint32 => string) names;
+    uint32 nextIndex;
+    mapping(string => uint32) ids; // index+1
+  }
+
   // asset & part database
   mapping(uint256 => Asset) private assets;
   uint256 private nextAssetIndex = 1; // 0 indicates an error
   mapping(uint256 => Part) private parts;
   uint256 private nextPartIndex = 1; // 0 indicates an error
 
-  // Groups (for browsing)
-  mapping(uint32 => string) internal groups;
-  uint32 internal nextGroup; 
-  mapping(string => uint32) private groupIds; // index+1
-
-  // Grouped categories (for browsing)
-  struct StringSet {
-    mapping(uint32 => string) names;
-    uint32 nextIndex;
-    mapping(string => uint32) ids; // index+1
-  }
+  // Groups and categories(for browsing)
+  StringSet internal groupSet;
   mapping(string => StringSet) internal categorySets;
   
   // Grouped and categorized assetIds (for browsing)
@@ -71,12 +68,12 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // Returns the groupId of the specified group, creating a new Id if necessary.
   // @notice gruopId == groupIndex + 1
   function _getGroupId(string memory group) private returns(uint32) {
-    uint32 groupId = groupIds[group];
+    uint32 groupId = groupSet.ids[group];
     if (groupId == 0) {
       require(validateString(group), "Invalid AssetData Group");
-      groups[nextGroup++] = group;
-      groupId = nextGroup; // idex + 1
-      groupIds[group] = groupId; 
+      groupSet.names[groupSet.nextIndex++] = group;
+      groupId = groupSet.nextIndex; // idex + 1
+      groupSet.ids[group] = groupId; 
     }
     return groupId;
   }
@@ -272,13 +269,13 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   // Returns the number of registered groups.
   function getGroupCount() external view override returns(uint32) {
-    return nextGroup;
+    return groupSet.nextIndex;
   }
 
   // Returns the name of a group specified with groupIndex (groupId - 1). 
   function getGroupNameAtIndex(uint32 groupIndex) external view override returns(string memory) {
-    require(groupIndex < nextGroup, "The group index is out of range");
-    return groups[groupIndex];
+    require(groupIndex < groupSet.nextIndex, "The group index is out of range");
+    return groupSet.names[groupIndex];
   }
 
   // Returns the number of categories in the specified group.
@@ -310,7 +307,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   function _getDescription(Asset memory asset) internal view returns(bytes memory) {
-    string memory group = groups[asset.groupId - 1];
+    string memory group = groupSet.names[asset.groupId - 1];
     return abi.encodePacked(group, '/', categorySets[group].names[asset.categoryId - 1], '/', asset.name);
   }
 
@@ -353,7 +350,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.name = asset.name;
     attr.soulbound = asset.soulbound;
     attr.minter = asset.minter;
-    attr.group = groups[asset.groupId - 1];
+    attr.group = groupSet.names[asset.groupId - 1];
     attr.category = categorySets[attr.group].names[asset.categoryId - 1];
     attr.width = asset.width;
     attr.height = asset.height;
