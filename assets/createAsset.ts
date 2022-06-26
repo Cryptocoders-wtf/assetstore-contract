@@ -3,13 +3,17 @@ const assetBase:any = {
   minter: ""
 };
 
-const regex = /[+-\d\.]+/g;
+const regexNum = /[+-\d\.]+/g;
+const regexDiv = /[,\s]+/g;
 const encoder = new TextEncoder();
 
 const compressPath = (body:string, width:number) => {
-  return encoder.encode(body.replace(regex, (str:string)=>{
-    return `${Math.round(parseFloat(str) * 1000 / width)}`;
-  }));
+  let ret = body.replace(regexNum, (str:string)=>{
+    return ` ${Math.round(parseFloat(str) * 1000 / width)} `;
+  });
+  ret = ret.replace(regexDiv," ");
+
+  return encoder.encode(ret);
 } 
 
 export const createAsset = (_asset:any, group:string, category:string) => {
