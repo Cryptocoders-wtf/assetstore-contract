@@ -294,6 +294,26 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     return abi.encodePacked(group, '/', categorySets[group].names[asset.categoryId - 1], '/', asset.name);
   }
 
+  function _decodePath(bytes memory body) internal pure returns (bytes memory) {
+    require(body.length % 2 == 0, "AssetStore:decodePath invalid body length (odd)");
+    bytes memory ret;
+    uint16 i;
+    for (i = 0; i < body.length; i += 2) {
+      uint16 high = uint8(body[i + 1]);
+      if (high == 0) {
+        ret = abi.encodePacked(ret, body[i]); // BUGBUG (security hole)
+      } else {
+        uint16 value = high * 256 + uint8(body[i]) - 256;
+        if (value >= 1024) {
+          ret = abi.encodePacked(ret, (value - 1024).toString(), " ");
+        } else {
+          ret = abi.encodePacked(ret, "-", (1024 - value).toString(), " ");
+        }
+      }
+    }
+    return ret;
+  }
+
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
     Asset memory asset = _getAsset(_assetId);
     uint256[] memory indeces = asset.partsIds;
@@ -302,9 +322,9 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     for (i=0; i<indeces.length; i++) {
       Part memory part = _getPart(indeces[i]);
       if (bytes(part.color).length > 0) {
-        pack = abi.encodePacked(pack, '  <path d="', part.body, '" fill="', part.color ,'" />\n');
+        pack = abi.encodePacked(pack, '  <path d="', _decodePath(part.body), '" fill="', part.color ,'" />\n');
       } else {
-        pack = abi.encodePacked(pack, '  <path d="', part.body, '" />\n');
+        pack = abi.encodePacked(pack, '  <path d="', _decodePath(part.body), '" />\n');
       }
     }
     pack = abi.encodePacked(pack, ' </g>\n');
