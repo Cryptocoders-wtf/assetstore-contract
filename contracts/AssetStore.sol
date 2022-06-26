@@ -300,10 +300,13 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     uint16 i;
     for (i = 0; i < body.length; i += 2) {
       uint16 high = uint8(body[i + 1]);
+      uint16 low = uint8(body[i]);
       if (high == 0) {
-        ret = abi.encodePacked(ret, body[i]); // BUGBUG (security hole)
+        if (low >=65 && low<=90 || low >= 97 && low <= 122) {
+          ret = abi.encodePacked(ret, body[i]); // BUGBUG (security hole)
+        }
       } else {
-        uint16 value = high * 256 + uint8(body[i]) - 256;
+        uint16 value = high * 256 + low - 256;
         if (value >= 1024) {
           ret = abi.encodePacked(ret, (value - 1024).toString(), " ");
         } else {
