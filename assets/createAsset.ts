@@ -3,7 +3,8 @@ const assetBase:any = {
   minter: ""
 };
 
-const regex = /[+-\d\.]+/g
+const regex = /[+-\d\.]+/g;
+const encoder = new TextEncoder();
 
 export const createAsset = (_asset:any, group:string, category:string) => {
   let asset = Object.assign({}, assetBase);
@@ -17,17 +18,17 @@ export const createAsset = (_asset:any, group:string, category:string) => {
     asset.parts = _asset.parts.map((part:any) => {
       part.mask = part.mask || "";
       part.color = part.color || "";
-      part.body = part.body.replace(regex, (str:string)=>{
+      part.body = encoder.encode(part.body.replace(regex, (str:string)=>{
         return Math.round(parseFloat(str) * 1000 / width);
-      });
+      }));
       return part;
     });
   } else {
     asset.parts = [{
       mask: "", color: "",
-      body: _asset.body.replace(regex, (str:string)=>{
+      body: encoder.encode(_asset.body.replace(regex, (str:string)=>{
         return Math.round(parseFloat(str) * 1000 / width);
-      })
+      }))
     }];
   }
   return asset;  

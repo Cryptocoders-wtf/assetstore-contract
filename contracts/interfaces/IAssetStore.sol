@@ -31,7 +31,7 @@ interface IAssetStore {
 // IAssetStoreRegistry is the interface for contracts who registers assets to the AssetStore.
 interface IAssetStoreRegistry {
   struct Part {
-    string body;
+    bytes body;
     string mask;
     string color;
   }
