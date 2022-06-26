@@ -9,7 +9,7 @@ const regexDivG = /[,\s]+/g;
 const encoder = new TextEncoder();
 
 const compressPath = (body:string, width:number) => {
-  let ret = body.replace(regexNumG, (str:string)=>{
+  const ret = body.replace(regexNumG, (str:string)=>{
     return ` ${Math.round(parseFloat(str) * 1024 / width)} `;
   });
   const items = ret.split(regexDivG);
@@ -36,7 +36,7 @@ const compressPath = (body:string, width:number) => {
 } 
 
 export const createAsset = (_asset:any, group:string, category:string) => {
-  let asset = Object.assign({}, assetBase);
+  const asset = Object.assign({}, assetBase);
   asset.group = group;
   asset.category = category;
   asset.name = _asset.name;
