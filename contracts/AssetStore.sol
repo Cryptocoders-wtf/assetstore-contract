@@ -298,12 +298,22 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     require(body.length % 2 == 0, "AssetStore:decodePath invalid body length (odd)");
     bytes memory ret;
     uint16 i;
-    for (i = 0; i < body.length; i += 2) {
-      uint16 high = uint8(body[i + 1]);
-      uint16 low = uint8(body[i]);
+    uint16 length = (uint16(body.length) * 2)/ 3;
+    for (i = 0; i < length; i++) {
+      uint16 offset = i / 2 * 3;
+      uint16 high;
+      uint16 low;
+      if (i % 2 == 0) {
+        low = uint8(body[offset]);
+        high = uint8(body[offset + 1]);
+      } else {
+        low = uint8(body[offset + 2]);
+        high = uint8(body[offset + 1]) / 16;
+      }
       if (high == 0) {
+        // Accept only [A-Za-z] and ignore others 
         if (low >=65 && low<=90 || low >= 97 && low <= 122) {
-          ret = abi.encodePacked(ret, body[i]); // BUGBUG (security hole)
+          ret = abi.encodePacked(ret, body[i]);
         }
       } else {
         uint16 value = high * 256 + low - 256;
