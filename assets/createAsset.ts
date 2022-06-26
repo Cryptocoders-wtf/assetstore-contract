@@ -14,13 +14,17 @@ const compressPath = (body:string, width:number) => {
   });
   const items = ret.split(regexDivG);
 
-  const numArray:Array<number> = items.map((item:string) => {
+  const numArray:Array<number> = items.reduce((prev:Array<number>, item:string) => {
     if (regexNum.test(item)) {
-      return parseFloat(item) + 256 + 1024;
+      prev.push(parseFloat(item) + 256 + 1024);
     } else {
-      return item.charCodeAt(0);
+      let i;
+      for (i = 0; i < item.length; i++) {
+        prev.push(item.charCodeAt(i));
+      }
     }
-  });
+    return prev;
+  }, []);
 
   const bytes = new Uint8Array(numArray.length * 2);
   numArray.map((value, index) => {
