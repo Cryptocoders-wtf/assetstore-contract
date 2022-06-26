@@ -26,10 +26,17 @@ const compressPath = (body:string, width:number) => {
     return prev;
   }, []);
 
-  const bytes = new Uint8Array(numArray.length * 2);
+  // Middle-endien compression
+  const bytes = new Uint8Array((numArray.length * 3 + 1) / 2);
   numArray.map((value, index) => {
-    bytes[index * 2] = value % 0x100; // little-endian
-    bytes[index * 2 + 1] = value / 0x100; 
+    const offset = index * 3 / 2;
+    if (index % 2 == 0) {
+      bytes[offset] = value % 0x100; // low 8 bits in the first byte
+      bytes[offset + 1] = (value / 0x100) & 0x0f; // hight 4 bits in the low 4 bits of middle byte 
+    } else {
+      bytes[offset + 2] = value % 0x100; // low 8 bits in the third byte
+      bytes[offset + 1] |= (value / 0x100) * 0x10; // high 4 bits in the high 4 bits of middle byte
+    }
   });
 
   return bytes;
