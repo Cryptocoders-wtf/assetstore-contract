@@ -312,8 +312,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
       }
       if (high == 0) {
         // Accept only [A-Za-z] and ignore others 
-        if (low >=65 && low<=90 || low >= 97 && low <= 122) {
-          ret = abi.encodePacked(ret, body[i]);
+        if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
+          ret = abi.encodePacked(ret, uint8(low));
         }
       } else {
         uint16 value = high * 256 + low - 256;

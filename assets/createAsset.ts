@@ -26,18 +26,26 @@ const compressPath = (body:string, width:number) => {
     return prev;
   }, []);
 
+  //console.log(numArray);
   // Middle-endien compression
   const bytes = new Uint8Array((numArray.length * 3 + 1) / 2);
+  //console.log("numArray", numArray);
   numArray.map((value, index) => {
-    const offset = index / 2 * 3;
+    const offset = Math.floor(index / 2) * 3;
     if (index % 2 == 0) {
       bytes[offset] = value % 0x100; // low 8 bits in the first byte
-      bytes[offset + 1] = (value / 0x100) & 0x0f; // hight 4 bits in the low 4 bits of middle byte 
+      bytes[offset + 1] = (value >> 8) & 0x0f; // hight 4 bits in the low 4 bits of middle byte 
     } else {
+      //console.log("*", value % 0x100, (value >> 8) * 0x10);
       bytes[offset + 2] = value % 0x100; // low 8 bits in the third byte
-      bytes[offset + 1] |= (value / 0x100) * 0x10; // high 4 bits in the high 4 bits of middle byte
+      bytes[offset + 1] |= (value >> 8) * 0x10; // high 4 bits in the high 4 bits of middle byte
     }
   });
+  const bar = bytes.reduce((prev, item) => {
+    prev.push(item.toString(16));
+    return prev;
+  }, ["bytes:"]);
+  //console.log(bar);
 
   return bytes;
 } 
