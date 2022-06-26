@@ -14,17 +14,21 @@ const compressPath = (body:string, width:number) => {
   });
   const items = ret.split(regexDivG);
 
-  const foo:any = items.map((item:string) => {
+  const numArray:Array<number> = items.map((item:string) => {
     if (regexNum.test(item)) {
       return parseFloat(item) + 256 + 1024;
     } else {
       return item.charCodeAt(0);
     }
   });
-  console.log(foo);
 
-  ret = items.join(' ');
-  return encoder.encode(ret);
+  const bytes = new Uint8Array(numArray.length * 2);
+  numArray.map((value, index) => {
+    bytes[index * 2] = value % 0x100; // little-endian
+    bytes[index * 2 + 1] = value / 0x100; 
+  });
+
+  return bytes;
 } 
 
 export const createAsset = (_asset:any, group:string, category:string) => {
