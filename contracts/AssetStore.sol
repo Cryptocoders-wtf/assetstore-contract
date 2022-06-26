@@ -300,7 +300,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     uint16 i;
     uint16 length = (uint16(body.length) * 2)/ 3;
     for (i = 0; i < length; i++) {
-      // unpack 12-bit middle endien
+      // unpack 12-bit middle endian
       uint16 offset = i / 2 * 3;
       uint8 low;
       uint8 high;

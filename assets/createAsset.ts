@@ -26,7 +26,7 @@ const compressPath = (body:string, width:number) => {
     return prev;
   }, []);
 
-  // 12-bit middle-endien compression
+  // 12-bit middle-endian compression
   const bytes = new Uint8Array((numArray.length * 3 + 1) / 2);
   numArray.map((value, index) => {
     const offset = Math.floor(index / 2) * 3;
