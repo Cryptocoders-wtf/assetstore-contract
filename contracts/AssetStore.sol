@@ -301,8 +301,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     uint16 length = (uint16(body.length) * 2)/ 3;
     for (i = 0; i < length; i++) {
       uint16 offset = i / 2 * 3;
-      uint16 high;
-      uint16 low;
+      uint8 high;
+      uint8 low;
       if (i % 2 == 0) {
         low = uint8(body[offset]);
         high = uint8(body[offset + 1]) % 16;
@@ -313,10 +313,10 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
       if (high == 0) {
         // Accept only [A-Za-z] and ignore others 
         if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
-          ret = abi.encodePacked(ret, uint8(low));
+          ret = abi.encodePacked(ret, low);
         }
       } else {
-        uint16 value = high * 256 + low - 256;
+        uint16 value = uint16(high) * 256 + uint16(low) - 256;
         if (value >= 1024) {
           ret = abi.encodePacked(ret, (value - 1024).toString(), " ");
         } else {
