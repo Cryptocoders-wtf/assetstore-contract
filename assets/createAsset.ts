@@ -11,7 +11,8 @@ const compressPath = (body:string, width:number) => {
   let ret = body.replace(regexNum, (str:string)=>{
     return ` ${Math.round(parseFloat(str) * 1000 / width)} `;
   });
-  ret = ret.replace(regexDiv," ");
+  const items = ret.split(regexDiv);
+  ret = items.join(' ');
 
   return encoder.encode(ret);
 } 
