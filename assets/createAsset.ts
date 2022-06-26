@@ -16,7 +16,7 @@ export const createAsset = (_asset:any, group:string, category:string) => {
   asset.height = 1000;
   if (_asset.parts) {
     asset.parts = _asset.parts.map((part:any) => {
-      part.mask = part.mask || "";
+      part.mask = encoder.encode(part.mask || "");
       part.color = part.color || "";
       part.body = encoder.encode(part.body.replace(regex, (str:string)=>{
         return Math.round(parseFloat(str) * 1000 / width);
@@ -25,7 +25,7 @@ export const createAsset = (_asset:any, group:string, category:string) => {
     });
   } else {
     asset.parts = [{
-      mask: "", color: "",
+      mask: encoder.encode(""), color: "",
       body: encoder.encode(_asset.body.replace(regex, (str:string)=>{
         return Math.round(parseFloat(str) * 1000 / width);
       }))
