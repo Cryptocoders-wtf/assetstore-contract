@@ -3,17 +3,27 @@ const assetBase:any = {
   minter: ""
 };
 
-const regexNum = /[+-\d\.]+/g;
-const regexDiv = /[,\s]+/g;
+const regexNum = /[+-\d\.]+/;
+const regexNumG = /[+-\d\.]+/g;
+const regexDivG = /[,\s]+/g;
 const encoder = new TextEncoder();
 
 const compressPath = (body:string, width:number) => {
-  let ret = body.replace(regexNum, (str:string)=>{
+  let ret = body.replace(regexNumG, (str:string)=>{
     return ` ${Math.round(parseFloat(str) * 1000 / width)} `;
   });
-  const items = ret.split(regexDiv);
-  ret = items.join(' ');
+  const items = ret.split(regexDivG);
 
+  const foo:any = items.map((item:string) => {
+    if (regexNum.test(item)) {
+      return parseFloat(item) + 256 + 1024;
+    } else {
+      return item.charCodeAt(0);
+    }
+  });
+  console.log(foo);
+
+  ret = items.join(' ');
   return encoder.encode(ret);
 } 
 
