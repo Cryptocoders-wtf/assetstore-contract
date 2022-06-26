@@ -305,7 +305,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
       uint16 low;
       if (i % 2 == 0) {
         low = uint8(body[offset]);
-        high = uint8(body[offset + 1]);
+        high = uint8(body[offset + 1]) % 16;
       } else {
         low = uint8(body[offset + 2]);
         high = uint8(body[offset + 1]) / 16;

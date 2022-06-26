@@ -29,7 +29,7 @@ const compressPath = (body:string, width:number) => {
   // Middle-endien compression
   const bytes = new Uint8Array((numArray.length * 3 + 1) / 2);
   numArray.map((value, index) => {
-    const offset = index * 3 / 2;
+    const offset = index / 2 * 3;
     if (index % 2 == 0) {
       bytes[offset] = value % 0x100; // low 8 bits in the first byte
       bytes[offset + 1] = (value / 0x100) & 0x0f; // hight 4 bits in the low 4 bits of middle byte 
