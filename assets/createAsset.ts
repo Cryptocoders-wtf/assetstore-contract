@@ -10,7 +10,7 @@ const encoder = new TextEncoder();
 
 const compressPath = (body:string, width:number) => {
   let ret = body.replace(regexNumG, (str:string)=>{
-    return ` ${Math.round(parseFloat(str) * 1000 / width)} `;
+    return ` ${Math.round(parseFloat(str) * 1024 / width)} `;
   });
   const items = ret.split(regexDivG);
 
@@ -41,8 +41,8 @@ export const createAsset = (_asset:any, group:string, category:string) => {
   asset.category = category;
   asset.name = _asset.name;
   const width = _asset.width || 24;
-  asset.width = 1000;
-  asset.height = 1000;
+  asset.width = 1024;
+  asset.height = 1024;
   if (_asset.parts) {
     asset.parts = _asset.parts.map((part:any) => {
       part.mask = compressPath(part.mask || "", width);
