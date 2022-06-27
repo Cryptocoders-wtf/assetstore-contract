@@ -17,6 +17,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
+import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
 
 contract MaterialToken is Ownable, ERC721Enumerable {
   using Strings for uint256;
@@ -34,9 +35,22 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   // The internal token ID tracker
   uint256 private _currentTokenId;
 
-  constructor(IAssetStoreRegistry _registry, IAssetStore _assetStore) ERC721("Material Icons", "MATERIAL") {
+  // developer address.
+  address public developer;
+
+  // OpenSea's Proxy Registry
+  IProxyRegistry public immutable proxyRegistry;
+
+  constructor(
+    IAssetStoreRegistry _registry, 
+    IAssetStore _assetStore,
+    address _developer,
+    IProxyRegistry _proxyRegistry
+  ) ERC721("Material Icons", "MATERIAL") {
     registry = _registry;
     assetStore = _assetStore;
+    developer = _developer;
+    proxyRegistry = _proxyRegistry;
   }
 
   function _safeMintWithAssetId(address _target, uint256 _assetId, bool _isSoulbound) internal returns(uint256) {
