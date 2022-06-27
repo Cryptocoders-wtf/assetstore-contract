@@ -283,12 +283,25 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     bytes memory pack = abi.encodePacked(' <g id="asset', _assetId.toString(), '" desc="', _getDescription(asset), '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
+      pack = abi.encodePacked(pack, '<g>\n');
       Part memory part = _getPart(indeces[i]);
-      if (bytes(part.color).length > 0) {
-        pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '" fill="', part.color ,'" />\n');
-      } else {
-        pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '" />\n');
+      bytes memory maskId;
+      if (part.mask.length > 0) {
+        maskId = abi.encodePacked(_assetId.toString(), '_', i.toString());
+        pack = abi.encodePacked(pack, '<defs>\n');
+        pack = abi.encodePacked(pack, '<mask id="',maskId,'">\n');
+        pack = abi.encodePacked(pack, ' <rect x="0" y="0" width="1024" height="1024" fill="white" />\n');
+        pack = abi.encodePacked(pack, '  <path d="', part.mask.decodePath(), '" fill="black" />\n');
+        pack = abi.encodePacked(pack, '</mask>\n');
+        pack = abi.encodePacked(pack, '</defs>\n');
+        maskId = abi.encodePacked('mask="url(#', maskId, ')"');
       }
+      if (bytes(part.color).length > 0) {
+        pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '" fill="', part.color ,'" ',maskId,' />\n');
+      } else {
+        pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '" ',maskId, ' />\n');
+      }
+      pack = abi.encodePacked(pack, '</g>\n');
     }
     pack = abi.encodePacked(pack, ' </g>\n');
     return pack;
