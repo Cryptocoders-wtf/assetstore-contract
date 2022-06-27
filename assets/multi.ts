@@ -11,6 +11,6 @@ const misc = [{
   }]
 }];
 
-export const miscAssets = misc.map(asset => {
+export const multiAssets = misc.map(asset => {
   return createAsset(asset, "Misc.", "Standard");
 });

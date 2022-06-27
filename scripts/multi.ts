@@ -1,14 +1,14 @@
 
 
 import { ethers } from "hardhat";
-import { miscAssets } from "../assets/misc";
+import { multiAssets } from "../assets/multi";
 import { deploy } from "../utils/deploy";
 
 async function main() {
   const { assetStore, materialToken } = await deploy();
   const [owner] = await ethers.getSigners();
 
-  const asset = miscAssets[0];
+  const asset = multiAssets[0];
   asset.soulbound = owner.address;
   const tx = await materialToken.mint(asset, 0);
   await tx.wait();
