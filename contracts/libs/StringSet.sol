@@ -14,7 +14,7 @@ library StringSet {
   function getId(Set storage set, string memory name, IStringValidator validator) internal returns(uint32) {
     uint32 id = set.ids[name];
     if (id == 0) {
-      require(validator.validate(name), "StringSet.getId: Invalid String");
+      require(validator.validate(bytes(name)), "StringSet.getId: Invalid String");
       set.names[set.nextIndex++] = name;
       id = set.nextIndex; // idex + 1
       set.ids[name] = id; 

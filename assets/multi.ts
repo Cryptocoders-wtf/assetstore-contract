@@ -12,7 +12,7 @@ const misc = [{
     color: "blue",
     body: "M7 7h15v15h-15z",
   },{
-    color: "red",
+    color: "#ff000080",
     body: "M9 9h15v15h-15z",
   }]
 }];

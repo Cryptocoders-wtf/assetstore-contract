@@ -96,10 +96,9 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint i;
     for (i=0; i < size; i++) {
       Part memory part = _assetInfo.parts[i];
-      require(validator.validate(part.color), "Invalid AssetData Color");
+      require(validator.validate(bytes(part.color)), "Invalid AssetData Color");
     }
-    require(validator.validate(_assetInfo.name), "Invalid AssetData Name");
-    // @notice we validate group in _getGroup, category in _getCategory
+    require(validator.validate(bytes(_assetInfo.name)), "Invalid AssetData Name");
     _;
   }
 

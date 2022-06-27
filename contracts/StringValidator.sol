@@ -5,10 +5,9 @@ pragma solidity ^0.8.6;
 
 
 contract StringValidator is IStringValidator {
-  function validate(string memory str) external pure override returns (bool) {
-    bytes memory b = bytes(str);
-    for(uint i; i < b.length; i++){
-      bytes1 char = b[i];
+  function validate(bytes memory str) external pure override returns (bool) {
+    for(uint i; i < str.length; i++){
+      bytes1 char = str[i];
         if(!(
          (char >= 0x30 && char <= 0x39) || //0-9
          (char >= 0x41 && char <= 0x5A) || //A-Z
