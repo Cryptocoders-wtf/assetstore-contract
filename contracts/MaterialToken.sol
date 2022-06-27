@@ -73,6 +73,17 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return tokenId;    
   }
 
+  /**
+    * @notice Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
+    */
+  function isApprovedForAll(address owner, address operator) public view override returns (bool) {
+      // Whitelist OpenSea proxy contract for easy trading.
+      if (proxyRegistry.proxies(owner) == operator) {
+          return true;
+      }
+      return super.isApprovedForAll(owner, operator);
+  }
+
   function getAssetId(uint256 _tokenId) external view returns(uint256) {
     require(_exists(_tokenId), 'MaterialToken.getAssetId: nonexistent token');
     return assetIds[_tokenId];
