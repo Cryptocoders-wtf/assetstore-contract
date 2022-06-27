@@ -273,8 +273,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   function _getDescription(Asset memory asset) internal view returns(bytes memory) {
-    string memory group = groupSet.names[asset.groupId - 1];
-    return abi.encodePacked(group, '/', categorySets[group].names[asset.categoryId - 1], '/', asset.name);
+    string memory group = groupSet.nameAtIndex(asset.groupId - 1);
+    return abi.encodePacked(group, '/', categorySets[group].nameAtIndex(asset.categoryId - 1), '/', asset.name);
   }
 
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
@@ -316,8 +316,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.name = asset.name;
     attr.soulbound = asset.soulbound;
     attr.minter = asset.minter;
-    attr.group = groupSet.names[asset.groupId - 1];
-    attr.category = categorySets[attr.group].names[asset.categoryId - 1];
+    attr.group = groupSet.nameAtIndex(asset.groupId - 1);
+    attr.category = categorySets[attr.group].nameAtIndex(asset.categoryId - 1);
     attr.width = asset.width;
     attr.height = asset.height;
     return attr;
