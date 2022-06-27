@@ -63,15 +63,25 @@ contract MaterialToken is Ownable, ERC721Enumerable {
 
   function mint(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external returns(uint256) {
     uint256 assetId = registry.registerAsset(_assetInfo);
-    uint256 tokenId = _safeMintWithAssetId(msg.sender, assetId, true);
-    _safeMintWithAssetId(msg.sender, assetId, false);
+    uint256 tokenId = _safeMintWithAssetId(msg.sender, assetId, true); // souldbound token
+    _safeMintWithAssetId(msg.sender, assetId, false); // bonus token
 
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
     if (_affiliate > 0 && isSoulbound[_affiliate] && ownerOf(_affiliate) != msg.sender) {
-      _safeMintWithAssetId(ownerOf(_affiliate), assetId, false);
+      _safeMintWithAssetId(ownerOf(_affiliate), assetId, false); // affiliate token
+    } else if (_currentTokenId % 10 == 2) {
+      // 10% of non-affiliated case. 
+      _safeMintWithAssetId(developer, assetId, false); // developer token
     }
     return tokenId;    
   }
+
+    /*
+     * @notice get next tokenId.
+     */
+    function getCurrentToken() external view returns (uint256) {                  
+        return _currentTokenId;
+    }
 
   /**
     * @notice Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.

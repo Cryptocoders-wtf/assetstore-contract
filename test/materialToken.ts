@@ -36,7 +36,8 @@ describe("MaterialToken minting test", function () {
     assetDone.soulbound = owner.address;
     await assetStore.setWhitelistStatus(materialToken.address, true);
     await materialToken.mint(assetDone, 0);
-    expect(await materialToken.balanceOf(owner.address)).equal(2);    
+    expect(await materialToken.balanceOf(owner.address)).equal(2);
+    expect(await materialToken.getCurrentToken()).equal(3); // including developer token    
 
     await assetStore.setWhitelistStatus(materialToken.address, false);
     expect(await catchError(async ()=>{ await materialToken.mint(assetHome, 0); })).equal(true);
