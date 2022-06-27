@@ -228,6 +228,7 @@ contract AppStoreRegistory is AssetStoreAdmin {
 contract AssetStore is AppStoreRegistory, IAssetStore {
   using Strings for uint16;
   using Strings for uint256;
+  using StringSet for StringSet.Set;
   using SVGPathDecoder for bytes;
 
   modifier enabled(uint256 _assetId) {
@@ -241,9 +242,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // Returns the name of a group specified with groupIndex (groupId - 1). 
-  function getGroupNameAtIndex(uint32 groupIndex) external view override returns(string memory) {
-    require(groupIndex < groupSet.nextIndex, "The group index is out of range");
-    return groupSet.names[groupIndex];
+  function getGroupNameAtIndex(uint32 _groupIndex) external view override returns(string memory) {
+    return groupSet.nameAtIndex(_groupIndex);
   }
 
   // Returns the number of categories in the specified group.
@@ -252,10 +252,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // Returns the name of category specified with group/categoryIndex pair.
-  function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view override returns(string memory) {
-    StringSet.Set storage categorySet = categorySets[group];
-    require(categoryIndex <categorySet.nextIndex, "The categoryIndex index is out of range");
-    return categorySet.names[categoryIndex];
+  function getCategoryNameAtIndex(string memory _group, uint32 _categoryIndex) external view override returns(string memory) {
+    return categorySets[_group].nameAtIndex(_categoryIndex);
   }
 
   // Returns the number of asset in the specified group/category. 

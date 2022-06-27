@@ -21,4 +21,9 @@ library StringSet {
     }
     return id;
   }
+
+  function nameAtIndex(Set storage _set, uint32 _index) internal view returns(string memory) {
+    require(_index < _set.nextIndex, "StringSet.nameAtIndex: The index is out of range");
+    return _set.names[_index];
+  }
 }
