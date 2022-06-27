@@ -183,6 +183,10 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
     disableWhitelist = _disable;
   } 
 
+  function setValidator(IStringValidator _validator) external onlyOwner {
+    validator = _validator;
+  }
+
   // returns the raw asset data speicified by the assetId (1, ..., count)
   function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
     return _getAsset(_assetId);
