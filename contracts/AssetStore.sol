@@ -306,10 +306,10 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
       uint8 high;
       if (i % 2 == 0) {
         low = uint8(body[offset]);
-        high = uint8(body[offset + 1]) % 0x10;
+        high = uint8(body[offset + 1]) % 0x10; // low 4 bits of middle byte
       } else {
         low = uint8(body[offset + 2]);
-        high = uint8(body[offset + 1]) / 0x10;
+        high = uint8(body[offset + 1]) / 0x10; // high 4 bits of middle byte
       }
       if (high == 0) {
         // SVG command: Accept only [A-Za-z] and ignore others 
