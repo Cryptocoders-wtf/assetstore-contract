@@ -52,14 +52,13 @@ export const createAsset = (_asset:any, group:string, category:string) => {
   asset.height = 1024;
   if (_asset.parts) {
     asset.parts = _asset.parts.map((part:any) => {
-      part.mask = compressPath(part.mask || "", width);
       part.color = part.color || "";
       part.body = compressPath(part.body, width);
       return part;
     });
   } else {
     asset.parts = [{
-      mask: compressPath("", width), color: "",
+      color: "",
       body: compressPath(_asset.body, width)
     }];
   }

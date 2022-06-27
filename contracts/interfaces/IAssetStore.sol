@@ -33,7 +33,6 @@ interface IAssetStore {
 interface IAssetStoreRegistry {
   struct Part {
     bytes body;
-    bytes mask;
     string color;
   }
 
