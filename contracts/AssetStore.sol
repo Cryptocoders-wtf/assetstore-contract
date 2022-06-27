@@ -50,6 +50,9 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // Upgradable string validator
   IStringValidator validator;
 
+  // Upgradable path decoder
+  IPathDecoder decoder;
+
   // asset & part database
   mapping(uint256 => Asset) private assets;
   uint256 private nextAssetIndex = 1; // 0 indicates an error
@@ -69,6 +72,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
 
   constructor() {
     validator = new StringValidator(); // default validator
+    decoder = new SVGPathDecoder(); // default decoder
   }
 
   // Returns the groupId of the specified group, creating a new Id if necessary.
@@ -187,6 +191,10 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
     validator = _validator;
   }
 
+  function setPathDecoder(IPathDecoder _decoder) external onlyOwner {
+    decoder = _decoder;
+  }
+
   // returns the raw asset data speicified by the assetId (1, ..., count)
   function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
     return _getAsset(_assetId);
@@ -230,7 +238,6 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   using Strings for uint16;
   using Strings for uint256;
   using StringSet for StringSet.Set;
-  using SVGPathDecoder for bytes;
 
   modifier enabled(uint256 _assetId) {
     require(disabled[_assetId] != true, "AssetStore: this asset is diabled");
@@ -289,7 +296,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
       if (bytes(part.color).length > 0) {
         color = abi.encodePacked(' fill="', part.color ,'"');
       }
-      pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '"', color,' />\n');
+      pack = abi.encodePacked(pack, '  <path d="', decoder.decodePath(part.body), '"', color,' />\n');
     }
     pack = abi.encodePacked(pack, ' </g>\n');
     return pack;

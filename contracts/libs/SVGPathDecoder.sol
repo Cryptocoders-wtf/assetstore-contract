@@ -1,13 +1,23 @@
 // SPDX-License-Identifier: MIT
 
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "../interfaces/IPathDecoder.sol";
 
 pragma solidity ^0.8.6;
 
-library SVGPathDecoder {
+contract SVGPathDecoder is IPathDecoder {
   using Strings for uint16;
-
-  function decodePath(bytes memory body) internal pure returns (bytes memory) {
+  /**
+  * Decode the compressed binary deta and reconstruct SVG path. 
+  * The binaryformat is 12-bit middle endian, where the low 4-bit of the middle byte is
+  * the high 4-bit of the even item ("ijkl"), and the high 4-bit of the middle byte is the high
+  * 4-bit of the odd item ("IJKL"). 
+  *   abcdefgh ijklIJKL ABCDEFG
+  *
+  * If we want to upgrade this decoder, it is possible to use the high 4-bit of the first
+  * element for versioning, because it is guaraneed to be zero for the current version.
+  */
+  function decodePath(bytes memory body) external pure override returns (bytes memory) {
     bytes memory ret;
     uint16 i;
     uint16 length = (uint16(body.length) * 2)/ 3;
