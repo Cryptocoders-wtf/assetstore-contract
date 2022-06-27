@@ -3,7 +3,7 @@ const assetBase:any = {
   minter: ""
 };
 
-const regex = /[+-\d\.]+/g
+const regex = /[+-]?[\d\.]+/;
 
 export const createAsset = (_asset:any, group:string, category:string) => {
   let asset = Object.assign({}, assetBase);
