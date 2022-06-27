@@ -12,8 +12,9 @@ const misc = [{
     mask: "", color: "blue",
     body: "M7 7h15v15h-15z",
   },{
-    mask: "", color: "red",
+    color: "red",
     body: "M9 9h15v15h-15z",
+    mask: "M11 11h10v10h-10z", 
   }]
 }];
 
