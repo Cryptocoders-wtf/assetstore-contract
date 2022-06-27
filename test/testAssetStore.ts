@@ -109,7 +109,7 @@ describe("AssetStore Component Test", function () {
     const tx = await contract.registerAsset(asset);
     const result = await tx.wait();
     const [event] = result.events;
-    expect(event.event).equal("Registered");
+    expect(event.event).equal("AssetRegistered");
     const assetId = event.args.assetId.toNumber();
     expect(await contract.getAssetCount()).equal(assetId);    
     expect(await contract.getGroupCount()).equal(1);    

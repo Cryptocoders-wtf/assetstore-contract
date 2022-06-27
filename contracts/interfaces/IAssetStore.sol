@@ -23,6 +23,7 @@ interface IAssetStore {
     uint16 width;
     uint16 height;
   }
+
   function generateSVG(uint256 _assetId) external view returns(string memory);
   function generateSVGPart(uint256 _assetId) external view returns(string memory);
   function getAttributes(uint256 _assetId) external view returns(AssetAttributes memory);
@@ -47,7 +48,7 @@ interface IAssetStoreRegistry {
     Part[] parts;
   }
 
-  event Registered(address indexed from, uint256 indexed assetId);
+  event AssetRegistered(address indexed from, uint256 indexed assetId);
 
   function registerAsset(AssetInfo memory _assetInfo) external returns(uint256);
   function registerAssets(AssetInfo[] memory _assetInfos) external returns(uint256);
