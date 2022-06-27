@@ -25,6 +25,7 @@ import { IStringValidator } from './interfaces/IStringValidator.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import './StringValidator.sol';
 import './libs/StringSet.sol';
+import './libs/SVGPathDecoder.sol';
 
 // import "hardhat/console.sol";
 
@@ -244,6 +245,7 @@ contract AppStoreRegistory is AssetStoreAdmin {
 contract AssetStore is AppStoreRegistory, IAssetStore {
   using Strings for uint16;
   using Strings for uint256;
+  using SVGPathDecoder for bytes;
 
   modifier enabled(uint256 _assetId) {
     require(disabled[_assetId] != true, "AssetStore: this asset is diabled");
@@ -294,41 +296,6 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     return abi.encodePacked(group, '/', categorySets[group].names[asset.categoryId - 1], '/', asset.name);
   }
 
-  function _decodePath(bytes memory body) internal pure returns (bytes memory) {
-    require(body.length % 2 == 0, "AssetStore:decodePath invalid body length (odd)");
-    bytes memory ret;
-    uint16 i;
-    uint16 length = (uint16(body.length) * 2)/ 3;
-    for (i = 0; i < length; i++) {
-      // unpack 12-bit middle endian
-      uint16 offset = i / 2 * 3;
-      uint8 low;
-      uint8 high;
-      if (i % 2 == 0) {
-        low = uint8(body[offset]);
-        high = uint8(body[offset + 1]) % 0x10; // low 4 bits of middle byte
-      } else {
-        low = uint8(body[offset + 2]);
-        high = uint8(body[offset + 1]) / 0x10; // high 4 bits of middle byte
-      }
-      if (high == 0) {
-        // SVG command: Accept only [A-Za-z] and ignore others 
-        if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
-          ret = abi.encodePacked(ret, low);
-        }
-      } else {
-        // SVG value: undo (value + 1024) + 0x100 
-        uint16 value = uint16(high) * 0x100 + uint16(low) - 0x100;
-        if (value >= 1024) {
-          ret = abi.encodePacked(ret, (value - 1024).toString(), " ");
-        } else {
-          ret = abi.encodePacked(ret, "-", (1024 - value).toString(), " ");
-        }
-      }
-    }
-    return ret;
-  }
-
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
     Asset memory asset = _getAsset(_assetId);
     uint256[] memory indeces = asset.partsIds;
@@ -337,9 +304,9 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     for (i=0; i<indeces.length; i++) {
       Part memory part = _getPart(indeces[i]);
       if (bytes(part.color).length > 0) {
-        pack = abi.encodePacked(pack, '  <path d="', _decodePath(part.body), '" fill="', part.color ,'" />\n');
+        pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '" fill="', part.color ,'" />\n');
       } else {
-        pack = abi.encodePacked(pack, '  <path d="', _decodePath(part.body), '" />\n');
+        pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '" />\n');
       }
     }
     pack = abi.encodePacked(pack, ' </g>\n');
