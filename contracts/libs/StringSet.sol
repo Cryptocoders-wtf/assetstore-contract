@@ -11,7 +11,7 @@ library StringSet {
     mapping(string => uint32) ids; // index+1
   }
 
-  function getId(Set storage set, string memory name, IStringValidator validator) external returns(uint32) {
+  function getId(Set storage set, string memory name, IStringValidator validator) internal returns(uint32) {
     uint32 id = set.ids[name];
     if (id == 0) {
       require(validator.validate(name), "StringSet.getId: Invalid String");

@@ -74,31 +74,14 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   // Returns the groupId of the specified group, creating a new Id if necessary.
   // @notice gruopId == groupIndex + 1
   function _getGroupId(string memory group) private returns(uint32) {
-    // return groupSet.getId(group, validator);
-    uint32 groupId = groupSet.ids[group];
-    if (groupId == 0) {
-      require(validator.validate(group), "Invalid AssetData Group");
-      groupSet.names[groupSet.nextIndex++] = group;
-      groupId = groupSet.nextIndex; // idex + 1
-      groupSet.ids[group] = groupId; 
-    }
-    return groupId;
+    return groupSet.getId(group, validator);
   }
 
   // Returns the categoryId of the specified category in a group, creating a new Id if necessary.
   // The categoryId is unique only within that group. 
   // @notice categoryId == categoryIndex + 1
   function _getCategoryId(string memory group, string memory category) private returns(uint32) {
-    // return categorySets[group].getId(category, validator);
-    StringSet.Set storage categorySet = categorySets[group];
-    uint32 categoryId = categorySet.ids[category];
-    if (categoryId == 0) {
-      require(validator.validate(category), "Invalid AssetData Categoy");
-      categorySet.names[categorySet.nextIndex++] = category;
-      categoryId = categorySet.nextIndex; // index + 1
-      categorySet.ids[category] = categoryId;
-    }
-    return categoryId;
+    return categorySets[group].getId(category, validator);
   }
 
   // Register a Part and returns its id, which is its index in parts[].
