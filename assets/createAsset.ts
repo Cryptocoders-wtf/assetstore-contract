@@ -38,10 +38,6 @@ const compressPath = (body:string, width:number) => {
       bytes[offset + 1] |= (value >> 8) * 0x10; // high 4 bits in the high 4 bits of middle byte
     }
   });
-  const bar = bytes.reduce((prev, item) => {
-    prev.push(item.toString(16));
-    return prev;
-  }, ["bytes:"]);
 
   return bytes;
 } 
