@@ -285,11 +285,11 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     uint i;
     for (i=0; i<indeces.length; i++) {
       Part memory part = _getPart(indeces[i]);
+      bytes memory color;
       if (bytes(part.color).length > 0) {
-        pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '" fill="', part.color ,'" />\n');
-      } else {
-        pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '" />\n');
+        color = abi.encodePacked(' fill="', part.color ,'"');
       }
+      pack = abi.encodePacked(pack, '  <path d="', part.body.decodePath(), '"', color,' />\n');
     }
     pack = abi.encodePacked(pack, ' </g>\n');
     return pack;
