@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { actionAssets } from "../assets/materials";
-import { deploy } from "../utils/deploy";
+import { deploy, developer } from "../utils/deploy";
 
 let assetStore :any = null;
 let materialToken: any = null;
@@ -37,6 +37,8 @@ describe("MaterialToken minting test", function () {
     await assetStore.setWhitelistStatus(materialToken.address, true);
     await materialToken.mint(assetDone, 0);
     expect(await materialToken.balanceOf(owner.address)).equal(2);
+
+    expect(await materialToken.balanceOf(developer)).equal(1);
     expect(await materialToken.getCurrentToken()).equal(3); // including developer token    
 
     await assetStore.setWhitelistStatus(materialToken.address, false);
@@ -55,6 +57,9 @@ describe("MaterialToken minting test", function () {
     await materialToken2.mint(assetAccount, tokenId);
     expect(await materialToken.balanceOf(user2.address)).equal(2);    
     expect(await materialToken.balanceOf(user1.address)).equal(3); // affiliate    
+
+    expect(await materialToken.balanceOf(developer)).equal(1);
+    expect(await materialToken.getCurrentToken()).equal(3 + 5);     
   });
   it("Duplicated assets", async function () {
     const [owner] = await ethers.getSigners();
