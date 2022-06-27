@@ -23,7 +23,7 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import { IStringValidator } from './interfaces/IStringValidator.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
-import './StringValidator.sol';
+import './libs/StringValidator.sol';
 import './libs/StringSet.sol';
 import './libs/SVGPathDecoder.sol';
 

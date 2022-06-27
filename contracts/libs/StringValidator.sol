@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import { IStringValidator } from './interfaces/IStringValidator.sol';
+import { IStringValidator } from '../interfaces/IStringValidator.sol';
 
 pragma solidity ^0.8.6;
 
