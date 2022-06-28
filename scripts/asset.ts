@@ -11,13 +11,13 @@ async function main() {
   if (network.name == "hardhat" || network.name == "localhost") {
     let promises:Array<Promise<any>> = actionAssets.map(asset => {
       asset.soulbound = owner.address;
-      return materialToken.mint(asset, 0);
+      return materialToken.mintWithAsset(asset, 0);
     });
     await Promise.all(promises);
   
     promises = socialAssets.map(asset => {
       asset.soulbound = owner.address;
-      return materialToken.mint(asset, 0);
+      return materialToken.mintWithAsset(asset, 0);
     });
     await Promise.all(promises);
   
@@ -29,7 +29,7 @@ async function main() {
   } else {
     const asset = socialAssets[5];
     asset.soulbound = owner.address;
-    const tx = await materialToken.mint(asset, 0);
+    const tx = await materialToken.mintWithAsset(asset, 0);
     await tx.wait();
     const uri = await materialToken.tokenURI(1);
     const data = atob(uri.substring(29));

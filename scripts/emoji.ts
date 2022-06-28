@@ -9,7 +9,7 @@ async function main() {
 
   const asset = enojiAssets[0];
   asset.soulbound = owner.address;
-  const tx = await materialToken.mint(asset, 0);
+  const tx = await materialToken.mintWithAsset(asset, 0);
   await tx.wait();
   const uri = await materialToken.tokenURI(0);
   const data = atob(uri.substring(29));

@@ -61,7 +61,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     return tokenId;    
   }
 
-  function mint(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external returns(uint256) {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external returns(uint256) {
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _safeMintWithAssetId(msg.sender, assetId, true); // souldbound token
     _safeMintWithAssetId(msg.sender, assetId, false); // bonus token

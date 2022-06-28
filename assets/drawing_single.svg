@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 40 40"
+   version="1.1"
+   id="svg1239"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   sodipodi:docname="drawing_single.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1241"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.2102413"
+     inkscape:cx="-328.19432"
+     inkscape:cy="561.25985"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="104"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1236" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="m 20.024276,15.49011 v 9.793574 h -2.23853 c -3.805499,0 -6.379816,3.581649 -4.141286,5.82018 1.734865,1.790822 5.876147,0.391767 6.827528,-2.294495 0.279845,-0.895413 0.391768,-4.588986 0.223843,-8.450458 -0.167876,-4.980728 -0.111931,-6.827515 0.391769,-6.827515 0.839449,0 4.644949,2.406414 5.596326,3.58165 0.895411,1.119263 0.951372,3.693575 0.0558,5.316505 -0.335807,0.671602 -0.447732,1.175228 -0.335807,1.175228 0.615549,0 2.01467,-3.357792 2.01467,-4.75688 0,-1.902745 -0.727482,-3.301833 -3.63761,-6.715591 -1.28715,-1.56697 -2.798161,-3.6376097 -3.301828,-4.6449456 -0.503701,-0.9513765 -1.063303,-1.7908282 -1.175228,-1.7908282 -0.167876,0 -0.279846,4.4211038 -0.279846,9.7935758 z"
+       id="path483"
+       style="fill:#000000;stroke:none;stroke-width:0.0559634" />
+  </g>
+</svg>
