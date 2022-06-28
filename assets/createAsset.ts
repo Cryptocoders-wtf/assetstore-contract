@@ -10,13 +10,14 @@ const encoder = new TextEncoder();
 
 const compressPath = (body:string, width:number) => {
   const ret = body.replace(regexNumG, (str:string)=>{
-    return ` ${Math.round(parseFloat(str) * 1024 / width)} `;
+    return ` ${parseFloat(str)} `;
   });
   const items = ret.split(regexDivG);
 
   const numArray:Array<number> = items.reduce((prev:Array<number>, item:string) => {
     if (regexNum.test(item)) {
-      prev.push(parseFloat(item) + 0x100 + 1024);
+      let value = Math.round(parseFloat(item) * 1024 / width);
+      prev.push(value + 0x100 + 1024);
     } else {
       let i;
       for (i = 0; i < item.length; i++) {
