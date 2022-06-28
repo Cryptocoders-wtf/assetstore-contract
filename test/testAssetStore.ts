@@ -10,13 +10,11 @@ assetAccount.group = "Material 2";
 const assetHome:any = socialAssets[0];
 assetHome.group = "Material 2";
 
-const badAssetBody　= Object.assign({}, actionAssets[0]);
-badAssetBody.group = "><script></script><";
-badAssetBody.name = "Bad";
-
 const badAssetColor= Object.assign({}, actionAssets[1]);
 badAssetColor.group = "Bad";
-badAssetColor.name = "Bad<";
+badAssetColor.parts = [{
+  color: "#fff~", body: badAssetColor.parts[0].body
+}];
 
 const badAssetName= Object.assign({}, actionAssets[2]);
 badAssetName.group = "Bad";
@@ -113,12 +111,6 @@ describe("AssetStore Component Test", function () {
     expect(await contract.getAssetCountInCategory(asset.group, asset.category)).equal(1);    
     expect(await contract.getAssetIdInCategory(asset.group, asset.category, 0)).equal(4);    
     expect(await contract.getAssetIdWithName(asset.group, asset.category, asset.name)).equal(4);
-  });
-  it("Invalid Data Body Test", async function () {
-    asset = badAssetBody;
-    const [owner] = await ethers.getSigners();
-    asset.soulbound = owner.address;
-    expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
   });
   it("Invalid Data Color Test", async function () {
     asset = badAssetColor;
