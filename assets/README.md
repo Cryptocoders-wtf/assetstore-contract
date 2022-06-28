@@ -36,9 +36,6 @@
   - name: SVG color. 
   - description: Allow color name(blue), HEX(#4169E1), RGB or RGBA (rgba(0,0,0,0) )
   - type: string
-- mask:
-  - name: SVG mask
-  - type: string
 
 
 # Example
@@ -53,7 +50,6 @@
   height: 24,
   parts:[{
       body: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z",
-      mask: "",
       color: "#4169E1"
   }]
 }
