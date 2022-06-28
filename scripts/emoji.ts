@@ -1,13 +1,13 @@
 
 import { ethers } from "hardhat";
-import { enojiAssets } from "../assets/openemoji";
+import { emojiAssets } from "../assets/openemoji";
 import { deploy } from "../utils/deploy";
 
 async function main() {
   const { assetStore, materialToken } = await deploy();
   const [owner] = await ethers.getSigners();
 
-  const asset = enojiAssets[0];
+  const asset = emojiAssets[0];
   asset.soulbound = owner.address;
   const tx = await materialToken.mintWithAsset(asset, 0);
   await tx.wait();
