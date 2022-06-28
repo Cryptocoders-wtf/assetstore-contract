@@ -1,6 +1,6 @@
 import { createAsset } from "./createAsset";
 
-const emojis = [{
+export const emojis = [{
   name: "Done",
   width: 72, height: 72,
   parts: [{

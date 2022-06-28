@@ -1,6 +1,6 @@
 import { createAsset } from "./createAsset";
 
-const silhouettes = [{
+export const silhouettes = [{
   width: 120, height: 120,
   name: "Woman Standing",
   parts: [{
