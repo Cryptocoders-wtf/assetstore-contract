@@ -3,8 +3,8 @@ const assetBase:any = {
   minter: ""
 };
 
-const regexNum = /[+-]?[\d\.]+/;
-const regexNumG = /[+-]?[\d\.]+/g;
+const regexNum = /[+-]?(\d*\.\d*|\d+)/;
+const regexNumG = /[+-]?(\d*\.\d*|\d+)/g;
 const regexDivG = /[,\s]+/g;
 const encoder = new TextEncoder();
 
