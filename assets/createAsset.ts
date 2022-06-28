@@ -14,14 +14,31 @@ const compressPath = (body:string, width:number) => {
   });
   const items = ret.split(regexDivG);
 
+  var isArc = false;
+  var offset = 0;
   const numArray:Array<number> = items.reduce((prev:Array<number>, item:string) => {
     if (regexNum.test(item)) {
       let value = Math.round(parseFloat(item) * 1024 / width);
+      if (isArc) {
+        var off7 = offset % 7;
+        if (off7 >=2 && off7 <=4) {
+          // we don't want to normalize 'angle', and two flags for 'a' or 'A'
+          value = Math.round(parseFloat(item));        
+        }
+        offset++;
+      }
       prev.push(value + 0x100 + 1024);
     } else {
       let i;
       for (i = 0; i < item.length; i++) {
         prev.push(item.charCodeAt(i));
+      }
+      let ch = item.substring(-1);
+      if (ch == 'a' || ch == 'A') {
+        isArc = true;
+        offset = 0;
+      } else {
+        isArc = false;
       }
     }
     return prev;
