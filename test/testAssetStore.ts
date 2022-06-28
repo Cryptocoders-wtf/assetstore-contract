@@ -10,80 +10,24 @@ assetAccount.group = "Material 2";
 const assetHome:any = socialAssets[0];
 assetHome.group = "Material 2";
 
-const badAssetBody: any = {
-  name: "Bad",
-  group: "Fake Material Icons",
-  category: "Action",
-  minter: "",
-  width: 24, height: 24,
-  parts:[{
-    body: "><script></script><",
-    mask: "",
-    color: "red"
-  }]
-};
+const badAssetBody　= Object.assign({}, actionAssets[0]);
+badAssetBody.group = "><script></script><";
+badAssetBody.name = "Bad";
 
-const badAssetColor: any = {
-  name: "Bad",
-  group: "Fake Material Icons",
-  category: "Action",
-  minter: "",
-  width: 24, height: 24,
-  parts:[{
-    body: "",
-    mask: "",
-    color: "red[]"
-  }]
-};
+const badAssetColor= Object.assign({}, actionAssets[1]);
+badAssetColor.group = "Bad";
+badAssetColor.name = "Bad<";
 
-const badAssetMask: any = {
-  name: "Bad",
-  group: "Fake Material Icons",
-  category: "Action",
-  minter: "",
-  width: 24, height: 24,
-  parts:[{
-    body: "",
-    mask: "&%##",
-    color: "red"
-  }]
-};
+const badAssetName= Object.assign({}, actionAssets[2]);
+badAssetName.group = "Bad";
+badAssetName.name = "Bad$";
 
-const badAssetName:any = {
-  name: "Bad !$",
-  group: "Fake Material Icons",
-  category: "Action",
-  minter: "",
-  width: 24, height: 24,
-  parts:[{
-      body: "",
-      mask: "", color: "red"
-  }]
-};
+const badAssetCategory= Object.assign({}, actionAssets[3]);
+badAssetCategory.group = "Bad";
+badAssetCategory.category = "Action||";
 
-const badAssetCategory:any = {
-  name: "Bad Cat",
-  group: "Fake Material Icons",
-  category: "Action||",
-  minter: "",
-  width: 24, height: 24,
-  parts:[{
-      body: "",
-      mask: "", color: "red"
-  }]
-};
-
-const badAssetGroup: any = {
-  name: "Bad Group",
-  group: "Fake Material Icons+",
-  category: "Action",
-  minter: "",
-  width: 24, height: 24,
-  parts:[{
-      body: "",
-      mask: "", color: "red"
-  }]
-};
+const badAssetGroup= Object.assign({}, actionAssets[4]);
+badAssetGroup.group = "Fake Material Icons+";
 
 before(async () => {
   const factory = await ethers.getContractFactory("AssetStore");    
@@ -178,12 +122,6 @@ describe("AssetStore Component Test", function () {
   });
   it("Invalid Data Color Test", async function () {
     asset = badAssetColor;
-    const [owner] = await ethers.getSigners();
-    asset.soulbound = owner.address;
-    expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
-  });
-  it("Invalid Data Mask Test", async function () {
-    asset = badAssetMask;
     const [owner] = await ethers.getSigners();
     asset.soulbound = owner.address;
     expect(await catchError(async ()=>{ await contract.registerAsset(asset); })).equal(true);
