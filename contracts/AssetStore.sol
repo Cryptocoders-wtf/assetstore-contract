@@ -265,19 +265,19 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // Returns the number of asset in the specified group/category. 
-  function getAssetCountInCategory(string memory group, string memory category) external view override returns(uint32) {
-    return nextAssetIndecesInCategory[group][category];
+  function getAssetCountInCategory(string memory _group, string memory _category) external view override returns(uint32) {
+    return nextAssetIndecesInCategory[_group][_category];
   }
 
   // Returns the assetId of the specified group/category/assetIndex. 
-  function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view override returns(uint256) {
-    require(assetIndex < nextAssetIndecesInCategory[group][category], "The assetIndex is out of range");
-    return assetIdsInCategory[group][category][assetIndex];
+  function getAssetIdInCategory(string memory _group, string memory _category, uint32 _assetIndex) external view override returns(uint256) {
+    require(_assetIndex < nextAssetIndecesInCategory[_group][_category], "The assetIndex is out of range");
+    return assetIdsInCategory[_group][_category][_assetIndex];
   }
 
   // Returns the assetId of the specified group/category/name. 
-  function getAssetIdWithName(string memory group, string memory category, string memory name) external override view returns(uint256) {
-    return assetIdsLookup[group][category][name];
+  function getAssetIdWithName(string memory _group, string memory _category, string memory _name) external override view returns(uint256) {
+    return assetIdsLookup[_group][_category][_name];
   }
 
   function _getDescription(Asset memory asset) internal view returns(bytes memory) {
