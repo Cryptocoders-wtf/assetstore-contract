@@ -39,8 +39,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   struct Asset {
     uint32 groupId;    // index to groups + 1
     uint32 categoryId; // index to categories + 1
-    uint16 width;
-    uint16 height;
     string name;
     string minter;
     address soulbound;
@@ -120,8 +118,6 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     asset.name = _assetInfo.name;
     asset.soulbound = _assetInfo.soulbound;
     asset.minter = _assetInfo.minter;
-    asset.width = _assetInfo.width;
-    asset.height = _assetInfo.height;
     asset.groupId = _getGroupId(_assetInfo.group);
     asset.categoryId = _getCategoryId(_assetInfo.group, _assetInfo.category);
     asset.partsIds = partsIds;
@@ -309,9 +305,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   // returns a full SVG with the specified asset
   function generateSVG(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
-    Asset memory asset = _getAsset(_assetId);
     bytes memory pack = abi.encodePacked(
-      '<svg viewBox="0 0 ', (asset.width).toString(), ' ', (asset.height).toString(), '" xmlns="http://www.w3.org/2000/svg">\n', 
+      '<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">\n', 
       _safeGenerateSVGPart(_assetId), 
       '</svg>');
     return string(pack);
@@ -326,8 +321,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.minter = asset.minter;
     attr.group = groupSet.nameAtIndex(asset.groupId - 1);
     attr.category = categorySets[attr.group].nameAtIndex(asset.categoryId - 1);
-    attr.width = asset.width;
-    attr.height = asset.height;
+    attr.width = 1024;
+    attr.height = 1024;
     return attr;
   }
 
