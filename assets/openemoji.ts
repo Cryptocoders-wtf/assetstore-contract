@@ -1,7 +1,7 @@
 import { createAsset } from "./createAsset";
 
 export const emojis = [{
-  name: "Done",
+  name: "Female Nurse",
   width: 72, height: 72,
   parts: [{
     color: "#fff",
