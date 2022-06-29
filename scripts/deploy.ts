@@ -10,7 +10,7 @@ async function main() {
 
   const asset = socialAssets[5];
   asset.soulbound = owner.address;
-  const tx = await materialToken.mint(asset, 0);
+  const tx = await materialToken.mintWithAsset(asset, 0);
   const result = await tx.wait();
   const summary = result.events.map((event:any) => { return event.event });
 
