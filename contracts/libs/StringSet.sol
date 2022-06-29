@@ -18,15 +18,22 @@ library StringSet {
    * Returns the id (index + 1) of the specified name, adding it to the data set if necessary.
    * @notice: We vaildates it when we add it to the data set. 
    */
-  function getId(Set storage set, string memory name, IStringValidator validator) internal returns(uint32) {
-    uint32 id = set.ids[name];
+  function getId(Set storage _set, string memory _name, IStringValidator _validator) internal returns(uint32) {
+    uint32 id = _set.ids[_name];
     if (id == 0) {
-      require(validator.validate(bytes(name)), "StringSet.getId: Invalid String");
-      set.names[set.nextIndex++] = name;
-      id = set.nextIndex; // idex + 1
-      set.ids[name] = id; 
+      require(_validator.validate(bytes(_name)), "StringSet.getId: Invalid String");
+      _set.names[_set.nextIndex++] = _name;
+      id = _set.nextIndex; // idex + 1
+      _set.ids[_name] = id; 
     }
     return id;
+  }
+
+  /*
+   * Retuns the number of items in the set. 
+   */
+  function getCount(Set storage _set) internal view returns (uint32) {
+    return _set.nextIndex;
   }
 
   /*

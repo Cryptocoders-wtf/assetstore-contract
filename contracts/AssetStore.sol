@@ -263,7 +263,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   // Returns the number of registered groups.
   function getGroupCount() external view override returns(uint32) {
-    return groupSet.nextIndex;
+    return groupSet.getCount();
   }
 
   // Returns the name of a group specified with groupIndex (groupId - 1). 
@@ -273,7 +273,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   // Returns the number of categories in the specified group.
   function getCategoryCount(string memory group) external view override returns(uint32) {
-    return categorySets[group].nextIndex;
+    return categorySets[group].getCount();
   }
 
   // Returns the name of category specified with group/categoryIndex pair.
@@ -302,6 +302,9 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     return abi.encodePacked(group, '/', categorySets[group].nameAtIndex(asset.categoryId - 1), '/', asset.name);
   }
 
+  /*
+   * Generate an id for SVG based on the assetId.
+   */
   function _tagForAsset(uint256 _assetId) internal pure returns(string memory) {
     return string(abi.encodePacked('asset', _assetId.toString()));
   }
@@ -351,5 +354,4 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.height = 1024;
     return attr;
   }
-
 }
