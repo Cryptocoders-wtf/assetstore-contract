@@ -76,5 +76,5 @@ export const emojis = [{
 }];
 
 export const emojiAssets = emojis.map(asset => {
-  return createAsset(asset, "Open Emojis", "Extra");
+  return createAsset(asset, "Open Emoji (CC BY-SA 2.0)", "Extra");
 });

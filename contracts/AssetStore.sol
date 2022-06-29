@@ -4,15 +4,21 @@
  * On-chain asset store, which allows multiple smart contracts to shara vector assets.
  *
  * All assets registered to this store will be treated as cc0 (public domain), 
- * CC-BY(attribution), Apache 2.0 or MIT (should be specified in the "group"). 
- * In case of CC-BY, the creater's name should be in the "group", "category" or "name".
+ * CC-BY-SA(Attribution-ShareAlike) 2.0, Apache 2.0, MIT, or something similar 
+ * (should be specified in the "group"). If the attribution is required, 
+ * the creater's name should be either in the "group", "category" or "name".
  *
  * All registered assets will be available to other smart contracts for free, including
  * commecial services. Therefore, it is not allowed to register assets that require
  * any form of commercial licenses. 
  *
  * Once an asset is registed with group/category/name, it is NOT possible to update,
- * which guaranttees the availability in future.  
+ * which guaranttees the availability in future.
+ *
+ * Please respect those people who paid gas fees to register those assets. 
+ * Their wallet addresses are permanently stored as the "souldbound" attribute
+ * of each asset (which is accessible via getAttributes). Using those addressed 
+ * for air-drops and whitelisting is one way to appreciate their efforts. 
  * 
  * Created by Satoshi Nakajima (@snakajima)
  */
