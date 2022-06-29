@@ -8,7 +8,7 @@ async function main() {
   const { assetStore, materialToken } = await deploy();
   const [owner] = await ethers.getSigners();
 
-  const asset = silhouettesAssets[0];
+  const asset = silhouettesAssets[silhouettesAssets.length - 1];
   asset.soulbound = owner.address;
   const tx = await materialToken.mintWithAsset(asset, 0);
   await tx.wait();
