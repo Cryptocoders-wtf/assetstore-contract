@@ -6,12 +6,12 @@ pragma solidity ^0.8.6;
 interface IAssetStore {
   // Browsing
   function getGroupCount() external view returns(uint32);
-  function getGroupNameAtIndex(uint32 groupIndex) external view returns(string memory);
-  function getCategoryCount(string memory group) external view returns(uint32);
-  function getCategoryNameAtIndex(string memory group, uint32 categoryIndex) external view returns(string memory);
-  function getAssetCountInCategory(string memory group, string memory category) external view returns(uint32);
-  function getAssetIdInCategory(string memory group, string memory category, uint32 assetIndex) external view returns(uint256);
-  function getAssetIdWithName(string memory group, string memory category, string memory name) external view returns(uint256);
+  function getGroupNameAtIndex(uint32 _groupIndex) external view returns(string memory);
+  function getCategoryCount(string memory _group) external view returns(uint32);
+  function getCategoryNameAtIndex(string memory _group, uint32 _categoryIndex) external view returns(string memory);
+  function getAssetCountInCategory(string memory _group, string memory _category) external view returns(uint32);
+  function getAssetIdInCategory(string memory _group, string memory _category, uint32 _assetIndex) external view returns(uint256);
+  function getAssetIdWithName(string memory _group, string memory _category, string memory _name) external view returns(uint256);
 
   // Fetching
   struct AssetAttributes {
