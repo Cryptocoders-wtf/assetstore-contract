@@ -79,26 +79,35 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     decoder = new SVGPathDecoder(); // default decoder
   }
 
-  // Returns the groupId of the specified group, creating a new Id if necessary.
-  // @notice gruopId == groupIndex + 1
+  /*
+   * Returns the groupId of the specified group, creating a new Id if necessary.
+   * @notice gruopId == groupIndex + 1
+   */
   function _getGroupId(string memory group) private returns(uint32) {
     return groupSet.getId(group, validator);
   }
 
-  // Returns the categoryId of the specified category in a group, creating a new Id if necessary.
-  // The categoryId is unique only within that group. 
-  // @notice categoryId == categoryIndex + 1
+  /*
+   * Returns the categoryId of the specified category in a group, creating a new Id if necessary.
+   * The categoryId is unique only within that group. 
+   * @notice categoryId == categoryIndex + 1
+   */
   function _getCategoryId(string memory group, string memory category) private returns(uint32) {
     return categorySets[group].getId(category, validator);
   }
 
-  // Register a Part and returns its id, which is its index in parts[].
+  /*
+   * Register a Part and returns its id, which is its index in parts[].
+   */
   function _registerPart(Part memory _part) private returns(uint256) {
     parts[nextPartIndex++] = _part;
     return nextPartIndex-1;    
   }
 
-  // Validator
+  /*
+   * We need to validate any strings embedded in SVG to prevent malicious injections. 
+   * @notice: group and catalog are validated in Stringset.getId(). 
+   */
   modifier validateAsset(AssetInfo memory _assetInfo) {
     uint size = _assetInfo.parts.length;
     uint i;
@@ -110,7 +119,9 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     _;
   }
 
-  // Register an Asset and returns its id, which is its index in assests[].
+  /*
+   * Register an Asset and returns its id, which is its index in assets[].
+   */
   function _registerAsset(AssetInfo memory _assetInfo) internal validateAsset(_assetInfo) returns(uint256) {
     require(assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
     uint size = _assetInfo.parts.length;
@@ -123,10 +134,11 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     Asset memory asset;
     asset.name = _assetInfo.name;
     asset.soulbound = _assetInfo.soulbound;
-    asset.minter = _assetInfo.minter;
+    asset.minter = _assetInfo.minter; // @notice: no validation
     asset.groupId = _getGroupId(_assetInfo.group);
     asset.categoryId = _getCategoryId(_assetInfo.group, _assetInfo.category);
     asset.partsIds = partsIds;
+
     assets[assetId] = asset;
     assetIdsInCategory[_assetInfo.group][_assetInfo.category][nextAssetIndecesInCategory[_assetInfo.group][_assetInfo.category]++] = assetId;
     assetIdsLookup[_assetInfo.group][_assetInfo.category][_assetInfo.name] = assetId;
@@ -150,12 +162,12 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     _;
   }
 
-  // It allows us to keep the assets private. 
+  // This allows us to keep the assets private. 
   function _getAsset(uint256 _assetId) internal view assetExists(_assetId) returns(Asset memory) {
     return assets[_assetId];
   }
 
-  // It allows us to keep the parts private. 
+  // This allows us to keep the parts private. 
   function _getPart(uint256 _partId) internal view partExists(_partId) returns(Part memory) {
     return parts[_partId];
   }
@@ -170,11 +182,16 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
     whitelist[msg.sender] = true;
   }
 
-  // Whitelist
+  /*
+   * Whitelist manages the list of contracts which can register assets
+   * In future, we disable the whitelist allowing anybody to register assets.
+   */
   mapping(address => bool) whitelist;
   bool disableWhitelist = false;
 
-  // Disabled (just in case...)
+  /*
+   * It allows us to disable indivial assets, just in case. 
+   */
   mapping(uint256 => bool) disabled;
 
   function setWhitelistStatus(address _address, bool _status) external onlyOwner {
@@ -210,7 +227,7 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
 
 /*
  * Concreate contract that implements IAssetStoreRegistory
- * We will never deploy this contract. 
+ * Even though this is a concreate contract, we will never deploy this contract directly. 
  */
 contract AppStoreRegistory is AssetStoreAdmin {
   modifier onlyWhitelist {
