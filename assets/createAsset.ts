@@ -66,8 +66,6 @@ export const createAsset = (_asset:any, group:string, category:string) => {
   asset.category = category;
   asset.name = _asset.name;
   const width = _asset.width || 24;
-  asset.width = 1024;
-  asset.height = 1024;
   if (_asset.parts) {
     asset.parts = _asset.parts.map((part:any) => {
       part.color = part.color || "";
