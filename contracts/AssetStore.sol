@@ -239,13 +239,11 @@ contract AppStoreRegistory is AssetStoreAdmin {
     return _registerAsset(_assetInfo);
   }
 
-  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyWhitelist returns(uint256) {
+  function registerAssets(AssetInfo[] memory _assetInfos) external override onlyWhitelist {
     uint i;
-    uint assetIndex;
     for (i=0; i<_assetInfos.length; i++) {
-      assetIndex = _registerAsset(_assetInfos[i]);
+      _registerAsset(_assetInfos[i]);
     }
-    return assetIndex;
   }
 }
 
