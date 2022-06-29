@@ -287,10 +287,14 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     return abi.encodePacked(group, '/', categorySets[group].nameAtIndex(asset.categoryId - 1), '/', asset.name);
   }
 
+  function _tagForAsset(uint256 _assetId) internal pure returns(string memory) {
+    return string(abi.encodePacked('asset', _assetId.toString()));
+  }
+
   function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
     Asset memory asset = _getAsset(_assetId);
     uint256[] memory indeces = asset.partsIds;
-    bytes memory pack = abi.encodePacked(' <g id="asset', _assetId.toString(), '" desc="', _getDescription(asset), '">\n');
+    bytes memory pack = abi.encodePacked(' <g id="', _tagForAsset(_assetId), '" desc="', _getDescription(asset), '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
       Part memory part = _getPart(indeces[i]);
@@ -323,6 +327,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     Asset memory asset = _getAsset(_assetId);
     AssetAttributes memory attr;
     attr.name = asset.name;
+    attr.tag = _tagForAsset(_assetId);
     attr.soulbound = asset.soulbound;
     attr.minter = asset.minter;
     attr.group = groupSet.nameAtIndex(asset.groupId - 1);

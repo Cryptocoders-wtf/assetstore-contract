@@ -126,7 +126,7 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   }
 
   function _generateSVG(uint256 _tokenId, uint256 _assetId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
-    bytes memory assetTag = abi.encodePacked('#asset', _assetId.toString());
+    bytes memory assetTag = abi.encodePacked('#', _attr.tag);
     bytes memory image = abi.encodePacked(
       _generateSVGHeader(_attr),
       _generateClipPath(_attr),

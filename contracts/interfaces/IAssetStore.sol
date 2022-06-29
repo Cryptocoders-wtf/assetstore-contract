@@ -18,8 +18,9 @@ interface IAssetStore {
     string group;
     string category;
     string name;
-    string minter;
-    address soulbound;
+    string tag; // the id in SVG
+    string minter; // the name of the minter (who paid the gas fee)
+    address soulbound; // wallet address of the minter
     uint16 width;
     uint16 height;
   }
@@ -40,8 +41,8 @@ interface IAssetStoreRegistry {
     string group;
     string category;
     string name;
-    string minter;
-    address soulbound;
+    string minter; // the name of the minter, who is paying the gas fee
+    address soulbound; // wallet address of the minter
     Part[] parts;
   }
 
