@@ -27,8 +27,10 @@ async function main() {
     let results = [];
     let i;
     for (i=0; i<assets.length; i++) {
-      assets[i].soulbound = owner.address;
-      const tx = await materialToken.mintWithAsset(assets[i], 0);
+      const asset = assets[i];
+      asset.soulbound = owner.address;
+      await waitForUserInput(`Mint ${asset.group}/${asset.category}/${asset.name} ? `);
+      const tx = await materialToken.mintWithAsset(asset, 0);
       const result = await tx.wait();
       const ret = gasEstimate(result);
       results.push(ret);
