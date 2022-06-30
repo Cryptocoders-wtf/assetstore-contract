@@ -44,7 +44,7 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  defaultNetwork: "hardhat",
+  defaultNetwork: "localhost",
   networks: {
     localhost: {
     },
