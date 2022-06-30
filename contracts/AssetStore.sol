@@ -89,7 +89,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
       require(validator.validate(bytes(group)), "AssetStore._getGroupId: Invalid String");
       groupSet.names[groupSet.nextIndex++] = group;
       id = groupSet.nextIndex; // idex + 1
-      groupSet.ids[group] = id; 
+      groupSet.ids[group] = id;
+      emit GroupAdded(group); 
     }
     return id;
   }
@@ -107,6 +108,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
       categorySet.names[categorySet.nextIndex++] = category;
       id = categorySet.nextIndex; // idex + 1
       categorySet.ids[category] = id; 
+      emit CategoryAdded(group, category);
     }
     return id;
   }
