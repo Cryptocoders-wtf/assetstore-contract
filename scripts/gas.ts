@@ -18,35 +18,35 @@ async function main() {
   let promises = actionAssets.map(async (asset) => {
     asset.soulbound = owner.address;
     const tx = await materialToken.mintWithAsset(asset, 0);
-    return tx.wait();
+    return await tx.wait();
   });
   const action = (await Promise.all(promises)).map(gasEstimate);
 
   promises = socialAssets.map(async (asset) => {
     asset.soulbound = owner.address;
     const tx = await materialToken.mintWithAsset(asset, 0);
-    return tx.wait();
+    return await tx.wait();
   });
   const social = (await Promise.all(promises)).map(gasEstimate);
 
   promises = emojiAssets.map(async (asset) => {
     asset.soulbound = owner.address;
     const tx = await materialToken.mintWithAsset(asset, 0);
-    return tx.wait();
+    return await tx.wait();
   });
   const emoji = (await Promise.all(promises)).map(gasEstimate);
 
   promises = silhouettesAssets.map(async (asset) => {
     asset.soulbound = owner.address;
     const tx = await materialToken.mintWithAsset(asset, 0);
-    return tx.wait();
+    return await tx.wait();
   });
   const silhouettes = (await Promise.all(promises)).map(gasEstimate);
 
   promises = cryptoAssets.map(async (asset) => {
     asset.soulbound = owner.address;
     const tx = await materialToken.mintWithAsset(asset, 0);
-    return tx.wait();
+    return await tx.wait();
   });
   const crypto = (await Promise.all(promises)).map(gasEstimate);
 
