@@ -39,7 +39,7 @@
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "test" : "hardhat test --network hardhat",
+    "test" : "hardhat test",
     "svg": "hardhat run ./scripts/asset.ts | sed '1d' > cache/test.svg",
     "emoji": "hardhat run ./scripts/emoji.ts | sed '1d' > cache/test.svg",
     "multi": "hardhat run ./scripts/multi.ts | sed '1d' > cache/test.svg",
