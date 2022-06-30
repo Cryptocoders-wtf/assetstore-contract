@@ -84,7 +84,14 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
    * @notice gruopId == groupIndex + 1
    */
   function _getGroupId(string memory group) private returns(uint32) {
-    return groupSet.getId(group, validator);
+    uint32 id = groupSet.ids[group];
+    if (id == 0) {
+      require(validator.validate(bytes(group)), "AssetStore._getGroupId: Invalid String");
+      groupSet.names[groupSet.nextIndex++] = group;
+      id = groupSet.nextIndex; // idex + 1
+      groupSet.ids[group] = id; 
+    }
+    return id;
   }
 
   /*
