@@ -46,7 +46,7 @@ interface IAssetStoreRegistry {
     Part[] parts;
   }
 
-  event AssetRegistered(address indexed from, uint256 indexed assetId);
+  event AssetRegistered(address from, uint256 assetId);
 
   function registerAsset(AssetInfo memory _assetInfo) external returns(uint256);
   function registerAssets(AssetInfo[] memory _assetInfos) external;
