@@ -14,10 +14,9 @@ library StringSet {
     mapping(string => uint32) ids; // index+1
   }
 
-  /*
-   * Returns the id (index + 1) of the specified name, adding it to the data set if necessary.
-   * @notice: We vaildates it when we add it to the data set. 
-   */
+  /* 
+   * Using this code make it too difficult to fire different events
+   *
   function getId(Set storage _set, string memory _name, IStringValidator _validator) internal returns(uint32) {
     uint32 id = _set.ids[_name];
     if (id == 0) {
@@ -28,6 +27,7 @@ library StringSet {
     }
     return id;
   }
+  */
 
   /*
    * Retuns the number of items in the set. 

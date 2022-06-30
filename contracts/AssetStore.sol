@@ -100,7 +100,15 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
    * @notice categoryId == categoryIndex + 1
    */
   function _getCategoryId(string memory group, string memory category) private returns(uint32) {
-    return categorySets[group].getId(category, validator);
+    StringSet.Set storage categorySet =  categorySets[group];
+    uint32 id = categorySet.ids[category];
+    if (id == 0) {
+      require(validator.validate(bytes(category)), "AssetStore._getCategoryId: Invalid String");
+      categorySet.names[categorySet.nextIndex++] = category;
+      id = categorySet.nextIndex; // idex + 1
+      categorySet.ids[category] = id; 
+    }
+    return id;
   }
 
   /*
