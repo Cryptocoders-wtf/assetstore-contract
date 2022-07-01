@@ -27,7 +27,6 @@ contract MaterialToken is Ownable, ERC721A {
   IAssetStore public immutable assetStore;
 
   mapping(uint256 => uint256) assetIds; // tokenId => assetId
-  mapping(uint256 => bool) isSoulbound;
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.xyz].";
@@ -50,19 +49,15 @@ contract MaterialToken is Ownable, ERC721A {
     proxyRegistry = _proxyRegistry;
   }
 
-  function _safeMintWithAssetId(address _target, uint256 _assetId, bool _isSoulbound) internal {
-    uint256 tokenId = _nextTokenId();
-    isSoulbound[tokenId] = _isSoulbound;
-    assetIds[tokenId] = _assetId;
-    _mint(_target, 1);
+  function isSoulbound(uint256 _tokenId) internal pure returns(bool) {
+    return _tokenId % 6 == 0;
   }
 
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
 
-    isSoulbound[tokenId] = true; // only the first one is souldbound token
-    assetIds[tokenId] = assetId; 
+    assetIds[tokenId] = assetId; // souldbound (tokenId % 6 == 0)
     assetIds[tokenId+1] = assetId;
     assetIds[tokenId+2] = assetId;
     assetIds[tokenId+3] = assetId;
@@ -70,11 +65,10 @@ contract MaterialToken is Ownable, ERC721A {
     _mint(msg.sender, 5);
 
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
-    if (_affiliate > 0 && isSoulbound[_affiliate] && ownerOf(_affiliate) != msg.sender) {
+    if (_affiliate > 0 && isSoulbound(_affiliate) && ownerOf(_affiliate) != msg.sender) {
       assetIds[tokenId+5] = assetId;
       _mint(ownerOf(_affiliate), 1);
-    } else if (tokenId % 2 == 0) {
-      // half of non-affiliated case (<10%).
+    } else {
       assetIds[tokenId+5] = assetId;
       _mint(developer, 1);
     }
@@ -136,7 +130,7 @@ contract MaterialToken is Ownable, ERC721A {
       assetStore.generateSVGPart(_assetId),
       '</defs>\n');
     // constant is not suppored with array
-    if (isSoulbound[_tokenId]) {
+    if (isSoulbound(_tokenId)) {
       image = abi.encodePacked(image,
         '<g filter="url(#f1)">\n'
         ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />\n'
@@ -154,11 +148,11 @@ contract MaterialToken is Ownable, ERC721A {
     return abi.encodePacked(image, '</g>\n</svg>');
   }
 
-  function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
+  function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
     return abi.encodePacked(
       '{'
         '"trait_type":"Soulbound",'
-        '"value":"', isSoulbound[_tokenId] ? 'Yes':'No', '"' 
+        '"value":"', isSoulbound(_tokenId) ? 'Yes':'No', '"' 
       '},{'
         '"trait_type":"Group",'
         '"value":"', _attr.group, '"' 
