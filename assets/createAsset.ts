@@ -80,3 +80,9 @@ export const createAsset = (_asset:any, group:string, category:string) => {
   }
   return asset;  
 }
+
+export const loadAssets = (_resource:any) => {
+  return _resource.assets.map((asset:any) => {
+    return createAsset(asset, _resource.group, _resource.category);
+  });
+}
