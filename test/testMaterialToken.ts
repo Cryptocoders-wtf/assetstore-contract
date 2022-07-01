@@ -36,10 +36,10 @@ describe("MaterialToken minting test", function () {
     assetDone.soulbound = owner.address;
     await assetStore.setWhitelistStatus(materialToken.address, true);
     await materialToken.mintWithAsset(assetDone, 0);
-    expect(await materialToken.balanceOf(owner.address)).equal(2);
+    expect(await materialToken.balanceOf(owner.address)).equal(5);
 
     expect(await materialToken.balanceOf(developer)).equal(1);
-    expect(await materialToken.getCurrentToken()).equal(3); // including developer token    
+    expect(await materialToken.getCurrentToken()).equal(6); // including developer token    
 
     await assetStore.setWhitelistStatus(materialToken.address, false);
     expect(await catchError(async ()=>{ await materialToken.mintWithAsset(assetHome, 0); })).equal(true);
@@ -51,18 +51,18 @@ describe("MaterialToken minting test", function () {
     const materialToken2 = materialToken.connect(user2);
     assetSettings.soulbound = user1.address;
     await materialToken1.mintWithAsset(assetSettings, 0);
-    expect(await materialToken.balanceOf(user1.address)).equal(2);
+    expect(await materialToken.balanceOf(user1.address)).equal(5);
 
-    const tokenId = 3; // await materialToken.tokenOfOwnerByIndex(user1.address, 0); 
+    const tokenId = 7; // await materialToken.tokenOfOwnerByIndex(user1.address, 0); 
     expect(await materialToken.ownerOf(tokenId)).equal(user1.address);
     
     assetAccount.soulbound = user2.address;
     await materialToken2.mintWithAsset(assetAccount, tokenId);
-    expect(await materialToken.balanceOf(user2.address)).equal(2);    
-    expect(await materialToken.balanceOf(user1.address)).equal(3); // affiliate    
+    expect(await materialToken.balanceOf(user2.address)).equal(5);    
+    expect(await materialToken.balanceOf(user1.address)).equal(6); // affiliate    
 
     expect(await materialToken.balanceOf(developer)).equal(1);
-    expect(await materialToken.getCurrentToken()).equal(3 + 5);     
+    expect(await materialToken.getCurrentToken()).equal(6 + 12);     
   });
   it("Duplicated assets", async function () {
     const [owner] = await ethers.getSigners();
