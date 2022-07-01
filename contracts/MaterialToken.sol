@@ -26,7 +26,8 @@ contract MaterialToken is Ownable, ERC721A {
   IAssetStoreRegistry public immutable registry;
   IAssetStore public immutable assetStore;
 
-  mapping(uint256 => uint256) assetIds; // tokenId/6 => assetId
+  uint256 constant tokensPerAsset = 6;
+  mapping(uint256 => uint256) assetIds; // tokenId / tokensPerAsset => assetId
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.xyz].";
@@ -50,20 +51,20 @@ contract MaterialToken is Ownable, ERC721A {
   }
 
   function isSoulbound(uint256 _tokenId) internal pure returns(bool) {
-    return _tokenId % 6 == 0;
+    return _tokenId % tokensPerAsset == 0;
   }
 
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
 
-    assetIds[tokenId / 6] = assetId;
-    _mint(msg.sender, 5);
+    assetIds[tokenId / tokensPerAsset] = assetId;
+    _mint(msg.sender, tokensPerAsset - 1);
 
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
     if (_affiliate > 0 && isSoulbound(_affiliate) && ownerOf(_affiliate) != msg.sender) {
       _mint(ownerOf(_affiliate), 1);
-    } else if ((tokenId / 6) % 4 == 0) {
+    } else if ((tokenId / tokensPerAsset) % 4 == 0) {
       // 1 in 24 tokens goes to the developer
       _mint(developer, 1);
     } else {
@@ -91,7 +92,7 @@ contract MaterialToken is Ownable, ERC721A {
 
   function getAssetId(uint256 _tokenId) external view returns(uint256) {
     require(_exists(_tokenId), 'MaterialToken.getAssetId: nonexistent token');
-    return assetIds[_tokenId / 6];
+    return assetIds[_tokenId / tokensPerAsset];
   }
 
   function _generateSVGHeader(IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
@@ -131,7 +132,7 @@ contract MaterialToken is Ownable, ERC721A {
     string[4] memory colors = [
       "#4285F4", "#34A853", "#FBBC05", "#EA4335"
     ];
-    uint256 style = _tokenId % 6;
+    uint256 style = _tokenId % tokensPerAsset;
     if (style == 0) {
       image = abi.encodePacked(image,
         '<g filter="url(#f1)">\n'
@@ -139,7 +140,7 @@ contract MaterialToken is Ownable, ERC721A {
         ' <use href="', assetTag ,'" fill="#34A853" clip-path="url(#se)" />\n'
         ' <use href="', assetTag ,'" fill="#FBBC05" clip-path="url(#sw)" />\n'
         ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />\n');
-    } else if (style < 5) {
+    } else if (style < tokensPerAsset - 1) {
       image = abi.encodePacked(image,
         '<g filter="url(#f1)">\n'
         ' <use href="', assetTag ,'" fill="', colors[_tokenId % 4],'" />\n');
@@ -176,7 +177,7 @@ contract MaterialToken is Ownable, ERC721A {
     */
   function tokenURI(uint256 _tokenId) public view override returns (string memory) {
     require(_exists(_tokenId), 'MaterialToken.tokenURI: nonexistent token');
-    uint256 assetId = assetIds[_tokenId / 6];
+    uint256 assetId = assetIds[_tokenId / tokensPerAsset];
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     bytes memory image = _generateSVG(_tokenId, assetId, attr);
 
