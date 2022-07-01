@@ -60,12 +60,12 @@ const compressPath = (body:string, width:number) => {
   return bytes;
 } 
 
-export const createAsset = (_asset:any, group:string, category:string) => {
+export const createAsset = (_asset:any, group:string, category:string, _width:number) => {
   const asset = Object.assign({}, assetBase);
   asset.group = group;
   asset.category = category;
   asset.name = _asset.name;
-  const width = _asset.width || 24;
+  const width = _asset.width || _width;
   if (_asset.parts) {
     asset.parts = _asset.parts.map((part:any) => {
       part.color = part.color || "";
@@ -83,6 +83,6 @@ export const createAsset = (_asset:any, group:string, category:string) => {
 
 export const loadAssets = (_resource:any) => {
   return _resource.assets.map((asset:any) => {
-    return createAsset(asset, _resource.group, _resource.category);
+    return createAsset(asset, _resource.group, _resource.category, _resource.width);
   });
 }
