@@ -41,7 +41,7 @@
   },
   "scripts": {
     "test": "hardhat test",
-    "svg": "hardhat run ./scripts/asset.ts | sed '1d' > cache/test.svg",
+    "svg": "hardhat run ./scripts/svg.ts | sed '1d' > cache/test.svg",
     "emoji": "hardhat run ./scripts/emoji.ts | sed '1d' > cache/test.svg",
     "multi": "hardhat run ./scripts/multi.ts | sed '1d' > cache/test.svg",
     "women": "hardhat run ./scripts/silhouettes.ts | sed '1d' > cache/test.svg",

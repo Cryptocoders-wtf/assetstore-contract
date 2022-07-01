@@ -13,7 +13,7 @@ async function main() {
   const tx = await materialToken.mintWithAsset(asset, 0);
   await tx.wait();
 
-  const uri = await materialToken.tokenURI(0);
+  const uri = await materialToken.tokenURI(3);
   const data = atob(uri.substring(29));
   const json = JSON.parse(data);
   const imageData = json.image.substring(26);

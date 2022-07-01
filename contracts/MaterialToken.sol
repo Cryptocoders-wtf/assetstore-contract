@@ -142,8 +142,12 @@ contract MaterialToken is Ownable, ERC721A {
         ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />\n');
     } else if (style < tokensPerAsset - 1) {
       image = abi.encodePacked(image,
-        '<g filter="url(#f1)">\n'
-        ' <use href="', assetTag ,'" fill="', colors[_tokenId % 4],'" />\n');
+      '<g>\n'
+      ' <rect x="0" y="0" width="1024" height="1024" fill="#4285F4" clip-path="url(#ne)" />\n'
+      ' <rect x="0" y="0" width="1024" height="1024" fill="#34A853" clip-path="url(#se)" />\n'
+      ' <rect x="0" y="0" width="1024" height="1024" fill="#FBBC05" clip-path="url(#sw)" />\n'
+      ' <rect x="0" y="0" width="1024" height="1024" fill="#EA4335" clip-path="url(#nw)" />\n'
+      ' <use href="', assetTag ,'" fill="', (style % 2 == 0) ? 'white':'black','" />\n');
     } else {
       image = abi.encodePacked(image,
         '<g>\n'
