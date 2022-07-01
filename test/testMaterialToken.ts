@@ -32,11 +32,12 @@ describe("MaterialToken minting test", function () {
     expect(await catchError(async ()=>{ await materialToken.mintWithAsset(assetDone, 0); })).equal(true);
   });
   it("First mint", async function () {
-    const [owner] = await ethers.getSigners();
-    assetDone.soulbound = owner.address;
+    const [owner, user0] = await ethers.getSigners();
+    assetDone.soulbound = user0.address;
     await assetStore.setWhitelistStatus(materialToken.address, true);
-    await materialToken.mintWithAsset(assetDone, 0);
-    expect(await materialToken.balanceOf(owner.address)).equal(5);
+    const materialToken0 = materialToken.connect(user0);
+    await materialToken0.mintWithAsset(assetDone, 0);
+    expect(await materialToken.balanceOf(user0.address)).equal(5);
 
     expect(await materialToken.balanceOf(developer)).equal(1);
     expect(await materialToken.getCurrentToken()).equal(6); // including developer token    
@@ -46,7 +47,7 @@ describe("MaterialToken minting test", function () {
     await assetStore.setWhitelistStatus(materialToken.address, true);
   });
   it("Affiliated mint", async function () {
-    const [owner, user1, user2] = await ethers.getSigners();
+    const [owner, user0, user1, user2] = await ethers.getSigners();
     const materialToken1 = materialToken.connect(user1);
     const materialToken2 = materialToken.connect(user2);
     assetSettings.soulbound = user1.address;
@@ -61,7 +62,8 @@ describe("MaterialToken minting test", function () {
     expect(await materialToken.balanceOf(user2.address)).equal(5);    
     expect(await materialToken.balanceOf(user1.address)).equal(6); // affiliate    
 
-    expect(await materialToken.balanceOf(developer)).equal(2);
+    expect(await materialToken.balanceOf(developer)).equal(1);
+    expect(await materialToken.balanceOf(owner.address)).equal(1);
     expect(await materialToken.getCurrentToken()).equal(6 + 12);     
   });
   it("Duplicated assets", async function () {

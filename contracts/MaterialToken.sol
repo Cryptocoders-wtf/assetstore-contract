@@ -64,13 +64,16 @@ contract MaterialToken is Ownable, ERC721A {
     assetIds[tokenId+4] = assetId;
     _mint(msg.sender, 5);
 
+    assetIds[tokenId+5] = assetId;
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
     if (_affiliate > 0 && isSoulbound(_affiliate) && ownerOf(_affiliate) != msg.sender) {
-      assetIds[tokenId+5] = assetId;
       _mint(ownerOf(_affiliate), 1);
-    } else {
-      assetIds[tokenId+5] = assetId;
+    } else if ((tokenId / 6) % 4 == 0) {
+      // 1 in 24 tokens goes to the developer
       _mint(developer, 1);
+    } else {
+      // the rest goes to the owner for distribution
+      _mint(owner(), 1);
     }
   }
   /*
