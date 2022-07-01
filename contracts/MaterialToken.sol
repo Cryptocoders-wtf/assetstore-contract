@@ -13,13 +13,13 @@ pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "erc721a/contracts/ERC721A.sol";
 import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
 
-contract MaterialToken is Ownable, ERC721Enumerable {
+contract MaterialToken is Ownable, ERC721A {
   using Strings for uint256;
   using Strings for uint16;
 
@@ -32,9 +32,6 @@ contract MaterialToken is Ownable, ERC721Enumerable {
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.xyz].";
 
-  // The internal token ID tracker
-  uint256 private _currentTokenId;
-
   // developer address.
   address public developer;
 
@@ -46,42 +43,39 @@ contract MaterialToken is Ownable, ERC721Enumerable {
     IAssetStore _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
-  ) ERC721("Material Icons", "MATERIAL") {
+  ) ERC721A("Material Icons", "MATERIAL") {
     registry = _registry;
     assetStore = _assetStore;
     developer = _developer;
     proxyRegistry = _proxyRegistry;
   }
 
-  function _safeMintWithAssetId(address _target, uint256 _assetId, bool _isSoulbound) internal returns(uint256) {
-    uint256 tokenId = _currentTokenId++;
-    assetIds[tokenId] = _assetId;
+  function _safeMintWithAssetId(address _target, uint256 _assetId, bool _isSoulbound) internal {
+    uint256 tokenId = _nextTokenId();
     isSoulbound[tokenId] = _isSoulbound;
-    _mint(_target, tokenId);
-    return tokenId;    
+    assetIds[tokenId] = _assetId;
+    _mint(_target, 1);
   }
 
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external returns(uint256) {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
     uint256 assetId = registry.registerAsset(_assetInfo);
-    uint256 tokenId = _safeMintWithAssetId(msg.sender, assetId, true); // souldbound token
+    _safeMintWithAssetId(msg.sender, assetId, true); // souldbound token
     _safeMintWithAssetId(msg.sender, assetId, false); // bonus token
 
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
     if (_affiliate > 0 && isSoulbound[_affiliate] && ownerOf(_affiliate) != msg.sender) {
       _safeMintWithAssetId(ownerOf(_affiliate), assetId, false); // affiliate token
-    } else if (_currentTokenId % 10 == 2) {
+    } else if (_nextTokenId() % 10 == 2) {
       // 10% of non-affiliated case. 
       _safeMintWithAssetId(developer, assetId, false); // developer token
     }
-    return tokenId;    
   }
-
-    /*
-     * @notice get next tokenId.
-     */
-    function getCurrentToken() external view returns (uint256) {                  
-        return _currentTokenId;
-    }
+  /*
+   * @notice get next tokenId.
+   */
+  function getCurrentToken() external view returns (uint256) {                  
+    return _nextTokenId();
+  }
 
   /**
     * @notice Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.

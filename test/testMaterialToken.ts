@@ -51,8 +51,11 @@ describe("MaterialToken minting test", function () {
     const materialToken2 = materialToken.connect(user2);
     assetSettings.soulbound = user1.address;
     await materialToken1.mintWithAsset(assetSettings, 0);
-    expect(await materialToken.balanceOf(user1.address)).equal(2);   
-    const tokenId = await materialToken.tokenOfOwnerByIndex(user1.address, 0); 
+    expect(await materialToken.balanceOf(user1.address)).equal(2);
+
+    const tokenId = 3; // await materialToken.tokenOfOwnerByIndex(user1.address, 0); 
+    expect(await materialToken.ownerOf(tokenId)).equal(user1.address);
+    
     assetAccount.soulbound = user2.address;
     await materialToken2.mintWithAsset(assetAccount, tokenId);
     expect(await materialToken.balanceOf(user2.address)).equal(2);    
