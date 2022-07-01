@@ -19,6 +19,7 @@
     "@typescript-eslint/parser": "^4.29.1",
     "chai": "^4.2.0",
     "dotenv": "^16.0.0",
+    "erc721a": "^4.1.0",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
@@ -39,7 +40,7 @@
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "test" : "hardhat test",
+    "test": "hardhat test",
     "svg": "hardhat run ./scripts/asset.ts | sed '1d' > cache/test.svg",
     "emoji": "hardhat run ./scripts/emoji.ts | sed '1d' > cache/test.svg",
     "multi": "hardhat run ./scripts/multi.ts | sed '1d' > cache/test.svg",
