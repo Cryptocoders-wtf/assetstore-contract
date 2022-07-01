@@ -53,7 +53,7 @@ describe("MaterialToken minting test", function () {
     await materialToken1.mintWithAsset(assetSettings, 0);
     expect(await materialToken.balanceOf(user1.address)).equal(5);
 
-    const tokenId = 7; // await materialToken.tokenOfOwnerByIndex(user1.address, 0); 
+    const tokenId = 6; // await materialToken.tokenOfOwnerByIndex(user1.address, 0); 
     expect(await materialToken.ownerOf(tokenId)).equal(user1.address);
     
     assetAccount.soulbound = user2.address;
@@ -61,7 +61,7 @@ describe("MaterialToken minting test", function () {
     expect(await materialToken.balanceOf(user2.address)).equal(5);    
     expect(await materialToken.balanceOf(user1.address)).equal(6); // affiliate    
 
-    expect(await materialToken.balanceOf(developer)).equal(1);
+    expect(await materialToken.balanceOf(developer)).equal(2);
     expect(await materialToken.getCurrentToken()).equal(6 + 12);     
   });
   it("Duplicated assets", async function () {
