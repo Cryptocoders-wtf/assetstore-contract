@@ -50,9 +50,11 @@ describe("AssetStore Component Test", function () {
     asset.soulbound = owner.address;
     const tx = await contract.registerAsset(asset);
     const result = await tx.wait();
-    const [event] = result.events;
-    expect(event.event).equal("AssetRegistered");
-    const assetId = event.args.assetId.toNumber();
+    const [event1, event2, event3] = result.events;
+    expect(event1.event).equal("GroupAdded");
+    expect(event2.event).equal("CategoryAdded");
+    expect(event3.event).equal("AssetRegistered");
+    const assetId = event3.args.assetId.toNumber();
     expect(await contract.getAssetCount()).equal(assetId);    
     expect(await contract.getGroupCount()).equal(1);    
     expect(await contract.getGroupNameAtIndex(0)).equal(asset.group);    
