@@ -59,15 +59,21 @@ contract MaterialToken is Ownable, ERC721A {
 
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
     uint256 assetId = registry.registerAsset(_assetInfo);
-    _safeMintWithAssetId(msg.sender, assetId, true); // souldbound token
-    _safeMintWithAssetId(msg.sender, assetId, false); // bonus token
+    uint256 tokenId = _nextTokenId(); 
+
+    isSoulbound[tokenId] = true; // only the first one is souldbound token
+    assetIds[tokenId] = assetId; 
+    assetIds[tokenId+1] = assetId; 
+    _mint(msg.sender, 2);
 
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
     if (_affiliate > 0 && isSoulbound[_affiliate] && ownerOf(_affiliate) != msg.sender) {
-      _safeMintWithAssetId(ownerOf(_affiliate), assetId, false); // affiliate token
-    } else if (_nextTokenId() % 10 == 2) {
+      assetIds[tokenId+2] = assetId; 
+      _mint(ownerOf(_affiliate), 1);
+    } else if ((tokenId+2) % 10 == 2) {
       // 10% of non-affiliated case. 
-      _safeMintWithAssetId(developer, assetId, false); // developer token
+      assetIds[tokenId+2] = assetId; 
+      _mint(developer, 1);
     }
   }
   /*
