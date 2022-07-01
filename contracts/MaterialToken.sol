@@ -26,7 +26,7 @@ contract MaterialToken is Ownable, ERC721A {
   IAssetStoreRegistry public immutable registry;
   IAssetStore public immutable assetStore;
 
-  uint256 constant tokensPerAsset = 6;
+  uint256 constant tokensPerAsset = 4;
   mapping(uint256 => uint256) assetIds; // tokenId / tokensPerAsset => assetId
 
   // description
