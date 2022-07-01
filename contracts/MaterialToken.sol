@@ -107,52 +107,38 @@ contract MaterialToken is Ownable, ERC721A {
       ' </filter>\n');
   }
 
-  function _generateClipPath(IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
-    string memory hw = (_attr.width / 2).toString();
-    string memory hh = (_attr.height / 2).toString();
-    return abi.encodePacked(
-        abi.encodePacked(
-        ' <clipPath id="nw"><rect x="0" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n'
-        ' <clipPath id="sw"><rect x="0" y="', hh, '" width="', hw, '" height="', hh, '" /></clipPath>\n'
-        ), abi.encodePacked(
-        ' <clipPath id="ne"><rect x="', hw, '" y="0" width="', hw, '" height="', hh, '" /></clipPath>\n'
-        ' <clipPath id="se"><rect x="', hw, '" y="', hh, '" width="', hw, '" height="', hh, '" /></clipPath>\n'
-        )
-      );
-  }
-
   function _generateSVG(uint256 _tokenId, uint256 _assetId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
     bytes memory assetTag = abi.encodePacked('#', _attr.tag);
     bytes memory image = abi.encodePacked(
       _generateSVGHeader(_attr),
-      _generateClipPath(_attr),
+      '<g id="base">\n'
+      ' <rect x="0" y="0" width="512" height="512" fill="#4285F4" />\n'
+      ' <rect x="0" y="512" width="512" height="512" fill="#34A853" />\n'
+      ' <rect x="512" y="0" width="512" height="512" fill="#FBBC05" />\n'
+      ' <rect x="512" y="512" width="512" height="512" fill="#EA4335"/>\n'
+      '</g>',
       assetStore.generateSVGPart(_assetId),
-      '</defs>\n');
-    // constant is not suppored with array
-    string[4] memory colors = [
-      "#4285F4", "#34A853", "#FBBC05", "#EA4335"
-    ];
+      '</defs>\n'
+      '<g filter="url(#f1)">\n');
+
     uint256 style = _tokenId % tokensPerAsset;
     if (style == 0) {
       image = abi.encodePacked(image,
-        '<g filter="url(#f1)">\n'
-        ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />\n'
-        ' <use href="', assetTag ,'" fill="#34A853" clip-path="url(#se)" />\n'
-        ' <use href="', assetTag ,'" fill="#FBBC05" clip-path="url(#sw)" />\n'
-        ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />\n');
+      ' <mask id="assetMask" desc="Material Icons (Apache 2.0)/Social/Public">\n'
+      '  <use href="', assetTag, '" fill="white" />\n'
+      ' </mask>\n'
+      ' <use href="#base" mask="url(#assetMask)" />\n');
     } else if (style < tokensPerAsset - 1) {
       image = abi.encodePacked(image,
-      '<g>\n'
-      ' <rect x="0" y="0" width="1024" height="1024" fill="#4285F4" clip-path="url(#ne)" />\n'
-      ' <rect x="0" y="0" width="1024" height="1024" fill="#34A853" clip-path="url(#se)" />\n'
-      ' <rect x="0" y="0" width="1024" height="1024" fill="#FBBC05" clip-path="url(#sw)" />\n'
-      ' <rect x="0" y="0" width="1024" height="1024" fill="#EA4335" clip-path="url(#nw)" />\n'
-      ' <use href="', assetTag ,'" fill="', (style % 2 == 0) ? 'white':'black','" />\n');
+      ' <use href="#base" />\n'
+      ' <use href="', assetTag, '" fill="',(style % 2 == 0) ? 'black':'white','" />\n');
     } else {
       image = abi.encodePacked(image,
-        '<g>\n'
-        '<rect x="0" y="0" width="100%" height="100%" fill="', colors[(_tokenId/5) % 4] ,'" />\n',
-        ' <use href="', assetTag ,'" fill="', (_tokenId / 7) % 2 == 0 ? 'white':'black' ,'" />\n');
+      ' <mask id="assetMask" desc="Material Icons (Apache 2.0)/Social/Public">\n'
+      '  <rect x="0" y="0" width="1024" height="1024" fill="white" />\n'
+      '  <use href="', assetTag, '" fill="black" />\n'
+      ' </mask>\n'
+      ' <use href="#base" mask="url(#assetMask)" />\n');
     }
     return abi.encodePacked(image, '</g>\n</svg>');
   }
