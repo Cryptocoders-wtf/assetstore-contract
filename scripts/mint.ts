@@ -5,7 +5,7 @@ import { silhouettesAssets } from "../assets/silhouettes";
 import { cryptoAssets } from "../assets/crypto";
 
 async function main() {
-  const contractAddress = "0x9E865898e4080205c36b6aFa5a9668c302330F8e";
+  const contractAddress = "0xB385a93f48813796EA7EC1cA8387B591d69EDF32";
 
   // We get the contract to deploy
   const factory = await ethers.getContractFactory("MaterialToken");
