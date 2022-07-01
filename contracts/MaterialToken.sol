@@ -26,7 +26,7 @@ contract MaterialToken is Ownable, ERC721A {
   IAssetStoreRegistry public immutable registry;
   IAssetStore public immutable assetStore;
 
-  mapping(uint256 => uint256) assetIds; // tokenId => assetId
+  mapping(uint256 => uint256) assetIds; // tokenId/6 => assetId
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.xyz].";
@@ -57,14 +57,9 @@ contract MaterialToken is Ownable, ERC721A {
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
 
-    assetIds[tokenId] = assetId; // souldbound (tokenId % 6 == 0)
-    assetIds[tokenId+1] = assetId;
-    assetIds[tokenId+2] = assetId;
-    assetIds[tokenId+3] = assetId;
-    assetIds[tokenId+4] = assetId;
+    assetIds[tokenId / 6] = assetId;
     _mint(msg.sender, 5);
 
-    assetIds[tokenId+5] = assetId;
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
     if (_affiliate > 0 && isSoulbound(_affiliate) && ownerOf(_affiliate) != msg.sender) {
       _mint(ownerOf(_affiliate), 1);
@@ -96,7 +91,7 @@ contract MaterialToken is Ownable, ERC721A {
 
   function getAssetId(uint256 _tokenId) external view returns(uint256) {
     require(_exists(_tokenId), 'MaterialToken.getAssetId: nonexistent token');
-    return assetIds[_tokenId];
+    return assetIds[_tokenId / 6];
   }
 
   function _generateSVGHeader(IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
@@ -181,7 +176,7 @@ contract MaterialToken is Ownable, ERC721A {
     */
   function tokenURI(uint256 _tokenId) public view override returns (string memory) {
     require(_exists(_tokenId), 'MaterialToken.tokenURI: nonexistent token');
-    uint256 assetId = assetIds[_tokenId];
+    uint256 assetId = assetIds[_tokenId / 6];
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     bytes memory image = _generateSVG(_tokenId, assetId, attr);
 
