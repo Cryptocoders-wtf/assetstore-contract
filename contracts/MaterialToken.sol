@@ -130,20 +130,26 @@ contract MaterialToken is Ownable, ERC721A {
       assetStore.generateSVGPart(_assetId),
       '</defs>\n');
     // constant is not suppored with array
-    if (isSoulbound(_tokenId)) {
+    string[4] memory colors = [
+      "#4285F4", "#34A853", "#FBBC05", "#EA4335"
+    ];
+    uint256 style = _tokenId % 6;
+    if (style == 0) {
       image = abi.encodePacked(image,
         '<g filter="url(#f1)">\n'
         ' <use href="', assetTag ,'" fill="#4285F4" clip-path="url(#ne)" />\n'
         ' <use href="', assetTag ,'" fill="#34A853" clip-path="url(#se)" />\n'
         ' <use href="', assetTag ,'" fill="#FBBC05" clip-path="url(#sw)" />\n'
         ' <use href="', assetTag ,'" fill="#EA4335" clip-path="url(#nw)" />\n');
-    } else {
-      string[4] memory colors = [
-        "#4285F4", "#34A853", "#FBBC05", "#EA4335"
-      ];
+    } else if (style < 5) {
       image = abi.encodePacked(image,
         '<g filter="url(#f1)">\n'
         ' <use href="', assetTag ,'" fill="', colors[_tokenId % 4],'" />\n');
+    } else {
+      image = abi.encodePacked(image,
+        '<g>\n'
+        '<rect x="0" y="0" width="100%" height="100%" fill="', colors[_tokenId % 4] ,'" />\n',
+        ' <use href="', assetTag ,'" fill="', (_tokenId / 7) % 2 == 0 ? 'white':'black' ,'" />\n');
     }
     return abi.encodePacked(image, '</g>\n</svg>');
   }
