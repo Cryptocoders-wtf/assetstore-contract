@@ -248,7 +248,7 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
  */
 contract AppStoreRegistory is AssetStoreAdmin {
   modifier onlyWhitelist {
-    require(disableWhitelist || whitelist[msg.sender], "AssetStore: Tjhe sender must be in the white list.");
+    require(disableWhitelist || whitelist[msg.sender], "AssetStore: The sender must be in the white list.");
     _;
   }
    
