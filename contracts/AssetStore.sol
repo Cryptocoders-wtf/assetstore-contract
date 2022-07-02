@@ -73,7 +73,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint32 nextAssetIndex;
     mapping(string => uint256) assetNameToId;
   }
-  mapping(string => mapping(string => AssetCatalog)) internal assetCatalogs;
+  mapping(uint32 => mapping(string => AssetCatalog)) internal assetCatalogs;
 
   constructor() {
     validator = new StringValidator(); // default validator
@@ -134,7 +134,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
    * Register an Asset and returns its id, which is its index in assets[].
    */
   function _registerAsset(AssetInfo memory _assetInfo) internal validateAsset(_assetInfo) returns(uint256) {
-    require(assetCatalogs[_assetInfo.group][_assetInfo.category].assetNameToId[_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
+    uint32 groupId = _getGroupId(_assetInfo.group);
+    require(assetCatalogs[groupId][_assetInfo.category].assetNameToId[_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
     uint size = _assetInfo.parts.length;
     uint256[] memory partsIds = new uint256[](size);
     uint i;
@@ -146,13 +147,13 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     asset.name = _assetInfo.name;
     asset.soulbound = _assetInfo.soulbound;
     asset.minter = _assetInfo.minter; // @notice: no validation
-    asset.groupId = _getGroupId(_assetInfo.group);
-    asset.categoryId = _getCategoryId(_assetInfo.group, asset.groupId, _assetInfo.category);
+    asset.groupId = groupId;
+    asset.categoryId = _getCategoryId(_assetInfo.group, groupId, _assetInfo.category);
     asset.partsIds = partsIds;
 
     assets[assetId] = asset;
-    assetCatalogs[_assetInfo.group][_assetInfo.category].assetIds[assetCatalogs[_assetInfo.group][_assetInfo.category].nextAssetIndex++] = assetId;
-    assetCatalogs[_assetInfo.group][_assetInfo.category].assetNameToId[_assetInfo.name] = assetId;
+    assetCatalogs[groupId][_assetInfo.category].assetIds[assetCatalogs[groupId][_assetInfo.category].nextAssetIndex++] = assetId;
+    assetCatalogs[groupId][_assetInfo.category].assetNameToId[_assetInfo.name] = assetId;
 
     emit AssetRegistered(msg.sender, assetId);
     return assetId;
@@ -294,18 +295,19 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   // Returns the number of asset in the specified group/category. 
   function getAssetCountInCategory(string memory _group, string memory _category) external view override returns(uint32) {
-    return assetCatalogs[_group][_category].nextAssetIndex;
+    return assetCatalogs[groupSet.getId(_group)][_category].nextAssetIndex;
   }
 
   // Returns the assetId of the specified group/category/assetIndex. 
   function getAssetIdInCategory(string memory _group, string memory _category, uint32 _assetIndex) external view override returns(uint256) {
-    require(_assetIndex < assetCatalogs[_group][_category].nextAssetIndex, "The assetIndex is out of range");
-    return assetCatalogs[_group][_category].assetIds[_assetIndex];
+    AssetCatalog storage assetCatalog = assetCatalogs[groupSet.getId(_group)][_category]; 
+    require(_assetIndex < assetCatalog.nextAssetIndex, "The assetIndex is out of range");
+    return assetCatalog.assetIds[_assetIndex];
   }
 
   // Returns the assetId of the specified group/category/name. 
   function getAssetIdWithName(string memory _group, string memory _category, string memory _name) external override view returns(uint256) {
-    return assetCatalogs[_group][_category].assetNameToId[_name];
+    return assetCatalogs[groupSet.getId(_group)][_category].assetNameToId[_name];
   }
 
   function _getDescription(Asset memory asset) internal view returns(bytes memory) {
