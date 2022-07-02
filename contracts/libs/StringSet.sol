@@ -27,6 +27,12 @@ library StringSet {
     return (id, true);
   }
 
+  function getId(Set storage _set, string memory _name) internal view returns (uint32) {
+    uint32 id = _set.ids[_name];
+    require(id > 0, "StringSet: the specified name does not exist");
+    return id;
+  }
+
   /*
    * Retuns the number of items in the set. 
    */

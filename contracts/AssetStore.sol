@@ -65,7 +65,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
 
   // Groups and categories(for browsing)
   StringSet.Set internal groupSet;
-  mapping(string => StringSet.Set) internal categorySets;
+  mapping(uint32 => StringSet.Set) internal categorySets;
   
   // Grouped and categorized assetIds (for browsing)
   struct AssetCatalog {
@@ -97,8 +97,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
    * The categoryId is unique only within that group. 
    * @notice categoryId == categoryIndex + 1
    */
-  function _getCategoryId(string memory group, string memory category) private returns(uint32) {
-    StringSet.Set storage categorySet =  categorySets[group];
+  function _getCategoryId(string memory group, uint32 groupId, string memory category) private returns(uint32) {
+    StringSet.Set storage categorySet =  categorySets[groupId];
     (uint32 id, bool created) = categorySet.getOrCreateId(category, validator);
     if (created) {
       emit CategoryAdded(group, category);
@@ -147,7 +147,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     asset.soulbound = _assetInfo.soulbound;
     asset.minter = _assetInfo.minter; // @notice: no validation
     asset.groupId = _getGroupId(_assetInfo.group);
-    asset.categoryId = _getCategoryId(_assetInfo.group, _assetInfo.category);
+    asset.categoryId = _getCategoryId(_assetInfo.group, asset.groupId, _assetInfo.category);
     asset.partsIds = partsIds;
 
     assets[assetId] = asset;
@@ -283,13 +283,13 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // Returns the number of categories in the specified group.
-  function getCategoryCount(string memory group) external view override returns(uint32) {
-    return categorySets[group].getCount();
+  function getCategoryCount(string memory _group) external view override returns(uint32) {
+    return categorySets[groupSet.getId(_group)].getCount();
   }
 
   // Returns the name of category specified with group/categoryIndex pair.
   function getCategoryNameAtIndex(string memory _group, uint32 _categoryIndex) external view override returns(string memory) {
-    return categorySets[_group].nameAtIndex(_categoryIndex);
+    return categorySets[groupSet.getId(_group)].nameAtIndex(_categoryIndex);
   }
 
   // Returns the number of asset in the specified group/category. 
@@ -310,7 +310,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
 
   function _getDescription(Asset memory asset) internal view returns(bytes memory) {
     string memory group = groupSet.nameAtIndex(asset.groupId - 1);
-    return abi.encodePacked(group, '/', categorySets[group].nameAtIndex(asset.categoryId - 1), '/', asset.name);
+    return abi.encodePacked(group, '/', categorySets[asset.groupId].nameAtIndex(asset.categoryId - 1), '/', asset.name);
   }
 
   /*
@@ -360,7 +360,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.soulbound = asset.soulbound;
     attr.minter = asset.minter;
     attr.group = groupSet.nameAtIndex(asset.groupId - 1);
-    attr.category = categorySets[attr.group].nameAtIndex(asset.categoryId - 1);
+    attr.category = categorySets[asset.groupId].nameAtIndex(asset.categoryId - 1);
     attr.width = 1024;
     attr.height = 1024;
     return attr;
