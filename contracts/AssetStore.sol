@@ -135,7 +135,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
    */
   function _registerAsset(AssetInfo memory _assetInfo) internal validateAsset(_assetInfo) returns(uint256) {
     uint32 groupId = _getGroupId(_assetInfo.group);
-    require(assetCatalogs[groupId][_assetInfo.category].assetNameToId[_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
+    AssetCatalog storage assetCatalog = assetCatalogs[groupId][_assetInfo.category];
+    require(assetCatalog.assetNameToId[_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
     uint size = _assetInfo.parts.length;
     uint256[] memory partsIds = new uint256[](size);
     uint i;
@@ -152,8 +153,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     asset.partsIds = partsIds;
 
     assets[assetId] = asset;
-    assetCatalogs[groupId][_assetInfo.category].assetIds[assetCatalogs[groupId][_assetInfo.category].nextAssetIndex++] = assetId;
-    assetCatalogs[groupId][_assetInfo.category].assetNameToId[_assetInfo.name] = assetId;
+    assetCatalog.assetIds[assetCatalog.nextAssetIndex++] = assetId;
+    assetCatalog.assetNameToId[_assetInfo.name] = assetId;
 
     emit AssetRegistered(msg.sender, assetId);
     return assetId;
