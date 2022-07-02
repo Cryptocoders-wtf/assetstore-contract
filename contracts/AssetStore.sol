@@ -117,6 +117,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   /*
    * We need to validate any strings embedded in SVG to prevent malicious injections. 
    * @notice: group and catalog are validated in Stringset.getId(). 
+   *  The body is a binary format, which will be validated when we decode.
    */
   modifier validateAsset(AssetInfo memory _assetInfo) {
     uint size = _assetInfo.parts.length;
