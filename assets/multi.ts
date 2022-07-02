@@ -1,4 +1,4 @@
-import { loadAssets } from "./createAsset";
+import { loadAssets } from "../utils/createAsset";
 
 const misc = {
   group: "Misc.",

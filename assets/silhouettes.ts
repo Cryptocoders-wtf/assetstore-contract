@@ -1,4 +1,4 @@
-import { loadAssets } from "./createAsset";
+import { loadAssets } from "../utils/createAsset";
 
 export const silhouettes = {
   group: "Peter Selinger (cc0)",

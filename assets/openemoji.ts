@@ -1,4 +1,4 @@
-import { loadAssets } from "./createAsset";
+import { loadAssets } from "../utils/createAsset";
 
 export const emojis = {
   group: "Open Emoji (CC BY-SA 2.0)",
