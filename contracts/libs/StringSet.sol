@@ -14,20 +14,18 @@ library StringSet {
     mapping(string => uint32) ids; // index+1
   }
 
-  /* 
-   * Using this code make it too difficult to fire different events
-   *
-  function getId(Set storage _set, string memory _name, IStringValidator _validator) internal returns(uint32) {
+  function getOrCreateId(Set storage _set, string memory _name, IStringValidator _validator) internal returns(uint32, bool) {
     uint32 id = _set.ids[_name];
-    if (id == 0) {
-      require(_validator.validate(bytes(_name)), "StringSet.getId: Invalid String");
-      _set.names[_set.nextIndex++] = _name;
-      id = _set.nextIndex; // idex + 1
-      _set.ids[_name] = id; 
+    if (id > 0) {
+      return (id, false);
     }
-    return id;
+
+    require(_validator.validate(bytes(_name)), "StringSet.getId: Invalid String");
+    _set.names[_set.nextIndex++] = _name;
+    id = _set.nextIndex; // idex + 1
+    _set.ids[_name] = id; 
+    return (id, true);
   }
-  */
 
   /*
    * Retuns the number of items in the set. 

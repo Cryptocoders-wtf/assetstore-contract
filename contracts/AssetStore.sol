@@ -84,12 +84,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
    * @notice gruopId == groupIndex + 1
    */
   function _getGroupId(string memory group) private returns(uint32) {
-    uint32 id = groupSet.ids[group];
-    if (id == 0) {
-      require(validator.validate(bytes(group)), "AssetStore._getGroupId: Invalid String");
-      groupSet.names[groupSet.nextIndex++] = group;
-      id = groupSet.nextIndex; // idex + 1
-      groupSet.ids[group] = id;
+    (uint32 id, bool created) = groupSet.getOrCreateId(group, validator);
+    if (created) {
       emit GroupAdded(group); 
     }
     return id;
@@ -102,12 +98,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
    */
   function _getCategoryId(string memory group, string memory category) private returns(uint32) {
     StringSet.Set storage categorySet =  categorySets[group];
-    uint32 id = categorySet.ids[category];
-    if (id == 0) {
-      require(validator.validate(bytes(category)), "AssetStore._getCategoryId: Invalid String");
-      categorySet.names[categorySet.nextIndex++] = category;
-      id = categorySet.nextIndex; // idex + 1
-      categorySet.ids[category] = id; 
+    (uint32 id, bool created) = categorySet.getOrCreateId(category, validator);
+    if (created) {
       emit CategoryAdded(group, category);
     }
     return id;
