@@ -30,7 +30,7 @@ contract MaterialToken is Ownable, ERC721A {
   mapping(uint256 => uint256) assetIds; // tokenId / tokensPerAsset => assetId
 
   // description
-  string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.xyz].";
+  string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf].";
 
   // developer address.
   address public developer;
