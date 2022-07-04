@@ -52,10 +52,10 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   }
 
   // Upgradable string validator
-  IStringValidator validator;
+  IStringValidator public validator;
 
   // Upgradable path decoder
-  IPathDecoder decoder;
+  IPathDecoder public decoder;
 
   // asset & part database
   mapping(uint256 => Asset) private assets;
