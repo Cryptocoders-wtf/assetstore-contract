@@ -1,6 +1,6 @@
 import { ethers, network } from "hardhat";
 import { deploy } from "../utils/deploy";
-import { actionAssets, socialAssets } from "../assets/materials";
+import { socialAssets } from "../assets/materials";
 
 async function main() {
   const [owner] = await ethers.getSigners();
