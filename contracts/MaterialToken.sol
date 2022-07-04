@@ -95,9 +95,9 @@ contract MaterialToken is Ownable, ERC721A {
     return assetIds[_tokenId / tokensPerAsset];
   }
 
-  function _generateSVGHeader(IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
+  function _generateSVGHeader() internal pure returns (bytes memory) {
     return abi.encodePacked(
-      '<svg viewBox="0 0 ', _attr.width.toString() ,' ', _attr.height.toString(),
+      '<svg viewBox="0 0 1024 1024',
        '"  xmlns="http://www.w3.org/2000/svg">\n'
       '<defs>\n'
       ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n'
@@ -110,7 +110,7 @@ contract MaterialToken is Ownable, ERC721A {
   function generateSVG(uint256 _style, string memory svgPart, IAssetStore.AssetAttributes memory _attr) public pure returns (bytes memory) {
     bytes memory assetTag = abi.encodePacked('#', _attr.tag);
     bytes memory image = abi.encodePacked(
-      _generateSVGHeader(_attr),
+      _generateSVGHeader(),
       '<g id="base">\n'
       ' <rect x="0" y="0" width="512" height="512" fill="#4285F4" />\n'
       ' <rect x="0" y="512" width="512" height="512" fill="#34A853" />\n'
