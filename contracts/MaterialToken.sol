@@ -107,7 +107,7 @@ contract MaterialToken is Ownable, ERC721A {
       ' </filter>\n');
   }
 
-  function _generateSVG(uint256 _tokenId, uint256 _assetId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
+  function generateSVG(uint256 _style, string memory svgPart, IAssetStore.AssetAttributes memory _attr) public pure returns (bytes memory) {
     bytes memory assetTag = abi.encodePacked('#', _attr.tag);
     bytes memory image = abi.encodePacked(
       _generateSVGHeader(_attr),
@@ -117,21 +117,20 @@ contract MaterialToken is Ownable, ERC721A {
       ' <rect x="512" y="0" width="512" height="512" fill="#FBBC05" />\n'
       ' <rect x="512" y="512" width="512" height="512" fill="#EA4335"/>\n'
       '</g>',
-      assetStore.generateSVGPart(_assetId),
+      svgPart,
       '</defs>\n'
       '<g filter="url(#f1)">\n');
 
-    uint256 style = _tokenId % tokensPerAsset;
-    if (style == 0) {
+    if (_style == 0) {
       image = abi.encodePacked(image,
       ' <mask id="assetMask" desc="Material Icons (Apache 2.0)/Social/Public">\n'
       '  <use href="', assetTag, '" fill="white" />\n'
       ' </mask>\n'
       ' <use href="#base" mask="url(#assetMask)" />\n');
-    } else if (style < tokensPerAsset - 1) {
+    } else if (_style < tokensPerAsset - 1) {
       image = abi.encodePacked(image,
       ' <use href="#base" />\n'
-      ' <use href="', assetTag, '" fill="',(style % 2 == 0) ? 'black':'white','" />\n');
+      ' <use href="', assetTag, '" fill="',(_style % 2 == 0) ? 'black':'white','" />\n');
     } else {
       image = abi.encodePacked(image,
       ' <mask id="assetMask" desc="Material Icons (Apache 2.0)/Social/Public">\n'
@@ -169,7 +168,8 @@ contract MaterialToken is Ownable, ERC721A {
     require(_exists(_tokenId), 'MaterialToken.tokenURI: nonexistent token');
     uint256 assetId = assetIds[_tokenId / tokensPerAsset];
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
-    bytes memory image = _generateSVG(_tokenId, assetId, attr);
+    string memory svgPart = assetStore.generateSVGPart(assetId);
+    bytes memory image = generateSVG(_tokenId % tokensPerAsset, svgPart, attr);
 
     return string(
       abi.encodePacked(
