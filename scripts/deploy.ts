@@ -6,8 +6,8 @@ async function main() {
   const [owner] = await ethers.getSigners();
   const { assetStore, materialToken } = await deploy();
   console.log("network:", network.name);
-  console.log("assetStore:", assetStore.address);
-  console.log("materialToken:", materialToken.address);
+  console.log(`      storeAddress="${assetStore.address}"`);
+  console.log(`      tokenAddress="${materialToken.address}"`);
 
   const asset = socialAssets[5];
   asset.soulbound = owner.address;
