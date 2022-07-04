@@ -110,8 +110,8 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
       ' <rect x="512" y="512" width="512" height="512" fill="#EA4335"/>\n'
       '</g>';
 
-  function generateSVG(uint256 _style, string memory svgPart, IAssetStore.AssetAttributes memory _attr) public pure returns (bytes memory) {
-    bytes memory assetTag = abi.encodePacked('#', _attr.tag);
+  function generateSVG(uint256 _style, string memory svgPart, string memory _tag) public pure returns (bytes memory) {
+    bytes memory assetTag = abi.encodePacked('#', _tag);
     bytes memory image = abi.encodePacked(
       SVGHeader,
       svgPart,
@@ -165,7 +165,7 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
     uint256 assetId = assetIds[_tokenId / tokensPerAsset];
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory svgPart = assetStore.generateSVGPart(assetId);
-    bytes memory image = generateSVG(_tokenId % tokensPerAsset, svgPart, attr);
+    bytes memory image = generateSVG(_tokenId % tokensPerAsset, svgPart, attr.tag);
 
     return string(
       abi.encodePacked(
