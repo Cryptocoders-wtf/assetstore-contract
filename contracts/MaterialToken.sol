@@ -95,35 +95,31 @@ contract MaterialToken is Ownable, ERC721A {
     return assetIds[_tokenId / tokensPerAsset];
   }
 
-  function _generateSVGHeader() internal pure returns (bytes memory) {
-    return abi.encodePacked(
-      '<svg viewBox="0 0 1024 1024',
-       '"  xmlns="http://www.w3.org/2000/svg">\n'
+string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
+      '"  xmlns="http://www.w3.org/2000/svg">\n'
       '<defs>\n'
       ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n'
       '  <feOffset result="offOut" in="SourceAlpha" dx="24" dy="32" />\n'
       '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="16" />\n'
       '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n'
-      ' </filter>\n');
-  }
-
-  function generateSVG(uint256 _style, string memory svgPart, IAssetStore.AssetAttributes memory _attr) public pure returns (bytes memory) {
-    bytes memory assetTag = abi.encodePacked('#', _attr.tag);
-    bytes memory image = abi.encodePacked(
-      _generateSVGHeader(),
+      ' </filter>\n'
       '<g id="base">\n'
       ' <rect x="0" y="0" width="512" height="512" fill="#4285F4" />\n'
       ' <rect x="0" y="512" width="512" height="512" fill="#34A853" />\n'
       ' <rect x="512" y="0" width="512" height="512" fill="#FBBC05" />\n'
       ' <rect x="512" y="512" width="512" height="512" fill="#EA4335"/>\n'
-      '</g>',
+      '</g>';
+
+  function generateSVG(uint256 _style, string memory svgPart, IAssetStore.AssetAttributes memory _attr) public pure returns (bytes memory) {
+    bytes memory assetTag = abi.encodePacked('#', _attr.tag);
+    bytes memory image = abi.encodePacked(
+      SVGHeader,
       svgPart,
       '</defs>\n'
       '<g filter="url(#f1)">\n');
-
     if (_style == 0) {
       image = abi.encodePacked(image,
-      ' <mask id="assetMask" desc="Material Icons (Apache 2.0)/Social/Public">\n'
+      ' <mask id="assetMask">\n'
       '  <use href="', assetTag, '" fill="white" />\n'
       ' </mask>\n'
       ' <use href="#base" mask="url(#assetMask)" />\n');
