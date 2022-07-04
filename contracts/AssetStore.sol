@@ -146,7 +146,9 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     Asset storage asset = assets[assetId];
     asset.name = _assetInfo.name;
     asset.soulbound = _assetInfo.soulbound;
-    if (bytes(_assetInfo.minter).length > 0) {
+    uint256 minterLength = bytes(_assetInfo.minter).length; 
+    if (minterLength > 0) {
+      require(minterLength <= 32, "AssetSgore: _registerAsset, minter name is too long.");
       asset.minter = _assetInfo.minter; // @notice: no validation
     }
     asset.groupId = groupId;
