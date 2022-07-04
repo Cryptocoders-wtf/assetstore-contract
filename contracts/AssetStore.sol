@@ -143,15 +143,13 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
       partsIds[i] = _registerPart(_assetInfo.parts[i]);
     }
     uint256 assetId = nextAssetIndex++;
-    Asset memory asset;
+    Asset storage asset = assets[assetId];
     asset.name = _assetInfo.name;
     asset.soulbound = _assetInfo.soulbound;
     asset.minter = _assetInfo.minter; // @notice: no validation
     asset.groupId = groupId;
     asset.categoryId = categoryId;
     asset.partsIds = partsIds;
-
-    assets[assetId] = asset;
     
     AssetCatalog storage assetCatalog = assetCatalogs[groupId][categoryId];
     require(assetCatalog.assetNameToId[_assetInfo.name] == 0, "Asset already exists with the same group, category and name");
