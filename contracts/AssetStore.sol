@@ -146,7 +146,9 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     Asset storage asset = assets[assetId];
     asset.name = _assetInfo.name;
     asset.soulbound = _assetInfo.soulbound;
-    asset.minter = _assetInfo.minter; // @notice: no validation
+    if (bytes(_assetInfo.minter).length > 0) {
+      asset.minter = _assetInfo.minter; // @notice: no validation
+    }
     asset.groupId = groupId;
     asset.categoryId = categoryId;
     asset.partsIds = partsIds;
