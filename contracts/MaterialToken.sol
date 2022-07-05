@@ -3,8 +3,13 @@
 /*
  * Material Icon NFT (ERC721). The mint function takes IAssetStore.AssetInfo as a parameter.
  * It registers the specified asset to the AssetStore and mint a token which represents
- * the "uplaoder" of the asset (who paid the gas fee). After that, the asset will beome
- * available to other smart contracts either as CC0 or CC-BY (see the AssetStore for details).
+ * the "minter" of the asset (who paid the gas fee), along with two additional bonus tokens.
+ * 
+ * It uses ERC721A as the base contract, which is quite efficent to mint multiple tokens
+ * with a single transaction. 
+ *
+ * Once minted, the asset will beome available to other smart contract developers,
+ * for free, either CC0, CC-BY-SA(Attribution-ShareAlike), Appache, MIT or similar.
  * 
  * Created by Satoshi Nakajima (@snakajima)
  */
