@@ -20,11 +20,15 @@ export const deploy:any = async (setWhitelist = true) => {
     await tx.wait();
   }
   
-  let output = `const assetStore = "${assetStore.address}";\n`
+  const args = `const assetStore = "${assetStore.address}";\n`
     + `const developer = "${developer}"; // sn2\n`
     + `const proxy = "${proxy}";\n`
     + 'module.exports = [assetStore, assetStore, developer, proxy];\n';
-  await writeFile('./cache/arguments.js', output, ()=>{});
+  await writeFile('./cache/arguments.js', args, ()=>{});
+
+  const verifyScript = `npx hardhat verify ${assetStore.address} --network ${network.name}\n`
+    + `npx hardhat verify ${materialToken.address} --constructor-args ./cache/arguments.js --network ${network.name}\n`;
+  await writeFile('./cache/verify.sh', verifyScript, ()=>{});
 
   return { assetStore, materialToken };
 };
