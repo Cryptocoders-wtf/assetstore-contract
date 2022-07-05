@@ -20,11 +20,12 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "erc721a/contracts/ERC721A.sol";
 import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
+import { IAssetStoreToken } from './interfaces/IAssetStoreToken.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
 
-contract MaterialToken is Ownable, ERC721A {
+contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
   using Strings for uint256;
   using Strings for uint16;
 
@@ -115,11 +116,11 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
       ' <rect x="512" y="512" width="512" height="512" fill="#EA4335"/>\n'
       '</g>';
 
-  function generateSVG(uint256 _style, string memory svgPart, string memory _tag) public pure returns (string memory) {
+  function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
     bytes memory assetTag = abi.encodePacked('#', _tag);
     bytes memory image = abi.encodePacked(
       SVGHeader,
-      svgPart,
+      _svgPart,
       '</defs>\n'
       '<g filter="url(#f1)">\n');
     if (_style == 0) {
@@ -184,7 +185,7 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
     uint256 assetId = assetIds[_tokenId / tokensPerAsset];
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory svgPart = assetStore.generateSVGPart(assetId);
-    bytes memory image = bytes(generateSVG(_tokenId % tokensPerAsset, svgPart, attr.tag));
+    bytes memory image = bytes(generateSVG(svgPart, _tokenId % tokensPerAsset, attr.tag));
 
     return string(
       abi.encodePacked(
