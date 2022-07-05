@@ -24,11 +24,11 @@ export const deploy:any = async (setWhitelist = true) => {
     + `const developer = "${developer}"; // sn2\n`
     + `const proxy = "${proxy}";\n`
     + 'module.exports = [assetStore, assetStore, developer, proxy];\n';
-  await writeFile('./cache/arguments.js', args, ()=>{});
+  await writeFile(`./cache/arguments_${network.name}.js`, args, ()=>{});
 
   const verifyScript = `npx hardhat verify ${assetStore.address} --network ${network.name}\n`
-    + `npx hardhat verify ${materialToken.address} --constructor-args ./cache/arguments.js --network ${network.name}\n`;
-  await writeFile('./cache/verify.sh', verifyScript, ()=>{});
+    + `npx hardhat verify ${materialToken.address} --constructor-args ./cache/arguments_${network.name}.js --network ${network.name}\n`;
+  await writeFile(`./cache/verify_${network.name}.sh`, verifyScript, ()=>{});
 
   return { assetStore, materialToken };
 };
