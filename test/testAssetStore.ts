@@ -41,6 +41,8 @@ const catchError = async (callback: any) => {
     return true;
   }
 };
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
 
 describe("AssetStore Component Test", function () {
   let asset:any;
@@ -66,11 +68,13 @@ describe("AssetStore Component Test", function () {
     const attr: any = await contract.getAttributes(assetId);
     expect(attr.name == asset.name && attr.group == asset.group && attr.category==asset.category).equal(true);
     expect(attr.minter == asset.minter && attr.soulbound == asset.soulbound).equal(true);
+    expect(ethers.utils.arrayify(attr.metadata).length).equal(0);
   });
   it("Register 'Settings'", async function () {
     asset = assetSettings;
     const [owner] = await ethers.getSigners();
     asset.soulbound = owner.address;
+    asset.metadata = encoder.encode("abc");
     const tx = await contract.registerAsset(asset);
     const result = await tx.wait();
     const [event] = result.events;
@@ -86,6 +90,7 @@ describe("AssetStore Component Test", function () {
     const attr: any = await contract.getAttributes(assetId);
     expect(attr.name == asset.name && attr.group == asset.group && attr.category==asset.category).equal(true);
     expect(attr.minter == asset.minter && attr.soulbound == asset.soulbound).equal(true);
+    expect(decoder.decode(ethers.utils.arrayify(attr.metadata))).equal("abc");
   });
   it("Register 'Account'", async function () {
     asset = assetAccount;
