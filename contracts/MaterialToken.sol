@@ -200,6 +200,10 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
     );
   }
 
+  function setDescription(string memory _description) external onlyOwner {
+      description = _description;
+  }
+
   /**
     * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
     * @dev See {IERC721Metadata-tokenURI}.
@@ -208,7 +212,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
     require(_exists(_tokenId), 'MaterialToken.tokenURI: nonexistent token');
     uint256 assetId = assetIdOfToken(_tokenId);
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
-    string memory svgPart = assetStore.generateSVGPart(assetId);
+    string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
     bytes memory image = bytes(generateSVG(svgPart, _tokenId % tokensPerAsset, attr.tag));
 
     return string(

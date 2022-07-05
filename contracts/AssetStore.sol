@@ -337,10 +337,10 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     return string(abi.encodePacked('asset', _assetId.toString()));
   }
 
-  function _safeGenerateSVGPart(uint256 _assetId) internal view returns(bytes memory) {
+  function _safeGenerateSVGPart(uint256 _assetId, string memory _tag) internal view returns(bytes memory) {
     Asset memory asset = _getAsset(_assetId);
     uint256[] memory indeces = asset.partsIds;
-    bytes memory pack = abi.encodePacked(' <g id="', _tagForAsset(_assetId), '" desc="', _getDescription(asset), '">\n');
+    bytes memory pack = abi.encodePacked(' <g id="', _tag, '" desc="', _getDescription(asset), '">\n');
     uint i;
     for (i=0; i<indeces.length; i++) {
       Part memory part = _getPart(indeces[i]);
@@ -355,15 +355,15 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
   }
 
   // returns a SVG part with the specified asset
-  function generateSVGPart(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
-    return string(_safeGenerateSVGPart(_assetId));
+  function generateSVGPart(uint256 _assetId, string memory _tag) external override view enabled(_assetId) returns(string memory) {
+    return string(_safeGenerateSVGPart(_assetId, _tag));
   }
 
   // returns a full SVG with the specified asset
   function generateSVG(uint256 _assetId) external override view enabled(_assetId) returns(string memory) {
     bytes memory pack = abi.encodePacked(
       '<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">\n', 
-      _safeGenerateSVGPart(_assetId), 
+      _safeGenerateSVGPart(_assetId, _tagForAsset(_assetId)), 
       '</svg>');
     return string(pack);
   }

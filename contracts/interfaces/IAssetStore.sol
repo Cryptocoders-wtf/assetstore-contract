@@ -27,7 +27,7 @@ interface IAssetStore {
   }
 
   function generateSVG(uint256 _assetId) external view returns(string memory);
-  function generateSVGPart(uint256 _assetId) external view returns(string memory);
+  function generateSVGPart(uint256 _assetId, string memory _tag) external view returns(string memory);
   function getAttributes(uint256 _assetId) external view returns(AssetAttributes memory);
 }
 
