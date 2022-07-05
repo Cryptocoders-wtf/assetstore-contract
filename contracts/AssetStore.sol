@@ -47,6 +47,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     uint32 categoryId; // index to categories + 1
     string name;
     string minter;
+    bytes metadata;
     address soulbound;
     uint256[] partsIds;
   }
@@ -150,6 +151,9 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
     if (minterLength > 0) {
       require(minterLength <= 32, "AssetSgore: _registerAsset, minter name is too long.");
       asset.minter = _assetInfo.minter; // @notice: no validation
+    }
+    if (_assetInfo.metadata.length > 0) {
+      asset.metadata = _assetInfo.metadata;
     }
     asset.groupId = groupId;
     asset.categoryId = categoryId;
@@ -372,6 +376,7 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.tag = _tagForAsset(_assetId);
     attr.soulbound = asset.soulbound;
     attr.minter = asset.minter;
+    attr.metadata = asset.metadata;
     attr.group = groupSet.nameAtIndex(asset.groupId - 1);
     attr.category = categorySets[asset.groupId].nameAtIndex(asset.categoryId - 1);
     attr.width = 1024;
