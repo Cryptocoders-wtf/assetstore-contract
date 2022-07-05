@@ -30,5 +30,11 @@ export const deploy:any = async (setWhitelist = true) => {
     + `npx hardhat verify ${materialToken.address} --constructor-args ./cache/arguments_${network.name}.js --network ${network.name}\n`;
   await writeFile(`./cache/verify_${network.name}.sh`, verifyScript, ()=>{});
 
+  const addresses = `export const addresses = {\n`
+    + `  storeAddress:"${assetStore.address}",\n`
+    + `  tokenAddress:"${materialToken.address}"\n`
+    + `}\n`;
+  await writeFile(`../web/src/generated/addresses_${network.name}.ts`, addresses, ()=>{});
+
   return { assetStore, materialToken };
 };
