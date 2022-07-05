@@ -45,7 +45,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
   IProxyRegistry public immutable proxyRegistry;
 
   /*
-   * @notice both _registry and _assetStore points to the AssetStore. 
+   * @notice both _registry and _assetStore points to the AssetStore.
    */
   constructor(
     IAssetStoreRegistry _registry, 
@@ -64,7 +64,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
   }
 
   /*
-   * It registers the specified asset to the AssetStore and 
+   * It registers the specified asset to the AssetStore and
    * mint three tokens to the msg.sender, and one additional
    * token to either the affiliator, the developer or the owner.npnkda
    */
@@ -184,7 +184,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
   function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
     return abi.encodePacked(
       '{'
-        '"trait_type":"Soulbound",'
+        '"trait_type":"Primary",'
         '"value":"', _isPrimary(_tokenId) ? 'Yes':'No', '"' 
       '},{'
         '"trait_type":"Group",'
