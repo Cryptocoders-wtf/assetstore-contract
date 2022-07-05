@@ -44,6 +44,9 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
   // OpenSea's Proxy Registry
   IProxyRegistry public immutable proxyRegistry;
 
+  /*
+   * @notice both _registry and _assetStore points to the AssetStore. 
+   */
   constructor(
     IAssetStoreRegistry _registry, 
     IAssetStore _assetStore,
@@ -56,10 +59,15 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
     proxyRegistry = _proxyRegistry;
   }
 
-  function isSoulbound(uint256 _tokenId) internal pure returns(bool) {
+  function _isPrimary(uint256 _tokenId) internal pure returns(bool) {
     return _tokenId % tokensPerAsset == 0;
   }
 
+  /*
+   * It registers the specified asset to the AssetStore and 
+   * mint three tokens to the msg.sender, and one additional
+   * token to either the affiliator, the developer or the owner.npnkda
+   */
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
@@ -68,7 +76,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
     _mint(msg.sender, tokensPerAsset - 1);
 
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
-    if (_affiliate > 0 && isSoulbound(_affiliate) && ownerOf(_affiliate) != msg.sender) {
+    if (_affiliate > 0 && _isPrimary(_affiliate) && ownerOf(_affiliate) != msg.sender) {
       _mint(ownerOf(_affiliate), 1);
     } else if ((tokenId / tokensPerAsset) % 4 == 0) {
       // 1 in 24 tokens goes to the developer
@@ -96,12 +104,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
       return super.isApprovedForAll(owner, operator);
   }
 
-  function getAssetId(uint256 _tokenId) external view returns(uint256) {
-    require(_exists(_tokenId), 'MaterialToken.getAssetId: nonexistent token');
-    return assetIds[_tokenId / tokensPerAsset];
-  }
-
-string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
+  string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
       '"  xmlns="http://www.w3.org/2000/svg">\n'
       '<defs>\n'
       ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n'
@@ -116,6 +119,10 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
       ' <rect x="512" y="512" width="512" height="512" fill="#EA4335"/>\n'
       '</g>';
 
+  /*
+   * A function of IAssetStoreToken interface.
+   * It generates SVG with the specified style, using the given "SVG Part".
+   */
   function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
     bytes memory assetTag = abi.encodePacked('#', _tag);
     bytes memory image = abi.encodePacked(
@@ -144,8 +151,21 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
     return string(abi.encodePacked(image, '</g>\n</svg>'));
   }
 
+  /*
+   * A function of IAssetStoreToken interface.
+   * It returns the assetId, which this token uses.
+   */
   function assetIdOfToken(uint256 _tokenId) public view override returns(uint256) {
+    require(_exists(_tokenId), 'MaterialToken.assetIdOfToken: nonexistent token');
     return assetIds[_tokenId / tokensPerAsset];
+  }
+
+  /*
+   * A function of IAssetStoreToken interface.
+   * Each 16-bit represents the number of possible styles, allowing various combinations.
+   */
+  function styles() external pure override returns(uint256) {
+    return tokensPerAsset;
   }
 
   function _jsonEscaled(bytes memory value) internal pure returns(bytes memory) {
@@ -165,7 +185,7 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
     return abi.encodePacked(
       '{'
         '"trait_type":"Soulbound",'
-        '"value":"', isSoulbound(_tokenId) ? 'Yes':'No', '"' 
+        '"value":"', _isPrimary(_tokenId) ? 'Yes':'No', '"' 
       '},{'
         '"trait_type":"Group",'
         '"value":"', _attr.group, '"' 
