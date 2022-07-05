@@ -144,6 +144,10 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
     return string(abi.encodePacked(image, '</g>\n</svg>'));
   }
 
+  function assetIdOfToken(uint256 _tokenId) public view override returns(uint256) {
+    return assetIds[_tokenId / tokensPerAsset];
+  }
+
   function _jsonEscaled(bytes memory value) internal pure returns(bytes memory) {
     bytes memory res;
     uint i;
@@ -182,7 +186,7 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
     */
   function tokenURI(uint256 _tokenId) public view override returns (string memory) {
     require(_exists(_tokenId), 'MaterialToken.tokenURI: nonexistent token');
-    uint256 assetId = assetIds[_tokenId / tokensPerAsset];
+    uint256 assetId = assetIdOfToken(_tokenId);
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory svgPart = assetStore.generateSVGPart(assetId);
     bytes memory image = bytes(generateSVG(svgPart, _tokenId % tokensPerAsset, attr.tag));
