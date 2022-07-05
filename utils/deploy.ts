@@ -1,4 +1,5 @@
 import { ethers, network } from "hardhat";
+import { writeFile } from "fs";
 
 export const developer = "0x6a615Ca8D7053c0A0De2d11CACB6f321CA63BD62"; // sn2
 export const proxy = (network.name == "rinkeby") ?
@@ -18,6 +19,12 @@ export const deploy:any = async (setWhitelist = true) => {
     const tx = await assetStore.setWhitelistStatus(materialToken.address, true);
     await tx.wait();
   }
+  
+  let output = `const assetStore = "${assetStore.address}";\n`
+    + `const developer = "${developer}"; // sn2\n`
+    + `const proxy = "${proxy}";\n`
+    + 'module.exports = [assetStore, assetStore, developer, proxy];\n';
+  await writeFile('./cache/arguments.js', output, ()=>{});
 
   return { assetStore, materialToken };
 };

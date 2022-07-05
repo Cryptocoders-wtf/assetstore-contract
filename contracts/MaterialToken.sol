@@ -138,6 +138,19 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
     return string(abi.encodePacked(image, '</g>\n</svg>'));
   }
 
+  function _jsonEscaled(bytes memory value) internal pure returns(bytes memory) {
+    bytes memory res;
+    uint i;
+    for (i=0; i<value.length; i++) {
+      uint8 b = uint8(value[i]);
+      // Skip control codes, backslash and double-quote
+      if (b >= 0x20 && b != 92 && b != 34) {
+        res = abi.encodePacked(res, b);
+      }
+    }
+    return res;
+  }
+
   function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
     return abi.encodePacked(
       '{'
@@ -151,7 +164,8 @@ string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
         '"value":"', _attr.category, '"' 
       '},{'
         '"trait_type":"Minter",'
-        '"value":"', (bytes(_attr.minter).length > 0)?_attr.minter:'(anonymous)', '"' 
+        '"value":"', (bytes(_attr.minter).length > 0)?
+              _jsonEscaled(bytes(_attr.minter)) : bytes('(anonymous)'), '"' 
       '}'
     );
   }
