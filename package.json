@@ -29,6 +29,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "ethereum-waffle": "^3.0.0",
     "ethers": "^5.0.0",
+    "fast-xml-parser": "^4.0.8",
     "hardhat": "^2.9.5",
     "hardhat-gas-reporter": "^1.0.4",
     "prettier": "^2.3.2",
