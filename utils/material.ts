@@ -34,18 +34,18 @@ categories.map(category => {
       const height = parseInt(svg['@_height']);
       if (svg.path && !svg.rect && !svg.g && !svg.polygon) {
         const paths = Array.isArray(svg.path) ? svg.path : [svg.path];
-        const body = paths.filter((path:any) => {
+        const bodies = paths.filter((path:any) => {
           return !path['@_fill']; 
         }).map((path:any) => {
           return path['@_d'];
         });
-        const item = { nane:file, width, height, body };
+        const item = { name:file, width, height, bodies };
         return item;
       } else {
         console.error(file, svg);
       }
     });
-    console.log(items);
+    console.log('export const action50 =', items, ';');
   }
 });
   /*
