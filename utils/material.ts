@@ -39,7 +39,7 @@ categories.map(category => {
         }).map((path:any) => {
           return path['@_d'];
         });
-        const item = { name:file.replace(/\.svg/, "").replace(/_/, " "), width, height, bodies };
+        const item = { name:file.replace(/\.svg/, "").replace(/_/g, " "), width, height, bodies };
         return item;
       } else {
         console.error(file, svg);
