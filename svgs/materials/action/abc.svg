@@ -1,1 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><path d="M21,11h-1.5v-0.5h-2v3h2V13H21v1c0,0.55-0.45,1-1,1h-3c-0.55,0-1-0.45-1-1v-4c0-0.55,0.45-1,1-1h3c0.55,0,1,0.45,1,1V11z M8,10v5H6.5v-1.5h-2V15H3v-5c0-0.55,0.45-1,1-1h3C7.55,9,8,9.45,8,10z M6.5,10.5h-2V12h2V10.5z M13.5,12c0.55,0,1,0.45,1,1v1 c0,0.55-0.45,1-1,1h-4V9h4c0.55,0,1,0.45,1,1v1C14.5,11.55,14.05,12,13.5,12z M11,10.5v0.75h2V10.5H11z M13,12.75h-2v0.75h2V12.75z"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   enable-background="new 0 0 24 24"
+   height="24"
+   viewBox="0 0 24 24"
+   width="24"
+   version="1.1"
+   id="svg178"
+   sodipodi:docname="abc.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs182" />
+  <sodipodi:namedview
+     id="namedview180"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="12.050847"
+     inkscape:cy="12"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg178" />
+  <path
+     d="m 21,11 h -1.5 v -0.5 h -2 v 3 h 2 V 13 H 21 v 1 c 0,0.55 -0.45,1 -1,1 h -3 c -0.55,0 -1,-0.45 -1,-1 v -4 c 0,-0.55 0.45,-1 1,-1 h 3 c 0.55,0 1,0.45 1,1 z M 8,10 v 5 H 6.5 v -1.5 h -2 V 15 H 3 V 10 C 3,9.45 3.45,9 4,9 h 3 c 0.55,0 1,0.45 1,1 z m -1.5,0.5 h -2 V 12 h 2 z m 7,1.5 c 0.55,0 1,0.45 1,1 v 1 c 0,0.55 -0.45,1 -1,1 h -4 V 9 h 4 c 0.55,0 1,0.45 1,1 v 1 c 0,0.55 -0.45,1 -1,1 z M 11,10.5 v 0.75 h 2 V 10.5 Z m 2,2.25 h -2 v 0.75 h 2 z"
+     id="path174" />
+</svg>
