@@ -10,14 +10,57 @@ const parser = new XMLParser(options);
 
 const root = './svgs/materials';
 const categories = readdirSync(root);
-console.log(categories);
+//console.log(categories);
 categories.map(category => {
-  if (category == 'action') {
+  let files = readdirSync(`${root}/${category}`);
+  console.log(category, files.length);
+  if (category == 'hardware') {
     let files = readdirSync(`${root}/${category}`);
-    console.log(files);
+    //console.log(files);
     files.map(file => {
-      //let xml = readFileSync(`${root}/${category}/${file}`, 'utf8');
-      console.log(file);
+      let xml = readFileSync(`${root}/${category}/${file}`, 'utf8');
+      //console.log(xml);
+      const obj = parser.parse(xml);
+      const svg = obj.svg;
+      const width = parseInt(svg['@_width']);
+      const height = parseInt(svg['@_height']);
+      if (svg.path) {
+        const paths = svg.path;
+        console.log("***", file, width, height, "***0", paths);
+      } else if (svg.g) {
+        const g = svg.g;
+        if (g[0]?.rect && g[0].rect['@_fill'] == 'none') {
+          if (g.length == 2) {
+            if (g[1].path) {
+              console.log("***", file, width, height, "***r-2-p", g[1].path);
+            } else if (g[1].g) {
+              if (g[1].g.path) {
+                console.log("***", file, width, height, "***r-2-g-p", g[1].g.path);
+              } else {
+                if (g[1].g.g) {
+                  console.log("***", file, width, height, "***r-2-g-g", g[1].g.g);
+                } else if (g[1].g.path) {
+                  console.log("***", file, width, height, "***r-2-g-p", g[1].g.p);
+                } else {
+                  console.log("***", file, width, height, "***r-2-g", g[1].g);
+                }
+              }
+            } else {
+              console.log("###", file, width, height, "###r-2-?", g[1]);
+            }
+          } else {
+            console.log("***", file, width, height, "***r-N", g);
+          }
+        } else {
+          if (g.path) {
+            console.log("***", file, width, height, "***g-p", g.path);
+          } else {
+            console.log("***", file, width, height, "***?", g);
+          }
+        }
+      } else {
+        console.error("###", file, '###', svg);
+      }
     })
   }
 });
