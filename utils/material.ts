@@ -32,7 +32,8 @@ categories.map(category => {
         const width = parseInt(svg['@_width']);
         const height = parseInt(svg['@_height']);
         if (svg.path && !svg.rect && !svg.g && !svg.polygon) {
-          console.log(file, index);
+          const paths = Array.isArray(svg.path) ? svg.path : [svg.path];
+          console.log(file, width, height, paths.length);
         } else {
           console.log(file, svg);
         }
