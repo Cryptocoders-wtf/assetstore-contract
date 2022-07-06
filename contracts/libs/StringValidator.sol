@@ -25,4 +25,21 @@ contract StringValidator is IStringValidator {
     }
     return true;
   }
+
+  function sanitizeJason(string memory _str) external override pure returns(bytes memory) {
+    bytes memory src = bytes(_str);
+    bytes memory res;
+    uint i;
+    for (i=0; i<src.length; i++) {
+      uint8 b = uint8(src[i]);
+      // Skip control codes, escape backslash and double-quote
+      if (b >= 0x20) {
+        if  (b == 0x5c || b == 0x22) {
+          res = abi.encodePacked(res, bytes1(0x5c));
+        }
+        res = abi.encodePacked(res, b);
+      }
+    }
+    return res;
+  }  
 }

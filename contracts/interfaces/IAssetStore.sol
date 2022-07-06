@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.6;
 
+import { IStringValidator } from './IStringValidator.sol';
+
 // IAssetStore is the inteface for consumers of the AsseStore.
 interface IAssetStore {
   // Browsing
@@ -29,6 +31,7 @@ interface IAssetStore {
   function generateSVG(uint256 _assetId) external view returns(string memory);
   function generateSVGPart(uint256 _assetId, string memory _tag) external view returns(string memory);
   function getAttributes(uint256 _assetId) external view returns(AssetAttributes memory);
+  function getStringValidator() external view returns(IStringValidator);
 }
 
 // IAssetStoreRegistry is the interface for contracts who registers assets to the AssetStore.

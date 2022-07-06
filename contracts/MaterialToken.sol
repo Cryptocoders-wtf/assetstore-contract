@@ -168,20 +168,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
     return tokensPerAsset;
   }
 
-  function _jsonEscaled(bytes memory value) internal pure returns(bytes memory) {
-    bytes memory res;
-    uint i;
-    for (i=0; i<value.length; i++) {
-      uint8 b = uint8(value[i]);
-      // Skip control codes, backslash and double-quote
-      if (b >= 0x20 && b != 92 && b != 34) {
-        res = abi.encodePacked(res, b);
-      }
-    }
-    return res;
-  }
-
-  function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal pure returns (bytes memory) {
+  function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
     return abi.encodePacked(
       '{'
         '"trait_type":"Primary",'
@@ -195,7 +182,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
       '},{'
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
-              _jsonEscaled(bytes(_attr.minter)) : bytes('(anonymous)'), '"' 
+              assetStore.getStringValidator().sanitizeJason(_attr.minter) : bytes('(anonymous)'), '"' 
       '}'
     );
   }

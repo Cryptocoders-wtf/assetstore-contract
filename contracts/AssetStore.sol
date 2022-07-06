@@ -383,4 +383,8 @@ contract AssetStore is AppStoreRegistory, IAssetStore {
     attr.height = 1024;
     return attr;
   }
+
+  function getStringValidator() external override view returns(IStringValidator) {
+    return validator;
+  }
 }
