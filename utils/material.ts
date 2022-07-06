@@ -20,25 +20,32 @@ categories.map(category => {
   if (category == 'action') {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
-    files.map((file, index) => {
+    const items = files.filter((file, index) => {
+      return index < 50;
+    }).map((file, index) => {
       if (file == '.DS_Store') {
         return;
       }
-      if (index < 50) {
-        let xml = readFileSync(`${root}/${category}/${file}`, 'utf8');
-        //console.log(xml);
-        const obj = parser.parse(xml);
-        const svg = obj.svg;
-        const width = parseInt(svg['@_width']);
-        const height = parseInt(svg['@_height']);
-        if (svg.path && !svg.rect && !svg.g && !svg.polygon) {
-          const paths = Array.isArray(svg.path) ? svg.path : [svg.path];
-          console.log(file, width, height, paths.length);
-        } else {
-          console.log(file, svg);
-        }
+      let xml = readFileSync(`${root}/${category}/${file}`, 'utf8');
+      //console.log(xml);
+      const obj = parser.parse(xml);
+      const svg = obj.svg;
+      const width = parseInt(svg['@_width']);
+      const height = parseInt(svg['@_height']);
+      if (svg.path && !svg.rect && !svg.g && !svg.polygon) {
+        const paths = Array.isArray(svg.path) ? svg.path : [svg.path];
+        const body = paths.filter((path:any) => {
+          return !path['@_fill']; 
+        }).map((path:any) => {
+          return path['@_d'];
+        });
+        const item = { nane:file, width, height, body };
+        return item;
+      } else {
+        console.error(file, svg);
       }
-    })
+    });
+    console.log(items);
   }
 });
   /*
