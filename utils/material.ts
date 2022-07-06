@@ -11,7 +11,6 @@ const parser = new XMLParser(options);
 const root = './svgs/materials';
 const categories = readdirSync(root);
 console.log(categories);
-/*
 categories.map(category => {
   if (category == 'action') {
     let files = readdirSync(`${root}/${category}`);
@@ -22,7 +21,6 @@ categories.map(category => {
     })
   }
 });
-*/
   /*
   mkdir(`./svgs/materials/${category}`, { recursive:false }, (err)=>{
     console.error(err);
