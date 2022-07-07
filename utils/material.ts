@@ -32,7 +32,7 @@ categories.map(category => {
       const svg = obj.svg;
       const width = parseInt(svg['@_width']);
       const height = parseInt(svg['@_height']);
-      if (svg.path && !svg.rect && !svg.g && !svg.polygon) {
+      if (svg.path && !svg.rect && !svg.g && !svg.polygon && !svg.circle) {
         const paths = Array.isArray(svg.path) ? svg.path : [svg.path];
         const bodies = paths.filter((path:any) => {
           return !path['@_fill']; 
@@ -43,6 +43,7 @@ categories.map(category => {
         return item;
       } else {
         console.error(file, svg);
+        process.exit(0);
       }
     });
     console.log('export const action50 =', items, ';');
