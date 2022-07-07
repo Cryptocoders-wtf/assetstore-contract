@@ -34,7 +34,7 @@ export const deploy:any = async (setWhitelist = true) => {
     + `  storeAddress:"${assetStore.address}",\n`
     + `  tokenAddress:"${materialToken.address}"\n`
     + `}\n`;
-  await writeFile(`../web/src/generated/addresses_${network.name}.ts`, addresses, ()=>{});
+  await writeFile(`./cache/addresses_${network.name}.ts`, addresses, ()=>{});
 
   return { assetStore, materialToken };
 };
