@@ -42,6 +42,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   using StringSet for StringSet.Set;
   using Strings for uint16;
   using Strings for uint256;
+  
   struct Asset {
     uint32 groupId;    // index to groups + 1
     uint32 categoryId; // index to categories + 1
@@ -199,9 +200,8 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
  * managing the whitelist, disable/enable assets and accessing the raw data.
  */
 abstract contract AssetStoreAdmin is AssetStoreCore {
-  constructor() {
-    whitelist[msg.sender] = true;
-  }
+  // Upgradable admin (only by owner)
+  address public admin;
 
   /*
    * Whitelist manages the list of contracts which can register assets
@@ -215,33 +215,47 @@ abstract contract AssetStoreAdmin is AssetStoreCore {
    */
   mapping(uint256 => bool) disabled;
 
-  function setWhitelistStatus(address _address, bool _status) external onlyOwner {
+  constructor() {
+    whitelist[msg.sender] = true;
+    admin = owner();
+  }
+
+  modifier onlyAdmin() {
+    require(owner() == _msgSender() || admin == _msgSender(), "AssetStoreAdmin: caller is not the admin");
+    _;
+  }
+
+  function setAdmin(address _admin) external onlyOwner {
+    admin = _admin;
+  }  
+
+  function setWhitelistStatus(address _address, bool _status) external onlyAdmin {
     whitelist[_address] = _status;
   }
 
-  function setDisabled(uint256 _assetId, bool _status) external assetExists(_assetId) onlyOwner {
+  function setDisabled(uint256 _assetId, bool _status) external assetExists(_assetId) onlyAdmin {
     disabled[_assetId] = _status;
   }
 
-  function setDisableWhitelist(bool _disable) external onlyOwner {
+  function setDisableWhitelist(bool _disable) external onlyAdmin {
     disableWhitelist = _disable;
   } 
 
-  function setValidator(IStringValidator _validator) external onlyOwner {
+  function setValidator(IStringValidator _validator) external onlyAdmin {
     validator = _validator;
   }
 
-  function setPathDecoder(IPathDecoder _decoder) external onlyOwner {
+  function setPathDecoder(IPathDecoder _decoder) external onlyAdmin {
     decoder = _decoder;
   }
 
   // returns the raw asset data speicified by the assetId (1, ..., count)
-  function getRawAsset(uint256 _assetId) external view onlyOwner returns(Asset memory) {
+  function getRawAsset(uint256 _assetId) external view onlyAdmin returns(Asset memory) {
     return _getAsset(_assetId);
   }
 
   // returns the raw part data specified by the assetId (1, ... count)
-  function getRawPart(uint256 _partId) external view onlyOwner returns(Part memory) {
+  function getRawPart(uint256 _partId) external view onlyAdmin returns(Part memory) {
     return _getPart(_partId);
   }
 }
