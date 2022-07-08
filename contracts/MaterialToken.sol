@@ -69,6 +69,7 @@ contract MaterialToken is Ownable, ERC721A, IAssetStoreToken {
    * token to either the affiliator, the developer or the owner.npnkda
    */
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
+    _assetInfo.group = "Material Icons (Apache 2.0)";
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
 

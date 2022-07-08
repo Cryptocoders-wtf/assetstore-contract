@@ -28,6 +28,7 @@ async function main() {
     let i;
     for (i=0; i<assets.length; i++) {
       assets[i].soulbound = owner.address;
+      assets[i].group = ""; // gas saving
       const tx = await materialToken.mintWithAsset(assets[i], 0);
       const result = await tx.wait();
       const ret = gasEstimate(result);
