@@ -169,7 +169,7 @@ abstract contract AssetStoreCore is Ownable, IAssetStoreRegistry {
   }
 
   // Returns the number of registered assets
-  function getAssetCount() external view onlyOwner returns(uint256) {
+  function getAssetCount() external view returns(uint256) {
     return nextAssetIndex - 1;
   }
 

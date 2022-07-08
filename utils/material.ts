@@ -21,7 +21,7 @@ categories.map(category => {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
     const items = files.filter((file, index) => {
-      return index < 100;
+      return index < 120;
     }).map((file, index) => {
       if (file == '.DS_Store') {
         return;
@@ -46,7 +46,7 @@ categories.map(category => {
         process.exit(0);
       }
     });
-    console.log('export const action50 =', items, ';');
+    console.log(`export const action50 = ${JSON.stringify(items)} ;`);
   }
 });
   /*
