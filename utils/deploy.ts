@@ -10,6 +10,8 @@ export const deploy:any = async (setWhitelist = true) => {
   const assetStoreFactory = await ethers.getContractFactory("AssetStore");
   const assetStore = await assetStoreFactory.deploy();
   await assetStore.deployed();
+  const decoder = await assetStore.decoder();
+  const validator = await assetStore.validator();
 
   const materialTokenStoreFactory = await ethers.getContractFactory("MaterialToken");
   const materialToken = await materialTokenStoreFactory.deploy(assetStore.address, assetStore.address, developer, proxy);
@@ -27,7 +29,9 @@ export const deploy:any = async (setWhitelist = true) => {
   await writeFile(`./cache/arguments_${network.name}.js`, args, ()=>{});
 
   const verifyScript = `npx hardhat verify ${assetStore.address} --network ${network.name}\n`
-    + `npx hardhat verify ${materialToken.address} --constructor-args ./cache/arguments_${network.name}.js --network ${network.name}\n`;
+    + `npx hardhat verify ${materialToken.address} --constructor-args ./cache/arguments_${network.name}.js --network ${network.name}\n`
+    + `npx hardhat verify ${decoder} --network ${network.name}\n`
+    + `npx hardhat verify ${validator} --network ${network.name}\n`;
   await writeFile(`./cache/verify_${network.name}.sh`, verifyScript, ()=>{});
 
   const addresses = `export const addresses = {\n`
