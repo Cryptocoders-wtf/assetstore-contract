@@ -1,1 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><g><g><ellipse cx="12" cy="12" rx="3" ry="5.74"/></g><g><path d="M16.5,12c0,0.97-0.23,4.16-3.03,6.5C14.25,18.81,15.1,19,16,19c3.86,0,7-3.14,7-7s-3.14-7-7-7c-0.9,0-1.75,0.19-2.53,0.5 C16.27,7.84,16.5,11.03,16.5,12z"/></g><g><path d="M8,19c0.9,0,1.75-0.19,2.53-0.5c-0.61-0.51-1.1-1.07-1.49-1.63C8.71,16.95,8.36,17,8,17c-2.76,0-5-2.24-5-5s2.24-5,5-5 c0.36,0,0.71,0.05,1.04,0.13c0.39-0.56,0.88-1.12,1.49-1.63C9.75,5.19,8.9,5,8,5c-3.86,0-7,3.14-7,7S4.14,19,8,19z"/></g></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   enable-background="new 0 0 24 24"
+   height="24"
+   viewBox="0 0 24 24"
+   width="24"
+   version="1.1"
+   id="svg22"
+   sodipodi:docname="join_right.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs26" />
+  <sodipodi:namedview
+     id="namedview24"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="12.050847"
+     inkscape:cy="12"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg22" />
+  <path
+     id="rect2"
+     style="fill:none"
+     d="M 0,0 H 24 V 24 H 0 Z" />
+  <path
+     id="ellipse6"
+     d="M 15,12 A 3,5.7399998 0 0 1 12,17.74 3,5.7399998 0 0 1 9,12 3,5.7399998 0 0 1 12,6.2600002 3,5.7399998 0 0 1 15,12 Z" />
+  <path
+     d="m 16.5,12 c 0,0.97 -0.23,4.16 -3.03,6.5 0.78,0.31 1.63,0.5 2.53,0.5 3.86,0 7,-3.14 7,-7 0,-3.86 -3.14,-7 -7,-7 -0.9,0 -1.75,0.19 -2.53,0.5 2.8,2.34 3.03,5.53 3.03,6.5 z"
+     id="path10" />
+  <path
+     d="M 8,19 C 8.9,19 9.75,18.81 10.53,18.5 9.92,17.99 9.43,17.43 9.04,16.87 8.71,16.95 8.36,17 8,17 5.24,17 3,14.76 3,12 3,9.24 5.24,7 8,7 8.36,7 8.71,7.05 9.04,7.13 9.43,6.57 9.92,6.01 10.53,5.5 9.75,5.19 8.9,5 8,5 4.14,5 1,8.14 1,12 c 0,3.86 3.14,7 7,7 z"
+     id="path14" />
+</svg>
