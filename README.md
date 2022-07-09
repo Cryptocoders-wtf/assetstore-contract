@@ -15,6 +15,9 @@ which guaranttees the availability in future.
 
 Created by Satoshi Nakajima (@snakajima)
 
+## WebUI repository
+
+The corresponding WebUI respository assumes that it can access this repository via "../contract" to access some generated contents in the "cache" folder. 
 
 ## Setup package
 
