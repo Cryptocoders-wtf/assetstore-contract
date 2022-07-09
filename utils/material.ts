@@ -21,7 +21,7 @@ categories.map(category => {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
     const items = files.filter((file, index) => {
-      return index < 120;
+      return index < 150;
     }).map((file, index) => {
       if (file == '.DS_Store') {
         return;
@@ -35,7 +35,7 @@ categories.map(category => {
       if (svg.path && (!svg.rect || !Array.isArray(svg.rect)) && !svg.g && !svg.polygon && !svg.circle) {
         const paths = Array.isArray(svg.path) ? svg.path : [svg.path];
         const bodies = paths.filter((path:any) => {
-          return !path['@_fill']; 
+          return !path['@_fill'] && path['@_style'] != "fill:none";
         }).map((path:any) => {
           return path['@_d'];
         });
