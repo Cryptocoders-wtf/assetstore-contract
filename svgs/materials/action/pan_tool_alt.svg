@@ -1,1 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><path d="M19.98,14.82l-0.63,4.46C19.21,20.27,18.36,21,17.37,21h-6.16c-0.53,0-1.29-0.21-1.66-0.59L5,15.62l0.83-0.84 c0.24-0.24,0.58-0.35,0.92-0.28L10,15.24V4.5C10,3.67,10.67,3,11.5,3S13,3.67,13,4.5v6h0.91c0.31,0,0.62,0.07,0.89,0.21l4.09,2.04 C19.66,13.14,20.1,13.97,19.98,14.82z"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   enable-background="new 0 0 24 24"
+   height="24"
+   viewBox="0 0 24 24"
+   width="24"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="pan_tool_alt.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="12.050847"
+     inkscape:cy="12"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg10" />
+  <path
+     id="rect2"
+     style="fill:none"
+     d="M 0,0 H 24 V 24 H 0 Z" />
+  <path
+     d="m 19.98,14.82 -0.63,4.46 C 19.21,20.27 18.36,21 17.37,21 H 11.21 C 10.68,21 9.92,20.79 9.55,20.41 L 5,15.62 5.83,14.78 C 6.07,14.54 6.41,14.43 6.75,14.5 L 10,15.24 V 4.5 C 10,3.67 10.67,3 11.5,3 12.33,3 13,3.67 13,4.5 v 6 h 0.91 c 0.31,0 0.62,0.07 0.89,0.21 l 4.09,2.04 c 0.77,0.39 1.21,1.22 1.09,2.07 z"
+     id="path6" />
+</svg>
