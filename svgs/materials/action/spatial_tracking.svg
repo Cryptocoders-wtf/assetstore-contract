@@ -1,1 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><g><circle cx="10" cy="9" r="4"/><path d="M16.39,15.56C14.71,14.7,12.53,14,10,14c-2.53,0-4.71,0.7-6.39,1.56C2.61,16.07,2,17.1,2,18.22V21h16v-2.78 C18,17.1,17.39,16.07,16.39,15.56z"/><path d="M20.05,2.41L18.64,1c-3.51,3.51-3.51,9.21,0,12.73l1.41-1.41C17.32,9.58,17.32,5.14,20.05,2.41z"/><path d="M22.88,5.24l-1.41-1.41c-1.95,1.95-1.95,5.12,0,7.07l1.41-1.41C21.71,8.32,21.71,6.41,22.88,5.24z"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   enable-background="new 0 0 24 24"
+   height="24"
+   viewBox="0 0 24 24"
+   width="24"
+   version="1.1"
+   id="svg18"
+   sodipodi:docname="spatial_tracking.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs22" />
+  <sodipodi:namedview
+     id="namedview20"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="8.2372881"
+     inkscape:cy="12"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg18" />
+  <path
+     id="rect2"
+     style="fill:none"
+     d="M 0,0 H 24 V 24 H 0 Z" />
+  <path
+     id="circle6"
+     d="M 14,9 A 4,4 0 0 1 10,13 4,4 0 0 1 6,9 4,4 0 0 1 10,5 4,4 0 0 1 14,9 Z" />
+  <path
+     d="M 16.39,15.56 C 14.71,14.7 12.53,14 10,14 7.47,14 5.29,14.7 3.61,15.56 2.61,16.07 2,17.1 2,18.22 V 21 h 16 v -2.78 c 0,-1.12 -0.61,-2.15 -1.61,-2.66 z"
+     id="path8" />
+  <path
+     d="M 20.05,2.41 18.64,1 c -3.51,3.51 -3.51,9.21 0,12.73 l 1.41,-1.41 c -2.73,-2.74 -2.73,-7.18 0,-9.91 z"
+     id="path10" />
+  <path
+     d="M 22.88,5.24 21.47,3.83 c -1.95,1.95 -1.95,5.12 0,7.07 l 1.41,-1.41 c -1.17,-1.17 -1.17,-3.08 0,-4.25 z"
+     id="path12" />
+</svg>
