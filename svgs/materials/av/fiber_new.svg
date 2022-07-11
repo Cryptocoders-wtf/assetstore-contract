@@ -1,1 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24" x="0"/></g><g><g><g><path d="M20,4H4C2.89,4,2.01,4.89,2.01,6L2,18c0,1.11,0.89,2,2,2h16c1.11,0,2-0.89,2-2V6C22,4.89,21.11,4,20,4z M8.5,15H7.3 l-2.55-3.5V15H3.5V9h1.25l2.5,3.5V9H8.5V15z M13.5,10.26H11v1.12h2.5v1.26H11v1.11h2.5V15h-4V9h4V10.26z M20.5,14 c0,0.55-0.45,1-1,1h-4c-0.55,0-1-0.45-1-1V9h1.25v4.51h1.13V9.99h1.25v3.51h1.12V9h1.25V14z"/></g></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   enable-background="new 0 0 24 24"
+   height="24"
+   viewBox="0 0 24 24"
+   width="24"
+   version="1.1"
+   id="svg14"
+   sodipodi:docname="fiber_new.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="8.2372881"
+     inkscape:cy="12"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg14" />
+  <path
+     id="rect2"
+     style="fill:none"
+     d="M 0,0 H 24 V 24 H 0 Z" />
+  <path
+     d="M 20,4 H 4 C 2.89,4 2.01,4.89 2.01,6 L 2,18 c 0,1.11 0.89,2 2,2 h 16 c 1.11,0 2,-0.89 2,-2 V 6 C 22,4.89 21.11,4 20,4 Z M 8.5,15 H 7.3 L 4.75,11.5 V 15 H 3.5 V 9 h 1.25 l 2.5,3.5 V 9 H 8.5 Z m 5,-4.74 H 11 v 1.12 h 2.5 v 1.26 H 11 v 1.11 h 2.5 V 15 h -4 V 9 h 4 z m 7,3.74 c 0,0.55 -0.45,1 -1,1 h -4 c -0.55,0 -1,-0.45 -1,-1 V 9 h 1.25 v 4.51 h 1.13 V 9.99 h 1.25 v 3.51 h 1.12 V 9 h 1.25 z"
+     id="path6" />
+</svg>

@@ -17,11 +17,11 @@ categories.map(category => {
   }
   let files = readdirSync(`${root}/${category}`);
   //console.log(category, files.length);
-  if (category == 'alert') {
+  if (category == 'av') {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
     const items = files.filter((file, index) => {
-      return index < 475;
+      return index < 50;
     }).map((file, index) => {
       if (file == '.DS_Store') {
         return;
