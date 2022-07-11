@@ -43,7 +43,7 @@
   "scripts": {
     "test": "hardhat test",
     "deploy": "hardhat run ./scripts/deploy.ts",
-    "materials": "hardhat run ./utils/material.ts | sed '1d' > cache/action50.ts",
+    "materials": "hardhat run ./utils/material.ts | sed '1d' > cache/alert.ts",
     "verify": "echo npx hardhat verify --constructor-args ./cache/arguments.js",
     "svg": "hardhat run ./scripts/svg.ts | sed '1d' > cache/test.svg",
     "emoji": "hardhat run ./scripts/emoji.ts | sed '1d' > cache/test.svg",

@@ -17,7 +17,7 @@ categories.map(category => {
   }
   let files = readdirSync(`${root}/${category}`);
   //console.log(category, files.length);
-  if (category == 'action') {
+  if (category == 'alert') {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
     const items = files.filter((file, index) => {
@@ -46,7 +46,7 @@ categories.map(category => {
         process.exit(0);
       }
     });
-    console.log(`export const action50 = ${JSON.stringify(items)} ;`);
+    console.log(`export const assets = ${JSON.stringify(items)} ;`);
   }
 });
   /*
