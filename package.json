@@ -44,7 +44,7 @@
     "test": "hardhat test",
     "deploy": "hardhat run ./scripts/deploy.ts",
     "transfer": "sh ./transfer.sh",
-    "materials": "hardhat run ./utils/material.ts | sed '1d' > cache/av.ts",
+    "materials": "hardhat run ./utils/material.ts | sed '1d' > ../web/generated/av.ts",
     "verify": "echo npx hardhat verify --constructor-args ./cache/arguments.js",
     "svg": "hardhat run ./scripts/svg.ts | sed '1d' > cache/test.svg",
     "emoji": "hardhat run ./scripts/emoji.ts | sed '1d' > cache/test.svg",
