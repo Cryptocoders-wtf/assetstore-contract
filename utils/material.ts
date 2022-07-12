@@ -21,7 +21,7 @@ categories.map(category => {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
     const items = files.filter((file, index) => {
-      return index < 75;
+      return index < 100;
     }).map((file, index) => {
       if (file == '.DS_Store') {
         return;
