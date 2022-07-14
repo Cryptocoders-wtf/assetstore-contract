@@ -1,8 +1,9 @@
 import { loadAssets } from "../utils/createAsset";
 import { assets } from "./oda";
 
+// http://hakko-daiodo.com/main-0
 const misc = {
-  group: "Kamon",
+  group: "Hakko Daiodo (CC-BY-SA)",
   category: "Kamon",
   assets
 };

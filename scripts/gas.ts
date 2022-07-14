@@ -4,6 +4,8 @@ import { actionAssets, socialAssets } from "../assets/materials";
 import { emojiAssets } from "../assets/openemoji";
 import { silhouettesAssets } from "../assets/silhouettes";
 import { cryptoAssets } from "../assets/crypto";
+import { kamonAssets } from "../assets/kamons";
+
 import { deploy } from "../utils/deploy";
 import { gasEstimate } from "../utils/math";
 
@@ -42,8 +44,9 @@ async function main() {
   const emoji = await mintAssets(emojiAssets);
   const silhouettes = await mintAssets(silhouettesAssets);
   const crypto = await mintAssets(cryptoAssets);
+  const kamons = await mintAssets(kamonAssets);
 
-  console.log("const gas =", { action, social, emoji, silhouettes, crypto }, ";");
+  console.log("const gas =", { action, social, emoji, silhouettes, crypto, kamons }, ";");
 }
 
 main().catch((error) => {
