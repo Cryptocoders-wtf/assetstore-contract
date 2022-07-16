@@ -1,20 +1,22 @@
 import { ethers, network } from "hardhat";
-
+import { developer, proxy } from "../utils/deploy";
 import { storeAddress } from "../utils/storeAddress";
 
 async function main() {
   const [owner] = await ethers.getSigners();
   console.log("network:", network.name);
   console.log("storeAddress:", storeAddress);
-//  console.log(`      storeAddress="${assetStore.address}"`);
-//  console.log(`      tokenAddress="${materialToken.address}"`);
+
+  const factory = await ethers.getContractFactory("KamonToken");
+  const kamonToken = await factory.deploy(storeAddress, storeAddress, developer, proxy);
+  await kamonToken.deployed();
+  console.log(`      kamonToken="${kamonToken.address}"`);
 
   /*
-  const asset = socialAssets[5];
-  asset.soulbound = owner.address;
-  const tx = await materialToken.mintWithAsset(asset, 0);
-  const result = await tx.wait();
-  console.log("gasUsed:", result.gasUsed.toNumber());
+  if (setWhitelist) {
+    const tx = await assetStore.setWhitelistStatus(materialToken.address, true);
+    await tx.wait();
+  }
   */
 }
 
