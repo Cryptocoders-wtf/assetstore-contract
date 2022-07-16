@@ -20,22 +20,12 @@ contract SVGPathDecoder2 is IPathDecoder {
   function decodePath(bytes memory body) external pure override returns (bytes memory) {
     uint16 length = (uint16(body.length) * 2)/ 3;
     bytes memory retAll;
-    uint16 limit;
-    if (length < 100) {
-      limit = 10;
-    } else if (length < 400) {
-      limit = 20;
-    } else if (length < 900) {
-      limit = 30;
-    } else if (length < 1600) {
-      limit = 40;
-    } else if (length < 2500) {
-      limit = 50;
-    } else if (length < 3600) {
-      limit = 60;
-    } else if (length < 4900) {
-      limit = 70;
+    uint16 limit = 10;
+    // get a rough square number
+    while(limit * limit < length) {
+      limit += 2;
     }
+
     uint16 j;
     for (j = 0; j < length; j+=limit) {
       bytes memory ret;

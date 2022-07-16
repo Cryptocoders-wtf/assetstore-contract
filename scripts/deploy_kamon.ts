@@ -7,6 +7,16 @@ async function main() {
   console.log("network:", network.name);
   console.log("storeAddress:", storeAddress);
 
+  const SVGFactory = await ethers.getContractFactory("SVGPathDecoder2");
+  const decoder = await SVGFactory.deploy();
+  await decoder.deployed();
+  console.log(`      decoder="${decoder.address}"`);
+
+  const storeFactory = await ethers.getContractFactory("AssetStore");
+  const assetStore = storeFactory.attach(storeAddress);
+  const tx = await assetStore.setPathDecoder(decoder.address);
+  const result = await tx.wait();
+
   const factory = await ethers.getContractFactory("KamonToken");
   const kamonToken = await factory.deploy(storeAddress, storeAddress, developer, proxy);
   await kamonToken.deployed();
