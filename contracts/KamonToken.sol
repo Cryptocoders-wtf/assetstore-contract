@@ -157,7 +157,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
    * It returns the assetId, which this token uses.
    */
   function assetIdOfToken(uint256 _tokenId) public view override returns(uint256) {
-    require(_exists(_tokenId), 'MaterialToken.assetIdOfToken: nonexistent token');
+    require(_exists(_tokenId), 'KamonToken.assetIdOfToken: nonexistent token');
     return assetIds[_tokenId / tokensPerAsset];
   }
 
@@ -197,7 +197,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
     * @dev See {IERC721Metadata-tokenURI}.
     */
   function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-    require(_exists(_tokenId), 'MaterialToken.tokenURI: nonexistent token');
+    require(_exists(_tokenId), 'KamonToken.tokenURI: nonexistent token');
     uint256 assetId = assetIdOfToken(_tokenId);
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
