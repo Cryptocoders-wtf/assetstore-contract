@@ -1,24 +1,11 @@
 import { ethers, network } from "hardhat";
-//import { socialAssets } from "../assets/materials";
 
-import { addresses as addresses_localhost} from "../cache/addresses_localhost";
-import { addresses as addresses_rinkeby} from "../cache/addresses_rinkeby";
-import { addresses as addresses_mainnet} from "../cache/addresses_mainnet";
-
-type AddressForChain = {
-  [network: string]: string;
-};
-
-const addresses: AddressForChain = {
-  mainnet: addresses_mainnet.storeAddress,
-  rinkeby: addresses_rinkeby.storeAddress,
-  localhost: addresses_localhost.storeAddress
-};
+import { storeAddress } from "../utils/storeAddress";
 
 async function main() {
   const [owner] = await ethers.getSigners();
   console.log("network:", network.name);
-  console.log("network:", addresses[network.name]);
+  console.log("storeAddress:", storeAddress);
 //  console.log(`      storeAddress="${assetStore.address}"`);
 //  console.log(`      tokenAddress="${materialToken.address}"`);
 
