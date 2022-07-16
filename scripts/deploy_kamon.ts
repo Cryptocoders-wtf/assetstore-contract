@@ -1,6 +1,7 @@
 import { ethers, network } from "hardhat";
 import { developer, proxy } from "../utils/deploy";
 import { storeAddress } from "../utils/storeAddress";
+import { writeFile } from "fs";
 
 async function main() {
   const [owner] = await ethers.getSigners();
@@ -21,6 +22,12 @@ async function main() {
   const kamonToken = await factory.deploy(storeAddress, storeAddress, developer, proxy);
   await kamonToken.deployed();
   console.log(`      kamonToken="${kamonToken.address}"`);
+
+  const addresses = `export const kamon_addresses = {\n`
+  + `  decoderAddress:"${decoder.address}",\n`
+  + `  kamonAddress:"${kamonToken.address}"\n`
+  + `}\n`;
+  await writeFile(`./cache/addresses_kamon_${network.name}.ts`, addresses, ()=>{});
 
   /*
   if (setWhitelist) {
