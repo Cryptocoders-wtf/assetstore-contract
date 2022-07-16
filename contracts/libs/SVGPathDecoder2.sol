@@ -21,7 +21,7 @@ contract SVGPathDecoder2 is IPathDecoder {
     uint16 length = (uint16(body.length) * 2)/ 3;
     bytes memory retAll;
     uint16 limit = 10;
-    // get a rough square number
+    // get a rough square root
     while(limit * limit < length) {
       limit += 2;
     }
