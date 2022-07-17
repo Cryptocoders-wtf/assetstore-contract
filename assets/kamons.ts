@@ -1,5 +1,5 @@
 import { loadAssets } from "../utils/createAsset";
-import { assets } from "./oda";
+import { assets } from "./kamon_assets";
 
 // http://hakko-daiodo.com/main-0
 const misc = {
