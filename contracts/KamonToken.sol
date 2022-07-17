@@ -32,8 +32,8 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
   IAssetStoreRegistry public immutable registry;
   IAssetStore public immutable assetStore;
 
-  uint256 constant tokensPerAsset = 10;
-  mapping(uint256 => uint256) assetIds; // tokenId / tokensPerAsset => assetId
+  uint256 constant _tokensPerAsset = 10;
+  mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf].";
@@ -60,7 +60,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
   }
 
   function _isPrimary(uint256 _tokenId) internal pure returns(bool) {
-    return _tokenId % tokensPerAsset == 0;
+    return _tokenId % _tokensPerAsset == 0;
   }
 
   /*
@@ -73,13 +73,13 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
 
-    assetIds[tokenId / tokensPerAsset] = assetId;
-    _mint(msg.sender, tokensPerAsset - 1);
+    assetIds[tokenId / _tokensPerAsset] = assetId;
+    _mint(msg.sender, _tokensPerAsset - 1);
 
     // Specified affliate token must be one of soul-bound token and not owned by the minter.
     if (_affiliate > 0 && _isPrimary(_affiliate) && ownerOf(_affiliate) != msg.sender) {
       _mint(ownerOf(_affiliate), 1);
-    } else if ((tokenId / tokensPerAsset) % 4 == 0) {
+    } else if ((tokenId / _tokensPerAsset) % 4 == 0) {
       // 1 in 24 tokens goes to the developer
       _mint(developer, 1);
     } else {
@@ -137,7 +137,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
       '  <use href="', assetTag, '" fill="white" />\n'
       ' </mask>\n'
       ' <use href="#base" mask="url(#assetMask)" />\n');
-    } else if (_style < tokensPerAsset - 1) {
+    } else if (_style < _tokensPerAsset - 1) {
       image = abi.encodePacked(image,
       ' <use href="#base" />\n'
       ' <use href="', assetTag, '" fill="',(_style % 2 == 0) ? 'black':'white','" />\n');
@@ -158,7 +158,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
    */
   function assetIdOfToken(uint256 _tokenId) public view override returns(uint256) {
     require(_exists(_tokenId), 'KamonToken.assetIdOfToken: nonexistent token');
-    return assetIds[_tokenId / tokensPerAsset];
+    return assetIds[_tokenId / _tokensPerAsset];
   }
 
   /*
@@ -166,7 +166,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
    * Each 16-bit represents the number of possible styles, allowing various combinations.
    */
   function styles() external pure override returns(uint256) {
-    return tokensPerAsset;
+    return _tokensPerAsset;
   }
 
   function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
@@ -201,7 +201,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
     uint256 assetId = assetIdOfToken(_tokenId);
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
-    bytes memory image = bytes(generateSVG(svgPart, _tokenId % tokensPerAsset, attr.tag));
+    bytes memory image = bytes(generateSVG(svgPart, _tokenId % _tokensPerAsset, attr.tag));
 
     return string(
       abi.encodePacked(
@@ -220,4 +220,8 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
       )
     );
   }  
+
+  function tokensPerAsset() public pure returns(uint256) {
+    return _tokensPerAsset;
+  }
 }

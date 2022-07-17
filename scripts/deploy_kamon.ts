@@ -23,6 +23,9 @@ async function main() {
   await kamonToken.deployed();
   console.log(`      kamonToken="${kamonToken.address}"`);
 
+  const tx2 = await assetStore.setWhitelistStatus(kamonToken.address, true);
+  await tx2.wait();
+
   const addresses = `export const kamon_addresses = {\n`
   + `  decoderAddress:"${decoder.address}",\n`
   + `  kamonAddress:"${kamonToken.address}"\n`
