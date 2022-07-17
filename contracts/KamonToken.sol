@@ -53,7 +53,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
     IAssetStore _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
-  ) ERC721A("Material Icons", "MATERIAL") {
+  ) ERC721A("Kamon Symbols", "KAMON") {
     registry = _registry;
     assetStore = _assetStore;
     developer = _developer;
