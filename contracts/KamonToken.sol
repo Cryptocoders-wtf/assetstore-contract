@@ -120,7 +120,7 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
       "black", "white", "#EFE8AC", "#0D95A0", "#0963AD", "#BF2E16", "#EFE5AF", "#CCAB09", "#AC783E", "#F9D2D2"
     ];
     string[10] memory frontColors = [
-      "white", "black", "#0D95A0", "#5B3319", "#FFFFFF", "#EFE8AC", "#58456B", "#409140", "#F9939B", "#046365"
+      "white", "black", "#0D95A0", "#5B3319", "#FFFFFF", "#EFE8AC", "#58456B", "#409140", "#FFD4DD", "#046365"
     ];
 
     bytes memory assetTag = abi.encodePacked('#', _tag);
