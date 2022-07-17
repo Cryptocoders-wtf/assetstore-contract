@@ -36,7 +36,8 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
   mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId
 
   // description
-  string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf].";
+  string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf]. "
+  " All kamon vectors were created and copyrighted by (Hakko Daiodo)[http://hakko-daiodo.com].";
 
   // developer address.
   address public developer;
