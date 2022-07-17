@@ -107,49 +107,31 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
 
   string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
       '"  xmlns="http://www.w3.org/2000/svg">\n'
-      '<defs>\n'
-      ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n'
-      '  <feOffset result="offOut" in="SourceAlpha" dx="24" dy="32" />\n'
-      '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="16" />\n'
-      '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n'
-      ' </filter>\n'
-      '<g id="base">\n'
-      ' <rect x="0" y="0" width="512" height="512" fill="#4285F4" />\n'
-      ' <rect x="0" y="512" width="512" height="512" fill="#34A853" />\n'
-      ' <rect x="512" y="0" width="512" height="512" fill="#FBBC05" />\n'
-      ' <rect x="512" y="512" width="512" height="512" fill="#EA4335"/>\n'
-      '</g>';
+      '<defs>\n';
 
   /*
    * A function of IAssetStoreToken interface.
    * It generates SVG with the specified style, using the given "SVG Part".
    */
   function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
+    // Constants of non-value type not yet implemented by Solidity
+    string[10] memory backColors = [
+      "black", "white", "#EFE8AC", "#0D95A0", "#0963AD", "#BF2E16", "#EFE5AF", "#CCAB09", "#AC783E", "#F9D2D2"
+    ];
+    string[10] memory frontColors = [
+      "white", "black", "#0D95A0", "#5B3319", "#FFFFFF", "#EFE8AC", "#58456B", "#409140", "#F9939B", "#046365"
+    ];
+
     bytes memory assetTag = abi.encodePacked('#', _tag);
+    uint index = _style % _tokensPerAsset;
     bytes memory image = abi.encodePacked(
       SVGHeader,
       _svgPart,
       '</defs>\n'
-      '<g filter="url(#f1)">\n');
-    if (_style == 0) {
-      image = abi.encodePacked(image,
-      ' <mask id="assetMask">\n'
-      '  <use href="', assetTag, '" fill="white" />\n'
-      ' </mask>\n'
-      ' <use href="#base" mask="url(#assetMask)" />\n');
-    } else if (_style < _tokensPerAsset - 1) {
-      image = abi.encodePacked(image,
-      ' <use href="#base" />\n'
-      ' <use href="', assetTag, '" fill="',(_style % 2 == 0) ? 'black':'white','" />\n');
-    } else {
-      image = abi.encodePacked(image,
-      ' <mask id="assetMask" desc="Material Icons (Apache 2.0)/Social/Public">\n'
-      '  <rect x="0" y="0" width="1024" height="1024" fill="white" />\n'
-      '  <use href="', assetTag, '" fill="black" />\n'
-      ' </mask>\n'
-      ' <use href="#base" mask="url(#assetMask)" />\n');
-    }
-    return string(abi.encodePacked(image, '</g>\n</svg>'));
+      ' <rect x="0" y="0" width="100%" height="100%" fill="',backColors[index],'" />\n'
+      ' <use href="', assetTag, '" fill="',frontColors[index],'" />\n'
+      '</svg>\n');
+    return string(image);
   }
 
   /*
