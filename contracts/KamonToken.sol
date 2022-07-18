@@ -175,6 +175,9 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
         '"trait_type":"Category",'
         '"value":"', _attr.category, '"' 
       '},{'
+        '"trait_type":"Name",'
+        '"value":"', _attr.name, '"' 
+      '},{'
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
               assetStore.getStringValidator().sanitizeJason(_attr.minter) : bytes('(anonymous)'), '"' 
