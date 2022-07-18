@@ -117,10 +117,10 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
   function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
     // Constants of non-value type not yet implemented by Solidity
     string[10] memory backColors = [
-      "black", "white", "#EFE8AC", "#5B3319", "#0963AD", "#BF2E16", "#EFE5AF", "#E8AF58", "black", "url(#gold)" 
+      "black", "white", "#EFE8AC", "#5B3319", "#0963AD", "#BF2E16", "#EFE5AF", "#3D5943", "black", "url(#gold)" 
     ];
     string[10] memory frontColors = [
-      "white", "black", "#0D95A0", "#EFE8AC", "#FFFFFF", "#EFE8AC", "#58456B", "#96232E", "url(#gold)", "black"
+      "white", "black", "#0D95A0", "#EFE8AC", "#FFFFFF", "#EFE8AC", "#58456B", "#FFFFFF", "url(#gold)", "black"
     ];
 
     bytes memory assetTag = abi.encodePacked('#', _tag);
