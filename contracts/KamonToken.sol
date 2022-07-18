@@ -77,11 +77,11 @@ contract KamonToken is Ownable, ERC721A, IAssetStoreToken {
     assetIds[tokenId / _tokensPerAsset] = assetId;
     _mint(msg.sender, _tokensPerAsset - 1);
 
-    // Specified affliate token must be one of soul-bound token and not owned by the minter.
+    // Specified affliate token must be one of the primary tokens and not owned by the minter.
     if (_affiliate > 0 && _isPrimary(_affiliate) && ownerOf(_affiliate) != msg.sender) {
       _mint(ownerOf(_affiliate), 1);
-    } else if ((tokenId / _tokensPerAsset) % 4 == 0) {
-      // 1 in 24 tokens goes to the developer
+    } else if ((tokenId / _tokensPerAsset) % 2 == 0) {
+      // 1 in 20 tokens of non-affiliated mints go to the developer
       _mint(developer, 1);
     } else {
       // the rest goes to the owner for distribution
