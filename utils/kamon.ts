@@ -22,10 +22,9 @@ categories.map(category => {
     //console.log(files);
     const items = files.filter((file, index) => {
       return index < 100;
-    }).map((file, index) => {
-      if (file == '.DS_Store') {
-        return;
-      }
+    })
+    .filter(file=>{ return file != '.DS_Store'; })
+    .map((file, index) => {
       let xml = readFileSync(`${root}/${category}/${file}`, 'utf8');
       //console.log(xml);
       const obj = parser.parse(xml);
