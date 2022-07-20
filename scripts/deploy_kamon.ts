@@ -8,15 +8,15 @@ async function main() {
   console.log("network:", network.name);
   console.log("storeAddress:", storeAddress);
 
-  const SVGFactory = await ethers.getContractFactory("SVGPathDecoder2");
-  const decoder = await SVGFactory.deploy();
-  await decoder.deployed();
-  console.log(`      decoder="${decoder.address}"`);
+  //const SVGFactory = await ethers.getContractFactory("SVGPathDecoder2");
+  //const decoder = await SVGFactory.deploy();
+  //await decoder.deployed();
+  //console.log(`      decoder="${decoder.address}"`);
 
   const storeFactory = await ethers.getContractFactory("AssetStore");
   const assetStore = storeFactory.attach(storeAddress);
-  const tx = await assetStore.setPathDecoder(decoder.address);
-  const result = await tx.wait();
+  //const tx = await assetStore.setPathDecoder(decoder.address);
+  //const result = await tx.wait();
 
   const factory = await ethers.getContractFactory("KamonToken");
   const kamonToken = await factory.deploy(storeAddress, storeAddress, developer, proxy);
@@ -27,7 +27,7 @@ async function main() {
   await tx2.wait();
 
   const addresses = `export const kamon_addresses = {\n`
-  + `  decoderAddress:"${decoder.address}",\n`
+  + `  decoderAddress:"0xAa37fA6cEb855500E269513cA9e6E5F13B4D0D95",\n`
   + `  kamonAddress:"${kamonToken.address}"\n`
   + `}\n`;
   await writeFile(`./cache/addresses_kamon_${network.name}.ts`, addresses, ()=>{});
