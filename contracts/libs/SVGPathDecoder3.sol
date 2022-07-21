@@ -107,7 +107,7 @@ contract SVGPathDecoder3 is IPathDecoder {
             value /= 10;
           }
         }
-        ret[digits] = " ";
+        ret[index + digits] = " ";
         index += digits + 1;
       }
       require(index <= count, "BUGBUG: index <= count");
