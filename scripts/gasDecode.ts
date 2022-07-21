@@ -14,10 +14,13 @@ const waitForUserInput = (text: string) => {
 };
 
 async function main() {
+
+
+
   const { assetStore, materialToken } = await deploy();
 
   const benchMarkFactory = await ethers.getContractFactory("Benchmark");
-  const benchMark = await benchMarkFactory.deploy();
+  const benchMark = await benchMarkFactory.deploy(assetStore.address);
   await benchMark.deployed();
 
   const [owner] = await ethers.getSigners();
