@@ -1,5 +1,6 @@
 const gas = {
   kamons: [
+    // Shogun
     { Unit: 10184864, ETH: 0.2037, USD: 203.7 },
     { Unit: 336642, ETH: 0.00673, USD: 6.73 },
     { Unit: 6185329, ETH: 0.12371, USD: 123.71 },
