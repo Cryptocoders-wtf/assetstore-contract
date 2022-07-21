@@ -6,7 +6,7 @@ import "../interfaces/IPathDecoder.sol";
 pragma solidity ^0.8.6;
 
 contract SVGPathDecoder3 is IPathDecoder {
-  function digitsOf(uint16 _value) internal pure returns(uint256) {
+  function digitsOf(uint256 _value) internal pure returns(uint256) {
     if (_value == 0) {
         return 0;
     }
@@ -33,8 +33,8 @@ contract SVGPathDecoder3 is IPathDecoder {
     uint16 length = (uint16(body.length) * 2)/ 3;
     uint8 low;
     uint8 high;
-    uint16 offset;
-    uint16 value;
+    uint256 offset;
+    uint256 value;
 
     // In the first loop, just measure the required memory size
     for (i = 0; i < length; i++) {
@@ -54,7 +54,7 @@ contract SVGPathDecoder3 is IPathDecoder {
         }
       } else {
         // SVG value: undo (value + 1024) + 0x100 
-        value = uint16(high) * 0x100 + uint16(low) - 0x100;
+        value = uint256(high) * 0x100 + uint256(low) - 0x100;
         if (value >= 1024) {
           index += digitsOf(value - 1024) + 1;
         } else {
@@ -84,7 +84,7 @@ contract SVGPathDecoder3 is IPathDecoder {
         }
       } else {
         // SVG value: undo (value + 1024) + 0x100 
-        value = uint16(high) * 0x100 + uint16(low) - 0x100;
+        value = uint256(high) * 0x100 + uint256(low) - 0x100;
         if (value >= 1024) {
           index += digitsOf(value - 1024) + 1;
         } else {
