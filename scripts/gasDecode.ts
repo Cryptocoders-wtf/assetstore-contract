@@ -23,8 +23,13 @@ async function main() {
   const benchMark = await benchMarkFactory.deploy(assetStore.address);
   await benchMark.deployed();
 
+  const SVGFactory = await ethers.getContractFactory("SVGPathDecoder2");
+  const decoder = await SVGFactory.deploy();
+  await decoder.deployed();
+  const tx = await assetStore.setPathDecoder(decoder.address);
+  const result = await tx.wait();
+
   const [owner] = await ethers.getSigners();
-  const unitPrice = ethers.BigNumber.from(55);
 
   const mintAssets = async (assets:Array<any>) => {
     let results = [];
@@ -34,7 +39,7 @@ async function main() {
       assets[i].group = ""; // gas saving
       const tx = await materialToken.mintWithAsset(assets[i], 0);
       const result = await tx.wait();
-      const txBench = await benchMark.measure();
+      const txBench = await benchMark.measure(i+1);
       const rsBench = await txBench.wait();
       const ret = gasEstimate(rsBench);
       results.push(ret);

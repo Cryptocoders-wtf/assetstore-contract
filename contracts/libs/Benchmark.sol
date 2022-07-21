@@ -13,8 +13,8 @@ contract Benchmark {
     counter += 1;
   }
 
-  function measure() external returns(string memory) {
+  function measure(uint256 _assetId) external returns(string memory) {
     counter += 1;
-    return "Hello World";
+    return assetStore.generateSVG(_assetId);
   }
 }
