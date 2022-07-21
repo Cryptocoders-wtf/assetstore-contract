@@ -96,9 +96,10 @@ contract SVGPathDecoder3 is IPathDecoder {
           index += 1;
         } else {
           uint256 digits = digitsOf(value);
+          uint256 temp = digits;
           while (value != 0) {
-            digits -= 1;
-            ret[index + digits] = bytes1(uint8(48 + uint256(value % 10)));
+            temp -= 1;
+            ret[index + temp] = bytes1(uint8(48 + uint256(value % 10)));
             value /= 10;
           }
           index += digits;
