@@ -15,8 +15,10 @@ const waitForUserInput = (text: string) => {
 
 async function main() {
   const { assetStore, materialToken } = await deploy();
-  console.log("assetStore", assetStore.address);
-  console.log("materialToken", materialToken.address);
+
+  const benchMarkFactory = await ethers.getContractFactory("Benchmark");
+  const benchMark = await benchMarkFactory.deploy();
+  await benchMark.deployed();
 
   const [owner] = await ethers.getSigners();
   const unitPrice = ethers.BigNumber.from(55);
@@ -29,7 +31,9 @@ async function main() {
       assets[i].group = ""; // gas saving
       const tx = await materialToken.mintWithAsset(assets[i], 0);
       const result = await tx.wait();
-      const ret = gasEstimate(result);
+      const txBench = await benchMark.measure();
+      const rsBench = await txBench.wait();
+      const ret = gasEstimate(rsBench);
       results.push(ret);
     }
     return results;
