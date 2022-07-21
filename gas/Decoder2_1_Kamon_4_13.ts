@@ -30,7 +30,7 @@ const gas = {
     { Unit: 19607693, ETH: 0.39215, USD: 392.15 },
     { Unit: 7717530, ETH: 0.15435, USD: 154.35 },
     { Unit: 4401338, ETH: 0.08803, USD: 88.03 },
-    { Unit: 5912830, ETH: 0.11826, USD: 118.26 }
+    { Unit: 5912830, ETH: 0.11826, USD: 118.26 },
     // Medium while (limit * limit * limit < length) 
     { Unit: 11104727, ETH: 0.22209, USD: 222.09 },
     { Unit: 20449524, ETH: 0.40899, USD: 408.99 },
