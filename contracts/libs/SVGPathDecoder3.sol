@@ -66,6 +66,8 @@ contract SVGPathDecoder3 is IPathDecoder {
     uint count = index;
     bytes memory ret = new bytes(count);
     index = 0;
+    uint256 digits;
+
     // In the second loop, we actually fill values
     for (i = 0; i < length; i++) {
       // unpack 12-bit middle endian
@@ -80,16 +82,25 @@ contract SVGPathDecoder3 is IPathDecoder {
       if (high == 0) {
         // SVG command: Accept only [A-Za-z] and ignore others 
         if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
+          ret[index] = bytes1(low);
           index += 1;
         }
       } else {
         // SVG value: undo (value + 1024) + 0x100 
         value = uint256(high) * 0x100 + uint256(low) - 0x100;
         if (value >= 1024) {
-          index += digitsOf(value - 1024) + 1;
+          value = value - 1024;
         } else {
-          index += digitsOf(1024 - value) + 2;
+          ret[index] = "-";
+          index += 1;
+          value = 1024 - value;
         }
+        digits = digitsOf(value);
+        if (value == 0) {
+          ret[index] = "0";
+        }
+        ret[digits] = " ";
+        index += digits + 1;
       }
       require(index <= count, "BUGBUG: index <= count");
     }
