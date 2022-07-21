@@ -31,13 +31,13 @@ contract SVGPathDecoder3 is IPathDecoder {
     uint256 index; // required memory size
     uint16 i;
     uint16 length = (uint16(body.length) * 2)/ 3;
+    uint8 low;
+    uint8 high;
 
     // In the first loop, just measure the required memory size
     for (i = 0; i < length; i++) {
       // unpack 12-bit middle endian
       uint16 offset = i / 2 * 3;
-      uint8 low;
-      uint8 high;
       if (i % 2 == 0) {
         low = uint8(body[offset]);
         high = uint8(body[offset + 1]) % 0x10; // low 4 bits of middle byte
@@ -68,8 +68,6 @@ contract SVGPathDecoder3 is IPathDecoder {
     for (i = 0; i < length; i++) {
       // unpack 12-bit middle endian
       uint16 offset = i / 2 * 3;
-      uint8 low;
-      uint8 high;
       if (i % 2 == 0) {
         low = uint8(body[offset]);
         high = uint8(body[offset + 1]) % 0x10; // low 4 bits of middle byte
