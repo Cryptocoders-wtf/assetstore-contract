@@ -7,15 +7,16 @@ pragma solidity ^0.8.6;
 
 contract SVGPathDecoder3 is IPathDecoder {
   function digitsOf(uint256 _value) internal pure returns(uint256) {
-    if (_value == 0) {
+    if (_value < 10) {
       return 1;
     }
-    uint256 digits;
-    while (_value != 0) {
-      digits++;
-      _value /= 10;
+    if (_value < 100) {
+      return 2;
     }
-    return digits;
+    if (_value < 1000) {
+      return 3;
+    }
+    return 4;
   }
   /**
   * Decode the compressed binary deta and reconstruct SVG path. 
@@ -51,9 +52,15 @@ contract SVGPathDecoder3 is IPathDecoder {
         // SVG value: undo (value + 1024) + 0x100 
         value = uint256(high) * 0x100 + uint256(low) - 0x100;
         if (value >= 1024) {
-          index += digitsOf(value - 1024);
+          value = value - 1024;
         } else {
-          index += digitsOf(1024 - value) + 1;
+          index += 1;
+          value = 1024 - value;
+        }
+        if (value < 100) {
+          index += (value < 10) ? 1 : 2;
+        } else {
+          index += (value < 1000) ? 3 : 4;
         }
       }
     }
