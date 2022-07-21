@@ -28,7 +28,7 @@ contract SVGPathDecoder3 is IPathDecoder {
   * element for versioning, because it is guaraneed to be zero for the current version.
   */
   function decodePath(bytes memory body) external pure override returns (bytes memory) {
-    uint256 count; // required memory size
+    uint256 index; // required memory size
     uint16 i;
     uint16 length = (uint16(body.length) * 2)/ 3;
 
@@ -48,21 +48,23 @@ contract SVGPathDecoder3 is IPathDecoder {
       if (high == 0) {
         // SVG command: Accept only [A-Za-z] and ignore others 
         if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
-          count += 1;
+          index += 1;
         }
       } else {
         // SVG value: undo (value + 1024) + 0x100 
         uint16 value = uint16(high) * 0x100 + uint16(low) - 0x100;
         if (value >= 1024) {
-          count += digitsOf(value - 1024) + 1;
+          index += digitsOf(value - 1024) + 1;
         } else {
-          count += digitsOf(1024 - value) + 2;
+          index += digitsOf(1024 - value) + 2;
         }
       }
     }
 
+    uint count = index;
     bytes memory ret = new bytes(count);
-    uint256 index;
+    index = 0;
+    // In the second loop, we actually fill values
     for (i = 0; i < length; i++) {
       // unpack 12-bit middle endian
       uint16 offset = i / 2 * 3;
@@ -78,38 +80,20 @@ contract SVGPathDecoder3 is IPathDecoder {
       if (high == 0) {
         // SVG command: Accept only [A-Za-z] and ignore others 
         if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
-          ret[offset] = bytes1(low);
-          offset += 1;
+          index += 1;
         }
       } else {
         // SVG value: undo (value + 1024) + 0x100 
         uint16 value = uint16(high) * 0x100 + uint16(low) - 0x100;
         if (value >= 1024) {
-          value -= 1024;
+          index += digitsOf(value - 1024) + 1;
         } else {
-          ret[index] = "-";
-          index += 1;
-          value = 1024 - value;
+          index += digitsOf(1024 - value) + 2;
         }
-        if (value == 0) {
-          ret[index] = "0";
-          index += 1;
-        } else {
-          uint256 digits = digitsOf(value);
-          uint256 temp = digits;
-          while (value != 0) {
-            temp -= 1;
-            ret[index + temp] = bytes1(uint8(48 + uint256(value % 10)));
-            value /= 10;
-          }
-          index += digits;
-        }
-        ret[index] = " ";
-        index += 1;
       }
       require(index <= count, "BUGBUG: index <= count");
     }
-    require(index == count, "BUGBUG: index != count");
+    require(index == count, "BUGBUG: index == count");
 
     return ret;
   }
