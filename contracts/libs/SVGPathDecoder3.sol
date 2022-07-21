@@ -54,7 +54,7 @@ contract SVGPathDecoder3 is IPathDecoder {
         // SVG value: undo (value + 1024) + 0x100 
         uint16 value = uint16(high) * 0x100 + uint16(low) - 0x100;
         if (value >= 1024) {
-          count += digitsOf(value) + 1;
+          count += digitsOf(value - 1024) + 1;
         } else {
           count += digitsOf(1024 - value) + 2;
         }
@@ -107,6 +107,7 @@ contract SVGPathDecoder3 is IPathDecoder {
         ret[index] = " ";
         index += 1;
       }
+      require(index <= count, "BUGBUG: index <= count");
     }
     require(index == count, "BUGBUG: index != count");
 
