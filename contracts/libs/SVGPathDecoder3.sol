@@ -8,12 +8,12 @@ pragma solidity ^0.8.6;
 contract SVGPathDecoder3 is IPathDecoder {
   function digitsOf(uint256 _value) internal pure returns(uint256) {
     if (_value == 0) {
-        return 0;
+      return 1;
     }
     uint256 digits;
     while (_value != 0) {
-        digits++;
-        _value /= 10;
+      digits++;
+      _value /= 10;
     }
     return digits;
   }
@@ -102,9 +102,9 @@ contract SVGPathDecoder3 is IPathDecoder {
         } else {
           temp = digits;
           while (value != 0) {
-              temp -= 1;
-              ret[index + temp] = bytes1(uint8(48 + value % 10));
-              value /= 10;
+            temp -= 1;
+            ret[index + temp] = bytes1(uint8(48 + value % 10));
+            value /= 10;
           }
         }
         ret[digits] = " ";
