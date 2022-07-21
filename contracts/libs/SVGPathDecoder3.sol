@@ -28,7 +28,7 @@ contract SVGPathDecoder3 is IPathDecoder {
   * element for versioning, because it is guaraneed to be zero for the current version.
   */
   function decodePath(bytes memory body) external pure override returns (bytes memory) {
-    uint256 index; // required memory size
+    uint256 index;
     uint16 i;
     uint16 length = (uint16(body.length) * 2)/ 3;
     uint8 low;
@@ -47,20 +47,18 @@ contract SVGPathDecoder3 is IPathDecoder {
         low = uint8(body[offset + 2]);
         high = uint8(body[offset + 1]) / 0x10; // high 4 bits of middle byte
       }
-      if (high == 0) {
-        index += 1;
-      } else {
+      if (high > 0) {
         // SVG value: undo (value + 1024) + 0x100 
         value = uint256(high) * 0x100 + uint256(low) - 0x100;
         if (value >= 1024) {
-          index += digitsOf(value - 1024) + 1;
+          index += digitsOf(value - 1024);
         } else {
-          index += digitsOf(1024 - value) + 2;
+          index += digitsOf(1024 - value) + 1;
         }
       }
     }
 
-    uint count = index;
+    uint count = index + length;
     bytes memory ret = new bytes(count);
     index = 0;
     uint256 digits;
