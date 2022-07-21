@@ -33,11 +33,13 @@ contract SVGPathDecoder3 is IPathDecoder {
     uint16 length = (uint16(body.length) * 2)/ 3;
     uint8 low;
     uint8 high;
+    uint16 offset;
+    uint16 value;
 
     // In the first loop, just measure the required memory size
     for (i = 0; i < length; i++) {
       // unpack 12-bit middle endian
-      uint16 offset = i / 2 * 3;
+      offset = i / 2 * 3;
       if (i % 2 == 0) {
         low = uint8(body[offset]);
         high = uint8(body[offset + 1]) % 0x10; // low 4 bits of middle byte
@@ -52,7 +54,7 @@ contract SVGPathDecoder3 is IPathDecoder {
         }
       } else {
         // SVG value: undo (value + 1024) + 0x100 
-        uint16 value = uint16(high) * 0x100 + uint16(low) - 0x100;
+        value = uint16(high) * 0x100 + uint16(low) - 0x100;
         if (value >= 1024) {
           index += digitsOf(value - 1024) + 1;
         } else {
@@ -67,7 +69,7 @@ contract SVGPathDecoder3 is IPathDecoder {
     // In the second loop, we actually fill values
     for (i = 0; i < length; i++) {
       // unpack 12-bit middle endian
-      uint16 offset = i / 2 * 3;
+      offset = i / 2 * 3;
       if (i % 2 == 0) {
         low = uint8(body[offset]);
         high = uint8(body[offset + 1]) % 0x10; // low 4 bits of middle byte
@@ -82,7 +84,7 @@ contract SVGPathDecoder3 is IPathDecoder {
         }
       } else {
         // SVG value: undo (value + 1024) + 0x100 
-        uint16 value = uint16(high) * 0x100 + uint16(low) - 0x100;
+        value = uint16(high) * 0x100 + uint16(low) - 0x100;
         if (value >= 1024) {
           index += digitsOf(value - 1024) + 1;
         } else {
