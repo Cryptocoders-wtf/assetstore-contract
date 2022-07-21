@@ -6,7 +6,7 @@ import "../interfaces/IPathDecoder.sol";
 pragma solidity ^0.8.6;
 
 contract SVGPathDecoder2 is IPathDecoder {
-  using Strings for uint16;
+  using Strings for uint256;
   /**
   * Decode the compressed binary deta and reconstruct SVG path. 
   * The binaryformat is 12-bit middle endian, where the low 4-bit of the middle byte is
@@ -18,24 +18,26 @@ contract SVGPathDecoder2 is IPathDecoder {
   * element for versioning, because it is guaraneed to be zero for the current version.
   */
   function decodePath(bytes memory body) external pure override returns (bytes memory) {
-    uint16 length = (uint16(body.length) * 2)/ 3;
+    uint256 length = (uint256(body.length) * 2)/ 3;
     bytes memory retAll;
-    uint16 limit = 10;
+    uint256 limit = 10;
     // get a rough square root
     while(limit * limit < length) {
       limit += 2;
     }
 
-    uint16 j;
+    uint256 j;
+    uint256 i;
+    uint8 low;
+    uint8 high;
+    uint256 offset;
+    uint256 end;
     for (j = 0; j < length; j+=limit) {
       bytes memory ret;
-      uint16 i;
-      uint16 end = (j+limit < length) ? j+limit:length;
+      end = (j+limit < length) ? j+limit:length;
       for (i = j; i < end; i++) {
         // unpack 12-bit middle endian
-        uint16 offset = i / 2 * 3;
-        uint8 low;
-        uint8 high;
+        offset = i / 2 * 3;
         if (i % 2 == 0) {
           low = uint8(body[offset]);
           high = uint8(body[offset + 1]) % 0x10; // low 4 bits of middle byte
@@ -50,7 +52,7 @@ contract SVGPathDecoder2 is IPathDecoder {
           }
         } else {
           // SVG value: undo (value + 1024) + 0x100 
-          uint16 value = uint16(high) * 0x100 + uint16(low) - 0x100;
+          uint256 value = uint256(high) * 0x100 + uint256(low) - 0x100;
           if (value >= 1024) {
             ret = abi.encodePacked(ret, (value - 1024).toString(), " ");
           } else {
