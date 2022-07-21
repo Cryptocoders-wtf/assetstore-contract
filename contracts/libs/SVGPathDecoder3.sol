@@ -48,10 +48,7 @@ contract SVGPathDecoder3 is IPathDecoder {
         high = uint8(body[offset + 1]) / 0x10; // high 4 bits of middle byte
       }
       if (high == 0) {
-        // SVG command: Accept only [A-Za-z] and ignore others 
-        if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
-          index += 1;
-        }
+        index += 1;
       } else {
         // SVG value: undo (value + 1024) + 0x100 
         value = uint256(high) * 0x100 + uint256(low) - 0x100;
@@ -84,8 +81,10 @@ contract SVGPathDecoder3 is IPathDecoder {
         // SVG command: Accept only [A-Za-z] and ignore others 
         if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
           ret[index] = bytes1(low);
-          index += 1;
+        } else {
+          ret[index] = " ";
         }
+        index += 1;
       } else {
         // SVG value: undo (value + 1024) + 0x100 
         value = uint256(high) * 0x100 + uint256(low) - 0x100;
