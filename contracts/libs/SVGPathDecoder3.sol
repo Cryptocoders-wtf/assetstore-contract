@@ -110,7 +110,6 @@ contract SVGPathDecoder3 is IPathDecoder {
         ret[index + digits] = " ";
         index += digits + 1;
       }
-      require(index <= count, "BUGBUG: index <= count");
     }
     require(index == count, "BUGBUG: index == count");
 
