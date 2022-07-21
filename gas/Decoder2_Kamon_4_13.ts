@@ -1,4 +1,3 @@
-No need to generate any newer typings.
 const gas = {
   kamons: [
     { Unit: 807023, ETH: 0.01614, USD: 16.14 },

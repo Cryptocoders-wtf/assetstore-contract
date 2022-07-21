@@ -67,6 +67,7 @@ contract SVGPathDecoder3 is IPathDecoder {
     bytes memory ret = new bytes(count);
     index = 0;
     uint256 digits;
+    uint256 temp;
 
     // In the second loop, we actually fill values
     for (i = 0; i < length; i++) {
@@ -98,6 +99,13 @@ contract SVGPathDecoder3 is IPathDecoder {
         digits = digitsOf(value);
         if (value == 0) {
           ret[index] = "0";
+        } else {
+          temp = digits;
+          while (value != 0) {
+              temp -= 1;
+              ret[index + temp] = bytes1(uint8(48 + value % 10));
+              value /= 10;
+          }
         }
         ret[digits] = " ";
         index += digits + 1;
