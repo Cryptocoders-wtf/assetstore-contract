@@ -17,13 +17,13 @@ categories.map(category => {
   }
   let files = readdirSync(`${root}/${category}`);
   //console.log(category, files.length);
-  if (category == 'shogun') {
+  if (category == 'medium') {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
     const items = files.filter((file, index) => {
       return index < 100;
     })
-    .filter((file, index) =>{ return index>=4 && index<9 && file != '.DS_Store'; })
+    .filter((file, index) =>{ return index>=9 && index<999 && file != '.DS_Store'; })
     .map((file, index) => {
       let xml = readFileSync(`${root}/${category}/${file}`, 'utf8');
       //console.log(xml);
