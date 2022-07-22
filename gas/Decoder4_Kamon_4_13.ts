@@ -21,12 +21,19 @@ const gas = {
     { Unit: 713536, ETH: 0.01427, USD: 14.27 },
     { Unit: 1051818, ETH: 0.02104, USD: 21.04 },
 
+    // Shogun (Decoder2)
+    { Unit: 807023, ETH: 0.01614, USD: 16.14 },
+    { Unit: 552609, ETH: 0.01105, USD: 11.05 },
+    { Unit: 1340094, ETH: 0.0268, USD: 26.8 },
+    { Unit: 708009, ETH: 0.01416, USD: 14.16 },
+    { Unit: 1042892, ETH: 0.02086, USD: 20.86 },
+
     // Shogun (Decoder2.1)
-    { Unit: 741681, ETH: 0.01483, USD: 14.83 },
-    { Unit: 510827, ETH: 0.01022, USD: 10.22 },
-    { Unit: 1215568, ETH: 0.02431, USD: 24.31 },
-    { Unit: 653327, ETH: 0.01307, USD: 13.07 },
-    { Unit: 949567, ETH: 0.01899, USD: 18.99 },
+    { Unit: 703064, ETH: 0.01406, USD: 14.06 },
+    { Unit: 483524, ETH: 0.00967, USD: 9.67 },
+    { Unit: 1184550, ETH: 0.02369, USD: 23.69 },
+    { Unit: 608502, ETH: 0.01217, USD: 12.17 },
+    { Unit: 922255, ETH: 0.01845, USD: 18.45 },
 
     // Shogun (Decoder3)
     { Unit: 903624, ETH: 0.01807, USD: 18.07 },

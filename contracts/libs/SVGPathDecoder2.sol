@@ -6,7 +6,6 @@ import "../interfaces/IPathDecoder.sol";
 pragma solidity ^0.8.6;
 
 contract SVGPathDecoder2 is IPathDecoder {
-  using Strings for uint256;
   /**
   * Decode the compressed binary deta and reconstruct SVG path. 
   * The binaryformat is 12-bit middle endian, where the low 4-bit of the middle byte is
@@ -32,6 +31,7 @@ contract SVGPathDecoder2 is IPathDecoder {
     uint8 high;
     uint256 offset;
     uint256 end;
+    uint256 digits;
     for (j = 0; j < length; j+=limit) {
       bytes memory ret;
       end = (j+limit < length) ? j+limit:length;
@@ -54,10 +54,26 @@ contract SVGPathDecoder2 is IPathDecoder {
           // SVG value: undo (value + 1024) + 0x100 
           uint256 value = uint256(high) * 0x100 + uint256(low) - 0x100;
           if (value >= 1024) {
-            ret = abi.encodePacked(ret, (value - 1024).toString(), " ");
+            value = value - 1024;
           } else {
-            ret = abi.encodePacked(ret, "-", (1024 - value).toString(), " ");
+            ret = abi.encodePacked(ret, "-");
+            value = 1024 - value;
           }
+
+          // inline version of vlaue.toString() optimized for 4-digit case
+          if (value < 100) {
+            digits = (value < 10) ? 1 : 2;
+          } else {
+            digits = (value < 1000) ? 3 : 4;
+          }
+          bytes memory buffer = new bytes(digits);
+          buffer[0] = "0"; // handle case for value=0
+          while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+          }
+          ret = abi.encodePacked(ret, buffer, " ");
         }
       }
       retAll = abi.encodePacked(retAll, ret);
