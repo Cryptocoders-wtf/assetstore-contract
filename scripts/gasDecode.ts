@@ -24,7 +24,7 @@ async function main() {
   const benchMark = await benchMarkFactory.deploy(assetStore.address);
   await benchMark.deployed();
 
-  const SVGFactory = await ethers.getContractFactory("SVGPathDecoder4");
+  const SVGFactory = await ethers.getContractFactory("SVGPathDecoder3");
   const decoder = await SVGFactory.deploy();
   await decoder.deployed();
   const tx = await assetStore.setPathDecoder(decoder.address);

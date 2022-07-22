@@ -15,6 +15,8 @@ const gas = {
     { Unit: 1224045, ETH: 0.02448, USD: 24.48 },
     // Medium 9
     { Unit: 12951735, ETH: 0.25903, USD: 259.03 },
+    // Heavy 0,3 (0 did not work)
+    { Unit: 8517515, ETH: 0.17035, USD: 170.35 },
 
     // Shogun (Decoder4, merge)
     { Unit: 945253, ETH: 0.01891, USD: 18.91 },
@@ -38,6 +40,9 @@ const gas = {
     { Unit: 922255, ETH: 0.01845, USD: 18.45 },
     // Medium 9
     { Unit: 9142703, ETH: 0.18285, USD: 182.85 },
+    // Heavy 0, 3
+    { Unit: 20517430, ETH: 0.41035, USD: 410.35 },
+    { Unit: 7054030, ETH: 0.14108, USD: 141.08 },
 
     // Shogun (Decoder3)
     { Unit: 903624, ETH: 0.01807, USD: 18.07 },
@@ -47,5 +52,7 @@ const gas = {
     { Unit: 1202001, ETH: 0.02404, USD: 24.04 },
     // Medium 9
     { Unit: 11945271, ETH: 0.23891, USD: 238.91 },
+    // Heavy, 0,3 (failed to do 0)
+    { Unit: 7913419, ETH: 0.15827, USD: 158.27 },
   ]
 } ;
