@@ -6,18 +6,6 @@ import "../interfaces/IPathDecoder.sol";
 pragma solidity ^0.8.6;
 
 contract SVGPathDecoder3 is IPathDecoder {
-  function digitsOf(uint256 _value) internal pure returns(uint256) {
-    if (_value < 10) {
-      return 1;
-    }
-    if (_value < 100) {
-      return 2;
-    }
-    if (_value < 1000) {
-      return 3;
-    }
-    return 4;
-  }
   /**
   * Decode the compressed binary deta and reconstruct SVG path. 
   * The binaryformat is 12-bit middle endian, where the low 4-bit of the middle byte is
@@ -100,7 +88,11 @@ contract SVGPathDecoder3 is IPathDecoder {
           index += 1;
           value = 1024 - value;
         }
-        digits = digitsOf(value);
+        if (value < 100) {
+          digits = (value < 10) ? 1 : 2;
+        } else {
+          digits = (value < 1000) ? 3 : 4;
+        }
         if (value == 0) {
           ret[index] = "0";
         } else {
