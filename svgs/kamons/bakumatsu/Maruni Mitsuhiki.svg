@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg70062"
+   width="793.70135"
+   height="793.70135"
+   viewBox="0 0 793.70135 793.70135"
+   sodipodi:docname="Maruni Mitsuhiki.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs70066">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath70240">
+      <path
+         d="m -108.7085,508.7015 h 595.276 v -841.89 h -595.276 z"
+         id="path70242"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview70064"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-102.26348"
+     inkscape:cy="437.59255"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg70062">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page70068"
+       width="793.70135"
+       height="793.70135" />
+  </sodipodi:namedview>
+  <path
+     d="m 144.945,514.27 c -11.577,-24.927 -19.563,-51.857 -23.213,-80.186 l 546.14,-0.005 c -3.651,28.33 -11.652,55.264 -23.23,80.191 z m 444.515,78.894 c -49.923,49.874 -118.532,80.614 -194.666,80.634 -76.125,-0.02 -144.733,-30.76 -194.656,-80.634 -2.522,-2.523 -5.002,-5.104 -7.429,-7.724 l 404.159,-0.011 c -2.421,2.615 -4.891,5.217 -7.408,7.735 M 146.8,278.918 h 496.025 c 12.556,25.982 21.156,54.238 24.988,84.01 h -546.06 c 3.843,-29.817 12.46,-57.998 25.047,-84.01 m 53.338,-75.081 c 49.923,-49.867 118.531,-80.615 194.656,-80.624 76.134,0.009 144.743,30.757 194.666,80.624 1.283,1.285 2.507,2.618 3.763,3.929 l -396.917,-0.007 c 1.267,-1.317 2.539,-2.629 3.832,-3.922 M 396.178,55.878 C 207.995,55.902 55.4905,208.411 55.4692,396.596 55.4905,584.784 207.995,737.282 396.178,737.314 584.361,737.282 736.877,584.784 736.897,396.596 736.877,208.411 584.361,55.902 396.178,55.878"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path70082" />
+</svg>
