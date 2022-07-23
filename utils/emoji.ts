@@ -33,12 +33,15 @@ categories.map(category => {
       const height = parseInt(svg['@_height']) || 72;
       if (svg.path && (!svg.rect || !Array.isArray(svg.rect)) && !svg.g && !svg.polygon && !svg.circle) {
         const paths = Array.isArray(svg.path) ? svg.path : [svg.path];
-        const bodies = paths.filter((path:any) => {
-          return !path['@_fill'] && path['@_style'] != "fill:none";
+        const parts = paths.filter((path:any) => {
+          return true; // !path['@_fill'] && path['@_style'] != "fill:none";
         }).map((path:any) => {
-          return path['@_d'];
+          if (path['@_fill']) {
+            return { body:path['@_d'], color: path['@_fill'] };
+          }
+          return { body:path['@_d'] };
         });
-        const item = { name:file.replace(/\.svg/, "").replace(/_/g, " "), width, height, bodies };
+        const item = { name:file.replace(/\.svg/, "").replace(/_/g, " "), width, height, parts };
         return item;
       } else {
         console.error(file, svg);
