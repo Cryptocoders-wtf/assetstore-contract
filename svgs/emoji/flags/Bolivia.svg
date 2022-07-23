@@ -61,7 +61,7 @@
      d="m 32.8887,41 a 0.9971,0.9971 0 0 1 -0.7071,-0.293 3.7208,3.7208 0 0 1 0,-5.414 1.0002076,1.0002076 0 0 1 1.419,1.41 1.7242,1.7242 0 0 0 -0.0049,2.59 1,1 0 0 1 -0.707,1.707 z"
      id="path82575" />
   <path
-     style="color:#000000;fill:#ff0000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
      d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
      id="path82569" />
 </svg>
