@@ -7,7 +7,7 @@ const options = {
 };
 
 const parser = new XMLParser(options);
-
+const regex = /fill:(#[0-9a-fA-F]+)/;
 const root = './svgs/emoji';
 const categories = readdirSync(root);
 //console.log(categories);
@@ -23,7 +23,7 @@ categories.map(category => {
     const items = files.filter((file, index) => {
       return index < 100;
     })
-    .filter((file, index) =>{ return (index>=0 && index<20) && file != '.DS_Store'; })
+    .filter((file, index) =>{ return (index>=0 && index<3) && file != '.DS_Store'; })
     .map((file, index) => {
       let xml = readFileSync(`${root}/${category}/${file}`, 'utf8');
       //console.log(xml);
@@ -38,6 +38,12 @@ categories.map(category => {
         }).map((path:any) => {
           if (path['@_fill']) {
             return { body:path['@_d'], color: path['@_fill'] };
+          } else if (path['@_style']) {
+            const result = regex.exec(path['@_style']);
+            //console.log(result);
+            if (result) {
+              return { body:path['@_d'], color: result[1] };
+            }
           }
           return { body:path['@_d'] };
         });

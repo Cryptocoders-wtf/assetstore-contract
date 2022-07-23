@@ -22,8 +22,8 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="3.2777778"
-     inkscape:cx="-13.271186"
-     inkscape:cy="36"
+     inkscape:cx="19.067796"
+     inkscape:cy="33.559322"
      inkscape:window-width="1309"
      inkscape:window-height="456"
      inkscape:window-x="0"
@@ -31,39 +31,39 @@
      inkscape:window-maximized="0"
      inkscape:current-layer="emoji" />
   <path
-     id="rect73086"
+     id="path76243"
      style="fill:#d22f27"
      d="M 5,17 H 67 V 55 H 5 Z" />
   <path
-     id="polyline73088"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="m 36,38 4,3 -4,-3 v 7 -7 l -4,3" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 35.552734,37.105469 a 1.0001,1.0001 0 0 0 -0.05273,0.08398 1.0001,1.0001 0 0 0 -0.09961,0.0098 l -4,3 a 1,1 0 0 0 -0.201172,1.40039 1,1 0 0 0 1.40039,0.201172 L 35,40 v 5 a 1.0001,1.0001 0 0 0 2,0 v -5 l 2.400391,1.800781 a 1.0003909,1.0003909 0 0 0 1.199218,-1.601562 l -4,-3 A 1.0001,1.0001 0 0 0 36.5,37.189453 1.0001,1.0001 0 0 0 36,37.146484 1.0001,1.0001 0 0 0 35.552734,37.105469 Z"
+     id="polyline73088" />
   <path
-     id="polyline73090"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="m 36,38 v -7 l 3,-4" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 39.599609,26.199219 a 1,1 0 0 0 -1.40039,0.201172 l -3,4 A 1.0001,1.0001 0 0 0 35,31 v 7 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -6.666016 l 2.800781,-3.734375 a 1,1 0 0 0 -0.201172,-1.40039 z"
+     id="polyline73090" />
   <path
-     id="line73092"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="M 36,31 33,27" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 32.400391,26.199219 a 1,1 0 0 0 -0.201172,1.40039 l 3,4 a 1,1 0 0 0 1.40039,0.201172 1,1 0 0 0 0.201172,-1.40039 l -3,-4 a 1,1 0 0 0 -1.40039,-0.201172 z"
+     id="line73092" />
   <path
-     id="line73094"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="m 36,32.5 h 6" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 36,31.5 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="line73094" />
   <path
-     id="line73096"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="m 36,36 h 6" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 36,35 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="line73096" />
   <path
-     id="line73098"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="m 30,32.5 h 6" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 30,31.5 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="line73098" />
   <path
-     id="line73100"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="m 30,36 h 6" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 30,35 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 6 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="line73100" />
   <path
-     id="rect73105"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="M 5,17 H 67 V 55 H 5 Z" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="rect73105" />
 </svg>
