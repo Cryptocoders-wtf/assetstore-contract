@@ -8,6 +8,7 @@ const options = {
 
 const parser = new XMLParser(options);
 const regex = /fill:(#[0-9a-fA-F]+)/;
+const regexErr = /e-[1-9]/;
 const root = './svgs/emoji';
 const categories = readdirSync(root);
 //console.log(categories);
@@ -36,6 +37,10 @@ categories.map(category => {
         const parts = paths.filter((path:any) => {
           return true; // !path['@_fill'] && path['@_style'] != "fill:none";
         }).map((path:any) => {
+          if (regexErr.test(path['@_d']) || path['@_transform']) {
+            console.error(file, path['@_d']);
+            process.exit(0);
+          }
           if (path['@_fill']) {
             return { body:path['@_d'], color: path['@_fill'] };
           } else if (path['@_style']) {
