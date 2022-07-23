@@ -22,7 +22,7 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="3.2777778"
-     inkscape:cx="-13.271186"
+     inkscape:cx="-62.084745"
      inkscape:cy="36"
      inkscape:window-width="1309"
      inkscape:window-height="456"
@@ -31,15 +31,15 @@
      inkscape:window-maximized="0"
      inkscape:current-layer="emoji" />
   <path
-     id="rect75215"
+     id="path80175"
      style="fill:#d22f27"
      d="M 5,17 H 67 V 55 H 5 Z" />
   <path
      fill="#ffffff"
      d="M 21,18 5,17 V 55 L 21,54 30.067,50.4 21,46.8 30.067,43.2 21,39.6 29.933,36 21,32.4 29.933,28.8 21,25.2 29.933,21.6 Z"
-     id="path75217" />
+     id="path80178" />
   <path
-     id="rect75220"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="M 5,17 H 67 V 55 H 5 Z" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path80172" />
 </svg>

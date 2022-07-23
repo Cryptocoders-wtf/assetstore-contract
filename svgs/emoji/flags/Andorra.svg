@@ -22,7 +22,7 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="3.2777778"
-     inkscape:cx="-13.271186"
+     inkscape:cx="-62.084745"
      inkscape:cy="36"
      inkscape:window-width="1309"
      inkscape:window-height="456"
@@ -31,63 +31,51 @@
      inkscape:window-maximized="0"
      inkscape:current-layer="emoji" />
   <path
-     id="rect72144"
+     id="path77082"
      style="fill:#fcea2b"
      d="M 5,17 H 67 V 55 H 5 Z" />
   <path
-     id="rect72146"
+     id="path77085"
      style="fill:#1e50a0"
      d="M 5,17 H 26 V 55 H 5 Z" />
   <path
-     id="rect72148"
+     id="path77088"
      style="fill:#d22f27"
      d="M 46,17 H 67 V 55 H 46 Z" />
   <path
      fill="#d22f27"
      d="M 42,32.1538 V 44 a 2.0059,2.0059 0 0 1 -2,2 H 32 A 2.0059,2.0059 0 0 1 30,44 V 32.1538"
-     id="path72150" />
+     id="path77091" />
   <path
-     id="rect72152"
+     id="path77094"
      style="fill:#f1b31c"
      d="m 36,32.153801 h 6 v 6.1538 h -6 z" />
   <path
-     id="rect72154"
+     id="path77097"
      style="fill:#f1b31c"
      d="m 30,38.307701 h 6 v 7.6923 h -6 z" />
   <path
-     id="ellipse72156"
+     id="path77100"
      style="fill:#6a462f"
      d="m 38.25,38.307701 a 2.25,2.3076999 0 0 1 -2.25,2.3077 2.25,2.3076999 0 0 1 -2.25,-2.3077 2.25,2.3076999 0 0 1 2.25,-2.3077 2.25,2.3076999 0 0 1 2.25,2.3077 z" />
   <path
-     fill="none"
-     stroke="#6a462f"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="2"
-     d="M 30,27.5385 A 12.5962,12.5962 0 0 1 36,26"
-     id="path72158" />
+     style="color:#000000;fill:#6a462f;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 35.998047,25 c -2.263309,0.0059 -4.489696,0.576201 -6.476563,1.660156 a 1,1 0 0 0 -0.398437,1.357422 1,1 0 0 0 1.355469,0.398438 C 32.173178,27.491475 34.071504,27.004999 36.001953,27 A 1,1 0 0 0 37,25.998047 1,1 0 0 0 35.998047,25 Z"
+     id="path77067" />
   <path
-     fill="none"
-     stroke="#6a462f"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="2"
-     d="M 42,27.5385 A 12.5962,12.5962 0 0 0 36,26"
-     id="path72160" />
+     style="color:#000000;fill:#6a462f;stroke-linecap:round;stroke-linejoin:round"
+     d="M 36.001953,25 A 1,1 0 0 0 35,25.998047 1,1 0 0 0 35.998047,27 c 1.930449,0.005 3.828775,0.491475 5.523437,1.416016 a 1,1 0 0 0 1.355469,-0.398438 1,1 0 0 0 -0.398437,-1.357422 C 40.491649,25.576201 38.265262,25.005861 36.001953,25 Z"
+     id="path77070" />
   <path
-     id="line72162"
-     style="fill:none;stroke:#6a462f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="M 30,32.153801 H 42" />
+     style="color:#000000;fill:#6a462f;stroke-linecap:round;stroke-linejoin:round"
+     d="m 30,31.154297 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 12 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="path77073" />
   <path
-     fill="none"
-     stroke="#6a462f"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="2"
-     d="M 42,32.1538 V 44 a 2.0059,2.0059 0 0 1 -2,2 H 32 A 2.0059,2.0059 0 0 1 30,44 V 32.1538"
-     id="path72164" />
+     style="color:#000000;fill:#6a462f;stroke-linecap:round;stroke-linejoin:round"
+     d="m 30,31.154297 a 1,1 0 0 0 -1,1 V 44 a 1.0001,1.0001 0 0 0 0,0.0039 C 29.004821,45.64549 30.35451,46.995179 31.996094,47 A 1.0001,1.0001 0 0 0 32,47 h 8 a 1.0001,1.0001 0 0 0 0.0039,0 C 41.64549,46.995179 42.995179,45.64549 43,44.003906 A 1.0001,1.0001 0 0 0 43,44 V 32.154297 a 1,1 0 0 0 -1,-1 1,1 0 0 0 -1,1 V 43.996094 C 40.998341,44.560957 40.560957,44.998341 39.996094,45 H 32.003906 C 31.439043,44.998341 31.001659,44.560957 31,43.996094 V 32.154297 a 1,1 0 0 0 -1,-1 z"
+     id="path77076" />
   <path
-     id="rect72171"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
-     d="M 5,17 H 67 V 55 H 5 Z" />
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path77079" />
 </svg>
