@@ -1,22 +1,93 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#fcea2b"/>
-    <rect x="5" y="17" width="21" height="38" fill="#1e50a0"/>
-    <rect x="46" y="17" width="21" height="38" fill="#d22f27"/>
-    <g>
-      <path fill="#d22f27" d="M42,32.1538V44a2.0059,2.0059,0,0,1-2,2H32a2.0059,2.0059,0,0,1-2-2V32.1538"/>
-      <rect x="36" y="32.1538" width="6" height="6.1538" fill="#f1b31c"/>
-      <rect x="30" y="38.3077" width="6" height="7.6923" fill="#f1b31c"/>
-      <ellipse cx="36" cy="38.3077" rx="2.25" ry="2.3077" fill="#6a462f"/>
-      <g>
-        <path fill="none" stroke="#6a462f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M30,27.5385A12.5962,12.5962,0,0,1,36,26"/>
-        <path fill="none" stroke="#6a462f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M42,27.5385A12.5962,12.5962,0,0,0,36,26"/>
-        <line x1="30" x2="42" y1="32.1538" y2="32.1538" fill="none" stroke="#6a462f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-        <path fill="none" stroke="#6a462f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M42,32.1538V44a2.0059,2.0059,0,0,1-2,2H32a2.0059,2.0059,0,0,1-2-2V32.1538"/>
-      </g>
-    </g>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Andorra.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs72177" />
+  <sodipodi:namedview
+     id="namedview72175"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="rect72144"
+     style="fill:#fcea2b"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="rect72146"
+     style="fill:#1e50a0"
+     d="M 5,17 H 26 V 55 H 5 Z" />
+  <path
+     id="rect72148"
+     style="fill:#d22f27"
+     d="M 46,17 H 67 V 55 H 46 Z" />
+  <path
+     fill="#d22f27"
+     d="M 42,32.1538 V 44 a 2.0059,2.0059 0 0 1 -2,2 H 32 A 2.0059,2.0059 0 0 1 30,44 V 32.1538"
+     id="path72150" />
+  <path
+     id="rect72152"
+     style="fill:#f1b31c"
+     d="m 36,32.153801 h 6 v 6.1538 h -6 z" />
+  <path
+     id="rect72154"
+     style="fill:#f1b31c"
+     d="m 30,38.307701 h 6 v 7.6923 h -6 z" />
+  <path
+     id="ellipse72156"
+     style="fill:#6a462f"
+     d="m 38.25,38.307701 a 2.25,2.3076999 0 0 1 -2.25,2.3077 2.25,2.3076999 0 0 1 -2.25,-2.3077 2.25,2.3076999 0 0 1 2.25,-2.3077 2.25,2.3076999 0 0 1 2.25,2.3077 z" />
+  <path
+     fill="none"
+     stroke="#6a462f"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M 30,27.5385 A 12.5962,12.5962 0 0 1 36,26"
+     id="path72158" />
+  <path
+     fill="none"
+     stroke="#6a462f"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M 42,27.5385 A 12.5962,12.5962 0 0 0 36,26"
+     id="path72160" />
+  <path
+     id="line72162"
+     style="fill:none;stroke:#6a462f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="M 30,32.153801 H 42" />
+  <path
+     fill="none"
+     stroke="#6a462f"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M 42,32.1538 V 44 a 2.0059,2.0059 0 0 1 -2,2 H 32 A 2.0059,2.0059 0 0 1 30,44 V 32.1538"
+     id="path72164" />
+  <path
+     id="rect72171"
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="M 5,17 H 67 V 55 H 5 Z" />
 </svg>

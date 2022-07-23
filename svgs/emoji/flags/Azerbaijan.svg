@@ -1,12 +1,60 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#d22f27"/>
-    <rect x="5" y="42" width="62" height="13" fill="#5c9e31"/>
-    <rect x="5" y="17" width="62" height="13" fill="#61b2e4"/>
-    <polygon fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" points="38.436 34.61 39.022 33 39.584 34.618 41.137 33.894 40.39 35.436 42 36.022 40.382 36.584 41.106 38.137 39.564 37.39 38.978 39 38.416 37.382 36.863 38.106 37.61 36.564 36 35.978 37.618 35.416 36.894 33.863 38.436 34.61"/>
-    <path fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" d="M30.5307,36a4.0529,4.0529,0,0,1,3.3784-3.9236A4.3955,4.3955,0,0,0,33.0983,32a4.0043,4.0043,0,1,0,0,8,4.3955,4.3955,0,0,0,.8108-.0764A4.0529,4.0529,0,0,1,30.5307,36Z"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Azerbaijan.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs74773" />
+  <sodipodi:namedview
+     id="namedview74771"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="rect74756"
+     style="fill:#d22f27"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="rect74758"
+     style="fill:#5c9e31"
+     d="M 5,42 H 67 V 55 H 5 Z" />
+  <path
+     id="rect74760"
+     style="fill:#61b2e4"
+     d="M 5,17 H 67 V 30 H 5 Z" />
+  <path
+     id="polygon74762"
+     style="fill:#ffffff;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 39.584,34.618 1.553,-0.724 -0.747,1.542 1.61,0.586 -1.618,0.562 0.724,1.553 L 39.564,37.39 38.978,39 38.416,37.382 36.863,38.106 37.61,36.564 36,35.978 37.618,35.416 36.894,33.863 38.436,34.61 39.022,33 Z" />
+  <path
+     fill="#ffffff"
+     stroke="#ffffff"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     d="M 30.5307,36 A 4.0529,4.0529 0 0 1 33.9091,32.0764 4.3955,4.3955 0 0 0 33.0983,32 a 4.0043,4.0043 0 1 0 0,8 4.3955,4.3955 0 0 0 0.8108,-0.0764 A 4.0529,4.0529 0 0 1 30.5307,36 Z"
+     id="path74764" />
+  <path
+     id="rect74767"
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="M 5,17 H 67 V 55 H 5 Z" />
 </svg>
