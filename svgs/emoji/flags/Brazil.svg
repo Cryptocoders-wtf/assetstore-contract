@@ -1,11 +1,53 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#5c9e31"/>
-    <polygon fill="#fcea2b" points="59.023 36.023 35.866 50.653 12.977 36.291 36.134 21.661 59.023 36.023"/>
-    <circle cx="36" cy="36" r="9" fill="#1e50a0"/>
-    <path fill="#fff" d="M44.1587,39.7815a9.0459,9.0459,0,0,0,.6963-2.2587,11.4735,11.4735,0,0,0-17.4766-4.0415,8.9839,8.9839,0,0,0-.3529,2.0137,10.9983,10.9983,0,0,1,17.1332,4.2865Z"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Brazil.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs84420" />
+  <sodipodi:namedview
+     id="namedview84418"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path84602"
+     style="fill:#5c9e31"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path84605"
+     style="fill:#fcea2b"
+     d="M 12.977,36.291 36.134,21.661 59.023,36.023 35.866,50.653 Z" />
+  <path
+     id="path84608"
+     style="fill:#1e50a0"
+     d="m 45,36 a 9,9 0 0 1 -9,9 9,9 0 0 1 -9,-9 9,9 0 0 1 9,-9 9,9 0 0 1 9,9 z" />
+  <path
+     fill="#ffffff"
+     d="M 44.1587,39.7815 A 9.0459,9.0459 0 0 0 44.855,37.5228 11.4735,11.4735 0 0 0 27.3784,33.4813 8.9839,8.9839 0 0 0 27.0255,35.495 10.9983,10.9983 0 0 1 44.1587,39.7815 Z"
+     id="path84599" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path84596" />
 </svg>
