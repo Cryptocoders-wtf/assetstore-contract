@@ -117,7 +117,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
   function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
     // Constants of non-value type not yet implemented by Solidity
     string[4] memory backColors = [
-      "white", "url(#silver)", "url(#gold)", "#87CEEB" 
+      "white", "url(#silver)", "url(#gold)", "url(#sky)" 
     ];
 
     bytes memory assetTag = abi.encodePacked('#', _tag);
@@ -141,6 +141,14 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
         ' <stop offset="50%" stop-color="#FFF186" />\n'
         ' <stop offset="100%" stop-color="#CCAB09"/>\n'
         '</linearGradient>\n');
+    } else if (index == 3) {
+      image = abi.encodePacked(
+        image, 
+        '<radialGradient id="sky" cx="0.8" cy="0.33">\n'
+        '  <stop offset="0%" stop-color="#FFFFFF"/>\n'
+        ' <stop offset="20%" stop-color="#FFFFFF" />\n'
+        ' <stop offset="100%" stop-color="#00B5E2"/>\n'
+        '</radialGradient>\n');
     }
     image =  abi.encodePacked(
       image,
