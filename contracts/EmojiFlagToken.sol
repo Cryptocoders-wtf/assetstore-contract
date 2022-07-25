@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 /*
- * Material Icon NFT (ERC721). The mint function takes IAssetStore.AssetInfo as a parameter.
+ * Kamon NFT (ERC721). The mint function takes IAssetStore.AssetInfo as a parameter.
  * It registers the specified asset to the AssetStore and mint a token which represents
  * the "minter" of the asset (who paid the gas fee), along with two additional bonus tokens.
  * 
@@ -32,11 +32,12 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
   IAssetStoreRegistry public immutable registry;
   IAssetStore public immutable assetStore;
 
-  uint256 constant tokensPerAsset = 4;
-  mapping(uint256 => uint256) assetIds; // tokenId / tokensPerAsset => assetId
+  uint256 constant _tokensPerAsset = 10;
+  mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId
 
   // description
-  string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf].";
+  string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf]. "
+  " All kamon vectors were created and copyrighted by (Hakko Daiodo)[http://hakko-daiodo.com].";
 
   // developer address.
   address public developer;
@@ -52,7 +53,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
     IAssetStore _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
-  ) ERC721A("Material Icons", "MATERIAL") {
+  ) ERC721A("Kamon Symbols by Hakko Daiodo", "KAMON") {
     registry = _registry;
     assetStore = _assetStore;
     developer = _developer;
@@ -60,7 +61,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
   }
 
   function _isPrimary(uint256 _tokenId) internal pure returns(bool) {
-    return _tokenId % tokensPerAsset == 0;
+    return _tokenId % _tokensPerAsset == 0;
   }
 
   /*
@@ -69,18 +70,18 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
    * token to either the affiliator, the developer or the owner.npnkda
    */
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
-    _assetInfo.group = "Material Icons (Apache 2.0)";
+    _assetInfo.group = "Hakko Daiodo (CC-BY equivalent)";
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
 
-    assetIds[tokenId / tokensPerAsset] = assetId;
-    _mint(msg.sender, tokensPerAsset - 1);
+    assetIds[tokenId / _tokensPerAsset] = assetId;
+    _mint(msg.sender, _tokensPerAsset - 1);
 
-    // Specified affliate token must be one of soul-bound token and not owned by the minter.
+    // Specified affliate token must be one of the primary tokens and not owned by the minter.
     if (_affiliate > 0 && _isPrimary(_affiliate) && ownerOf(_affiliate) != msg.sender) {
       _mint(ownerOf(_affiliate), 1);
-    } else if ((tokenId / tokensPerAsset) % 4 == 0) {
-      // 1 in 24 tokens goes to the developer
+    } else if ((tokenId / _tokensPerAsset) % 2 == 0) {
+      // 1 in 20 tokens of non-affiliated mints go to the developer
       _mint(developer, 1);
     } else {
       // the rest goes to the owner for distribution
@@ -107,49 +108,42 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
 
   string constant SVGHeader = '<svg viewBox="0 0 1024 1024'
       '"  xmlns="http://www.w3.org/2000/svg">\n'
-      '<defs>\n'
-      ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n'
-      '  <feOffset result="offOut" in="SourceAlpha" dx="24" dy="32" />\n'
-      '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="16" />\n'
-      '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n'
-      ' </filter>\n'
-      '<g id="base">\n'
-      ' <rect x="0" y="0" width="512" height="512" fill="#4285F4" />\n'
-      ' <rect x="0" y="512" width="512" height="512" fill="#34A853" />\n'
-      ' <rect x="512" y="0" width="512" height="512" fill="#FBBC05" />\n'
-      ' <rect x="512" y="512" width="512" height="512" fill="#EA4335"/>\n'
-      '</g>';
+      '<defs>\n';
 
   /*
    * A function of IAssetStoreToken interface.
    * It generates SVG with the specified style, using the given "SVG Part".
    */
   function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
+    // Constants of non-value type not yet implemented by Solidity
+    string[10] memory backColors = [
+      "black", "white", "#EFE8AC", "#EFE5AF", "#5B3319", "#BF2E16", "#0963AD", "#3D5943", "black", "url(#gold)" 
+    ];
+    string[10] memory frontColors = [
+      "white", "black", "#0D95A0", "#58456B", "#EFE8AC", "#EFE8AC", "#FFFFFF", "#FFFFFF", "url(#gold)", "black"
+    ];
+
     bytes memory assetTag = abi.encodePacked('#', _tag);
+    uint index = _style % _tokensPerAsset;
     bytes memory image = abi.encodePacked(
       SVGHeader,
-      _svgPart,
-      '</defs>\n'
-      '<g filter="url(#f1)">\n');
-    if (_style == 0) {
-      image = abi.encodePacked(image,
-      ' <mask id="assetMask">\n'
-      '  <use href="', assetTag, '" fill="white" />\n'
-      ' </mask>\n'
-      ' <use href="#base" mask="url(#assetMask)" />\n');
-    } else if (_style < tokensPerAsset - 1) {
-      image = abi.encodePacked(image,
-      ' <use href="#base" />\n'
-      ' <use href="', assetTag, '" fill="',(_style % 2 == 0) ? 'black':'white','" />\n');
-    } else {
-      image = abi.encodePacked(image,
-      ' <mask id="assetMask" desc="Material Icons (Apache 2.0)/Social/Public">\n'
-      '  <rect x="0" y="0" width="1024" height="1024" fill="white" />\n'
-      '  <use href="', assetTag, '" fill="black" />\n'
-      ' </mask>\n'
-      ' <use href="#base" mask="url(#assetMask)" />\n');
+      _svgPart);
+    if (index >= 8) {
+      image = abi.encodePacked(
+        image, 
+        '<linearGradient id="gold" x1="0.2" x2="0" y1="0" y2="1">\n'
+        '  <stop offset="0%" stop-color="#CCAB09"/>\n'
+        ' <stop offset="50%" stop-color="#FFF186" />\n'
+        ' <stop offset="100%" stop-color="#CCAB09"/>\n'
+        '</linearGradient>\n');
     }
-    return string(abi.encodePacked(image, '</g>\n</svg>'));
+    image =  abi.encodePacked(
+      image,
+      '</defs>\n'
+      ' <rect x="0" y="0" width="100%" height="100%" fill="',backColors[index],'" />\n'
+      ' <use href="', assetTag, '" fill="',frontColors[index],'" />\n'
+      '</svg>\n');
+    return string(image);
   }
 
   /*
@@ -157,8 +151,8 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
    * It returns the assetId, which this token uses.
    */
   function assetIdOfToken(uint256 _tokenId) public view override returns(uint256) {
-    require(_exists(_tokenId), 'MaterialToken.assetIdOfToken: nonexistent token');
-    return assetIds[_tokenId / tokensPerAsset];
+    require(_exists(_tokenId), 'KamonToken.assetIdOfToken: nonexistent token');
+    return assetIds[_tokenId / _tokensPerAsset];
   }
 
   /*
@@ -166,7 +160,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
    * Each 16-bit represents the number of possible styles, allowing various combinations.
    */
   function styles() external pure override returns(uint256) {
-    return tokensPerAsset;
+    return _tokensPerAsset;
   }
 
   function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
@@ -180,6 +174,9 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
       '},{'
         '"trait_type":"Category",'
         '"value":"', _attr.category, '"' 
+      '},{'
+        '"trait_type":"Name",'
+        '"value":"', _attr.name, '"' 
       '},{'
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
@@ -197,11 +194,11 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
     * @dev See {IERC721Metadata-tokenURI}.
     */
   function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-    require(_exists(_tokenId), 'MaterialToken.tokenURI: nonexistent token');
+    require(_exists(_tokenId), 'KamonToken.tokenURI: nonexistent token');
     uint256 assetId = assetIdOfToken(_tokenId);
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
-    bytes memory image = bytes(generateSVG(svgPart, _tokenId % tokensPerAsset, attr.tag));
+    bytes memory image = bytes(generateSVG(svgPart, _tokenId % _tokensPerAsset, attr.tag));
 
     return string(
       abi.encodePacked(
@@ -220,4 +217,8 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
       )
     );
   }  
+
+  function tokensPerAsset() public pure returns(uint256) {
+    return _tokensPerAsset;
+  }
 }
