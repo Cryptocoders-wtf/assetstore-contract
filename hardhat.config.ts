@@ -64,7 +64,7 @@ const config: HardhatUserConfig = {
     },
     mainnet: {
       url: "https://eth-mainnet.alchemyapi.io/v2/" + process.env.ALCHEMY_API_KEY,
-      gasMultiplier: 2,
+      gasMultiplier: 1.2,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     }

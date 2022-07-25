@@ -48,7 +48,6 @@
     "kamon": "hardhat run ./utils/kamon.ts | sed '1d' > ../web/generated/kamon_assets.ts",
     "kamon_local": "hardhat run ./utils/kamon.ts | sed '1d' > ./assets/kamon_assets.ts",
     "emoji": "hardhat run ./utils/emoji.ts | sed '1d' > ../web/generated/emoji_assets.ts",
-    "verify": "echo npx hardhat verify --constructor-args ./cache/arguments.js",
     "svg": "hardhat run ./scripts/svg.ts | sed '1d' > cache/test.svg",
     "emoji_old": "hardhat run ./scripts/emoji.ts | sed '1d' > cache/test.svg",
     "multi": "hardhat run ./scripts/multi.ts | sed '1d' > cache/test.svg",
