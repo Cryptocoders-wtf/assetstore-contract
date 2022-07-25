@@ -37,7 +37,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf]. "
-  " All kamon vectors were created and copyrighted by (Hakko Daiodo)[http://hakko-daiodo.com].";
+  "All the emoji vectors are came from OpenEoji project [https://openmoji.org/].";
 
   // developer address.
   address public developer;
@@ -53,7 +53,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
     IAssetStore _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
-  ) ERC721A("Kamon Symbols by Hakko Daiodo", "KAMON") {
+  ) ERC721A("OpenMoji Flags", "OPENMOJIFLAGS") {
     registry = _registry;
     assetStore = _assetStore;
     developer = _developer;
@@ -70,7 +70,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
    * token to either the affiliator, the developer or the owner.npnkda
    */
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
-    _assetInfo.group = "Hakko Daiodo (CC-BY equivalent)";
+    _assetInfo.group = "OpenMoji (CC BY-SA 4.0)";
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
 
@@ -80,8 +80,8 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
     // Specified affliate token must be one of the primary tokens and not owned by the minter.
     if (_affiliate > 0 && _isPrimary(_affiliate) && ownerOf(_affiliate) != msg.sender) {
       _mint(ownerOf(_affiliate), 1);
-    } else if ((tokenId / _tokensPerAsset) % 2 == 0) {
-      // 1 in 20 tokens of non-affiliated mints go to the developer
+    } else if ((tokenId / _tokensPerAsset) % 4 == 0) {
+      // 1 in 16 tokens of non-affiliated mints go to the developer
       _mint(developer, 1);
     } else {
       // the rest goes to the owner for distribution
@@ -164,7 +164,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
    * It returns the assetId, which this token uses.
    */
   function assetIdOfToken(uint256 _tokenId) public view override returns(uint256) {
-    require(_exists(_tokenId), 'KamonToken.assetIdOfToken: nonexistent token');
+    require(_exists(_tokenId), 'EmojiFlagToken.assetIdOfToken: nonexistent token');
     return assetIds[_tokenId / _tokensPerAsset];
   }
 
@@ -207,7 +207,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
     * @dev See {IERC721Metadata-tokenURI}.
     */
   function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-    require(_exists(_tokenId), 'KamonToken.tokenURI: nonexistent token');
+    require(_exists(_tokenId), 'EmojiFlagToken.tokenURI: nonexistent token');
     uint256 assetId = assetIdOfToken(_tokenId);
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
