@@ -32,7 +32,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
   IAssetStoreRegistry public immutable registry;
   IAssetStore public immutable assetStore;
 
-  uint256 constant _tokensPerAsset = 10;
+  uint256 constant _tokensPerAsset = 4;
   mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId
 
   // description
@@ -116,11 +116,8 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
    */
   function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
     // Constants of non-value type not yet implemented by Solidity
-    string[10] memory backColors = [
-      "black", "white", "#EFE8AC", "#EFE5AF", "#5B3319", "#BF2E16", "#0963AD", "#3D5943", "black", "url(#gold)" 
-    ];
-    string[10] memory frontColors = [
-      "white", "black", "#0D95A0", "#58456B", "#EFE8AC", "#EFE8AC", "#FFFFFF", "#FFFFFF", "url(#gold)", "black"
+    string[4] memory backColors = [
+      "white", "url(#silver)", "url(#gold)", "#87CEEB" 
     ];
 
     bytes memory assetTag = abi.encodePacked('#', _tag);
@@ -128,7 +125,15 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
     bytes memory image = abi.encodePacked(
       SVGHeader,
       _svgPart);
-    if (index >= 8) {
+    if (index == 1) {
+      image = abi.encodePacked(
+        image, 
+        '<linearGradient id="silver" x1="0.2" x2="0" y1="0" y2="1">\n'
+        '  <stop offset="0%" stop-color="#80807F"/>\n'
+        ' <stop offset="50%" stop-color="#EEF0F2" />\n'
+        ' <stop offset="100%" stop-color="#80807F"/>\n'
+        '</linearGradient>\n');
+    } else if (index == 2) {
       image = abi.encodePacked(
         image, 
         '<linearGradient id="gold" x1="0.2" x2="0" y1="0" y2="1">\n'
@@ -141,7 +146,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
       image,
       '</defs>\n'
       ' <rect x="0" y="0" width="100%" height="100%" fill="',backColors[index],'" />\n'
-      ' <use href="', assetTag, '" fill="',frontColors[index],'" />\n'
+      ' <use href="', assetTag, '" />\n'
       '</svg>\n');
     return string(image);
   }
