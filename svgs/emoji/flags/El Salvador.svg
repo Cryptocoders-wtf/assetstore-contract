@@ -1,12 +1,61 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#1e50a0"/>
-    <rect x="5" y="30" width="62" height="12" fill="#fff"/>
-    <path fill="none" stroke="#186648" stroke-linecap="round" stroke-linejoin="round" d="M39.5,36a3.5,3.5,0,0,1-7,0"/>
-    <circle cx="36" cy="36" r="4.5" fill="none" stroke="#fcea2b" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon fill="#fcea2b" stroke="#fcea2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="36 34 34 37 38 37 36 34"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="El Salvador.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs100428" />
+  <sodipodi:namedview
+     id="namedview100426"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path100610"
+     style="fill:#1e50a0"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path100613"
+     style="fill:#ffffff"
+     d="M 5,30 H 67 V 42 H 5 Z" />
+  <path
+     style="color:#000000;fill:#186648;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="M 32.5,35.5 A 0.5,0.5 0 0 0 32,36 c 0,1.291665 0.502379,2.323078 1.261719,2.998047 C 34.021059,39.673016 35.01389,40 36,40 36.98611,40 37.978941,39.673016 38.738281,38.998047 39.497621,38.323078 40,37.291665 40,36 A 0.5,0.5 0 0 0 39.5,35.5 0.5,0.5 0 0 0 39,36 c 0,1.041665 -0.372623,1.760257 -0.925781,2.251953 C 37.52106,38.743649 36.763888,39 36,39 35.236112,39 34.47894,38.743649 33.925781,38.251953 33.372623,37.760257 33,37.041665 33,36 a 0.5,0.5 0 0 0 -0.5,-0.5 z"
+     id="path100595" />
+  <path
+     style="color:#000000;fill:#fcea2b;stroke-linecap:round;stroke-linejoin:round"
+     d="m 36,31 c -2.755499,0 -5,2.244501 -5,5 0,2.755499 2.244501,5 5,5 2.755499,0 5,-2.244501 5,-5 0,-2.755499 -2.244501,-5 -5,-5 z m 0,1 c 2.215059,0 4,1.784941 4,4 0,2.215059 -1.784941,4 -4,4 -2.215059,0 -4,-1.784941 -4,-4 0,-2.215059 1.784941,-4 4,-4 z"
+     id="path100601" />
+  <path
+     style="color:#000000;fill:#fcea2b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 38,37 -2,-3 -2,3 z"
+     id="path100607" />
+  <path
+     style="color:#000000;fill:#fcea2b;stroke-linecap:round;stroke-linejoin:round"
+     d="m 36,33 a 1.0001,1.0001 0 0 0 -0.832031,0.445312 l -2,3 A 1.0001,1.0001 0 0 0 34,38 h 4 a 1.0001,1.0001 0 0 0 0.832031,-1.554688 l -2,-3 A 1.0001,1.0001 0 0 0 36,33 Z M 36,35.802734 36.130859,36 h -0.261718 z"
+     id="path100604" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path100598" />
 </svg>

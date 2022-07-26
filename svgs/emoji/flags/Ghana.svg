@@ -1,11 +1,57 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#5c9e31"/>
-    <rect x="5" y="30" width="62" height="12" fill="#fcea2b"/>
-    <rect x="5" y="17" width="62" height="13" fill="#d22f27"/>
-    <polygon stroke="#000" stroke-linecap="round" stroke-linejoin="round" points="33.528 39.723 36.067 32.277 38.256 39.609 32.175 35.191 39.825 35.007 33.528 39.723"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Ghana.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs105437" />
+  <sodipodi:namedview
+     id="namedview105435"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path105604"
+     style="fill:#5c9e31"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path105607"
+     style="fill:#fcea2b"
+     d="M 5,30 H 67 V 42 H 5 Z" />
+  <path
+     id="path105610"
+     style="fill:#d22f27"
+     d="M 5,17 H 67 V 30 H 5 Z" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 38.256,39.609 -6.081,-4.418 7.65,-0.184 -6.297,4.716 2.539,-7.446 z"
+     id="path105598" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 36.076172,31.777344 a 0.50005,0.50005 0 0 0 -0.482422,0.33789 l -0.857422,2.513672 -2.574219,0.0625 a 0.50005,0.50005 0 0 0 -0.28125,0.904297 l 2.025391,1.470703 -0.851563,2.496094 a 0.50005,0.50005 0 0 0 0.773438,0.560547 l 2.109375,-1.580078 2.025391,1.470703 a 0.50005,0.50005 0 0 0 0.771484,-0.546875 L 37.998047,37 40.125,35.40625 a 0.50005,0.50005 0 0 0 -0.3125,-0.898438 l -2.539063,0.06055 -0.726562,-2.433593 a 0.50005,0.50005 0 0 0 -0.470703,-0.357422 z m -0.04102,2.142578 0.201172,0.673828 -0.433594,0.0098 z m 2.238281,1.625 -0.580078,0.433594 -0.123047,-0.416016 z m -1.740234,0.04297 0.308594,1.029296 -0.91211,0.683594 -0.839843,-0.609375 0.36914,-1.078125 z m -2.140625,0.05078 -0.148437,0.4375 -0.580079,-0.419922 z m 2.753906,2 0.208985,0.697265 -0.580078,-0.419921 z m -2.392578,0.04297 0.337891,0.246093 -0.566406,0.423828 z"
+     id="path105595" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path105601" />
 </svg>

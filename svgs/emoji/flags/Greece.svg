@@ -1,16 +1,73 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#fff"/>
-    <rect x="5" y="34" width="62" height="4" fill="#1e50a0"/>
-    <rect x="5" y="25.75" width="62" height="4" fill="#1e50a0"/>
-    <rect x="5" y="42.25" width="62" height="4" fill="#1e50a0"/>
-    <rect x="5" y="50" width="62" height="5" fill="#1e50a0"/>
-    <rect x="5" y="17" width="62" height="5" fill="#1e50a0"/>
-    <rect x="5" y="17" width="22" height="21" fill="#1e50a0"/>
-    <rect x="14.5001" y="17" width="4" height="22" fill="#fff"/>
-    <rect x="5.0001" y="25.75" width="22.0001" height="4" fill="#fff"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Greece.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs106007" />
+  <sodipodi:namedview
+     id="namedview106005"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path106192"
+     style="fill:#ffffff"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path106195"
+     style="fill:#1e50a0"
+     d="m 5,34 h 62 v 4 H 5 Z" />
+  <path
+     id="path106198"
+     style="fill:#1e50a0"
+     d="m 5,25.75 h 62 v 4 H 5 Z" />
+  <path
+     id="path106201"
+     style="fill:#1e50a0"
+     d="m 5,42.25 h 62 v 4 H 5 Z" />
+  <path
+     id="path106204"
+     style="fill:#1e50a0"
+     d="m 5,50 h 62 v 5 H 5 Z" />
+  <path
+     id="path106207"
+     style="fill:#1e50a0"
+     d="m 5,17 h 62 v 5 H 5 Z" />
+  <path
+     id="path106210"
+     style="fill:#1e50a0"
+     d="M 5,17 H 27 V 38 H 5 Z" />
+  <path
+     id="path106213"
+     style="fill:#ffffff"
+     d="m 14.5001,17 h 4 v 22 h -4 z" />
+  <path
+     id="path106216"
+     style="fill:#ffffff"
+     d="M 5.0001001,25.75 H 27.000199 v 4 H 5.0001001 Z" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path106189" />
 </svg>
