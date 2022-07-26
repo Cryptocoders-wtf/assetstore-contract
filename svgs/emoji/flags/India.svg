@@ -1,12 +1,57 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#5c9e31"/>
-    <rect x="5" y="17" width="62" height="13" fill="#e27022"/>
-    <rect x="5" y="30" width="62" height="12" fill="#fff"/>
-    <polygon fill="none" stroke="#1e50a0" stroke-linecap="round" stroke-linejoin="round" points="36.296 34.896 38 32.536 36.808 35.192 39.464 34 37.104 35.704 40 36 37.104 36.296 39.464 38 36.808 36.808 38 39.464 36.296 37.104 36 40 35.704 37.104 34 39.464 35.192 36.808 32.536 38 34.896 36.296 32 36 34.896 35.704 32.536 34 35.192 35.192 34 32.536 35.704 34.896 36 32 36.296 34.896"/>
-    <circle cx="36" cy="36" r="5" fill="none" stroke="#1e50a0" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="India.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs110968" />
+  <sodipodi:namedview
+     id="namedview110966"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path111139"
+     style="fill:#5c9e31"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path111142"
+     style="fill:#e27022"
+     d="M 5,17 H 67 V 30 H 5 Z" />
+  <path
+     id="path111145"
+     style="fill:#ffffff"
+     d="M 5,30 H 67 V 42 H 5 Z" />
+  <path
+     style="color:#000000;fill:#1e50a0;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 36,31.5 a 0.50005,0.50005 0 0 0 -0.498047,0.449219 l -0.162109,1.58789 -0.933594,-1.292968 a 0.50005,0.50005 0 0 0 -0.863281,0.496093 l 0.654297,1.457032 -1.457032,-0.654297 a 0.50005,0.50005 0 0 0 -0.496093,0.863281 l 1.292968,0.933594 -1.58789,0.162109 a 0.50005,0.50005 0 0 0 0,0.996094 l 1.58789,0.162109 -1.292968,0.933594 a 0.50005,0.50005 0 0 0 0.496093,0.863281 l 1.457032,-0.654297 -0.654297,1.457032 a 0.50005,0.50005 0 0 0 0.863281,0.496093 l 0.933594,-1.292968 0.162109,1.58789 a 0.50005,0.50005 0 0 0 0.996094,0 l 0.162109,-1.58789 0.933594,1.292968 a 0.50005,0.50005 0 0 0 0.863281,-0.496093 l -0.654297,-1.457032 1.457032,0.654297 a 0.50005,0.50005 0 0 0 0.496093,-0.863281 l -1.292968,-0.933594 1.58789,-0.162109 a 0.50005,0.50005 0 0 0 0,-0.996094 l -1.58789,-0.162109 1.292968,-0.933594 a 0.50005,0.50005 0 0 0 -0.496093,-0.863281 l -1.457032,0.654297 0.654297,-1.457032 A 0.50005,0.50005 0 0 0 37.59375,32.244141 l -0.933594,1.292968 -0.162109,-1.58789 A 0.50005,0.50005 0 0 0 36,31.5 Z m 0,3.683594 a 0.50005,0.50005 0 0 0 0.408203,0.109375 0.50005,0.50005 0 0 0 0.298828,0.298828 A 0.50005,0.50005 0 0 0 36.816406,36 0.50005,0.50005 0 0 0 36.707031,36.408203 0.50005,0.50005 0 0 0 36.408203,36.707031 0.50005,0.50005 0 0 0 36,36.816406 0.50005,0.50005 0 0 0 35.654297,36.683594 0.50005,0.50005 0 0 0 35.386719,36.351562 0.50005,0.50005 0 0 0 35.292969,36 0.50005,0.50005 0 0 0 35.386719,35.648437 0.50005,0.50005 0 0 0 35.654297,35.316406 0.50005,0.50005 0 0 0 36,35.183594 Z"
+     id="path111130" />
+  <path
+     style="color:#000000;fill:#1e50a0;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 36,30.5 c -3.031641,0 -5.5,2.468359 -5.5,5.5 0,3.031641 2.468359,5.5 5.5,5.5 3.031641,0 5.5,-2.468359 5.5,-5.5 0,-3.031641 -2.468359,-5.5 -5.5,-5.5 z m 0,1 c 2.491201,0 4.5,2.008799 4.5,4.5 0,2.491201 -2.008799,4.5 -4.5,4.5 -2.491201,0 -4.5,-2.008799 -4.5,-4.5 0,-2.491201 2.008799,-4.5 4.5,-4.5 z"
+     id="path111133" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path111136" />
 </svg>
