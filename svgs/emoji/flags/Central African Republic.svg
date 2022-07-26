@@ -1,13 +1,65 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#f1b31c"/>
-    <rect x="5" y="17" width="62" height="10" fill="#1e50a0"/>
-    <rect x="5" y="27" width="62" height="9" fill="#fff"/>
-    <rect x="5" y="36" width="62" height="9" fill="#5c9e31"/>
-    <rect x="33" y="17" width="6" height="38" fill="#d22f27"/>
-    <polygon fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" points="12.906 19.603 14.451 24.603 10.406 21.513 15.406 21.513 11.361 24.603 12.906 19.603"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Central African Republic.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs89912" />
+  <sodipodi:namedview
+     id="namedview89910"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-62.084745"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path93258"
+     style="fill:#f1b31c"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path93261"
+     style="fill:#1e50a0"
+     d="M 5,17 H 67 V 27 H 5 Z" />
+  <path
+     id="path93264"
+     style="fill:#ffffff"
+     d="m 5,27 h 62 v 9 H 5 Z" />
+  <path
+     id="path93267"
+     style="fill:#5c9e31"
+     d="m 5,36 h 62 v 9 H 5 Z" />
+  <path
+     id="path93270"
+     style="fill:#d22f27"
+     d="m 33,17 h 6 v 38 h -6 z" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-linecap:round;stroke-linejoin:round"
+     d="m 10.406,21.513 h 5 l -4.045,3.09 1.545,-5 1.545,5 z"
+     id="path93252" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-linecap:round;stroke-linejoin:round"
+     d="m 12.90625,19.103516 a 0.50005,0.50005 0 0 0 -0.478516,0.351562 l -0.482421,1.558594 H 10.40625 a 0.50005,0.50005 0 0 0 -0.304687,0.896484 l 1.267578,0.96875 -0.486328,1.576172 A 0.50005,0.50005 0 0 0 11.664063,25 L 12.90625,24.050781 14.148438,25 a 0.50005,0.50005 0 0 0 0.78125,-0.544922 l -0.488282,-1.576172 1.267578,-0.96875 A 0.50005,0.50005 0 0 0 15.40625,21.013672 H 13.865234 L 13.382813,19.455078 A 0.50005,0.50005 0 0 0 12.90625,19.103516 Z m -0.222656,2.910156 h 0.443359 l 0.152344,0.49414 -0.373047,0.285157 -0.375,-0.285157 z"
+     id="path93255" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path93273" />
 </svg>

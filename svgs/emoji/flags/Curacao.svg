@@ -1,11 +1,61 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#1e50a0"/>
-    <rect x="5" y="41" width="62" height="6" fill="#f1b31c"/>
-    <polygon fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" points="17.5 26 19.045 31 15 27.91 20 27.91 15.955 31 17.5 26"/>
-    <polygon fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" points="11.5 21 13.045 26 9 22.91 14 22.91 9.955 26 11.5 21"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Curacao.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs97803" />
+  <sodipodi:namedview
+     id="namedview97801"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path97982"
+     style="fill:#1e50a0"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path97985"
+     style="fill:#f1b31c"
+     d="m 5,41 h 62 v 6 H 5 Z" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 15,27.91 h 5 L 15.955,31 17.5,26 l 1.545,5 z"
+     id="path97970" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 17.5,25.5 a 0.50005,0.50005 0 0 0 -0.478516,0.351562 l -0.482422,1.558594 H 15 a 0.50005,0.50005 0 0 0 -0.302734,0.896485 l 1.267578,0.966796 -0.488281,1.578125 a 0.50005,0.50005 0 0 0 0.781249,0.544922 L 17.5,30.447266 l 1.242187,0.949218 a 0.50005,0.50005 0 0 0 0.78125,-0.544922 l -0.488281,-1.578125 1.267578,-0.966796 A 0.50005,0.50005 0 0 0 20,27.410156 H 18.460937 L 17.978516,25.851562 A 0.50005,0.50005 0 0 0 17.5,25.5 Z m -0.220703,2.910156 h 0.441406 L 17.873047,28.90625 17.5,29.191406 17.126953,28.90625 Z"
+     id="path97967" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 9,22.91 h 5 L 9.955,26 11.5,21 l 1.545,5 z"
+     id="path97976" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 11.5,20.5 a 0.50005,0.50005 0 0 0 -0.478516,0.351562 l -0.482421,1.558594 H 9 a 0.50005,0.50005 0 0 0 -0.3027344,0.896485 l 1.2675782,0.966796 -0.4882813,1.578125 a 0.50005,0.50005 0 0 0 0.7812505,0.544922 L 11.5,25.447266 l 1.242188,0.949218 a 0.50005,0.50005 0 0 0 0.78125,-0.544922 l -0.488282,-1.578125 1.267578,-0.966796 A 0.50005,0.50005 0 0 0 14,22.410156 H 12.460938 L 11.978516,20.851562 A 0.50005,0.50005 0 0 0 11.5,20.5 Z m -0.220703,2.910156 h 0.441406 L 11.873047,23.90625 11.5,24.191406 11.126953,23.90625 Z"
+     id="path97973" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path97979" />
 </svg>

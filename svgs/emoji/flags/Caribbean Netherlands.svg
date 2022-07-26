@@ -1,15 +1,73 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#1e50a0" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon fill="#fff" points="5 17 5 55 67 17 5 17"/>
-    <g>
-      <polygon fill="#d22f27" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" points="19.518 31 23.132 37.259 15.904 37.259 19.518 31"/>
-      <polygon fill="#d22f27" stroke="#d22f27" stroke-linecap="round" stroke-linejoin="round" points="19.518 39.345 15.904 33.086 23.132 33.086 19.518 39.345"/>
-    </g>
-    <circle cx="19.518" cy="35.1726" r="6" fill="none" stroke="#000" stroke-miterlimit="10"/>
-    <polygon fill="#f1b31c" points="5 17 5 33 30 17 5 17"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Caribbean Netherlands.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs89121" />
+  <sodipodi:namedview
+     id="namedview89119"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-62.084745"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     style="color:#000000;fill:#1e50a0;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="M 5,17 H 67 V 55 H 5 Z"
+     id="path93034" />
+  <path
+     style="color:#000000;fill:#d22f27;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="M 5,16.5 A 0.50005,0.50005 0 0 0 4.5,17 V 55 A 0.50005,0.50005 0 0 0 5,55.5 H 67 A 0.50005,0.50005 0 0 0 67.5,55 V 17 A 0.50005,0.50005 0 0 0 67,16.5 Z m 0.5,1 h 61 v 37 h -61 z"
+     id="path93037" />
+  <path
+     id="path93040"
+     style="fill:#ffffff"
+     d="M 67,17 H 5 v 38 z" />
+  <path
+     style="color:#000000;fill:#d22f27;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="M 23.132,37.259 H 15.904 L 19.518,31 Z"
+     id="path93028" />
+  <path
+     style="color:#000000;fill:#d22f27;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 19.517578,30.5 a 0.50005,0.50005 0 0 0 -0.431641,0.25 l -3.615234,6.259766 a 0.50005,0.50005 0 0 0 0.433594,0.75 h 7.228515 a 0.50005,0.50005 0 0 0 0.431641,-0.75 L 19.951172,30.75 A 0.50005,0.50005 0 0 0 19.517578,30.5 Z m 0.002,1.5 2.746094,4.759766 h -5.494141 z"
+     id="path93031" />
+  <path
+     style="color:#000000;fill:#d22f27;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 15.904,33.086 h 7.228 l -3.614,6.259 z"
+     id="path93022" />
+  <path
+     style="color:#000000;fill:#d22f27;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 15.904297,32.585937 a 0.50005,0.50005 0 0 0 -0.433594,0.75 l 3.615234,6.259766 a 0.50005,0.50005 0 0 0 0.865235,0 l 3.613281,-6.259766 a 0.50005,0.50005 0 0 0 -0.431641,-0.75 z m 0.867187,1 h 5.494141 l -2.746094,4.759766 z"
+     id="path93025" />
+  <path
+     style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
+     d="m 19.517578,28.671875 c -3.583925,0 -6.5,2.916075 -6.5,6.5 0,3.583925 2.916075,6.5 6.5,6.5 3.583925,0 6.5,-2.916075 6.5,-6.5 0,-3.583925 -2.916075,-6.5 -6.5,-6.5 z m 0,1 c 3.043486,0 5.5,2.456515 5.5,5.5 0,3.043485 -2.456514,5.5 -5.5,5.5 -3.043485,0 -5.5,-2.456515 -5.5,-5.5 0,-3.043485 2.456515,-5.5 5.5,-5.5 z"
+     id="path93043" />
+  <path
+     id="path93046"
+     style="fill:#f1b31c"
+     d="M 30,17 H 5 v 16 z" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path93049" />
 </svg>

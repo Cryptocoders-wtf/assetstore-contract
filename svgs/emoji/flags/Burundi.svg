@@ -1,18 +1,81 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#fff"/>
-    <polygon fill="#d22f27" points="63.173 17 8.827 17 36 33.654 63.173 17"/>
-    <polygon fill="#d22f27" points="63.173 55 36 38.346 8.827 55 63.173 55"/>
-    <polygon fill="#5c9e31" points="67 19.346 39.827 36 67 52.654 67 19.346"/>
-    <polygon fill="#5c9e31" points="5 52.654 32.173 36 5 19.346 5 52.654"/>
-    <circle cx="36" cy="36" r="10" fill="#fff"/>
-    <circle cx="36" cy="31" r="2" fill="#d22f27"/>
-    <circle cx="40.3301" cy="38.5" r="2" fill="#d22f27"/>
-    <circle cx="31.6699" cy="38.5" r="2" fill="#d22f27"/>
-    <line x1="31.6699" x2="36" y1="38.5" y2="36" fill="none"/>
-    <line x1="40.3301" x2="36" y1="38.5" y2="36" fill="none"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Burundi.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs87294" />
+  <sodipodi:namedview
+     id="namedview87292"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path87551"
+     style="fill:#ffffff"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path87554"
+     style="fill:#d22f27"
+     d="M 36,33.654 63.173,17 H 8.827 Z" />
+  <path
+     id="path87557"
+     style="fill:#d22f27"
+     d="M 8.827,55 H 63.173 L 36,38.346 Z" />
+  <path
+     id="path87560"
+     style="fill:#5c9e31"
+     d="M 67,52.654 V 19.346 L 39.827,36 Z" />
+  <path
+     id="path87563"
+     style="fill:#5c9e31"
+     d="M 5,19.346 V 52.654 L 32.173,36 Z" />
+  <path
+     id="path87566"
+     style="fill:#ffffff"
+     d="M 46,36 A 10,10 0 0 1 36,46 10,10 0 0 1 26,36 10,10 0 0 1 36,26 10,10 0 0 1 46,36 Z" />
+  <path
+     id="path87569"
+     style="fill:#d22f27"
+     d="m 38,31 a 2,2 0 0 1 -2,2 2,2 0 0 1 -2,-2 2,2 0 0 1 2,-2 2,2 0 0 1 2,2 z" />
+  <path
+     id="path87572"
+     style="fill:#d22f27"
+     d="m 42.330101,38.5 a 2,2 0 0 1 -2,2 2,2 0 0 1 -2,-2 2,2 0 0 1 2,-2 2,2 0 0 1 2,2 z" />
+  <path
+     id="path87575"
+     style="fill:#d22f27"
+     d="m 33.669901,38.5 a 2,2 0 0 1 -2,2 2,2 0 0 1 -2,-2 2,2 0 0 1 2,-2 2,2 0 0 1 2,2 z" />
+  <path
+     id="path87578"
+     style="fill:none"
+     d="M 31.669901,38.5 36,36" />
+  <path
+     id="path87581"
+     style="fill:none"
+     d="M 40.330101,38.5 36,36" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path87548" />
 </svg>
