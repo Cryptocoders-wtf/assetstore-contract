@@ -1,11 +1,57 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#1e50a0"/>
-    <rect x="5" y="36" width="62" height="19" fill="#d22f27"/>
-    <line x1="18" x2="18" y1="22" y2="30" fill="#fcea2b" stroke="#fcea2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    <path fill="none" stroke="#fcea2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18,28a3,3,0,0,1,3-3c1.6569,0,4.1391,1.4725,2,6H13c-2.1391-4.5275.3431-6,2-6a3,3,0,0,1,3,3"/>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Liechtenstein.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2473" />
+  <sodipodi:namedview
+     id="namedview2471"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path2644"
+     style="fill:#1e50a0"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     id="path2647"
+     style="fill:#d22f27"
+     d="M 5,36 H 67 V 55 H 5 Z" />
+  <path
+     style="color:#000000;fill:#fcea2b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 18,22 v 8"
+     id="path2638" />
+  <path
+     style="color:#000000;fill:#fcea2b;stroke-linecap:round;stroke-linejoin:round"
+     d="m 18,21 a 1,1 0 0 0 -1,1 v 8 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -8 a 1,1 0 0 0 -1,-1 z"
+     id="path2635" />
+  <path
+     style="color:#000000;fill:#fcea2b;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 15,24 c -1.124685,0 -2.501213,0.48667 -3.28125,1.787109 -0.780037,1.30044 -0.774306,3.203935 0.376953,5.640625 A 1.0001,1.0001 0 0 0 13,32 h 10 a 1.0001,1.0001 0 0 0 0.904297,-0.572266 c 1.151259,-2.43669 1.15699,-4.340185 0.376953,-5.640625 C 23.501213,24.48667 22.124685,24 21,24 19.789085,24 18.735562,24.576243 18,25.435547 17.264438,24.576243 16.210915,24 15,24 Z m 0,2 c 1.116413,0 2,0.883587 2,2 A 1,1 0 0 0 17.292969,28.707031 1,1 0 0 0 18,29 1,1 0 0 0 19,28 c 0,-1.116413 0.883587,-2 2,-2 0.532214,0 1.225895,0.248723 1.566406,0.816406 0.300717,0.50134 0.345156,1.536539 -0.298828,3.183594 H 13.732422 C 13.088438,28.352945 13.132877,27.317746 13.433594,26.816406 13.774105,26.248723 14.467786,26 15,26 Z"
+     id="path2632" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path2641" />
 </svg>

@@ -1,37 +1,161 @@
-<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
-  <g id="color">
-    <rect x="5" y="17" width="62" height="38" fill="#1e50a0"/>
-    <polygon fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="2" points="67.004 33.045 39.004 33.004 39.028 17.004 33.028 16.996 33.004 32.996 5.004 32.955 4.996 38.955 32.996 38.996 32.972 54.996 38.972 55.004 38.996 39.004 66.996 39.045 67.004 33.045"/>
-    <g>
-      <line x1="16" x2="22.5" y1="50" y2="50" fill="#f1b31c" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line x1="16" x2="22.5" y1="50" y2="49" fill="#f1b31c" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <circle cx="22.5" cy="49.5" r="0.5" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19,47a3,3,0,0,0,3,3"/>
-      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17,44h1.5a.5015.5015,0,0,1,.5.5V47"/>
-    </g>
-    <g>
-      <line x1="16" x2="22.5" y1="28" y2="28" fill="#f1b31c" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line x1="16" x2="22.5" y1="28" y2="27" fill="#f1b31c" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <circle cx="22.5" cy="27.5" r="0.5" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19,25a3,3,0,0,0,3,3"/>
-      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17,22h1.5a.5015.5015,0,0,1,.5.5V25"/>
-    </g>
-    <g>
-      <line x1="50" x2="56.5" y1="50" y2="50" fill="#f1b31c" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line x1="50" x2="56.5" y1="50" y2="49" fill="#f1b31c" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <circle cx="56.5" cy="49.5" r="0.5" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M53,47a3,3,0,0,0,3,3"/>
-      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M51,44h1.5a.5015.5015,0,0,1,.5.5V47"/>
-    </g>
-    <g>
-      <line x1="50" x2="56.5" y1="28" y2="28" fill="#f1b31c" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line x1="50" x2="56.5" y1="28" y2="27" fill="#f1b31c" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <circle cx="56.5" cy="27.5" r="0.5" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M53,25a3,3,0,0,0,3,3"/>
-      <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M51,22h1.5a.5015.5015,0,0,1,.5.5V25"/>
-    </g>
-  </g>
-  <g id="line">
-    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="emoji"
+   viewBox="0 0 72 72"
+   version="1.1"
+   sodipodi:docname="Martinique.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5190" />
+  <sodipodi:namedview
+     id="namedview5188"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.2777778"
+     inkscape:cx="-13.271186"
+     inkscape:cy="36"
+     inkscape:window-width="1309"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="emoji" />
+  <path
+     id="path5637"
+     style="fill:#1e50a0"
+     d="M 5,17 H 67 V 55 H 5 Z" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-width:2;stroke-miterlimit:10"
+     d="m 39.028,17.004 -6,-0.008 -0.024,16 -28,-0.041 -0.008,6 28,0.041 -0.024,16 6,0.008 0.024,-16 28,0.041 0.008,-6 -28,-0.041 z"
+     id="path5634" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-miterlimit:10"
+     d="m 32.029297,15.994141 -0.02344,16 -27.9999996,-0.04102 -0.011719,8 28.0000006,0.04102 -0.02344,16 8,0.01172 0.02344,-16 28,0.04102 0.01172,-8 -28,-0.04102 0.02344,-16 -1,-0.002 z m 1.998047,2.003906 3.998047,0.0039 -0.02344,16 28,0.04102 -0.0039,4 -28,-0.04102 -0.02539,16 -3.998047,-0.0039 0.02344,-16 -28.0000001,-0.04102 0.00391,-4 28.0000001,0.04102 z"
+     id="path5631" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 16,50 h 6.5"
+     id="path5571" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 16,49 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 6.5 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="path5568" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 16,50 6.5,-1"
+     id="path5577" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 22.347656,48.011719 -6.5,1 a 1,1 0 0 0 -0.835937,1.140625 1,1 0 0 0 1.140625,0.835937 l 6.5,-1 a 1,1 0 0 0 0.835937,-1.140625 1,1 0 0 0 -1.140625,-0.835937 z"
+     id="path5574" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="M 22.5,48 C 21.683418,48 21,48.683418 21,49.5 21,50.316582 21.683418,51 22.5,51 23.316582,51 24,50.316582 24,49.5 24,48.683418 23.316582,48 22.5,48 Z m 0,1 C 22.764297,49 23,49.235703 23,49.5 23,49.764297 22.764297,50 22.5,50 22.235703,50 22,49.764297 22,49.5 22,49.235703 22.235703,49 22.5,49 Z"
+     id="path5580" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+     d="m 19,46 a 1,1 0 0 0 -1,1 c 0,2.197292 1.802708,4 4,4 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 c -1.116413,0 -2,-0.883587 -2,-2 a 1,1 0 0 0 -1,-1 z"
+     id="path5544" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 17,43 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 1 v 2 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -2.5 a 1.0001,1.0001 0 0 0 0,-0.0039 C 19.997569,43.681968 19.318032,43.002431 18.503906,43 A 1.0001,1.0001 0 0 0 18.5,43 Z"
+     id="path5547" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 16,28 h 6.5"
+     id="path5586" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 16,27 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 6.5 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="path5583" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 16,28 6.5,-1"
+     id="path5592" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 22.347656,26.011719 -6.5,1 a 1,1 0 0 0 -0.835937,1.140625 1,1 0 0 0 1.140625,0.835937 l 6.5,-1 a 1,1 0 0 0 0.835937,-1.140625 1,1 0 0 0 -1.140625,-0.835937 z"
+     id="path5589" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="M 22.5,26 C 21.683418,26 21,26.683418 21,27.5 21,28.316582 21.683418,29 22.5,29 23.316582,29 24,28.316582 24,27.5 24,26.683418 23.316582,26 22.5,26 Z m 0,1 C 22.764297,27 23,27.235703 23,27.5 23,27.764297 22.764297,28 22.5,28 22.235703,28 22,27.764297 22,27.5 22,27.235703 22.235703,27 22.5,27 Z"
+     id="path5595" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 19,24 a 1,1 0 0 0 -1,1 c 0,2.197292 1.802708,4 4,4 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 c -1.116413,0 -2,-0.883587 -2,-2 a 1,1 0 0 0 -1,-1 z"
+     id="path5550" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 17,21 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 1 v 2 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -2.5 a 1.0001,1.0001 0 0 0 0,-0.0039 C 19.997569,21.681968 19.318032,21.002431 18.503906,21 A 1.0001,1.0001 0 0 0 18.5,21 Z"
+     id="path5553" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 50,50 h 6.5"
+     id="path5601" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 50,49 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 6.5 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="path5598" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 50,50 6.5,-1"
+     id="path5607" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 56.347656,48.011719 -6.5,1 a 1,1 0 0 0 -0.835937,1.140625 1,1 0 0 0 1.140625,0.835937 l 6.5,-1 a 1,1 0 0 0 0.835937,-1.140625 1,1 0 0 0 -1.140625,-0.835937 z"
+     id="path5604" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="M 56.5,48 C 55.683418,48 55,48.683418 55,49.5 55,50.316582 55.683418,51 56.5,51 57.316582,51 58,50.316582 58,49.5 58,48.683418 57.316582,48 56.5,48 Z m 0,1 C 56.764297,49 57,49.235703 57,49.5 57,49.764297 56.764297,50 56.5,50 56.235703,50 56,49.764297 56,49.5 56,49.235703 56.235703,49 56.5,49 Z"
+     id="path5610" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 53,46 a 1,1 0 0 0 -1,1 c 0,2.197292 1.802708,4 4,4 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 c -1.116413,0 -2,-0.883587 -2,-2 a 1,1 0 0 0 -1,-1 z"
+     id="path5556" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 51,43 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 1 v 2 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -2.5 a 1.0001,1.0001 0 0 0 0,-0.0039 C 53.997569,43.681968 53.318032,43.002431 52.503906,43 A 1.0001,1.0001 0 0 0 52.5,43 Z"
+     id="path5559" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 50,28 h 6.5"
+     id="path5616" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 50,27 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 6.5 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z"
+     id="path5613" />
+  <path
+     style="color:#000000;fill:#f1b31c;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+     d="m 50,28 6.5,-1"
+     id="path5622" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 56.347656,26.011719 -6.5,1 a 1,1 0 0 0 -0.835937,1.140625 1,1 0 0 0 1.140625,0.835937 l 6.5,-1 a 1,1 0 0 0 0.835937,-1.140625 1,1 0 0 0 -1.140625,-0.835937 z"
+     id="path5619" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="M 56.5,26 C 55.683418,26 55,26.683418 55,27.5 55,28.316582 55.683418,29 56.5,29 57.316582,29 58,28.316582 58,27.5 58,26.683418 57.316582,26 56.5,26 Z m 0,1 C 56.764297,27 57,27.235703 57,27.5 57,27.764297 56.764297,28 56.5,28 56.235703,28 56,27.764297 56,27.5 56,27.235703 56.235703,27 56.5,27 Z"
+     id="path5625" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 53,24 a 1,1 0 0 0 -1,1 c 0,2.197292 1.802708,4 4,4 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 c -1.116413,0 -2,-0.883587 -2,-2 a 1,1 0 0 0 -1,-1 z"
+     id="path5562" />
+  <path
+     style="color:#000000;fill:#ffffff;stroke-linecap:round;stroke-linejoin:round"
+     d="m 51,21 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 1 v 2 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -2.5 a 1.0001,1.0001 0 0 0 0,-0.0039 C 53.997569,21.681968 53.318032,21.002431 52.503906,21 A 1.0001,1.0001 0 0 0 52.5,21 Z"
+     id="path5565" />
+  <path
+     style="color:#000000;fill:#000000;stroke-linecap:round;stroke-linejoin:round"
+     d="m 5,16 a 1.0001,1.0001 0 0 0 -1,1 v 38 a 1.0001,1.0001 0 0 0 1,1 h 62 a 1.0001,1.0001 0 0 0 1,-1 V 17 a 1.0001,1.0001 0 0 0 -1,-1 z m 1,2 H 66 V 54 H 6 Z"
+     id="path5628" />
 </svg>
