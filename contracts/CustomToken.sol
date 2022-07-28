@@ -44,6 +44,9 @@ contract CustomToken is Ownable, ERC721A, IAssetStoreToken {
   // OpenSea's Proxy Registry
   IProxyRegistry public immutable proxyRegistry;
 
+  // Optional background assetId
+  mapping(uint256 => uint256) backgroundIds; // assetId (from) => assetId (background)
+
   /*
    * @notice both _registry and _assetStore points to the AssetStore.
    */
@@ -52,7 +55,7 @@ contract CustomToken is Ownable, ERC721A, IAssetStoreToken {
     IAssetStore _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
-  ) ERC721A("Custom Token", "CUSTOM") {
+  ) ERC721A("Draw Your Own NFT", "DrawNFT") {
     registry = _registry;
     assetStore = _assetStore;
     developer = _developer;
@@ -68,10 +71,13 @@ contract CustomToken is Ownable, ERC721A, IAssetStoreToken {
    * mint three tokens to the msg.sender, and one additional
    * token to either the affiliator, the developer or the owner.npnkda
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
-    _assetInfo.group = "Custom (CC0 or CC BY-SA 4.0)";
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _backgroundId, uint256 _affiliate) external {
+    _assetInfo.group = "Draw Your Own (CC0 or CC BY-SA 4.0)";
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
+    if (_backgroundId > 0) {
+      backgroundIds[assetId] = _backgroundId;
+    }
 
     assetIds[tokenId / _tokensPerAsset] = assetId;
     _mint(msg.sender, _tokensPerAsset - 1);
