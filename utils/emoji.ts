@@ -22,7 +22,7 @@ categories.map(category => {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
     const items = files.filter((file, index) => {
-      return index>=0 && index < 80;
+      return index>=0 && index < 79;
     })
     .filter((file, index) =>{ return file != '.DS_Store'; })
     .map((file, index) => {
