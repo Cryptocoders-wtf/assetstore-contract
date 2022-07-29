@@ -7,7 +7,7 @@ async function main() {
   const storeFactory = await ethers.getContractFactory("AssetStore");
   const assetStore = storeFactory.attach(storeAddress);
 
-  const factory = await ethers.getContractFactory("CustomToken");
+  const factory = await ethers.getContractFactory("DrawYourOwn");
   const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy);
   await tokenContract.deployed();
   console.log(`      tokenAddress="${tokenContract.address}"`);
@@ -18,7 +18,7 @@ async function main() {
   const addresses = `export const token_addresses = {\n`
   + `  customTokenAddress:"${tokenContract.address}"\n`
   + `}\n`;
-  await writeFile(`./cache/addresses_custom_${network.name}.ts`, addresses, ()=>{});
+  await writeFile(`./cache/addresses_draw_${network.name}.ts`, addresses, ()=>{});
 }
 
 main().catch((error) => {

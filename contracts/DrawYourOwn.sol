@@ -25,7 +25,7 @@ import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
 
-contract CustomToken is Ownable, ERC721A, IAssetStoreToken {
+contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   using Strings for uint256;
   using Strings for uint16;
 
