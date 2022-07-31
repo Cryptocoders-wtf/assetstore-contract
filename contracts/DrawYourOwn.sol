@@ -131,7 +131,6 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       "white", "url(#silver)", "url(#gold)", "url(#sky)" 
     ];
 
-    bytes memory assetTag = abi.encodePacked('#', _tag);
     uint index = _style % _tokensPerAsset;
     bytes memory image = abi.encodePacked(
       SVGHeader,
@@ -165,7 +164,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       image,
       '</defs>\n'
       ' <rect x="0" y="0" width="100%" height="100%" fill="',backColors[index],'" />\n'
-      ' <use href="', assetTag, '" />\n'
+      ' <use href="#', _tag, '" />\n'
       '</svg>\n');
     return string(image);
   }
@@ -228,9 +227,9 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       '<defs>\n',
       svgPart, remixPart,
       '</defs>\n'
-      '<g id=', tag, '>\n'
-      ' <use href="', tagRemix, '" />\n'
-      ' <use href="', attr.tag, '"');
+      '<g id="#', tag, '" >\n'
+      ' <use href="#', tagRemix, '" />\n'
+      ' <use href="#', attr.tag, '"');
     if (color.length > 0) {
       res = abi.encodePacked(res, ' fill="', color, '"');
     }  
