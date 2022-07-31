@@ -46,7 +46,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
 
   // Optional remix tokenId and color
   mapping(uint256 => uint256) remixIds; // assetId (from) => tokenId (to remix)
-  mapping(uint256 => string) colors; // assetId (from) => color to render the remix asset
+  mapping(uint256 => bytes) colors; // assetId (from) => color to render the remix asset
 
   /*
    * @notice both _registry and _assetStore points to the AssetStore.
@@ -72,16 +72,17 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * mint three tokens to the msg.sender, and one additional
    * token to either the affiliator, the developer or the owner.npnkda
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _tokenId, string memory _color, uint256 _affiliate) external {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color, uint256 _affiliate) external {
     _assetInfo.group = "Draw Your Own (CC0 or CC BY-SA 4.0)";
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
-    if (_tokenId > 0) {
-      remixIds[assetId] = _tokenId;
+    if (_remixId > 0) {
+      require(_remixId < tokenId, "mintWithAsset: Invalid _remixId");
+      remixIds[assetId] = _remixId;
     }
     if (bytes(_color).length > 0) {
       require(assetStore.getStringValidator().validate(bytes(_color)), "DrawYourOwn:mintWithAsset Invalid Color");
-      colors[assetId] = _color;
+      colors[assetId] = bytes(_color);
     }
 
     assetIds[tokenId / _tokensPerAsset] = assetId;
@@ -217,16 +218,19 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
     uint256 remixId = remixIds[assetId];
-    bytes memory color = bytes(colors[assetId]);
+    bytes memory color = colors[assetId];
     if (remixId == 0) {
       return (svgPart, attr.tag);
     }
     (string memory remixPart, string memory tagRemix) = generateSVGPart(remixId);
     bytes memory tag = abi.encodePacked("token", _tokenId.toString());
-    bytes memory res = abi.encodePacked(svgPart, remixPart,
-      '<g id=', tag, '/>\n'
+    bytes memory res = abi.encodePacked(
+      '<defs>\n',
+      svgPart, remixPart,
+      '</defs>\n'
+      '<g id=', tag, '>\n'
       ' <use href="', tagRemix, '" />\n'
-      ' <use href="', assetId, '"');
+      ' <use href="', attr.tag, '"');
     if (color.length > 0) {
       res = abi.encodePacked(res, ' fill="', color, '"');
     }  
@@ -243,8 +247,8 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     require(_exists(_tokenId), 'CustomToken.tokenURI: nonexistent token');
     uint256 assetId = assetIdOfToken(_tokenId);
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
-    (string memory svgPart,) = generateSVGPart(_tokenId);
-    bytes memory image = bytes(generateSVG(svgPart, _tokenId % _tokensPerAsset, attr.tag));
+    (string memory svgPart, string memory tag) = generateSVGPart(_tokenId);
+    bytes memory image = bytes(generateSVG(svgPart, _tokenId % _tokensPerAsset, tag));
 
     return string(
       abi.encodePacked(
