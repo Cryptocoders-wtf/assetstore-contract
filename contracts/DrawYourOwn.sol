@@ -224,9 +224,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     (string memory remixPart, string memory tagRemix) = generateSVGPart(remixId);
     bytes memory tag = abi.encodePacked("token", _tokenId.toString());
     bytes memory res = abi.encodePacked(
-      '<defs>\n',
       svgPart, remixPart,
-      '</defs>\n'
       '<g id="', tag, '" >\n'
       ' <use href="#', tagRemix, '" />\n'
       ' <use href="#', attr.tag, '"');
