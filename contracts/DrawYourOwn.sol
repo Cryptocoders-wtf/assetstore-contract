@@ -227,7 +227,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       '<defs>\n',
       svgPart, remixPart,
       '</defs>\n'
-      '<g id="#', tag, '" >\n'
+      '<g id="', tag, '" >\n'
       ' <use href="#', tagRemix, '" />\n'
       ' <use href="#', attr.tag, '"');
     if (color.length > 0) {
