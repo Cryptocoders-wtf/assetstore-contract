@@ -212,6 +212,29 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       description = _description;
   }
 
+  function generateSVGPart(uint256 _tokenId) public view returns(string memory, string memory) {
+    uint256 assetId = assetIdOfToken(_tokenId);
+    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
+    string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
+    uint256 remixId = remixIds[assetId];
+    bytes memory color = bytes(colors[assetId]);
+    if (remixId == 0) {
+      return (svgPart, attr.tag);
+    }
+    (string memory remixPart, string memory tagRemix) = generateSVGPart(remixId);
+    bytes memory tag = abi.encodePacked("token", _tokenId.toString());
+    bytes memory res = abi.encodePacked(svgPart, remixPart,
+      '<g id=', tag, '/>\n'
+      ' <use href="', tagRemix, '" />\n'
+      ' <use href="', assetId, '"');
+    if (color.length > 0) {
+      res = abi.encodePacked(res, ' fill="', color, '"');
+    }  
+    res = abi.encodePacked(res, ' />\n'
+      '</g>\n');
+    return (string(res), string(tag));
+  }
+
   /**
     * @notice A distinct Uniform Resource Identifier (URI) for a given asset.
     * @dev See {IERC721Metadata-tokenURI}.
@@ -220,7 +243,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     require(_exists(_tokenId), 'CustomToken.tokenURI: nonexistent token');
     uint256 assetId = assetIdOfToken(_tokenId);
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
-    string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
+    (string memory svgPart,) = generateSVGPart(_tokenId);
     bytes memory image = bytes(generateSVG(svgPart, _tokenId % _tokensPerAsset, attr.tag));
 
     return string(
