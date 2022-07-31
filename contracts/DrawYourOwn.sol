@@ -44,8 +44,9 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   // OpenSea's Proxy Registry
   IProxyRegistry public immutable proxyRegistry;
 
-  // Optional background assetId
-  mapping(uint256 => uint256) backgroundIds; // assetId (from) => assetId (background)
+  // Optional remix tokenId and color
+  mapping(uint256 => uint256) remixIds; // assetId (from) => tokenId (to remix)
+  mapping(uint256 => string) colors; // assetId (from) => color to render the remix asset
 
   /*
    * @notice both _registry and _assetStore points to the AssetStore.
@@ -71,12 +72,16 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * mint three tokens to the msg.sender, and one additional
    * token to either the affiliator, the developer or the owner.npnkda
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _backgroundId, uint256 _affiliate) external {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _tokenId, string memory _color, uint256 _affiliate) external {
     _assetInfo.group = "Draw Your Own (CC0 or CC BY-SA 4.0)";
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId(); 
-    if (_backgroundId > 0) {
-      backgroundIds[assetId] = _backgroundId;
+    if (_tokenId > 0) {
+      remixIds[assetId] = _tokenId;
+    }
+    if (bytes(_color).length > 0) {
+      require(assetStore.getStringValidator().validate(bytes(_color)), "DrawYourOwn:mintWithAsset Invalid Color");
+      colors[assetId] = _color;
     }
 
     assetIds[tokenId / _tokensPerAsset] = assetId;
