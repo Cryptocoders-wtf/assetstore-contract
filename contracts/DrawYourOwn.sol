@@ -91,7 +91,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
 
     // Specified affliate token must be one of the primary tokens and not owned by the minter.
     if (_remixId > 0) {
-      _mint(ownerOf(_remixId), 1);
+      _mint(ownerOf(_remixId - _remixId % _tokensPerAsset), 1);
     } else if ((tokenId / _tokensPerAsset) % 4 == 0) {
       // 1 in 16 tokens of non-affiliated mints go to the developer
       _mint(developer, 1);
@@ -187,8 +187,8 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     return _tokensPerAsset;
   }
 
-  function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
-    return abi.encodePacked(
+  function _generateTraits(uint256 _assetId, uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
+    bytes memory pack = abi.encodePacked(
       '{'
         '"trait_type":"Primary",'
         '"value":"', _isPrimary(_tokenId) ? 'Yes':'No', '"' 
@@ -200,13 +200,22 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
         '"value":"', _attr.category, '"' 
       '},{'
         '"trait_type":"Name",'
-        '"value":"', _attr.name, '"' 
+        '"value":"', _attr.name, '"');
+    uint256 remixId = remixIds[_assetId];
+    if (remixId > 0) {
+      pack = abi.encodePacked(pack,
+      '},{'
+        '"trait_type":"RemixId",'
+        '"value":"Drawing ', (remixId - remixId % _tokensPerAsset).toString(), '"');
+    }
+    pack = abi.encodePacked(pack,  
       '},{'
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
               assetStore.getStringValidator().sanitizeJason(_attr.minter) : bytes('(anonymous)'), '"' 
       '}'
     );
+    return pack;
   }
 
   function setDescription(string memory _description) external onlyOwner {
@@ -256,7 +265,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
             abi.encodePacked(
               '{"name":"Drawing ', _tokenId.toString(), 
                 '","description":"', description, 
-                '","attributes":[', _generateTraits(_tokenId, attr), 
+                '","attributes":[', _generateTraits(assetId, _tokenId, attr), 
                 '],"image":"data:image/svg+xml;base64,', 
                 Base64.encode(image), 
               '"}')
