@@ -199,7 +199,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
         '"value":"', _attr.category, '"' 
       '},{'
         '"trait_type":"Name",'
-        '"value":"', _attr.name, '"' 
+        '"value":"Drawing ', _tokenId.toString(), '"' 
       '},{'
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
@@ -253,7 +253,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
         Base64.encode(
           bytes(
             abi.encodePacked(
-              '{"name":"', attr.name, 
+              '{"name":"Drawing ', _tokenId.toString(), 
                 '","description":"', description, 
                 '","attributes":[', _generateTraits(_tokenId, attr), 
                 '],"image":"data:image/svg+xml;base64,', 
