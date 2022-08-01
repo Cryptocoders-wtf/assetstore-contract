@@ -73,7 +73,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * token to either the affiliator, the developer or the owner.npnkda
    */
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color) external {
-    _assetInfo.group = "Draw Your Own (CC0 or CC BY-SA 4.0)";
+    _assetInfo.group = "Draw Your Own";
     uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId();
     if (_remixId > 0) {
