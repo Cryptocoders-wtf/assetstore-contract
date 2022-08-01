@@ -73,9 +73,10 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * token to either the affiliator, the developer or the owner.npnkda
    */
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color) external {
-    _assetInfo.group = "Draw Your Own";
-    uint256 assetId = registry.registerAsset(_assetInfo);
     uint256 tokenId = _nextTokenId();
+    _assetInfo.group = "Draw Your Own";
+    _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
+    uint256 assetId = registry.registerAsset(_assetInfo);
     if (_remixId > 0) {
       require(_remixId < tokenId, "mintWithAsset: Invalid _remixId");
       remixIds[assetId] = _remixId;
@@ -199,7 +200,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
         '"value":"', _attr.category, '"' 
       '},{'
         '"trait_type":"Name",'
-        '"value":"Drawing ', _tokenId.toString(), '"' 
+        '"value":"', _attr.name, '"' 
       '},{'
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
