@@ -72,25 +72,25 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * mint three tokens to the msg.sender, and one additional
    * token to either the affiliator, the developer or the owner.npnkda
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color, uint256 _affiliate) external {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color) external {
     _assetInfo.group = "Draw Your Own (CC0 or CC BY-SA 4.0)";
     uint256 assetId = registry.registerAsset(_assetInfo);
-    uint256 tokenId = _nextTokenId(); 
+    uint256 tokenId = _nextTokenId();
     if (_remixId > 0) {
       require(_remixId < tokenId, "mintWithAsset: Invalid _remixId");
       remixIds[assetId] = _remixId;
-    }
-    if (bytes(_color).length > 0) {
-      require(assetStore.getStringValidator().validate(bytes(_color)), "DrawYourOwn:mintWithAsset Invalid Color");
-      colors[assetId] = bytes(_color);
+      if (bytes(_color).length > 0) {
+        require(assetStore.getStringValidator().validate(bytes(_color)), "DrawYourOwn:mintWithAsset Invalid Color");
+        colors[assetId] = bytes(_color);
+      }
     }
 
     assetIds[tokenId / _tokensPerAsset] = assetId;
     _mint(msg.sender, _tokensPerAsset - 1);
 
     // Specified affliate token must be one of the primary tokens and not owned by the minter.
-    if (_affiliate > 0 && _isPrimary(_affiliate) && ownerOf(_affiliate) != msg.sender) {
-      _mint(ownerOf(_affiliate), 1);
+    if (_remixId > 0) {
+      _mint(ownerOf(_remixId), 1);
     } else if ((tokenId / _tokensPerAsset) % 4 == 0) {
       // 1 in 16 tokens of non-affiliated mints go to the developer
       _mint(developer, 1);
