@@ -5,7 +5,7 @@ const encoder = new TextEncoder();
 
 async function main() {
   // We get the contract to deploy
-  const factory = await ethers.getContractFactory("CustomToken");
+  const factory = await ethers.getContractFactory("DrawYourOwn");
   const contract = factory.attach(addresses.tokenAddress);
   Object.keys(contract.functions).map((k)=>console.log(ethers.utils.keccak256(encoder.encode(k)).substring(0,10),  k));
 

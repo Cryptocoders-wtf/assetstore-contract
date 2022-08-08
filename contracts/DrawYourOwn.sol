@@ -74,7 +74,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * mint three tokens to the msg.sender, and one additional
    * token to either the affiliator, the developer or the owner.npnkda
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color, string memory _transform) external {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color, string memory _transform, IAssetComposer.LayerInfo[] memory overlays) external {
     uint256 tokenId = _nextTokenId();
     _assetInfo.group = "Draw Your Own";
     _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
@@ -85,7 +85,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     if (_remixId == 0) {
       assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
     } else {
-      IAssetComposer.AssetInfo[] memory infos = new IAssetComposer.AssetInfo[](2);
+      IAssetComposer.LayerInfo[] memory infos = new IAssetComposer.LayerInfo[](2);
       uint256 remixAssetId = assetIdOfToken(_remixId);
       infos[0].assetId = remixAssetId / 2;
       infos[0].isComposition = (remixAssetId % 2 == 0);

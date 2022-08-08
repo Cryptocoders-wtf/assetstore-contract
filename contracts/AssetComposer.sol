@@ -24,14 +24,14 @@ contract AssetComposer is Ownable, IAssetComposer {
     assetStore = _assetStore;
   }
 
-  function register(AssetInfo[] memory _infos) external override returns(uint256) {
+  function register(LayerInfo[] memory _infos) external override returns(uint256) {
     IStringValidator validator = assetStore.getStringValidator();
     uint256 compositionId = nextId++;
     //uint256 assetCount = assetStore.getAssetCount();
     uint256 i;
     uint256[] storage assetIds = assets[compositionId];
     for (i=0; i<_infos.length; i++) {
-      AssetInfo memory info = _infos[i];
+      LayerInfo memory info = _infos[i];
       uint256 assetId = info.assetId;
       if (info.isComposition) {
         require(assetId < nextId, "register: Invalid compositionId");
