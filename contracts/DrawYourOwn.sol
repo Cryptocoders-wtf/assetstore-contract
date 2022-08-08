@@ -35,7 +35,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   IAssetStore public immutable assetStore;
 
   uint256 constant _tokensPerAsset = 4;
-  mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId
+  mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId (*2+1) or compositionId (*2)
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf/draw]. ";
@@ -82,16 +82,21 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     _assetInfo.group = "Draw Your Own";
     _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
     uint256 assetId = registry.registerAsset(_assetInfo);
-    if (_remixId > 0) {
-      require(_remixId < tokenId, "mintWithAsset: Invalid _remixId");
-      remixIds[assetId] = _remixId;
-      if (bytes(_color).length > 0) {
-        require(assetStore.getStringValidator().validate(bytes(_color)), "DrawYourOwn:mintWithAsset Invalid Color");
-        colors[assetId] = bytes(_color);
-      }
+
+    // @notice
+    if (_remixId == 0) {
+      assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
+    } else {
+      IAssetComposer.AssetInfo[] memory infos = new IAssetComposer.AssetInfo[](2);
+      uint256 remixAssetId = assetIdOfToken(_remixId);
+      infos[0].assetId = remixAssetId / 2;
+      infos[0].isComposition = (remixAssetId % 2 == 0);
+      infos[0].fill = _color;
+      infos[1].assetId = assetId;      
+      uint256 compositionId = assetComposer.register(infos);
+      assetIds[tokenId / _tokensPerAsset] = compositionId * 2; // @notice
     }
 
-    assetIds[tokenId / _tokensPerAsset] = assetId;
     _mint(msg.sender, _tokensPerAsset - 1);
 
     // Specified affliate token must be one of the primary tokens and not owned by the minter.
@@ -229,26 +234,13 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
 
   function generateSVGPart(uint256 _tokenId) public view returns(string memory, string memory) {
     uint256 assetId = assetIdOfToken(_tokenId);
-    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
-    string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
-    uint256 remixId = remixIds[assetId];
-    bytes memory color = colors[assetId];
-    if (remixId == 0) {
-      return (svgPart, attr.tag);
+    if (assetId % 2 == 0) {
+      return assetComposer.generateSVGPart(assetId / 2);
     }
-    (string memory remixPart, string memory tagRemix) = generateSVGPart(remixId);
-    bytes memory tag = abi.encodePacked("token", _tokenId.toString());
-    bytes memory res = abi.encodePacked(
-      svgPart, remixPart,
-      '<g id="', tag, '" >\n'
-      ' <use href="#', tagRemix, '" />\n'
-      ' <use href="#', attr.tag, '"');
-    if (color.length > 0) {
-      res = abi.encodePacked(res, ' fill="', color, '"');
-    }  
-    res = abi.encodePacked(res, ' />\n'
-      '</g>\n');
-    return (string(res), string(tag));
+
+    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId / 2);
+    string memory svgPart = assetStore.generateSVGPart(assetId / 2, attr.tag);
+    return (svgPart, attr.tag);
   }
 
   /**
