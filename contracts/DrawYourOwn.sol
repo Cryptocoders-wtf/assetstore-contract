@@ -82,16 +82,23 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     uploadedAssetIds[tokenId / _tokensPerAsset] = assetId;
 
     // @notice
-    if (_remixId == 0) {
+    if (_remixId == 0 && overlays.length == 0) {
       assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
     } else {
-      IAssetComposer.LayerInfo[] memory infos = new IAssetComposer.LayerInfo[](2);
-      uint256 remixAssetId = assetIdOfToken(_remixId);
-      infos[0].assetId = remixAssetId / 2;
-      infos[0].isComposition = (remixAssetId % 2 == 0);
-      infos[0].fill = _color;
-      infos[0].transform = _transform;
-      infos[1].assetId = assetId;      
+      uint256 offset = (_remixId == 0) ? 0 : 1;
+      IAssetComposer.LayerInfo[] memory infos = new IAssetComposer.LayerInfo[](offset + 1 + overlays.length);
+      if (_remixId > 0) {
+        uint256 remixAssetId = assetIdOfToken(_remixId);
+        infos[0].assetId = remixAssetId / 2;
+        infos[0].isComposition = (remixAssetId % 2 == 0);
+        infos[0].fill = _color;
+        infos[0].transform = _transform;
+      }
+      infos[offset].assetId = assetId;
+      uint256 i;
+      for (i = 0; i < overlays.length; i++) {
+        infos[offset + 1 + i] = overlays[i];
+      }      
       uint256 compositionId = assetComposer.register(infos);
       assetIds[tokenId / _tokensPerAsset] = compositionId * 2; // @notice
     }
