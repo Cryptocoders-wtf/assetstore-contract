@@ -36,6 +36,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
 
   uint256 constant _tokensPerAsset = 4;
   mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId (*2+1) or compositionId (*2)
+  mapping(uint256 => uint256) uploadedAssetIds; // tokenId / _tokenPerAsset => assetId of uploaded asset
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf/draw]. ";
@@ -45,10 +46,6 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
 
   // OpenSea's Proxy Registry
   IProxyRegistry public immutable proxyRegistry;
-
-  // Optional remix tokenId and color
-  mapping(uint256 => uint256) remixIds; // assetId (from) => tokenId (to remix)
-  mapping(uint256 => bytes) colors; // assetId (from) => color to render the remix asset
 
   IAssetComposer public immutable assetComposer;
 
@@ -82,6 +79,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     _assetInfo.group = "Draw Your Own";
     _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
     uint256 assetId = registry.registerAsset(_assetInfo);
+    uploadedAssetIds[tokenId / _tokensPerAsset] = assetId;
 
     // @notice
     if (_remixId == 0) {
@@ -197,7 +195,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     return _tokensPerAsset;
   }
 
-  function _generateTraits(uint256 _assetId, uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
+  function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
     bytes memory pack = abi.encodePacked(
       '{'
         '"trait_type":"Primary",'
@@ -211,13 +209,6 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       '},{'
         '"trait_type":"Name",'
         '"value":"', _attr.name, '"');
-    uint256 remixId = remixIds[_assetId];
-    if (remixId > 0) {
-      pack = abi.encodePacked(pack,
-      '},{'
-        '"trait_type":"RemixId",'
-        '"value":"Drawing ', (remixId - remixId % _tokensPerAsset).toString(), '"');
-    }
     pack = abi.encodePacked(pack,  
       '},{'
         '"trait_type":"Minter",'
@@ -249,10 +240,11 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     */
   function tokenURI(uint256 _tokenId) public view override returns (string memory) {
     require(_exists(_tokenId), 'CustomToken.tokenURI: nonexistent token');
-    uint256 assetId = assetIdOfToken(_tokenId);
-    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
     (string memory svgPart, string memory tag) = generateSVGPart(_tokenId);
     bytes memory image = bytes(generateSVG(svgPart, _tokenId % _tokensPerAsset, tag));
+
+    uint256 uploadedAssetId = uploadedAssetIds[_tokenId / _tokensPerAsset];
+    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(uploadedAssetId);
 
     return string(
       abi.encodePacked(
@@ -262,7 +254,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
             abi.encodePacked(
               '{"name":"Drawing ', _tokenId.toString(), 
                 '","description":"', description, 
-                '","attributes":[', _generateTraits(assetId, _tokenId, attr), 
+                '","attributes":[', _generateTraits(_tokenId, attr), 
                 '],"image":"data:image/svg+xml;base64,', 
                 Base64.encode(image), 
               '"}')
