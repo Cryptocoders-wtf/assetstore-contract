@@ -24,6 +24,8 @@ import { IAssetStoreToken } from './interfaces/IAssetStoreToken.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
+import { IAssetComposer } from './interfaces/IAssetComposer.sol';
+import "./AssetComposer.sol";
 
 contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   using Strings for uint256;
@@ -48,6 +50,8 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   mapping(uint256 => uint256) remixIds; // assetId (from) => tokenId (to remix)
   mapping(uint256 => bytes) colors; // assetId (from) => color to render the remix asset
 
+  IAssetComposer public immutable assetComposer;
+
   /*
    * @notice both _registry and _assetStore points to the AssetStore.
    */
@@ -61,6 +65,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     assetStore = _assetStore;
     developer = _developer;
     proxyRegistry = _proxyRegistry;
+    assetComposer = new AssetComposer(_assetStore);
   }
 
   function _isPrimary(uint256 _tokenId) internal pure returns(bool) {
