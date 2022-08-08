@@ -4,6 +4,7 @@ pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore } from './interfaces/IAssetStore.sol';
+import { IStringValidator } from './interfaces/IStringValidator.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract AssetComposer is Ownable {
@@ -30,6 +31,7 @@ contract AssetComposer is Ownable {
   }
 
   function register(AssetInfo[] memory _infos) external returns(uint256) {
+    IStringValidator validator = assetStore.getStringValidator();
     uint256 compositionId = nextId++;
     //uint256 assetCount = assetStore.getAssetCount();
     uint256 i;
@@ -45,6 +47,16 @@ contract AssetComposer is Ownable {
         assetId = assetId * 2 + 1; // @notice
       }
       assetIds.push(assetId);
+      bytes memory transform = bytes(info.transform);
+      if (transform.length > 0) {
+        require(validator.validate(transform), "register: Invalid transform");
+        transforms[compositionId][assetId] = transform;
+      }
+      bytes memory fill = bytes(info.fill);
+      if (fill.length > 0) {
+        require(validator.validate(fill), "register: Invalid fill");
+        fills[compositionId][assetId] = fill;
+      }
     }
     return compositionId;
   }
