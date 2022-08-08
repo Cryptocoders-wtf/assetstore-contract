@@ -10,13 +10,16 @@ async function main() {
   const factory = await ethers.getContractFactory("DrawYourOwn");
   const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy);
   await tokenContract.deployed();
+  const composer = await tokenContract.assetComposer();
   console.log(`      tokenAddress="${tokenContract.address}"`);
+  console.log(`      composer="${composer}"`);
 
   const tx2 = await assetStore.setWhitelistStatus(tokenContract.address, true);
   await tx2.wait();
 
   const addresses = `export const token_addresses = {\n`
   + `  customTokenAddress:"${tokenContract.address}"\n`
+  + `  composerAddress:"${composer}"\n`
   + `}\n`;
   await writeFile(`./cache/addresses_draw_${network.name}.ts`, addresses, ()=>{});
 }
