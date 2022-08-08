@@ -55,6 +55,10 @@ contract AssetComposer is Ownable, IAssetComposer {
     return compositionId;
   }
 
+  function getCompositionCount() external view override returns(uint256) {
+    return nextId;
+  }
+
   function generateSVGPart(uint256 _compositionId) public view override returns(string memory, string memory) {
     uint256[] memory assetIds = assets[_compositionId];
     uint256 i;

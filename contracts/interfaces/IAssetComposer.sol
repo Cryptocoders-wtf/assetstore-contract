@@ -12,5 +12,6 @@ interface IAssetComposer {
   }
 
   function register(AssetInfo[] memory _infos) external returns(uint256);
+  function getCompositionCount() external view returns(uint256);
   function generateSVGPart(uint256 _compositionId) external view returns(string memory, string memory);
 }
