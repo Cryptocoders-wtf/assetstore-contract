@@ -5,9 +5,10 @@ pragma solidity ^0.8.6;
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore } from './interfaces/IAssetStore.sol';
 import { IStringValidator } from './interfaces/IStringValidator.sol';
+import { IAssetComposer } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract AssetComposer is Ownable {
+contract AssetComposer is Ownable, IAssetComposer {
   using Strings for uint256;
 
   IAssetStore public immutable assetStore;
@@ -23,14 +24,7 @@ contract AssetComposer is Ownable {
     assetStore = _assetStore;
   }
 
-  struct AssetInfo {
-    uint256 assetId; // either compositeId or assetId
-    bool isComposition;   
-    string fill; // optional fill color
-    string transform; // optinal transform
-  }
-
-  function register(AssetInfo[] memory _infos) external returns(uint256) {
+  function register(AssetInfo[] memory _infos) external override returns(uint256) {
     IStringValidator validator = assetStore.getStringValidator();
     uint256 compositionId = nextId++;
     //uint256 assetCount = assetStore.getAssetCount();
@@ -61,7 +55,7 @@ contract AssetComposer is Ownable {
     return compositionId;
   }
 
-  function generateSVGPart(uint256 _compositionId) public view returns(string memory, string memory) {
+  function generateSVGPart(uint256 _compositionId) public view override returns(string memory, string memory) {
     uint256[] memory assetIds = assets[_compositionId];
     uint256 i;
     bytes memory defs;
