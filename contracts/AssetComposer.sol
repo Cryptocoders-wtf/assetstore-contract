@@ -9,8 +9,11 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract AssetComposer is Ownable {
   using Strings for uint256;
 
-  mapping(uint256 => uint256[]) private assets;
   IAssetStore public immutable assetStore;
+
+  mapping(uint256 => uint256[]) private assets; // compositeId => [assetIds]
+  mapping(uint256 => mapping(uint256 => string)) private transforms;
+  mapping(uint256 => mapping(uint256 => string)) private colors;
 
   constructor(
     IAssetStore _assetStore
@@ -30,10 +33,9 @@ contract AssetComposer is Ownable {
       if (assetId % 2 == 0) {
         (svgPart, tagId) = generateSVGPart(assetId);
       } else {
-        assetId /= 2; // odd number indicates assetId * 2 + 1
-        IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
+        IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId/2);
         tagId = attr.tag;
-        svgPart = assetStore.generateSVGPart(assetId, tagId);
+        svgPart = assetStore.generateSVGPart(assetId/2, tagId);
       }
       defs = abi.encodePacked(defs, svgPart);
       uses = abi.encodePacked(uses, ' <use href="#', tagId, '" />\n');
