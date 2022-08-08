@@ -92,7 +92,7 @@ contract AssetComposer is Ownable, IAssetComposer {
       defs,
       '<g id="', tagId, '" >\n',
       uses,
-      '</g>'
+      '</g>\n'
     ));    
     return (svgPart, tagId);
   }

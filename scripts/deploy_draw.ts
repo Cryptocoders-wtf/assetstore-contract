@@ -18,7 +18,7 @@ async function main() {
   await tx2.wait();
 
   const addresses = `export const token_addresses = {\n`
-  + `  customTokenAddress:"${tokenContract.address}"\n`
+  + `  customTokenAddress:"${tokenContract.address}",\n`
   + `  composerAddress:"${composer}"\n`
   + `}\n`;
   await writeFile(`./cache/addresses_draw_${network.name}.ts`, addresses, ()=>{});
