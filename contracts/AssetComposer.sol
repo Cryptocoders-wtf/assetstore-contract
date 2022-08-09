@@ -15,7 +15,7 @@ import { IStringValidator } from './interfaces/IStringValidator.sol';
 import { IAssetComposer } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract AssetComposerCore is Ownable {
+contract AssetComposerCore {
   IAssetStoreEx public immutable assetStore;
   uint256 public nextId;
 
@@ -28,7 +28,10 @@ contract AssetComposerCore is Ownable {
   }
 }
 
-contract AssetComposer is AssetComposerCore, IAssetComposer {
+abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
+}
+
+contract AssetComposer is AssetComposerAdmin, IAssetComposer {
   using Strings for uint256;
 
   constructor(IAssetStoreEx _assetStore) AssetComposerCore(_assetStore) {
