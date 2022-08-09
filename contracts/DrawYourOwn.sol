@@ -74,7 +74,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * mint three tokens to the msg.sender, and one additional
    * token to either the affiliator, the developer or the owner.npnkda
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color, string memory _transform, IAssetComposer.LayerInfo[] memory overlays) external {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color, string memory _transform, IAssetComposer.AssetLayer[] memory _overlays) external {
     uint256 tokenId = _nextTokenId();
     _assetInfo.group = "Draw Your Own";
     _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
@@ -82,11 +82,11 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     uploadedAssetIds[tokenId / _tokensPerAsset] = assetId;
 
     // @notice
-    if (_remixId == 0 && overlays.length == 0) {
+    if (_remixId == 0 && _overlays.length == 0) {
       assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
     } else {
       uint256 offset = (_remixId == 0) ? 0 : 1;
-      IAssetComposer.LayerInfo[] memory infos = new IAssetComposer.LayerInfo[](offset + 1 + overlays.length);
+      IAssetComposer.AssetLayer[] memory infos = new IAssetComposer.AssetLayer[](offset + 1 + _overlays.length);
       if (_remixId > 0) {
         uint256 remixAssetId = assetIdOfToken(_remixId);
         infos[0].assetId = remixAssetId / 2;
@@ -96,8 +96,8 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       }
       infos[offset].assetId = assetId;
       uint256 i;
-      for (i = 0; i < overlays.length; i++) {
-        infos[offset + 1 + i] = overlays[i];
+      for (i = 0; i < _overlays.length; i++) {
+        infos[offset + 1 + i] = _overlays[i];
       }      
       uint256 compositionId = assetComposer.register(infos);
       assetIds[tokenId / _tokensPerAsset] = compositionId * 2; // @notice

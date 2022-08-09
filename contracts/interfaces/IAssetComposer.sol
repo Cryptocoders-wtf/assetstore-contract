@@ -4,7 +4,7 @@ pragma solidity ^0.8.6;
 
 // IAssetStore is the inteface for consumers of the AsseCompoer.
 interface IAssetComposer {
-  struct LayerInfo {
+  struct AssetLayer {
     uint256 assetId; // either compositeId or assetId
     bool isComposition;   
     string fill; // optional fill color
@@ -13,7 +13,7 @@ interface IAssetComposer {
 
   event CompositionRegistered(address from, uint256 compositionId);
 
-  function register(LayerInfo[] memory _infos) external returns(uint256);
+  function register(AssetLayer[] memory _infos) external returns(uint256);
   function getCompositionCount() external view returns(uint256);
   function generateSVGPart(uint256 _compositionId) external view returns(string memory, string memory);
 }
