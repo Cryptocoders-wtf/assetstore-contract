@@ -39,7 +39,8 @@ contract AssetComposer is Ownable, IAssetComposer {
     uint256 compositionId = nextId++;
     uint256 assetCount = assetStore.getAssetCount();
     uint256 i;
-    uint256[] storage assetIds = assets[compositionId];
+
+    uint256[] memory assetIds = new uint256[](_layers.length);
     for (i=0; i<_layers.length; i++) {
       AssetLayer memory info = _layers[i];
       uint256 assetId = info.assetId;
@@ -51,7 +52,7 @@ contract AssetComposer is Ownable, IAssetComposer {
         require(assetId <= assetCount, "register: Invalid assetId");
         assetId = assetId * 2 + 1; // @notice
       }
-      assetIds.push(assetId);
+      assetIds[i] = assetId;
       bytes memory transform = bytes(info.transform);
       if (transform.length > 0) {
         require(validator.validate(transform), "register: Invalid transform");
@@ -63,6 +64,7 @@ contract AssetComposer is Ownable, IAssetComposer {
         fills[compositionId][assetId] = fill;
       }
     }
+    assets[compositionId] = assetIds;
     emit CompositionRegistered(msg.sender, compositionId);
     return compositionId;
   }
