@@ -32,18 +32,32 @@ abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
   // Upgradable admin (only by owner)
   address public admin;
 
+  /*
+   * It allows us to disable indivial assets, just in case. 
+   */
+  mapping(uint256 => bool) disabled;
+
   constructor(IAssetStoreEx _assetStore) AssetComposerCore(_assetStore) {
     admin = owner();
   }
 
   modifier onlyAdmin() {
-    require(owner() == _msgSender() || admin == _msgSender(), "AssetComposerAdmin: caller is not the admin");
+    require(owner() == _msgSender() || admin == _msgSender(), "AssetComposer: caller is not the admin");
     _;
   }
 
   function setAdmin(address _admin) external onlyOwner {
     admin = _admin;
   }  
+
+  function setDisabled(uint256 _compositionId, bool _status) external onlyAdmin {
+    disabled[_compositionId] = _status;
+  }
+
+  modifier enabled(uint256 _compositionId) {
+    require(disabled[_compositionId] != true, "AssetComposer: this composition is diabled");
+    _;    
+  }
 }
 
 contract AssetComposer is AssetComposerAdmin, IAssetComposer {
@@ -100,7 +114,7 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer {
   /**
     * @notice returns a SVG part (and the tag) that represents the specified composition.
     */
-  function generateSVGPart(uint256 _compositionId) public view override returns(string memory, string memory) {
+  function generateSVGPart(uint256 _compositionId) public view override enabled(_compositionId) returns(string memory, string memory) {
     uint256[] memory assetIds = assets[_compositionId];
     uint256 i;
     bytes memory defs;
