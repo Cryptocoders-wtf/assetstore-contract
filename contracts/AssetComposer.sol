@@ -15,7 +15,7 @@ import { IStringValidator } from './interfaces/IStringValidator.sol';
 import { IAssetComposer } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract AssetComposerCore {
+abstract contract AssetComposerCore {
   IAssetStoreEx public immutable assetStore;
   uint256 public nextId;
 
@@ -29,12 +29,27 @@ contract AssetComposerCore {
 }
 
 abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
+  // Upgradable admin (only by owner)
+  address public admin;
+
+  constructor(IAssetStoreEx _assetStore) AssetComposerCore(_assetStore) {
+    admin = owner();
+  }
+
+  modifier onlyAdmin() {
+    require(owner() == _msgSender() || admin == _msgSender(), "AssetComposerAdmin: caller is not the admin");
+    _;
+  }
+
+  function setAdmin(address _admin) external onlyOwner {
+    admin = _admin;
+  }  
 }
 
 contract AssetComposer is AssetComposerAdmin, IAssetComposer {
   using Strings for uint256;
 
-  constructor(IAssetStoreEx _assetStore) AssetComposerCore(_assetStore) {
+  constructor(IAssetStoreEx _assetStore) AssetComposerAdmin(_assetStore) {
   }
 
   /**
