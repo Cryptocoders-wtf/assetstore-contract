@@ -71,11 +71,13 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   }
 
   /*
-   * It registers the specified asset to the AssetStore and
-   * mint three tokens to the msg.sender, and one additional
-   * token to either the affiliator, the developer or the owner.npnkda
+   * It registers the specified asset to the AssetStore and mint three tokens to the msg.sender, 
+   * and one additional token to either the affiliator, the developer or the owner.
+   * _remixid (along with _fill and _transform) specifies the remix token (optional), 
+   * which is rendered under the asset. 
+   * _layers specifies overlay assets or composites (optional). 
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _color, string memory _transform, IAssetComposer.AssetLayer[] memory _overlays) external {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _fill, string memory _transform, IAssetComposer.AssetLayer[] memory _overlays) external {
     uint256 tokenId = _nextTokenId();
     _assetInfo.group = "Draw Your Own";
     _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
@@ -92,8 +94,8 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
         uint256 remixAssetId = assetIdOfToken(_remixId);
         infos[0].assetId = remixAssetId / 2;
         infos[0].isComposition = (remixAssetId % 2 == 0);
-        infos[0].fill = _color;
-        infos[0].transform = _transform;
+        infos[0].fill = _fill; // optional color
+        infos[0].transform = _transform; // optional transform
       }
       infos[offset].assetId = assetId;
       uint256 i;
