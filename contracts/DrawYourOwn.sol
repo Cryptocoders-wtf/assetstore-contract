@@ -145,7 +145,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
     // Constants of non-value type not yet implemented by Solidity
     string[4] memory backColors = [
-      "white", "url(#silver)", "url(#gold)", "url(#sky)" 
+      "", "url(#silver)", "url(#gold)", "" 
     ];
 
     uint index = _style % _tokensPerAsset;
@@ -171,18 +171,25 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     } else if (index == 3) {
       image = abi.encodePacked(
         image, 
-        '<radialGradient id="sky" cx="0.8" cy="0.33">\n'
-        '  <stop offset="0%" stop-color="#FFFFFF"/>\n'
-        ' <stop offset="20%" stop-color="#FFFFFF" />\n'
-        ' <stop offset="100%" stop-color="#00B5E2"/>\n'
-        '</radialGradient>\n');
+      ' <filter id="f1" x="0" y="0" width="200%" height="200%">\n'
+      '  <feOffset result="offOut" in="SourceAlpha" dx="24" dy="32" />\n'
+      '  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="16" />\n'
+      '  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />\n'
+      ' </filter>\n');
     }
-    image =  abi.encodePacked(
-      image,
-      '</defs>\n'
-      ' <rect x="0" y="0" width="100%" height="100%" fill="',backColors[index],'" />\n'
-      ' <use href="#', _tag, '" />\n'
-      '</svg>\n');
+    image =  abi.encodePacked(image, '</defs>\n');
+    if (bytes(backColors[index]).length > 0) {
+      image =  abi.encodePacked(image,
+        ' <rect x="0" y="0" width="100%" height="100%" fill="',backColors[index],'" />\n');
+    }
+    if (index == 3) {
+      image =  abi.encodePacked(image,
+        ' <use filter="url(#f1)" href="#', _tag, '" />\n');
+    } else {
+      image =  abi.encodePacked(image,
+        ' <use href="#', _tag, '" />\n');
+    }
+    image =  abi.encodePacked(image, '</svg>\n');
     return string(image);
   }
 
