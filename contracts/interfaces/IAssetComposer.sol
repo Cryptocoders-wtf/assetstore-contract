@@ -11,6 +11,8 @@ interface IAssetComposer {
     string transform; // optinal transform
   }
 
+  event CompositionRegistered(address from, uint256 compositionId);
+
   function register(LayerInfo[] memory _infos) external returns(uint256);
   function getCompositionCount() external view returns(uint256);
   function generateSVGPart(uint256 _compositionId) external view returns(string memory, string memory);

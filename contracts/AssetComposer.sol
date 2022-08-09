@@ -1,5 +1,12 @@
 // SPDX-License-Identifier: MIT
 
+/*
+ * AssetComposer allows developers to create a composition from a collection of
+ * assets (in AssetStore) and compositions.
+ *
+ * Created by Satoshi Nakajima (@snakajima)
+ */
+
 pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
@@ -24,14 +31,17 @@ contract AssetComposer is Ownable, IAssetComposer {
     assetStore = _assetStore;
   }
 
-  function register(LayerInfo[] memory _infos) external override returns(uint256) {
+  /**
+    * @notice register a new composition by specifying asset layers.
+    */
+  function register(LayerInfo[] memory _layers) external override returns(uint256) {
     IStringValidator validator = assetStore.getStringValidator();
     uint256 compositionId = nextId++;
     uint256 assetCount = assetStore.getAssetCount();
     uint256 i;
     uint256[] storage assetIds = assets[compositionId];
-    for (i=0; i<_infos.length; i++) {
-      LayerInfo memory info = _infos[i];
+    for (i=0; i<_layers.length; i++) {
+      LayerInfo memory info = _layers[i];
       uint256 assetId = info.assetId;
       if (info.isComposition) {
         require(assetId < nextId, "register: Invalid compositionId");
@@ -53,13 +63,20 @@ contract AssetComposer is Ownable, IAssetComposer {
         fills[compositionId][assetId] = fill;
       }
     }
+    emit CompositionRegistered(msg.sender, compositionId);
     return compositionId;
   }
 
+  /**
+    * @notice returns the number of registered compositions.
+    */
   function getCompositionCount() external view override returns(uint256) {
     return nextId;
   }
 
+  /**
+    * @notice returns a SVG part (and the tag) that represents the specified composition.
+    */
   function generateSVGPart(uint256 _compositionId) public view override returns(string memory, string memory) {
     uint256[] memory assetIds = assets[_compositionId];
     uint256 i;
