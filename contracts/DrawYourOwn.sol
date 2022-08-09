@@ -56,13 +56,14 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     IAssetStoreRegistry _registry, 
     IAssetStoreEx _assetStore,
     address _developer,
-    IProxyRegistry _proxyRegistry
+    IProxyRegistry _proxyRegistry,
+    IAssetComposer _assetComposer
   ) ERC721A("Draw Your Own NFT", "DrawNFT") {
     registry = _registry;
     assetStore = _assetStore;
     developer = _developer;
     proxyRegistry = _proxyRegistry;
-    assetComposer = new AssetComposer(_assetStore);
+    assetComposer = _assetComposer; // instead of new AssetComposer(_assetStore);
   }
 
   function _isPrimary(uint256 _tokenId) internal pure returns(bool) {

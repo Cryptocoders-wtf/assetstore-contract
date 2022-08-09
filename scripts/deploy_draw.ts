@@ -7,8 +7,13 @@ async function main() {
   const storeFactory = await ethers.getContractFactory("AssetStore");
   const assetStore = storeFactory.attach(storeAddress);
 
+  const composerFactory = await ethers.getContractFactory("AssetComposer");
+  const composerContract = await composerFactory.deploy(storeAddress);
+  await composerContract.deployed();
+  console.log(`      composer="${composerContract.address}"`);
+
   const factory = await ethers.getContractFactory("DrawYourOwn");
-  const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy);
+  const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy, composerContract.address);
   await tokenContract.deployed();
   const composer = await tokenContract.assetComposer();
   console.log(`      tokenAddress="${tokenContract.address}"`);
