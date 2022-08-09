@@ -3,7 +3,7 @@
 pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
-import { IAssetStore } from './interfaces/IAssetStore.sol';
+import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IStringValidator } from './interfaces/IStringValidator.sol';
 import { IAssetComposer } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract AssetComposer is Ownable, IAssetComposer {
   using Strings for uint256;
 
-  IAssetStore public immutable assetStore;
+  IAssetStoreEx public immutable assetStore;
   uint256 public nextId;
 
   mapping(uint256 => uint256[]) private assets; // compositeId => [assetIds]
@@ -19,7 +19,7 @@ contract AssetComposer is Ownable, IAssetComposer {
   mapping(uint256 => mapping(uint256 => bytes)) private fills;
 
   constructor(
-    IAssetStore _assetStore
+    IAssetStoreEx _assetStore
   ) {
     assetStore = _assetStore;
   }
@@ -27,7 +27,7 @@ contract AssetComposer is Ownable, IAssetComposer {
   function register(LayerInfo[] memory _infos) external override returns(uint256) {
     IStringValidator validator = assetStore.getStringValidator();
     uint256 compositionId = nextId++;
-    //uint256 assetCount = assetStore.getAssetCount();
+    uint256 assetCount = assetStore.getAssetCount();
     uint256 i;
     uint256[] storage assetIds = assets[compositionId];
     for (i=0; i<_infos.length; i++) {
@@ -37,7 +37,8 @@ contract AssetComposer is Ownable, IAssetComposer {
         require(assetId < nextId, "register: Invalid compositionId");
         assetId *= 2; // @notice
       } else {
-        //require(assetId < assetCount, "register: Invalid assetId");
+        // @notice assetId is 1-based (that's why <=, not <)
+        require(assetId <= assetCount, "register: Invalid assetId");
         assetId = assetId * 2 + 1; // @notice
       }
       assetIds.push(assetId);

@@ -34,6 +34,11 @@ interface IAssetStore {
   function getStringValidator() external view returns(IStringValidator);
 }
 
+// HACK: Created after the deployment of AssetStore
+interface IAssetStoreEx is IAssetStore {
+  function getAssetCount() external view returns(uint256);
+}
+
 // IAssetStoreRegistry is the interface for contracts who registers assets to the AssetStore.
 interface IAssetStoreRegistry {
   struct Part {

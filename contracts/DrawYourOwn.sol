@@ -19,7 +19,7 @@ pragma solidity ^0.8.6;
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "erc721a/contracts/ERC721A.sol";
-import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
+import { IAssetStoreRegistry, IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetStoreToken } from './interfaces/IAssetStoreToken.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
@@ -32,7 +32,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   using Strings for uint16;
 
   IAssetStoreRegistry public immutable registry;
-  IAssetStore public immutable assetStore;
+  IAssetStoreEx public immutable assetStore;
 
   uint256 constant _tokensPerAsset = 4;
   mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId (*2+1) or compositionId (*2)
@@ -54,7 +54,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    */
   constructor(
     IAssetStoreRegistry _registry, 
-    IAssetStore _assetStore,
+    IAssetStoreEx _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
   ) ERC721A("Draw Your Own NFT", "DrawNFT") {
