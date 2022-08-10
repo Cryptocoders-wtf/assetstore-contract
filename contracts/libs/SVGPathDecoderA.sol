@@ -19,51 +19,41 @@ contract SVGPathDecoderA is IPathDecoder {
   function decodePath(bytes memory body) external pure override returns (bytes memory) {
     bytes memory ret;
 //    uint16 i;
-    uint256 length = ((body.length) * 2)/ 3;
+//    uint256 length = ((body.length) * 2)/ 3;
     assembly{
       let bodyMemory := add(body, 0x20)
       let length := div(mul(mload(body), 2), 3)
       ret := mload(0x40)
-      let retMomory := add(ret, 0x20)
+      let retMemory := add(ret, 0x20)
+      let retLength := 0
       for {let i := 0} lt(i, length){i := add(i,1)} {
         let offset := mul(div(i, 2), 3)
         let low
-        let hight
+        let high
         switch eq(mod(i,2), 0)
         case 1{
           low := mload(add(bodyMemory, offset))
-          high := and(shr(248, low),0x0f)
-          low := shr(252, low)
+          high := and(shr(240, low),0x0f)
+          low := shr(248, low)
         }
         default{
           high := mload(add(bodyMemory, add(offset, 1)))
-          low := and(shr(248, high),0xff)
-          high := shr(25)
+          low := and(shr(240, high),0xff)
+          high := shr(252,high)
         }
         
-      }
-    }
-    for (i = 0; i < length; i++) {
-      // unpack 12-bit middle endian      // unpack 12-bit middle endian
-      uint16 offset = i / 2 * 3;
-      uint8 low;
-      uint8 high;
-      if (i % 2 == 0) {
-        low = uint8(body[offset]);
-        high = uint8(body[offset + 1]) % 0x10; // low 4 bits of middle byte
-      } else {
-        low = uint8(body[offset + 2]);
-        high = uint8(body[offset + 1]) / 0x10; // high 4 bits of middle byte
-      }
-      if (high == 0) {
-        // SVG command: Accept only [A-Za-z] and ignore others 
-        if ((low >=65 && low<=90) || (low >= 97 && low <= 122)) {
-          ret = abi.encodePacked(ret, low);
+        switch eq(high, 0)
+        case 1{
+          if and( gt(low, 64), lt(low, 91)){
+            mstore(add(retMemory,retLength), shl(248,low))
+            retLength := add(retLength, 1)
+          }
+          if and( gt(low, 96), lt(low, 123)){
+            mstore(add(retMemory,retLength), shl(248,low))
+            retLength := add(retLength, 1)
+          }
         }
-      } else {
-
-        
-        assembly{
+        default{
           let cmd := 0
           let lenCmd := 0
           // SVG value: undo (value + 1024) + 0x100 
@@ -97,10 +87,12 @@ contract SVGPathDecoderA is IPathDecoder {
 
           cmd := or(shl(8,cmd), 32)
           lenCmd := add(lenCmd, 1)
-          mstore(add(ret,add(0x20, mload(ret))), shl(sub(256, mul(lenCmd,8)),cmd))
-          mstore(ret, add(mload(ret), lenCmd))
+          mstore(add(retMemory,retLength), shl(sub(256, mul(lenCmd,8)),cmd))
+          retLength := add(retLength, lenCmd)
         }
-      }        
+      }
+      mstore(ret, retLength)
+      mstore(0x40, add(retMemory, retLength))
     }
     return ret;
   }
