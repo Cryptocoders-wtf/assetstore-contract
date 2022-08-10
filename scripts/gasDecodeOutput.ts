@@ -1,7 +1,8 @@
 
 import { ethers, network } from "hardhat";
+//import { cryptoAssets } from "../assets/crypto";
 import { kamonAssets } from "../assets/kamons";
-import { writeFile } from "fs";
+import { writeFile, writeFileSync } from "fs";
 
 import { deploy, developer, proxy } from "../utils/deploy";
 import { gasEstimate } from "../utils/math";
@@ -24,7 +25,7 @@ async function main() {
   const benchMark = await benchMarkFactory.deploy(assetStore.address);
   await benchMark.deployed();
 
-  const SVGFactory = await ethers.getContractFactory("SVGPathDecoder2");
+  const SVGFactory = await ethers.getContractFactory("SVGPathDecoderA");
   const decoder = await SVGFactory.deploy();
   await decoder.deployed();
   const tx = await assetStore.setPathDecoder(decoder.address);
@@ -50,13 +51,16 @@ async function main() {
     let results = [];
     let i;
     for (i=0; i<assets.length; i++) {
+      console.log(`Start mint and load:${i}`);
       assets[i].soulbound = owner.address;
       assets[i].group = ""; // gas saving
       const tx = await kamonToken.mintWithAsset(assets[i], 0);
       const result = await tx.wait();
       const [svg, gas] = await benchMark.measure(i+1);
       const ret = {Unit : gas.toNumber()};
+      console.log(`Used gas : ${gas.toNumber()}`);
       results.push(ret);
+      writeFileSync(`./cache/output${i}.svg`, svg);
     }
     return results;
   };
@@ -64,6 +68,8 @@ async function main() {
   const kamons = await mintAssets(kamonAssets);
 
   console.log("const gas =", { kamons }, ";");
+
+  
 }
 
 main().catch((error) => {
