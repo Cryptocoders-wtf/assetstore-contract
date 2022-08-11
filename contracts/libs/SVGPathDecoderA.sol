@@ -28,9 +28,9 @@ contract SVGPathDecoderA is IPathDecoder {
       let retLength := 0
       let data
       for {let i := 0} lt(i, length){i := add(i,1)} {
-        if eq(mod(i,20),0) {
-          let offset := mul(div(i, 2), 3)
-          data := mload(add(bodyMemory, offset))
+        if eq(mod(i,16),0) {
+          data := mload(bodyMemory)
+          bodyMemory := add(bodyMemory, 24)
         }
         let low
         let high
