@@ -50,7 +50,7 @@ contract SVGPathDecoderA is IPathDecoder {
         }
         default {
           let cmd := 0
-          let lenCmd := 0
+          let lenCmd := 2 // last digit and space
           // SVG value: undo (value + 1024) + 0x100 
           let value := sub(add(shl(8, high), low), 0x0100)
           switch lt(value, 1024)
@@ -58,9 +58,8 @@ contract SVGPathDecoderA is IPathDecoder {
             value := sub(value, 1024)
           }
           default {
-            // add "-"
-            cmd := 45
-            lenCmd := 1
+            cmd := 45 // "-"
+            lenCmd := 3
             value := sub(1024,value)
           }
           if gt(value,999) {
@@ -76,9 +75,8 @@ contract SVGPathDecoderA is IPathDecoder {
             lenCmd := add(1, lenCmd)
             value := mod(value, 10)
           }
-          cmd := or(shl(8, cmd), add(48, value))
-          cmd := or(shl(8, cmd), 32) // space
-          lenCmd := add(2, lenCmd)
+          // last digit and space
+          cmd := or(or(shl(16, cmd), shl(8, add(48, value))), 32)
 
           mstore(retMemory, shl(sub(256, mul(lenCmd, 8)), cmd))
           retMemory := add(retMemory, lenCmd)
