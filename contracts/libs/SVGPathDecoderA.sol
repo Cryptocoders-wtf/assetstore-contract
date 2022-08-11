@@ -23,8 +23,8 @@ contract SVGPathDecoderA is IPathDecoder {
       ret := mload(0x40)
       let retMemory := add(ret, 0x20)
       let data
-      for {let i := 0} lt(i, length) {i := add(i,1)} {
-        if eq(mod(i,16),0) {
+      for {let i := 0} lt(i, length) {i := add(i, 1)} {
+        if eq(mod(i, 16), 0) {
           data := mload(bodyMemory) // reading 8 extra bytes
           bodyMemory := add(bodyMemory, 24)
         }
@@ -62,16 +62,18 @@ contract SVGPathDecoderA is IPathDecoder {
             lenCmd := 3
             value := sub(1024,value)
           }
-          if gt(value,999) {
-            cmd := or(shl(8, cmd), add(48, div(value, 1000)))
-            lenCmd := add(1, lenCmd)
-          }
-          if gt(value,99) {
-            cmd := or(shl(8, cmd), add(48, div(mod(value,1000), 100)))
-            lenCmd := add(1, lenCmd)
-          }
           if gt(value,9) {
-            cmd := or(shl(8, cmd), add(48, div(mod(value,100), 10)))
+            if gt(value,99) {
+              if gt(value,999) {
+                cmd := or(shl(8, cmd), 49) // always "1"
+                lenCmd := add(1, lenCmd)
+                value := mod(value, 1000)
+              }
+              cmd := or(shl(8, cmd), add(48, div(value, 100)))
+              lenCmd := add(1, lenCmd)
+              value := mod(value, 100)
+            }
+            cmd := or(shl(8, cmd), add(48, div(value, 10)))
             lenCmd := add(1, lenCmd)
             value := mod(value, 10)
           }
