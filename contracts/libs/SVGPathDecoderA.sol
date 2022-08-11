@@ -23,7 +23,7 @@ contract SVGPathDecoderA is IPathDecoder {
       ret := mload(0x40)
       let retMemory := add(ret, 0x20)
       let data
-      for {let i := 0} lt(i, length){i := add(i,1)} {
+      for {let i := 0} lt(i, length) {i := add(i,1)} {
         if eq(mod(i,16),0) {
           data := mload(bodyMemory) // reading 8 extra bytes
           bodyMemory := add(bodyMemory, 24)
@@ -31,11 +31,11 @@ contract SVGPathDecoderA is IPathDecoder {
         let low
         let high
         switch mod(i,2)
-        case 0{
-          low := and(shr(248, data), 0xff)
+        case 0 {
+          low := shr(248, data)
           high := and(shr(240, data), 0x0f)
         }
-        default{
+        default {
           low := and(shr(232, data), 0xff)
           high := and(shr(244, data), 0x0f)
           data := shl(24, data)
