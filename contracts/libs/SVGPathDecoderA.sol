@@ -54,34 +54,33 @@ contract SVGPathDecoderA is IPathDecoder {
           // SVG value: undo (value + 1024) + 0x100 
           let value := sub(add(shl(8, high), low), 0x0100)
           switch lt(value, 1024)
-          case 0{
-            value := sub(value,1024)
+          case 0 {
+            value := sub(value, 1024)
           }
-          default{
+          default {
             // add "-"
             cmd := 45
             lenCmd := 1
             value := sub(1024,value)
           }
-          if gt(value,999){
-            cmd := or(shl(8,cmd), add(48, div(value, 1000)))
+          if gt(value,999) {
+            cmd := or(shl(8, cmd), add(48, div(value, 1000)))
             lenCmd := add(1, lenCmd)
           }
-          if gt(value,99){
-            cmd := or(shl(8,cmd), add(48, div(mod(value,1000), 100)))
+          if gt(value,99) {
+            cmd := or(shl(8, cmd), add(48, div(mod(value,1000), 100)))
             lenCmd := add(1, lenCmd)
           }
-          if gt(value,9){
-            cmd := or(shl(8,cmd), add(48, div(mod(value,100), 10)))
+          if gt(value,9) {
+            cmd := or(shl(8, cmd), add(48, div(mod(value,100), 10)))
             lenCmd := add(1, lenCmd)
-            value := mod(value,10)
+            value := mod(value, 10)
           }
-          cmd := or(shl(8,cmd), add(48, value))
-          lenCmd := add(1, lenCmd)
+          cmd := or(shl(8, cmd), add(48, value))
+          cmd := or(shl(8, cmd), 32) // space
+          lenCmd := add(2, lenCmd)
 
-          cmd := or(shl(8,cmd), 32)
-          lenCmd := add(lenCmd, 1)
-          mstore(retMemory, shl(sub(256, mul(lenCmd,8)),cmd))
+          mstore(retMemory, shl(sub(256, mul(lenCmd, 8)), cmd))
           retMemory := add(retMemory, lenCmd)
         }
       }
