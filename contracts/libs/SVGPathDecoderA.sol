@@ -42,17 +42,13 @@ contract SVGPathDecoderA is IPathDecoder {
         }
         
         switch high
-        case 0{
-          if and( gt(low, 64), lt(low, 91)){
-            mstore(retMemory, shl(248,low))
-            retMemory := add(retMemory, 1)
-          }
-          if and( gt(low, 96), lt(low, 123)){
+        case 0 {
+          if or(and(gt(low, 64), lt(low, 91)), and(gt(low, 96), lt(low, 123))) {
             mstore(retMemory, shl(248,low))
             retMemory := add(retMemory, 1)
           }
         }
-        default{
+        default {
           let cmd := 0
           let lenCmd := 0
           // SVG value: undo (value + 1024) + 0x100 
