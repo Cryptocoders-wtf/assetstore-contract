@@ -41,8 +41,8 @@ contract SVGPathDecoderA is IPathDecoder {
         }
         default{
           low := and(shr(232, data), 0xff)
-          high := and(shr(244,data), 0x0f)
-          data := shr(24, data)
+          high := and(shr(244, data), 0x0f)
+          data := shl(24, data)
         }
         
         switch high
