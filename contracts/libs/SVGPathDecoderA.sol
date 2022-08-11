@@ -30,7 +30,7 @@ contract SVGPathDecoderA is IPathDecoder {
         }
         let low
         let high
-        switch mod(i,2)
+        switch mod(i, 2)
         case 0 {
           low := shr(248, data)
           high := and(shr(240, data), 0x0f)
@@ -44,7 +44,7 @@ contract SVGPathDecoderA is IPathDecoder {
         switch high
         case 0 {
           if or(and(gt(low, 64), lt(low, 91)), and(gt(low, 96), lt(low, 123))) {
-            mstore(retMemory, shl(248,low))
+            mstore(retMemory, shl(248, low))
             retMemory := add(retMemory, 1)
           }
         }
