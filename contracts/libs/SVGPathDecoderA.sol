@@ -15,21 +15,17 @@ contract SVGPathDecoderA is IPathDecoder {
   * If we want to upgrade this decoder, it is possible to use the high 4-bit of the first
   * element for versioning, because it is guaraneed to be zero for the current version.
   */
-//  function decodePath(bytes memory body) external pure override returns (bytes memory) {
   function decodePath(bytes memory body) external pure override returns (bytes memory) {
     bytes memory ret;
-//    uint16 i;
-//    uint256 length = ((body.length) * 2)/ 3;
     assembly{
       let bodyMemory := add(body, 0x20)
       let length := div(mul(mload(body), 2), 3)
       ret := mload(0x40)
       let retMemory := add(ret, 0x20)
-      let retLength := 0
       let data
       for {let i := 0} lt(i, length){i := add(i,1)} {
         if eq(mod(i,16),0) {
-          data := mload(bodyMemory)
+          data := mload(bodyMemory) // reading 8 extra bytes
           bodyMemory := add(bodyMemory, 24)
         }
         let low
@@ -48,12 +44,12 @@ contract SVGPathDecoderA is IPathDecoder {
         switch high
         case 0{
           if and( gt(low, 64), lt(low, 91)){
-            mstore(add(retMemory,retLength), shl(248,low))
-            retLength := add(retLength, 1)
+            mstore(retMemory, shl(248,low))
+            retMemory := add(retMemory, 1)
           }
           if and( gt(low, 96), lt(low, 123)){
-            mstore(add(retMemory,retLength), shl(248,low))
-            retLength := add(retLength, 1)
+            mstore(retMemory, shl(248,low))
+            retMemory := add(retMemory, 1)
           }
         }
         default{
@@ -89,14 +85,13 @@ contract SVGPathDecoderA is IPathDecoder {
 
           cmd := or(shl(8,cmd), 32)
           lenCmd := add(lenCmd, 1)
-          mstore(add(retMemory,retLength), shl(sub(256, mul(lenCmd,8)),cmd))
-          retLength := add(retLength, lenCmd)
+          mstore(retMemory, shl(sub(256, mul(lenCmd,8)),cmd))
+          retMemory := add(retMemory, lenCmd)
         }
       }
-      mstore(ret, retLength)
-      mstore(0x40, add(retMemory, retLength))
+      mstore(ret, sub(sub(retMemory, ret), 0x20))
+      mstore(0x40, retMemory)
     }
     return ret;
   }
-
 }
