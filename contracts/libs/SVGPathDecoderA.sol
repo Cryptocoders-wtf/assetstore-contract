@@ -80,8 +80,7 @@ contract SVGPathDecoderA is IPathDecoder {
             lenCmd := add(1, lenCmd)
           }
           if gt(value,9){
-            value := mod(mod(value,1000), 100)
-            cmd := or(shl(8,cmd), add(48, div(value, 10)))
+            cmd := or(shl(8,cmd), add(48, div(mod(value,100), 10)))
             lenCmd := add(1, lenCmd)
             value := mod(value,10)
           }
