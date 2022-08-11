@@ -13,7 +13,7 @@ contract SVGPathDecoderA is IPathDecoder {
   *   abcdefgh ijklIJKL ABCDEFG
   *
   * If we want to upgrade this decoder, it is possible to use the high 4-bit of the first
-  * element for versioning, because it is guaraneed to be zero for the current version.
+  * element for versioning, because it is guaranteed to be zero for the current version.
   */
   function decodePath(bytes memory body) external pure override returns (bytes memory) {
     bytes memory ret;
