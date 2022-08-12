@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 
-import "@openzeppelin/contracts/utils/Strings.sol";
 import "../interfaces/IPathDecoder.sol";
 
 contract SVGPathDecoderA is IPathDecoder {
