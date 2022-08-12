@@ -19,11 +19,15 @@ async function main() {
 
   const tx1 = await composer.registerProvider({name:"asset", provider: assetStoreProvider.address});
   await tx1.wait();
+  const tx2 = await composer.registerProvider({name:"comp", provider: composer.address});
+  await tx2.wait();
 
   const count = await composer.providerCount();
   console.log(` providerCount=`, count.toNumber());
   const info = await composer.getProvider(0);
   console.log(` providerInfo=`, info.name, info.provider);
+  const info1 = await composer.getProvider(1);
+  console.log(` providerInfo=`, info1.name, info1.provider);
   //const svgPart = await assetStoreProvider.generateSVGPart(0);
   //console.log(` svgPart=`, svgPart);
   
@@ -32,8 +36,8 @@ async function main() {
   await tokenContract.deployed();
   console.log(`      tokenAddress="${tokenContract.address}"`);
 
-  const tx2 = await assetStore.setWhitelistStatus(tokenContract.address, true);
-  await tx2.wait();
+  const tx9 = await assetStore.setWhitelistStatus(tokenContract.address, true);
+  await tx9.wait();
 
   const addresses = `export const token_addresses = {\n`
   + `  customTokenAddress:"${tokenContract.address}",\n`
