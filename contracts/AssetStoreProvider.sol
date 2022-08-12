@@ -22,9 +22,9 @@ contract AssetStoreProvider is IAssetProvider {
   }
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
-    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(_assetId);
+    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(_assetId + 1);
     tag = attr.tag;
-    svgPart = assetStore.generateSVGPart(_assetId, tag);
+    svgPart = assetStore.generateSVGPart(_assetId + 1, tag);
   }
 
   function totalSupply() external view override returns(uint256) {

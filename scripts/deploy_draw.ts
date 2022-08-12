@@ -24,6 +24,8 @@ async function main() {
   console.log(` providerCount=`, count.toNumber());
   const info = await composer.getProvider(0);
   console.log(` providerInfo=`, info.name, info.provider);
+  //const svgPart = await assetStoreProvider.generateSVGPart(0);
+  //console.log(` svgPart=`, svgPart);
   
   const factory = await ethers.getContractFactory("DrawYourOwn");
   const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy, composer.address);
