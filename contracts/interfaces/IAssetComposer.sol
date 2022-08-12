@@ -8,10 +8,15 @@ interface IAssetProvider {
 }
 
 interface IAssetProviderManager {
+  struct ProviderInfo {
+    string name;
+    IAssetProvider provider;
+  }
   event ProviderRegistered(address from, uint256 _providerId);
-  function registerProvider(IAssetProvider _provider, string memory _name) external returns(uint256);
+  function registerProvider(ProviderInfo memory _providerInfo) external returns(uint256);
   function providerCount() external view returns(uint256);
-  function getProvider(uint256 _providerId) external view returns(IAssetProvider, string memory);
+  function getProvider(uint256 _providerId) external view returns(ProviderInfo memory);
+  function getProviderIndex(string memory _name) external view returns(uint256);
 }
 
 // IAssetStore is the inteface for consumers of the AsseCompoer.

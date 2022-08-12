@@ -34,11 +34,36 @@ contract AssetStoreProvider is IAssetProvider {
   }
 }
 
-abstract contract AssetComposerCore {
+abstract contract AssetComposerCore is IAssetProviderManager {
+  mapping(string => uint256) providerIds; // +1
+  uint256 nextProvider;
+  mapping(uint256 => ProviderInfo) providers;
+
   IAssetStoreEx public immutable assetStore;
 
   constructor(IAssetStoreEx _assetStore) {
     assetStore = _assetStore;
+  }
+
+  function registerProvider(ProviderInfo memory _providerInfo) external override returns(uint256) {
+    require(providerIds[_providerInfo.name]==0, "AssetCompooser:registerProvider, already registered");
+    providers[nextProvider++] = _providerInfo;
+    providerIds[_providerInfo.name] = nextProvider; // @notive: providerID + 1
+    return nextProvider - 1;
+  }
+
+  function providerCount() external view override returns(uint256) {
+    return nextProvider;
+  }
+
+  function getProvider(uint256 _providerId) external view override returns(ProviderInfo memory) {
+    return providers[_providerId];
+  }
+
+  function getProviderIndex(string memory _name) external view override returns(uint256) {
+    uint256 idPlusOne = providerIds[_name];
+    require(idPlusOne > 0, "AssestComposer:getProviderIndex, the provider does not exist");
+    return idPlusOne - 1;
   }
 }
 
