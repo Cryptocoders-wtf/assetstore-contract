@@ -15,25 +15,6 @@ import { IStringValidator } from './interfaces/IStringValidator.sol';
 import { IAssetProvider, IAssetProviderRegistry, IAssetComposer } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-// IAssetProvider wrapper of AssetStore
-contract AssetStoreProvider is IAssetProvider {
-  IAssetStoreEx public immutable assetStore;
-
-  constructor(IAssetStoreEx _assetStore) {
-    assetStore = _assetStore;
-  }
-
-  function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
-    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(_assetId);
-    tag = attr.tag;
-    svgPart = assetStore.generateSVGPart(_assetId, tag);
-  }
-
-  function totalSupply() external view override returns(uint256) {
-    return assetStore.getAssetCount();
-  }
-}
-
 abstract contract AssetComposerCore is IAssetProviderRegistry {
   mapping(string => uint256) providerIds; // +1
   uint256 nextProvider;
