@@ -69,7 +69,7 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer {
   /**
     * @notice register a new composition by specifying asset layers.
     */
-  function register(AssetLayer[] memory _layers) external override returns(uint256) {
+  function registerComposition(AssetLayer[] memory _layers) external override returns(uint256) {
     IStringValidator validator = assetStore.getStringValidator();
     uint256 compositionId = nextId++;
     uint256 assetCount = assetStore.getAssetCount();
