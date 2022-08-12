@@ -12,7 +12,7 @@ pragma solidity ^0.8.6;
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IStringValidator } from './interfaces/IStringValidator.sol';
-import { IAssetProvider, IAssetProviderManager, IAssetComposer } from './interfaces/IAssetComposer.sol';
+import { IAssetProvider, IAssetProviderRegistry, IAssetComposer } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 // IAssetProvider wrapper of AssetStore
@@ -34,7 +34,7 @@ contract AssetStoreProvider is IAssetProvider {
   }
 }
 
-abstract contract AssetComposerCore is IAssetProviderManager {
+abstract contract AssetComposerCore is IAssetProviderRegistry {
   mapping(string => uint256) providerIds; // +1
   uint256 nextProvider;
   mapping(uint256 => ProviderInfo) providers;
@@ -45,11 +45,12 @@ abstract contract AssetComposerCore is IAssetProviderManager {
     assetStore = _assetStore;
   }
 
-  function registerProvider(ProviderInfo memory _providerInfo) external override returns(uint256) {
+  function registerProvider(ProviderInfo memory _providerInfo) external override returns(uint256 providerId) {
     require(providerIds[_providerInfo.name]==0, "AssetCompooser:registerProvider, already registered");
     providers[nextProvider++] = _providerInfo;
     providerIds[_providerInfo.name] = nextProvider; // @notive: providerID + 1
-    return nextProvider - 1;
+    providerId = nextProvider - 1; 
+    emit ProviderRegistered(msg.sender, providerId);
   }
 
   function providerCount() external view override returns(uint256) {

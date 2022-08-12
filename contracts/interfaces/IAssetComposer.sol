@@ -7,7 +7,7 @@ interface IAssetProvider {
   function totalSupply() external view returns(uint256);
 }
 
-interface IAssetProviderManager {
+interface IAssetProviderRegistry {
   struct ProviderInfo {
     string name;
     IAssetProvider provider;
