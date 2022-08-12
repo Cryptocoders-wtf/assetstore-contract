@@ -17,11 +17,6 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 abstract contract AssetComposerCore {
   IAssetStoreEx public immutable assetStore;
-  uint256 public nextId;
-
-  mapping(uint256 => uint256[]) internal assets; // compositeId => [assetIds]
-  mapping(uint256 => mapping(uint256 => bytes)) internal transforms;
-  mapping(uint256 => mapping(uint256 => bytes)) internal fills;
 
   constructor(IAssetStoreEx _assetStore) {
     assetStore = _assetStore;
@@ -62,6 +57,11 @@ abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
 
 contract AssetComposer is AssetComposerAdmin, IAssetComposer {
   using Strings for uint256;
+
+  uint256 public nextId;
+  mapping(uint256 => uint256[]) internal assets; // compositeId => [assetIds]
+  mapping(uint256 => mapping(uint256 => bytes)) internal transforms;
+  mapping(uint256 => mapping(uint256 => bytes)) internal fills;
 
   constructor(IAssetStoreEx _assetStore) AssetComposerAdmin(_assetStore) {
   }
