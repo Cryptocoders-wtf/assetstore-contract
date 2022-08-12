@@ -7,24 +7,30 @@ async function main() {
   const storeFactory = await ethers.getContractFactory("AssetStore");
   const assetStore = storeFactory.attach(storeAddress);
 
+  const assestStoreProviderFactory = await ethers.getContractFactory("AssetStoreProvider");
+  const assetStoreProvider = await assestStoreProviderFactory.deploy(storeAddress);
+  await assetStoreProvider.deployed();
+  console.log(`      assetStoreProvider="${assetStoreProvider.address}"`);
+
   const composerFactory = await ethers.getContractFactory("AssetComposer");
-  const composerContract = await composerFactory.deploy(storeAddress);
-  await composerContract.deployed();
-  console.log(`      composer="${composerContract.address}"`);
+  const composer = await composerFactory.deploy(storeAddress);
+  await composer.deployed();
+  console.log(`      composer="${composer.address}"`);
+
+  const tx1 = await composer.registerProvider({name:"asset", provider: assetStoreProvider.address});
+  await tx1.wait();
 
   const factory = await ethers.getContractFactory("DrawYourOwn");
-  const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy, composerContract.address);
+  const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy, composer.address);
   await tokenContract.deployed();
-  const composer = await tokenContract.assetComposer();
   console.log(`      tokenAddress="${tokenContract.address}"`);
-  console.log(`      composer="${composer}"`);
 
   const tx2 = await assetStore.setWhitelistStatus(tokenContract.address, true);
   await tx2.wait();
 
   const addresses = `export const token_addresses = {\n`
   + `  customTokenAddress:"${tokenContract.address}",\n`
-  + `  composerAddress:"${composer}"\n`
+  + `  composerAddress:"${composer.address}"\n`
   + `}\n`;
   await writeFile(`./cache/addresses_draw_${network.name}.ts`, addresses, ()=>{});
 }
