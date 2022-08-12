@@ -1,18 +1,28 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 
+/*
+ * This is a part of "On-chain asset store" project (https://assetstore.wtf/), 
+ * which is an attempt to create a public asset store on the Ethereum blockchain.
+ * SVGPathDecoder is an upgradeable part of AssetStore, which decodes the compressed
+ * "path" back to a string representation of path (for SVG). 
+ *
+ * Github repository: https://github.com/Cryptocoders-wtf/assetstore-contract
+ * Contributors: cryptedy, snakajima
+ */
+
 import "../interfaces/IPathDecoder.sol";
 
 contract SVGPathDecoderA is IPathDecoder {
   /**
-  * Decode the compressed binary deta and reconstruct SVG path. 
-  * The binaryformat is 12-bit middle endian, where the low 4-bit of the middle byte is
+  * @notice Decode the compressed path back to the string represetation of SVG path. 
+  * The data format is 12-bit middle endian, where the low 4-bit of the middle byte is
   * the high 4-bit of the even item ("ijkl"), and the high 4-bit of the middle byte is the high
   * 4-bit of the odd item ("IJKL"). 
   *   abcdefgh ijklIJKL ABCDEFG
   *
-  * If we want to upgrade this decoder, it is possible to use the high 4-bit of the first
-  * element for versioning, because it is guaranteed to be zero for the current version.
+  * If we want to support different compression format in future, it is possible to use the high 4-bit 
+  * of the first element for versioning, because it is guaranteed to be zero for the current version.
   */
   function decodePath(bytes memory body) external pure override returns (bytes memory) {
     bytes memory ret;
