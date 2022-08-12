@@ -20,6 +20,11 @@ async function main() {
   const tx1 = await composer.registerProvider({name:"asset", provider: assetStoreProvider.address});
   await tx1.wait();
 
+  const count = await composer.providerCount();
+  console.log(` providerCount=`, count.toNumber());
+  const info = await composer.getProvider(0);
+  console.log(` providerInfo=`, info.name, info.provider);
+  
   const factory = await ethers.getContractFactory("DrawYourOwn");
   const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy, composer.address);
   await tokenContract.deployed();
