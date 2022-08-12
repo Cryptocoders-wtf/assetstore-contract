@@ -81,7 +81,7 @@ abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
   }
 }
 
-contract AssetComposer is AssetComposerAdmin, IAssetComposer {
+contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   using Strings for uint256;
 
   uint256 public nextId;
@@ -131,16 +131,9 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer {
   }
 
   /**
-    * @notice returns the number of registered compositions.
-    */
-  function getCompositionCount() external view override returns(uint256) {
-    return nextId;
-  }
-
-  /**
     * @notice returns a SVG part (and the tag) that represents the specified composition.
     */
-  function generateSVGPart(uint256 _compositionId) public view override enabled(_compositionId) returns(string memory, string memory) {
+  function generateSVGPart(uint256 _compositionId) public view override(IAssetComposer, IAssetProvider) enabled(_compositionId) returns(string memory, string memory) {
     uint256[] memory assetIds = assets[_compositionId];
     uint256 i;
     bytes memory defs;
@@ -176,5 +169,9 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer {
       '</g>\n'
     ));    
     return (svgPart, tagId);
+  }
+
+  function totalSupply() external view override returns(uint256) {
+    return nextId;
   }
 }

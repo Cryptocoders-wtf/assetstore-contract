@@ -31,6 +31,5 @@ interface IAssetComposer {
 
   event CompositionRegistered(address from, uint256 compositionId);
   function registerComposition(AssetLayer[] memory _infos) external returns(uint256);
-  function getCompositionCount() external view returns(uint256);
-  function generateSVGPart(uint256 _compositionId) external view returns(string memory, string memory);
+  function generateSVGPart(uint256 _assetId) external view returns(string memory, string memory);
 }
