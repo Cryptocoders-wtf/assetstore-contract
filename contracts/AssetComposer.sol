@@ -101,13 +101,12 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   /**
     * @notice register a new composition by specifying asset layers.
     */
-  function registerComposition(AssetLayer[] memory _layers) external override returns(uint256) {
+  function registerComposition(AssetLayer[] memory _layers) external override returns(uint256 compositionId) {
     IStringValidator validator = assetStore.getStringValidator();
-    uint256 compositionId = nextCompositionId++;
-    uint256 i;
-
+    compositionId = nextCompositionId++;
     layerCounts[compositionId] = _layers.length;
-    for (i=0; i<_layers.length; i++) {
+
+    for (uint256 i=0; i<_layers.length; i++) {
       AssetLayer memory info = _layers[i];
       uint256 assetId = info.assetId;
       uint256 providerId = getProviderId(info.provider);
@@ -124,7 +123,6 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
       }
     }
     emit CompositionRegistered(msg.sender, compositionId);
-    return compositionId;
   }
 
   /**
@@ -132,12 +130,11 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
     */
   function generateSVGPart(uint256 _compositionId) public view override(IAssetComposer, IAssetProvider) enabled(_compositionId) returns(string memory, string memory) {
     uint256 layerLength = layerCounts[_compositionId];
-    uint256 i;
     bytes memory defs;
     bytes memory uses;
     string memory svgPart;
     string memory tagId;
-    for (i=0; i < layerLength; i++) {
+    for (uint256 i=0; i < layerLength; i++) {
       ProviderAsset memory assetId = assets[_compositionId][i];
       ProviderInfo memory info = getProvider(uint256(assetId.providerId));
       (svgPart, tagId) = info.provider.generateSVGPart(uint256(assetId.assetId));
