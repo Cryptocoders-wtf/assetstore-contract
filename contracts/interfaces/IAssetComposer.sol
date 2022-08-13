@@ -16,15 +16,14 @@ interface IAssetProviderRegistry {
   function registerProvider(ProviderInfo memory _providerInfo) external returns(uint256);
   function providerCount() external view returns(uint256);
   function getProvider(uint256 _providerId) external view returns(ProviderInfo memory);
-  function getProviderIndex(string memory _name) external view returns(uint256);
+  function getProviderId(string memory _name) external view returns(uint256);
 }
 
 // IAssetStore is the inteface for consumers of the AsseCompoer.
 interface IAssetComposer {
   struct AssetLayer {
     uint256 assetId; // either compositeId or assetId
-    bool isComposition;
-    //string provider; // provider name   
+    string provider; // provider name   
     string fill; // optional fill color
     string transform; // optinal transform
   }

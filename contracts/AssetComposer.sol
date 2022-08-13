@@ -38,11 +38,11 @@ abstract contract AssetComposerCore is IAssetProviderRegistry {
     return nextProvider;
   }
 
-  function getProvider(uint256 _providerId) external view override returns(ProviderInfo memory) {
+  function getProvider(uint256 _providerId) public view override returns(ProviderInfo memory) {
     return providers[_providerId];
   }
 
-  function getProviderIndex(string memory _name) external view override returns(uint256) {
+  function getProviderId(string memory _name) public view override returns(uint256) {
     uint256 idPlusOne = providerIds[_name];
     require(idPlusOne > 0, "AssestComposer:getProviderIndex, the provider does not exist");
     return idPlusOne - 1;
@@ -84,8 +84,13 @@ abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
 contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   using Strings for uint256;
 
-  uint256 public nextId;
-  mapping(uint256 => uint256[]) internal assets; // compositeId => [assetIds]
+  struct ProviderAsset {
+    uint128 providerId;
+    uint128 assetId;
+  }
+
+  uint256 public nextCompositionId;
+  mapping(uint256 => ProviderAsset[]) internal assets; // compositionId => [assetIds]
   mapping(uint256 => mapping(uint256 => bytes)) internal transforms;
   mapping(uint256 => mapping(uint256 => bytes)) internal fills;
 
@@ -97,32 +102,25 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
     */
   function registerComposition(AssetLayer[] memory _layers) external override returns(uint256) {
     IStringValidator validator = assetStore.getStringValidator();
-    uint256 compositionId = nextId++;
+    uint256 compositionId = nextCompositionId++;
     uint256 assetCount = assetStore.getAssetCount();
     uint256 i;
 
-    uint256[] memory assetIds = new uint256[](_layers.length);
+    ProviderAsset[] memory assetIds = new ProviderAsset[](_layers.length);
     for (i=0; i<_layers.length; i++) {
       AssetLayer memory info = _layers[i];
       uint256 assetId = info.assetId;
-      if (info.isComposition) {
-        require(assetId < nextId, "register: Invalid compositionId");
-        assetId *= 2; // @notice
-      } else {
-        // @notice assetId is 1-based (that's why <=, not <)
-        require(assetId <= assetCount, "register: Invalid assetId");
-        assetId = assetId * 2 + 1; // @notice
-      }
-      assetIds[i] = assetId;
+      uint256 providerId = getProviderId(info.provider);
+      assetIds[i] = ProviderAsset(uint128(providerId), uint128(assetId)); 
       bytes memory transform = bytes(info.transform);
       if (transform.length > 0) {
         require(validator.validate(transform), "register: Invalid transform");
-        transforms[compositionId][assetId] = transform;
+        transforms[compositionId][i] = transform;
       }
       bytes memory fill = bytes(info.fill);
       if (fill.length > 0) {
         require(validator.validate(fill), "register: Invalid fill");
-        fills[compositionId][assetId] = fill;
+        fills[compositionId][i] = fill;
       }
     }
     assets[compositionId] = assetIds;
@@ -134,28 +132,23 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
     * @notice returns a SVG part (and the tag) that represents the specified composition.
     */
   function generateSVGPart(uint256 _compositionId) public view override(IAssetComposer, IAssetProvider) enabled(_compositionId) returns(string memory, string memory) {
-    uint256[] memory assetIds = assets[_compositionId];
+    ProviderAsset[] memory assetIds = assets[_compositionId];
     uint256 i;
     bytes memory defs;
     bytes memory uses;
     string memory svgPart;
     string memory tagId;
     for (i=0; i < assetIds.length; i++) {
-      uint256 assetId = assetIds[i];
-      if (assetId % 2 == 0) {
-        (svgPart, tagId) = generateSVGPart(assetId/2);
-      } else {
-        IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId/2);
-        tagId = attr.tag;
-        svgPart = assetStore.generateSVGPart(assetId/2, tagId);
-      }
+      ProviderAsset memory assetId = assetIds[i];
+      ProviderInfo memory info = getProvider(uint256(assetId.providerId));
+      (svgPart, tagId) = info.provider.generateSVGPart(uint256(assetId.assetId));
       defs = abi.encodePacked(defs, svgPart);
       uses = abi.encodePacked(uses, ' <use href="#', tagId, '"');
-      bytes memory transform = transforms[_compositionId][assetId];
+      bytes memory transform = transforms[_compositionId][i];
       if (transform.length > 0) {
         uses = abi.encodePacked(uses, ' transform="', transform, '"');
       }
-      bytes memory fill = fills[_compositionId][assetId];
+      bytes memory fill = fills[_compositionId][i];
       if (fill.length > 0) {
         uses = abi.encodePacked(uses, ' fill="', fill, '"');
       }
@@ -172,6 +165,6 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   }
 
   function totalSupply() external view override returns(uint256) {
-    return nextId;
+    return nextCompositionId;
   }
 }
