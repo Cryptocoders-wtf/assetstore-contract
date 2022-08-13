@@ -90,9 +90,10 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   }
 
   uint256 public nextCompositionId;
-  mapping(uint256 => ProviderAsset[]) internal assets; // compositionId => [assetIds]
-  mapping(uint256 => mapping(uint256 => bytes)) internal transforms;
-  mapping(uint256 => mapping(uint256 => bytes)) internal fills;
+  mapping(uint256 => uint256) internal layerCounts; 
+  mapping(uint256 => mapping(uint256 => ProviderAsset)) internal assets;
+  mapping(uint256 => mapping(uint256 => bytes)) internal transforms; // optional
+  mapping(uint256 => mapping(uint256 => bytes)) internal fills; // optinoal
 
   constructor(IAssetStoreEx _assetStore) AssetComposerAdmin(_assetStore) {
   }
@@ -103,15 +104,14 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   function registerComposition(AssetLayer[] memory _layers) external override returns(uint256) {
     IStringValidator validator = assetStore.getStringValidator();
     uint256 compositionId = nextCompositionId++;
-    uint256 assetCount = assetStore.getAssetCount();
     uint256 i;
 
-    ProviderAsset[] memory assetIds = new ProviderAsset[](_layers.length);
+    layerCounts[compositionId] = _layers.length;
     for (i=0; i<_layers.length; i++) {
       AssetLayer memory info = _layers[i];
       uint256 assetId = info.assetId;
       uint256 providerId = getProviderId(info.provider);
-      assetIds[i] = ProviderAsset(uint128(providerId), uint128(assetId)); 
+      assets[compositionId][i] = ProviderAsset(uint128(providerId), uint128(assetId)); 
       bytes memory transform = bytes(info.transform);
       if (transform.length > 0) {
         require(validator.validate(transform), "register: Invalid transform");
@@ -123,7 +123,6 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
         fills[compositionId][i] = fill;
       }
     }
-    assets[compositionId] = assetIds;
     emit CompositionRegistered(msg.sender, compositionId);
     return compositionId;
   }
@@ -132,25 +131,25 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
     * @notice returns a SVG part (and the tag) that represents the specified composition.
     */
   function generateSVGPart(uint256 _compositionId) public view override(IAssetComposer, IAssetProvider) enabled(_compositionId) returns(string memory, string memory) {
-    ProviderAsset[] memory assetIds = assets[_compositionId];
+    uint256 layerLength = layerCounts[_compositionId];
     uint256 i;
     bytes memory defs;
     bytes memory uses;
     string memory svgPart;
     string memory tagId;
-    for (i=0; i < assetIds.length; i++) {
-      ProviderAsset memory assetId = assetIds[i];
+    for (i=0; i < layerLength; i++) {
+      ProviderAsset memory assetId = assets[_compositionId][i];
       ProviderInfo memory info = getProvider(uint256(assetId.providerId));
       (svgPart, tagId) = info.provider.generateSVGPart(uint256(assetId.assetId));
       defs = abi.encodePacked(defs, svgPart);
       uses = abi.encodePacked(uses, ' <use href="#', tagId, '"');
-      bytes memory transform = transforms[_compositionId][i];
-      if (transform.length > 0) {
-        uses = abi.encodePacked(uses, ' transform="', transform, '"');
+      bytes memory option = transforms[_compositionId][i];
+      if (option.length > 0) {
+        uses = abi.encodePacked(uses, ' transform="', option, '"');
       }
-      bytes memory fill = fills[_compositionId][i];
-      if (fill.length > 0) {
-        uses = abi.encodePacked(uses, ' fill="', fill, '"');
+      option = fills[_compositionId][i];
+      if (option.length > 0) {
+        uses = abi.encodePacked(uses, ' fill="', option, '"');
       }
       uses = abi.encodePacked(uses, ' />\n');
     }
