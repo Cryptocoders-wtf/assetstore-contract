@@ -98,6 +98,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
         layers[0].transform = _transform; // optional transform
       }
       layers[offset].assetId = assetId;
+      layers[offset].provider = "asset";
       uint256 i;
       for (i = 0; i < _overlays.length; i++) {
         layers[offset + 1 + i] = _overlays[i];
