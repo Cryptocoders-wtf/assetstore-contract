@@ -24,8 +24,10 @@ import { IAssetStoreToken } from './interfaces/IAssetStoreToken.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
-import { IAssetComposer } from './interfaces/IAssetComposer.sol';
+import { IAssetComposer, IAssetProviderRegistry } from './interfaces/IAssetComposer.sol';
+
 import "./AssetComposer.sol";
+import "./AssetStoreProvider.sol";
 
 contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   using Strings for uint256;
@@ -47,7 +49,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   // OpenSea's Proxy Registry
   IProxyRegistry public immutable proxyRegistry;
 
-  IAssetComposer public immutable assetComposer;
+  AssetComposer public immutable assetComposer;
 
   /*
    * @notice both _registry and _assetStore points to the AssetStore.
@@ -56,14 +58,20 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     IAssetStoreRegistry _registry, 
     IAssetStoreEx _assetStore,
     address _developer,
-    IProxyRegistry _proxyRegistry,
-    IAssetComposer _assetComposer
+    IProxyRegistry _proxyRegistry
   ) ERC721A("Draw Your Own NFT", "DrawNFT") {
     registry = _registry;
     assetStore = _assetStore;
     developer = _developer;
     proxyRegistry = _proxyRegistry;
-    assetComposer = _assetComposer; // instead of new AssetComposer(_assetStore);
+
+    AssetComposer composer = new AssetComposer(_assetStore);
+    composer.transferOwnership(msg.sender);
+    IAssetProvider provider = new AssetStoreProvider(_assetStore);
+    composer.registerProvider(IAssetProviderRegistry.ProviderInfo("asset", provider));
+    composer.registerProvider(IAssetProviderRegistry.ProviderInfo("comp", composer));
+
+    assetComposer = composer;
   }
 
   function _isPrimary(uint256 _tokenId) internal pure returns(bool) {
