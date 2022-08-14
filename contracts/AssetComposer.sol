@@ -44,7 +44,7 @@ abstract contract AssetComposerCore is IAssetProviderRegistry {
 
   function getProviderId(string memory _name) public view override returns(uint256) {
     uint256 idPlusOne = providerIds[_name];
-    require(idPlusOne > 0, "AssestComposer:getProviderIndex, the provider does not exist");
+    require(idPlusOne > 0, string(abi.encodePacked("AssestComposer:getProviderId, the provider does not exist:", _name)));
     return idPlusOne - 1;
   }
 }
