@@ -2,7 +2,12 @@
 
 /*
  * AssetComposer allows developers to create a composition from a collection of
- * assets (in AssetStore) and compositions.
+ * assets provided by registered asset providers.
+ * 
+ * IAssetComposer is the interface for the consumer of this composition service. 
+ * IAssetProvider is the interface each asset provider implements.
+ * IAssetProviderRegistry is the interface to register various asset providers (to AssetComposer).
+ * AssetComposer implements IAssetProvider interface as well, and registers itself.  
  *
  * Created by Satoshi Nakajima (@snakajima)
  */
@@ -16,11 +21,11 @@ import { IAssetProvider, IAssetProviderRegistry, IAssetComposer } from './interf
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 abstract contract AssetComposerCore is IAssetProviderRegistry {
+  uint256 nextProvider; // 0-based
   mapping(string => uint256) providerIds; // +1
-  uint256 nextProvider;
   mapping(uint256 => ProviderInfo) providers;
 
-  IAssetStoreEx public immutable assetStore;
+  IAssetStoreEx public immutable assetStore; // for IStringValidator
 
   constructor(IAssetStoreEx _assetStore) {
     assetStore = _assetStore;
@@ -29,7 +34,7 @@ abstract contract AssetComposerCore is IAssetProviderRegistry {
   function registerProvider(ProviderInfo memory _providerInfo) external override returns(uint256 providerId) {
     require(providerIds[_providerInfo.name]==0, "AssetCompooser:registerProvider, already registered");
     providers[nextProvider++] = _providerInfo;
-    providerIds[_providerInfo.name] = nextProvider; // @notive: providerID + 1
+    providerIds[_providerInfo.name] = nextProvider; // @notice: providerID + 1
     providerId = nextProvider - 1; 
     emit ProviderRegistered(msg.sender, providerId);
   }
