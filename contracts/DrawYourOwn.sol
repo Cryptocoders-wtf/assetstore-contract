@@ -92,8 +92,13 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       IAssetComposer.AssetLayer[] memory layers = new IAssetComposer.AssetLayer[](offset + 1 + _overlays.length);
       if (_remixId > 0) {
         uint256 remixAssetId = assetIdOfToken(_remixId);
-        layers[0].assetId = remixAssetId / 2;
-        layers[0].provider = (remixAssetId % 2 == 0) ? "comp" : "asset";
+        if (remixAssetId % 2 ==0) {
+          layers[0].assetId = remixAssetId / 2;
+          layers[0].provider = "comp";
+        } else {
+          layers[0].assetId = remixAssetId / 2 - 1; // Switch it to 0-based
+          layers[0].provider = "asset";
+        }
         layers[0].fill = _fill; // optional color
         layers[0].transform = _transform; // optional transform
       }
