@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   sodipodi:docname="Gohonhone Ougi.svg"
+   viewBox="0 0 793.70135 793.70135"
+   height="793.70135"
+   width="793.70135"
+   id="svg21053"
+   version="1.1"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs21057">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath21252">
+      <path
+         d="m -332.8613,568.4095 h 595.276 v -841.89 h -595.276 z"
+         id="path21254"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath21258">
+      <path
+         d="m -297.312,558.0951 h 595.276 v -841.89 h -595.276 z"
+         id="path21260"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview21055"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-406.67568"
+     inkscape:cy="513.6956"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg21053">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page21059"
+       width="793.70135"
+       height="793.70135" />
+  </sodipodi:namedview>
+  <path
+     d="m 443.815,605.879 -26.693,-16.404 -3.174,1.931 12.971,23.218 8.495,5.195 c 0,0 7.708,3.821 11.278,-2.689 3.55,-6.52 -2.877,-11.251 -2.877,-11.251 M 396.182,172.092 c -254.841,0 -339.058,216.364 -339.058,216.364 L 225.818,491.69 c 0,0 43.547,-89.201 170.364,-89.201 62.718,0 119.05,27.284 157.783,70.642 L 724.676,368.866 C 661.926,251.719 538.375,172.092 396.182,172.092 m 13.982,424.418 0.02,33.444 2.844,4.944 c 0,0 4.855,7.102 11.151,3.164 6.295,-3.972 2.997,-11.219 2.997,-11.219 z M 398.2,568.282 426.476,550.996 493.995,430.59 c -4.639,-2.451 -9.552,-4.776 -14.748,-6.953 z m 6.164,-160.097 c -2.7,-0.082 -5.393,-0.123 -8.182,-0.123 -2.78,0 -5.475,0.041 -8.179,0.123 l 0.059,166.393 16.237,-29.11 z m -16.27,224.055 0.016,4.656 c 0,0 0.792,8.563 8.2,8.188 7.424,-0.396 8.081,-8.338 8.081,-8.338 l -0.016,-33.887 z m -5.858,-54.268 -0.028,-31.269 -69.089,-123.066 c -5.194,2.177 -10.108,4.502 -14.748,6.953 l 83.068,147.878 z m -150.671,-83.161 143.369,87.7 1.535,-0.968 -14.742,-26.169 -121.471,-74.312 c -3.87,5.377 -6.682,10.131 -8.691,13.749 m 139.217,123.003 -5.068,9.22 c 0,0 -3.489,7.864 3.164,11.15 6.671,3.282 11.129,-3.334 11.129,-3.334 l 18.996,-34.306 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path21073" />
+  <path
+     d="m 396.416,592.127 c -3.581,0 -6.477,-2.897 -6.477,-6.479 0,-3.581 2.896,-6.478 6.477,-6.478 3.581,0 6.477,2.897 6.477,6.478 0,3.582 -2.896,6.479 -6.477,6.479 M 728.311,373.38 348.499,605.506 c 0,0 -6.923,5.125 -2.732,11.261 4.19,6.125 11.332,2.555 11.332,2.555 L 735.244,388.456 c 0,0 -2.188,-5.635 -6.933,-15.076"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path21077" />
+</svg>

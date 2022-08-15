@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   sodipodi:docname="Sanbon Ougi.svg"
+   viewBox="0 0 793.70135 793.70135"
+   height="793.70135"
+   width="793.70135"
+   id="svg29368"
+   version="1.1"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs29372">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath29705">
+      <path
+         d="m -316.5742,474.0531 h 595.276 v -841.89 h -595.276 z"
+         id="path29707"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath29711">
+      <path
+         d="m -65.8804,584.1976 h 595.276 v -841.89 h -595.276 z"
+         id="path29713"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath29717">
+      <path
+         d="m -76.0869,601.8851 h 595.276 v -841.89 h -595.276 z"
+         id="path29719"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath29723">
+      <path
+         d="m -282.7559,475.055 h 595.276 v -841.89 h -595.276 z"
+         id="path29725"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath29729">
+      <path
+         d="M -528.3906,584.555 H 66.885399 v -841.89 H -528.3906 Z"
+         id="path29731"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath29735">
+      <path
+         d="M -518.1924,602.2425 H 77.083599 v -841.89 H -518.1924 Z"
+         id="path29737"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath29741">
+      <path
+         d="m -297.4521,447.5902 h 595.276 v -841.89 h -595.276 z"
+         id="path29743"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview29370"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-594.55509"
+     inkscape:cy="542.23424"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg29368">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page29374"
+       width="793.70135"
+       height="793.70135" />
+  </sodipodi:namedview>
+  <path
+     d="m 382.98959,110.68349 h -57.17733 l 25.29333,267.06932 h 31.884 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.33333"
+     id="path29380" />
+  <path
+     d="m 410.21092,110.68349 h 57.176 l -25.28666,267.06932 h -31.88934 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.33333"
+     id="path29384" />
+  <path
+     d="M 396.603 438.787 C 393.871 438.787 391.654 436.599 391.654 433.875 C 391.654 431.162 393.871 428.948 396.603 428.948 C 399.33 428.948 401.542 431.162 401.542 433.875 C 401.542 436.599 399.33 438.787 396.603 438.787 M 390.67 448.462 L 402.526 448.462 L 402.526 110.685 L 390.67 110.685 Z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path29396" />
+  <path
+     d="M 101.449 644.513 L 130.045 694.029 L 348.69 538.596 L 332.739 510.975 Z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path29400" />
+  <path
+     d="M 87.8405 620.93 L 59.2446 571.414 L 303.187 459.782 L 319.12 487.402 Z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path29404" />
+  <path
+     d="M 377.008 475.407 C 374.656 476.767 371.631 475.946 370.268 473.595 C 368.911 471.224 369.723 468.204 372.069 466.85 C 374.425 465.486 377.425 466.308 378.793 468.67 C 380.151 471.03 379.36 474.05 377.008 475.407 M 384.207 458.702 L 91.6794 627.587 L 97.6127 637.852 L 390.136 468.972 Z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path29408" />
+  <path
+     d="M 704.521 621.407 L 733.122 571.902 L 489.18 460.265 L 473.24 487.881 Z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path29412" />
+  <path
+     d="M 690.923 644.99 L 662.327 694.506 L 443.682 539.072 L 459.632 511.457 Z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path29416" />
+  <path
+     d="M 422.099 474.071 C 420.731 476.435 417.704 477.243 415.364 475.883 C 413.002 474.524 412.211 471.516 413.568 469.144 C 414.931 466.79 417.94 465.962 420.296 467.326 C 422.655 468.683 423.456 471.714 422.099 474.071 M 408.159 459.175 L 402.238 469.446 L 694.754 638.333 L 700.693 628.06 Z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path29420" />
+</svg>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   sodipodi:docname="Narabi Ougi.svg"
+   viewBox="0 0 793.70135 793.70135"
+   height="793.70135"
+   width="793.70135"
+   id="svg27242"
+   version="1.1"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs27246">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath27453">
+      <path
+         d="m -377.6943,633.1117 h 595.276 v -841.89 h -595.276 z"
+         id="path27455"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview27244"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-1234.2964"
+     inkscape:cy="561.26001"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg27242">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page27248"
+       width="793.70135"
+       height="793.70135" />
+  </sodipodi:namedview>
+  <path
+     d="m 271.62759,101.83842 h -86.16266 l 51.31333,433.76132 h 34.84933 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.33333"
+     id="path27254" />
+  <path
+     d="m 305.92186,101.83842 h 86.16266 l -51.312,433.76132 h -34.85066 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.33333"
+     id="path27258" />
+  <path
+     d="m 486.44532,101.83842 h -86.16133 l 51.312,433.76132 h 34.84933 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.33333"
+     id="path27262" />
+  <path
+     d="m 520.73959,101.83842 h 86.16266 l -51.312,433.76132 h -34.85066 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.33333"
+     id="path27266" />
+  <path
+     d="m 0,0 c -2.478,0 -4.489,2.006 -4.489,4.49 0,2.479 2.011,4.49 4.489,4.49 2.481,0 4.49,-2.011 4.49,-4.49 C 4.49,2.006 2.481,0 0,0 M -6.702,-11.4 H 6.703 V 436.733 H -6.702 Z M -161.113,8.98 c 2.477,0 4.49,-2.011 4.49,-4.49 0,-2.484 -2.013,-4.49 -4.49,-4.49 -2.478,0 -4.49,2.006 -4.49,4.49 0,2.479 2.012,4.49 4.49,4.49 m -6.702,-20.38 h 13.405 v 448.133 h -13.405 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path27278"
+     transform="matrix(1.3333333,0,0,-1.3333333,503.59239,684.14894)"
+     clip-path="url(#clipPath27453)" />
+</svg>

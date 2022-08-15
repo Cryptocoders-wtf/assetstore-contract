@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg23912"
+   width="793.70135"
+   height="793.70135"
+   viewBox="0 0 793.70135 793.70135"
+   sodipodi:docname="Kasane Ougi.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs23916">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath24093">
+      <path
+         d="M -520.5977,377.0638 H 74.678297 v -841.89 H -520.5977 Z"
+         id="path24095"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath24099">
+      <path
+         d="m -297.3125,589.2504 h 595.276 v -841.89 h -595.276 z"
+         id="path24101"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath24105">
+      <path
+         d="m -307.623,592.5375 h 595.276 v -841.89 h -595.276 z"
+         id="path24107"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview23914"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-853.78111"
+     inkscape:cy="485.15696"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg23912">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page23918"
+       width="793.70135"
+       height="793.70135" />
+  </sodipodi:namedview>
+  <path
+     d="m 410.164,634.05 0.021,33.445 2.843,4.943 c 0,0 4.853,7.104 11.151,3.164 6.296,-3.971 2.998,-11.219 2.998,-11.219 z m -11.963,-28.227 28.275,-17.286 67.52,-114.831 c -4.64,-2.45 -9.552,-4.776 -14.748,-6.953 z m -2.02,-374.812 c -254.84,0 -339.0575,194.99 -339.0575,194.99 L 225.819,529.236 c 0,0 43.545,-83.631 170.362,-83.631 62.719,0 119.051,21.713 157.787,65.071 L 724.677,406.411 C 661.925,289.264 538.374,231.011 396.181,231.011 m -8.088,438.771 0.016,4.656 c 0,0 0.792,8.563 8.2,8.188 7.424,-0.396 8.082,-8.339 8.082,-8.339 l -0.016,-33.885 z m 55.723,-26.363 -26.693,-16.402 -3.175,1.929 12.972,23.219 8.495,5.194 c 0,0 7.706,3.824 11.277,-2.686 3.549,-6.522 -2.876,-11.254 -2.876,-11.254 m -212.252,-111.063 143.371,87.697 1.534,-0.97 -14.742,-26.169 -121.472,-74.309 c -3.869,5.375 -6.681,10.128 -8.691,13.751 m 150.672,83.158 -0.027,-31.269 -69.09,-117.492 c -5.196,2.177 -10.107,4.503 -14.747,6.953 l 83.067,142.305 z m -11.455,39.841 -5.066,9.222 c 0,0 -3.491,7.861 3.164,11.15 6.67,3.282 11.128,-3.336 11.128,-3.336 l 18.996,-34.305 z M 404.364,451.3 c -2.699,-0.08 -5.393,-0.122 -8.183,-0.122 -2.78,0 -5.473,0.042 -8.178,0.122 l 0.06,160.821 16.301,-29.11 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path23932" />
+  <path
+     d="m 396.417,629.667 c -3.583,0 -6.479,-2.896 -6.479,-6.476 0,-3.584 2.896,-6.48 6.479,-6.48 3.581,0 6.477,2.896 6.477,6.48 0,3.58 -2.896,6.476 -6.477,6.476 M 728.312,410.925 348.498,643.047 c 0,0 -6.922,5.125 -2.73,11.26 4.189,6.125 11.33,2.555 11.33,2.555 L 735.244,426.001 c 0,0 -2.187,-5.639 -6.932,-15.076"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path23936" />
+  <path
+     d="m 694.13,346.752 41.109,-25.212 c 0,0 -84.217,-194.99 -339.058,-194.99 -254.84,0 -339.0561,194.99 -339.0561,194.99 l 43.2091,26.484 c 7.467,-8.359 15.837,-16.939 25.191,-25.56 54.044,-49.88 141.087,-99.717 270.656,-99.672 119.937,-0.085 227.913,40.988 297.949,123.96"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path23940" />
+</svg>
