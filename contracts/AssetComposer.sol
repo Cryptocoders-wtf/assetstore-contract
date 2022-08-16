@@ -135,7 +135,7 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   }
 
   function getProviderInfo() external view override returns(ProviderInfo memory) {
-    return ProviderInfo("comp", "AssetComposer", this);
+    return ProviderInfo("comp", "Asset Composer", this);
   }
 
   /**

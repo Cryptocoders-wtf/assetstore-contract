@@ -29,7 +29,7 @@ contract AssetStoreProvider is IAssetProvider, IERC165 {
   }
 
   function getProviderInfo() external view override returns(ProviderInfo memory) {
-    return ProviderInfo("asset", "AssetStore", this);
+    return ProviderInfo("asset", "Asset Store", this);
   }
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
