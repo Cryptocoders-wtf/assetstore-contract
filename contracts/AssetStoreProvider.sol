@@ -21,6 +21,10 @@ contract AssetStoreProvider is IAssetProvider {
     assetStore = _assetStore;
   }
 
+  function getProviderInfo() external view override returns(ProviderInfo memory) {
+    return ProviderInfo("asset", "AssetStore", this);
+  }
+
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(_assetId + 1);
     tag = attr.tag;

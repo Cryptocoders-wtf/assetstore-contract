@@ -3,20 +3,22 @@
 pragma solidity ^0.8.6;
 
 interface IAssetProvider {
+  struct ProviderInfo {
+    string key;
+    string name;
+    IAssetProvider provider;
+  }
+  function getProviderInfo() external view returns(ProviderInfo memory);
   function generateSVGPart(uint256 _assetId) external view returns(string memory, string memory);
   function totalSupply() external view returns(uint256);
 }
 
 interface IAssetProviderRegistry {
-  struct ProviderInfo {
-    string name;
-    IAssetProvider provider;
-  }
   event ProviderRegistered(address from, uint256 _providerId);
-  function registerProvider(ProviderInfo memory _providerInfo) external returns(uint256);
+  function registerProvider(IAssetProvider _provider) external returns(uint256);
   function providerCount() external view returns(uint256);
-  function getProvider(uint256 _providerId) external view returns(ProviderInfo memory);
-  function getProviderId(string memory _name) external view returns(uint256);
+  function getProvider(uint256 _providerId) external view returns(IAssetProvider.ProviderInfo memory);
+  function getProviderId(string memory _key) external view returns(uint256);
 }
 
 // IAssetStore is the inteface for consumers of the AsseCompoer.

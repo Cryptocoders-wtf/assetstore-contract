@@ -67,9 +67,9 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
 
     AssetComposer composer = new AssetComposer(_assetStore);
     composer.transferOwnership(msg.sender);
-    IAssetProvider provider = new AssetStoreProvider(_assetStore);
-    composer.registerProvider(IAssetProviderRegistry.ProviderInfo("asset", provider));
-    composer.registerProvider(IAssetProviderRegistry.ProviderInfo("comp", composer));
+    IAssetProvider assetProvider = new AssetStoreProvider(_assetStore);
+    composer.registerProvider(assetProvider);
+    composer.registerProvider(composer);
 
     assetComposer = composer;
   }

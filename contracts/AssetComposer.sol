@@ -22,8 +22,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 abstract contract AssetComposerCore is IAssetProviderRegistry {
   uint256 nextProvider; // 0-based
-  mapping(string => uint256) providerIds; // +1
-  mapping(uint256 => ProviderInfo) providers;
+  mapping(string => uint256) providerIds; // key => providerId+1
+  mapping(uint256 => IAssetProvider) providers;
 
   IAssetStoreEx public immutable assetStore; // for IStringValidator
 
@@ -31,10 +31,11 @@ abstract contract AssetComposerCore is IAssetProviderRegistry {
     assetStore = _assetStore;
   }
 
-  function registerProvider(ProviderInfo memory _providerInfo) external override returns(uint256 providerId) {
-    require(providerIds[_providerInfo.name]==0, "AssetCompooser:registerProvider, already registered");
-    providers[nextProvider++] = _providerInfo;
-    providerIds[_providerInfo.name] = nextProvider; // @notice: providerID + 1
+  function registerProvider(IAssetProvider _provider) external override returns(uint256 providerId) {
+    IAssetProvider.ProviderInfo memory providerInfo = _provider.getProviderInfo();
+    require(providerIds[providerInfo.key]==0, "AssetCompooser:registerProvider, already registered");
+    providers[nextProvider++] = _provider;
+    providerIds[providerInfo.key] = nextProvider; // @notice: providerID + 1
     providerId = nextProvider - 1; 
     emit ProviderRegistered(msg.sender, providerId);
   }
@@ -43,13 +44,14 @@ abstract contract AssetComposerCore is IAssetProviderRegistry {
     return nextProvider;
   }
 
-  function getProvider(uint256 _providerId) public view override returns(ProviderInfo memory) {
-    return providers[_providerId];
+  function getProvider(uint256 _providerId) public view override returns(IAssetProvider.ProviderInfo memory) {
+    IAssetProvider provider = providers[_providerId];
+    return provider.getProviderInfo();
   }
 
-  function getProviderId(string memory _name) public view override returns(uint256) {
-    uint256 idPlusOne = providerIds[_name];
-    require(idPlusOne > 0, string(abi.encodePacked("AssestComposer:getProviderId, the provider does not exist:", _name)));
+  function getProviderId(string memory _key) public view override returns(uint256) {
+    uint256 idPlusOne = providerIds[_key];
+    require(idPlusOne > 0, string(abi.encodePacked("AssestComposer:getProviderId, the provider does not exist:", _key)));
     return idPlusOne - 1;
   }
 }
@@ -128,6 +130,10 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
       }
     }
     emit CompositionRegistered(msg.sender, compositionId);
+  }
+
+  function getProviderInfo() external view override returns(ProviderInfo memory) {
+    return ProviderInfo("comp", "AssetComposer", this);
   }
 
   /**
