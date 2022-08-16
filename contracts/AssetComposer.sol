@@ -34,6 +34,7 @@ abstract contract AssetComposerCore is IAssetProviderRegistry {
   function registerProvider(IAssetProvider _provider) external override returns(uint256 providerId) {
     IAssetProvider.ProviderInfo memory providerInfo = _provider.getProviderInfo();
     require(providerIds[providerInfo.key]==0, "AssetCompooser:registerProvider, already registered");
+    require(_provider == providerInfo.provider, "AssetCompooser:registerProvider, address mismatch");
     providers[nextProvider++] = _provider;
     providerIds[providerInfo.key] = nextProvider; // @notice: providerID + 1
     providerId = nextProvider - 1; 
