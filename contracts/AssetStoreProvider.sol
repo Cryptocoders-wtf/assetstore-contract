@@ -12,13 +12,20 @@ pragma solidity ^0.8.6;
 import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetProvider } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
+import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
 // IAssetProvider wrapper of AssetStore
-contract AssetStoreProvider is IAssetProvider {
+contract AssetStoreProvider is IAssetProvider, IERC165 {
   IAssetStoreEx public immutable assetStore;
 
   constructor(IAssetStoreEx _assetStore) {
     assetStore = _assetStore;
+  }
+
+  function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+      return
+          interfaceId == type(IAssetProvider).interfaceId ||
+          interfaceId == type(IERC165).interfaceId;
   }
 
   function getProviderInfo() external view override returns(ProviderInfo memory) {

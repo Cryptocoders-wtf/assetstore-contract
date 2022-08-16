@@ -19,8 +19,9 @@ import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IStringValidator } from './interfaces/IStringValidator.sol';
 import { IAssetProvider, IAssetProviderRegistry, IAssetComposer } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
+import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
-abstract contract AssetComposerCore is IAssetProviderRegistry {
+abstract contract AssetComposerCore is IAssetProviderRegistry, IERC165 {
   uint256 nextProvider; // 0-based
   mapping(string => uint256) providerIds; // key => providerId+1
   mapping(uint256 => IAssetProvider) providers;
@@ -174,5 +175,13 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
 
   function totalSupply() external view override returns(uint256) {
     return nextCompositionId;
+  }
+
+  function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+      return
+          interfaceId == type(IAssetProviderRegistry).interfaceId ||
+          interfaceId == type(IAssetComposer).interfaceId ||
+          interfaceId == type(IAssetProvider).interfaceId ||
+          interfaceId == type(IERC165).interfaceId;
   }
 }
