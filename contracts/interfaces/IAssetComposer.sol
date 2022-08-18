@@ -4,12 +4,19 @@ pragma solidity ^0.8.6;
 
 interface IAssetProvider {
   struct ProviderInfo {
-    string key;
-    string name;
+    string key;  // short and unique identifier of this provider (e.g., "asset")
+    string name; // human readable display name (e.g., "Asset Store")
     IAssetProvider provider;
   }
   function getProviderInfo() external view returns(ProviderInfo memory);
+  // This function returns SVGPart and the tag. SVGPart consists of one or more SVG elements.
+  // The tag specifies the identifier of the SVG element to be displayed (using <use> tag).
+  // The tag is the combination of the provider key and assetId (e.e., "asset123")
   function generateSVGPart(uint256 _assetId) external view returns(string memory, string memory);
+  // This function returns the number of supplies available from this provider. 
+  // If the total supply is 100, ids of available assets are 0,1,...99.
+  // The generative providers returns 0, which indicates the provider dynamically generates
+  // supplies using the given assetId as the random seed (deterministic).
   function totalSupply() external view returns(uint256);
 }
 
