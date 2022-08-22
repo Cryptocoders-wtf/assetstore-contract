@@ -13,6 +13,7 @@ import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetProvider } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
+import { Base64 } from 'base64-sol/base64.sol';
 import { INounsDescriptor, INounsSeeder } from './interfaces/INounsDescriptor.sol';
 
 // IAssetProvider wrapper of AssetStore
@@ -60,11 +61,11 @@ contract NounsAssetProvider is IAssetProvider, IERC165 {
         )
     });
     string memory svg = descriptor.generateSVGImage(seed);
-    svgPart = svg;
+    svgPart = string(Base64.decode(svg));
     tag = string(abi.encodePacked("nouns", _assetId.toString()));
   }
 
   function totalSupply() external pure override returns(uint256) {
-    return 0;
+    return 0; // indicating "dynamically (but deterministically) generated from the given assetId)
   }
 }
