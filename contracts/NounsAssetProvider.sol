@@ -65,9 +65,44 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
             uint48(_assetId >> 192) % glassesCount
         )
     });
-    string memory svg = descriptor.generateSVGImage(seed);
-    svgPart = string(Base64.decode(svg));
+
     tag = string(abi.encodePacked("nouns", _assetId.toString()));
+
+    string memory encodedSvg = descriptor.generateSVGImage(seed);
+    bytes memory svg = Base64.decode(encodedSvg);
+    uint256 length = svg.length;
+    uint256 start = 0;
+    for (uint256 i=0; i < length; i++) {
+      if (uint8(svg[i]) == 0x2F && uint8(svg[i+1]) == 0x3E) {  // "/>": looking for the end of <rect ../>
+        start = i + 2;
+        break;
+      }
+    }
+    length -= start + 6; // "</svg>"
+
+    bytes memory ret = new bytes(length);
+    for(uint i = 0; i < length; i++) {
+        ret[i] = svg[i+start];
+    }
+
+    /*
+    bytes memory ret;
+    assembly {
+      ret := mload(0x40)
+      mstore(ret, length)
+      let retMemory := add(ret, 0x20)
+      let svgMemory := add(add(svg, 0x20), start)
+      for {let i := 0} lt(i, length) {i := add(i, 0x20)} {
+        let data := mload(add(svgMemory, i))
+        mstore(add(retMemory, i), data)
+      }
+      mstore(0x40, retMemory)
+    }
+    */
+    svgPart = string(abi.encodePacked(
+      '<g id="', tag, '" transform="scale(3.2)">',
+      ret,
+      '</g>'));
   }
 
   function totalSupply() external pure override returns(uint256) {
