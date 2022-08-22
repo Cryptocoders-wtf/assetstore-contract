@@ -10,6 +10,10 @@ const { nounsDescriptor } = getContractAddressesForChainOrThrow(chainId);
 console.log("nounsDescriptor", nounsDescriptor);
 
 async function main() {
+  const factory = await ethers.getContractFactory("NounsAssetProvider");
+  const nounsProvider = await factory.deploy(nounsDescriptor);
+  await nounsProvider.deployed();
+  console.log(`      nounsProvider="${nounsProvider.address}"`);
 }
 
 main().catch((error) => {
