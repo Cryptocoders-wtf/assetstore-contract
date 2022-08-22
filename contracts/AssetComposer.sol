@@ -134,6 +134,10 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
     emit CompositionRegistered(msg.sender, compositionId);
   }
 
+  function getOwner() external override view returns (address) {
+    return owner();
+  }
+
   function getProviderInfo() external view override returns(ProviderInfo memory) {
     return ProviderInfo("comp", "Asset Composer", this);
   }

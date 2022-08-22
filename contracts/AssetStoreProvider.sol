@@ -9,13 +9,14 @@
 
 pragma solidity ^0.8.6;
 
+import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetProvider } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
 // IAssetProvider wrapper of AssetStore
-contract AssetStoreProvider is IAssetProvider, IERC165 {
+contract AssetStoreProvider is IAssetProvider, IERC165, Ownable {
   IAssetStoreEx public immutable assetStore;
 
   constructor(IAssetStoreEx _assetStore) {
@@ -26,6 +27,10 @@ contract AssetStoreProvider is IAssetProvider, IERC165 {
       return
           interfaceId == type(IAssetProvider).interfaceId ||
           interfaceId == type(IERC165).interfaceId;
+  }
+
+  function getOwner() external override view returns (address) {
+    return owner();
   }
 
   function getProviderInfo() external view override returns(ProviderInfo memory) {

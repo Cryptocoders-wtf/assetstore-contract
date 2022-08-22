@@ -29,6 +29,11 @@ interface IAssetProvider {
    * deterministically generates assets using the given assetId as the random seed (deterministic).
    */
   function totalSupply() external view returns(uint256);
+
+  /**
+   * Returns the onwer. The registration update is possible only if both contracts have the same owner. 
+   */
+  function getOwner() external view returns (address);
 }
 
 /**
