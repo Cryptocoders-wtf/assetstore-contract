@@ -48,21 +48,23 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
     uint256 headCount = descriptor.headCount();
     uint256 glassesCount = descriptor.glassesCount();
 
+    uint256 pseudorandomness = uint256(keccak256(abi.encodePacked(_assetId)));
+
     INounsSeeder.Seed memory seed = INounsSeeder.Seed({
         background: uint48(
-            uint48(_assetId) % backgroundCount
+            uint48(pseudorandomness) % backgroundCount
         ),
         body: uint48(
-            uint48(_assetId >> 48) % bodyCount
+            uint48(pseudorandomness >> 48) % bodyCount
         ),
         accessory: uint48(
-            uint48(_assetId >> 96) % accessoryCount
+            uint48(pseudorandomness >> 96) % accessoryCount
         ),
         head: uint48(
-            uint48(_assetId >> 144) % headCount
+            uint48(pseudorandomness >> 144) % headCount
         ),
         glasses: uint48(
-            uint48(_assetId >> 192) % glassesCount
+            uint48(pseudorandomness >> 192) % glassesCount
         )
     });
 
