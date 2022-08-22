@@ -16,14 +16,20 @@ const { nounsTokenContract, nounsDescriptorContract, nounsSeederContract } = get
 
 async function main() {
   console.log("nounsToken", nounsTokenContract.address);
-  const result = await nounsDescriptorContract.functions.bodyCount();
-  console.log("result", result[0].toNumber());
+  const [backgroundCount] = await nounsDescriptorContract.functions.backgroundCount();
+  const [bodyCount] = await nounsDescriptorContract.functions.bodyCount();
+  const [accessoryCount] = await nounsDescriptorContract.functions.accessoryCount();
+  const [headCount] = await nounsDescriptorContract.functions.headCount();
+  const [glassesCount] = await nounsDescriptorContract.functions.glassesCount();
+  console.log("bodyCount", bodyCount.toNumber());
+  const seed = Math.floor(Math.random() * 0x100000000);
+  console.log("seed", seed);
   const result2 = await nounsDescriptorContract.functions.generateSVGImage({
-    background: 1,
-    body: 1,
-    accessory: 0,
-    head: 1,
-    glasses: 2
+    background: seed % backgroundCount.toNumber(),
+    body: Math.floor(seed / 13) % bodyCount.toNumber(),
+    accessory: Math.floor(seed / 13^2) % accessoryCount.toNumber(),
+    head: Math.floor(seed / 13^3) % headCount.toNumber(),
+    glasses: Math.floor(seed /13^4) % glassesCount.toNumber()
   });
   //console.log(atob(result2[0]));
   await writeFile(`./cache/test.svg`, atob(result2[0]), ()=>{});
