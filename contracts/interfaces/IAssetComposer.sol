@@ -42,6 +42,7 @@ interface IAssetProvider {
  */
 interface IAssetProviderRegistry {
   event ProviderRegistered(address from, uint256 _providerId);
+  event ProviderUpdated(address from, uint256 _providerId);
   function registerProvider(IAssetProvider _provider) external returns(uint256);
   function providerCount() external view returns(uint256);
   function getProvider(uint256 _providerId) external view returns(IAssetProvider.ProviderInfo memory);
