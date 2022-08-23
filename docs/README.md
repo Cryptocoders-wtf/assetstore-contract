@@ -36,9 +36,27 @@ Despite such an imporance, why so many NFTs are not on-chain? The answer is simp
 
 ## Vision and Mission
 
+Considering the current situation, we have determined to create a set of technologies and mechanisms, which will make it easier and affordable to store, share and compose vector images on-chain. 
+
 ## Our Approach
 
+Here is the list of technologies and mechanism we are building. 
+
 ### SVG Compression
+
+While SVG is the industry standard to exchange vector data, Raw SVG data is quite verbose and not suitable as the storage format on the blockchain.
+
+After various prototpyes, we have chosen to compress SVG data in following steps. 
+
+1. We convert all SVG elements to "path" elements, eliminating the need to specify element types (such as "rect" and "circle").
+2. We convert all floating points to integers by having a large and fixed view area (1024 x 1024).
+3. We extract only the "d" attribute of those path elements.
+4. We compress a series of data (commands and their parameters) in the "d" attribute into a series of 12-bit bytecodes.
+5. In this byte code, commands (such as "M" and "Q") will be simply expanded to 12-bit (higher 4-bits will be all zero), while parameters (number ranging from -1023 to 1023) will be converted to N+1024+256 (higher 4-bits will be non-zero).
+
+We always perform this encoding off-chain (typically in JavaScript) before pass the compressed data to the smart contract.
+
+The decoding will be typically done on-chain in the "view" method, such as tokenURI() or generateSVGPath(). 
 
 ### Crowd Minting
 
