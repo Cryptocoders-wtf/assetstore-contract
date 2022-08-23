@@ -82,8 +82,25 @@ Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cry
 
 ### Asset Composer
 
-Asset Composer is a smart contract, which allows developers to create a new vector asset by composing existing vector assets, on On-Chain Asset Store, Asset Composer itself or other asset providers. 
+Asset Composer is a smart contract, which allows developers to create a new vector asset by composing existing vector assets, on On-Chain Asset Store, Asset Composer itself or other asset providers.
 
-### Asset Provider
+Asset Composer is still under development (not deployed yet), but you can see the current version at [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
 
-### Visual Editor/Composer (WebUI)
+### Asset Providers
+
+Asset Providers are a set of contracts, which provides a set of vector assets. Those assets are either stored on-chain, dynamically generated, or the combination of those. 
+
+AssetComposer acts as the registration mechanism of those asset providers, so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (desribed below).
+
+Each Asset Provider implement [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetComposer.sol) interface (still under development).
+
+As a reference implementation, we have created a wrapper of NounsDescriptor, [NounsAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/NounsAssetProvider.sol), which offers dynamically generated Nouns characters as assets. 
+
+![Uploading file..._eeau882iv]()
+
+
+### On-Chain Vector Editor (WebUI)
+
+On-Chain Vector Editor is a WebUI front-end of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe illustrator, and mint it as a new NFT.
+
+On-Chain Vector Editor is still under development as a part of [WebUI front-end of On-Chain AsstStore](https://github.com/Cryptocoders-wtf/assetstore). 
