@@ -16,13 +16,23 @@ It means you are the sole owner of those fully on-chain NFTs and nobody is able 
 
 You can easily check if your NFTs are fully on-chain or not by calling tokenURI() method on Etherscan. If the URL starts with "http:" or "ipft:", they are not on-chain NFTs. The tokenURI method of a truely decentralized NFT contract will alway return "data:" URL, which is the proof that its metadata and image are stored on-chain. 
 
+![](https://i.imgur.com/kCfzdsL.png)
+
 ## Technical Challenges
 
-Despite such an imporance, why so many NFTs are not on-chain? The answer is simple, the gas cost to store large data on chain. 
+Despite such an imporance, why so many NFTs are not on-chain? The answer is simple, the gas cost to store large data on chain. There is some effots to work around this problem with generative arts, but they are many technical challenges. 
 
 [Nouns](https://nouns.wtf) is one of a few bluechip NFTs, which are also fully on-chain. They have managed to do so, by reducing the resolution of images down to 32x32 pixels and store them as highly compressed binary data on chain. 
 
+![](https://i.imgur.com/6BMmUQs.png)
+
 [Cyberbrokers](https://cyberbrokers.io) is one of a few fully on-chain NFT projects with rich graphics, but they needed to spend over $100,000 to upload a large set of SVG data to the blockchain (Ethereum mainnet).
+
+![](https://i.imgur.com/Mp9xUwH.jpg)
+
+[Art Blocks](https://www.artblocks.io/) is a great platform to publish generative arts, but Solidity is not an ideal platform for generative arts (yet). As the compromize, they use Javascript to generate arts, store those scripts on chain, but use an HTTP server to store metadata and generated images. 
+
+![](https://i.imgur.com/NxissZu.png)
 
 ## Vision and Mission
 
