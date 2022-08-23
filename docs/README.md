@@ -76,7 +76,8 @@ This is done by calling mintWithAsset() method, which stores the vector data to 
 
 We have launched three NFT collections using crowd minting and managed to upload over 1,000 vector images on-chain. 
 
-![Uploading file..._x7hrvsj55]()
+![](https://i.imgur.com/skT6eS5.png)
+
 
 Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/KamonToken.sol) as the reference implementation. 
 
@@ -96,8 +97,7 @@ Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-
 
 As a reference implementation, we have created a wrapper of NounsDescriptor, [NounsAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/NounsAssetProvider.sol), which offers dynamically generated Nouns characters as assets. 
 
-![Uploading file..._eeau882iv]()
-
+![](https://i.imgur.com/st9ufHK.png)
 
 ### On-Chain Vector Editor (WebUI)
 
