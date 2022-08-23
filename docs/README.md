@@ -54,9 +54,9 @@ After various prototpyes, we have chosen to compress SVG data in following steps
 4. We compress a series of data (commands and their parameters) in the "d" attribute into a series of 12-bit bytecodes.
 5. In this byte code, commands (such as "M" and "Q") will be simply expanded to 12-bit (higher 4-bits will be all zero), while parameters (number ranging from -1023 to 1023) will be converted to N+1024+256 (higher 4-bits will be non-zero).
 
-We always perform this encoding off-chain (typically in JavaScript) before pass the compressed data to the smart contract.
+We always perform this encoding off-chain (typically in TypeScript) before pass the data to the smart contract. Please see compressPath method in [createMethod.ts](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/utils/createAsset.ts). 
 
-The decoding will be typically done on-chain in the "view" method, such as tokenURI() or generateSVGPath(). 
+The decoding will be typically done on-chain in the "view" method, such as tokenURI() or generateSVGPath(). Even though there is no "gas cost" associated with it, an effient implementation is critical to avoid time-out or gas-limit errors. Please see decodePath method of [SVGPathDecoderA](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/libs/SVGPathDecoderA.sol).  
 
 ### Crowd Minting
 
