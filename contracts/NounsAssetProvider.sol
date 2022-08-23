@@ -88,7 +88,7 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
         ret[i] = svg[i+start];
     }
 
-    // Failed to attempt to create an assembler version of sustring
+    // Failed to attempt to create an assembler version of subtring
     /*
     bytes memory ret;
     assembly {
