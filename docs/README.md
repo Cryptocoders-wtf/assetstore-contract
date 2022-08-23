@@ -26,7 +26,7 @@ Despite such an importance, why so many NFTs are not on-chain? The answer is sim
 
 ![](https://i.imgur.com/6BMmUQs.png)
 
-[Cyberbrokers](https://cyberbrokers.io) is the first (and only as far as we know) project which stores rich graphics on-chain, but they needed to spend over $100,000 to upload a large set of SVG data to the blockchain.
+[Cyberbrokers](https://cyberbrokers.io) is the first (and only as far as we know) project which stores rich graphics on-chain, but they needed to spend over $200,000 to upload a large set of SVG data to the blockchain (a [great podcast](https://rephonic.com/episodes/qc6wd-solidity-galaxy-brain-puzzles-games-and-onch) is available about this story).
 
 ![](https://i.imgur.com/Mp9xUwH.jpg)
 
