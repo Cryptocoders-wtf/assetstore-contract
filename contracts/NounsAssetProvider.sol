@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
 /*
- * AssetComposer allows developers to create a composition from a collection of
- * assets (in AssetStore) and compositions.
+ * NounsAssetProvider is a wrapper around NounsDescriptor so that it offers
+ * various characters as assets to compose (not individual parts).
  *
  * Created by Satoshi Nakajima (@snakajima)
  */
@@ -82,11 +82,13 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
     }
     length -= start + 6; // "</svg>"
 
+    // substring
     bytes memory ret = new bytes(length);
     for(uint i = 0; i < length; i++) {
         ret[i] = svg[i+start];
     }
 
+    // Failed to attempt to create an assembler version of sustring
     /*
     bytes memory ret;
     assembly {
@@ -101,6 +103,7 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
       mstore(0x40, retMemory)
     }
     */
+
     svgPart = string(abi.encodePacked(
       '<g id="', tag, '" transform="scale(3.2)">',
       ret,
