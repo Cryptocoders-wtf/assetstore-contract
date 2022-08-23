@@ -30,7 +30,7 @@ Despite such an imporance, why so many NFTs are not on-chain? The answer is simp
 
 ![](https://i.imgur.com/Mp9xUwH.jpg)
 
-[Art Blocks](https://www.artblocks.io/) is a great platform to publish generative arts, but Solidity is not an ideal platform for generative arts (yet). As the compromize, they use Javascript to generate arts, store those scripts on chain, but use an HTTP server to store metadata and generated images. 
+[Art Blocks](https://www.artblocks.io/) is a great platform to publish generative arts, but Solidity is not an ideal platform for generative arts (yet). As the compromize, they use Javascript to generate arts, store those scripts on chain, and use an HTTP server to store metadata and generated images. 
 
 ![](https://i.imgur.com/NxissZu.png)
 
