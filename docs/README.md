@@ -1,4 +1,4 @@
-# On-line Asset Store and Composer
+# On-Chain Asset Store and Composer
 
 This is the summary document, which describes the vision & mission of this project and the various technologies and methods we are building. 
 
