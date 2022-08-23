@@ -42,7 +42,7 @@ Considering the current situation, we have determined to create a set of technol
 
 Here is the list of technologies and mechanisms we are building. 
 
-### SVG Compression
+### SVG Compression (deployed)
 
 While SVG is the industry standard to exchange vector data, raw SVG data is quite verbose and not suitable as the storage format on the blockchain.
 
@@ -58,38 +58,37 @@ We always perform this encoding off-chain (typically in TypeScript) before passi
 
 The decoding will be typically done on-chain in the "view" method, such as tokenURI() or generateSVGPath(). Even though there is no "gas cost" associated with it, an efficient implementation is critical to avoid time-out or gas-limit errors. Please see decodePath() method of [SVGPathDecoderA](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/libs/SVGPathDecoderA.sol). 
 
-### On-Chain Asset Store
+### On-Chain Asset Store (deployed)
 
-The On-chain Asset Store is a smart contract, which acts as the public on-chain asset storage service, allowing developers to store and share vector assets.
+The On-chain Asset Store is **a smart contract**, which acts as the public on-chain asset storage service, allowing developers to store and share vector assets.
 
 It stores various vector data in the compressed format described above, and makes them available to other smart contracts, just like the asset store for Unity 3D engine. 
 
 Please see [AssetStore.sol](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetStore.sol) for details. 
 
-### Crowd Minting
+### Crowd Minting (deployed and on-going)
 
-The "crowd minting" is a method to eliminate a large upfront cost for developers when issuing fully on-chain NFT collection (just like the developer of Cyberbrokers did).
+The "crowd minting" is **a method** to eliminate a large upfront cost for developers when issuing fully on-chain NFT collection (just like the developer of Cyberbrokers did).
 
 Instead, developers ask each minter to pay a small extra gas fee by uploading necessary vector data to the blockchain during the minting process. 
 
 This is done by calling mintWithAsset() method, which stores the vector data to the On-Chain Asset Store and issues NFT(s) to the minter.
 
-We have launched three NFT collections using crowd minting and managed to upload over 1,000 vector images on-chain. 
+We have launched three NFT collections ([Material Icons](https://assetstore.wtf/material), [Kamon Symbols](https://assetstore.wtf/kamon), [Emoji Flags](https://assetstore.wtf/emoji)) using crowd minting and managed to upload over 1,200 vector images on-chain. 
 
 ![](https://i.imgur.com/skT6eS5.png)
 
-
 Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/KamonToken.sol) as the reference implementation. 
 
-### Asset Composer
+### Asset Composer (work in progress)
 
-Asset Composer is a smart contract, which allows developers to create a new vector asset by composing existing vector assets, on On-Chain Asset Store, Asset Composer itself, or other asset providers.
+Asset Composer is **a smart contract**, which allows developers to create a new vector asset by composing existing vector assets, on On-Chain Asset Store, Asset Composer itself, or other asset providers.
 
-Asset Composer is still under development (not deployed yet), but you can see the current version [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
+Asset Composer is still under development (not deployed yet), but you can see the working-in-progress version [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
 
-### Asset Providers
+### Asset Providers (work in progress)
 
-Asset Providers are a set of contracts, which provides a set of vector assets. Those assets are either stored on-chain, dynamically generated, or a combination of those. 
+Asset Providers are **a set of contracts**, which provides a set of vector assets. Those assets are either stored on-chain, dynamically generated, or a combination of those. 
 
 AssetComposer acts as the registration mechanism of those asset providers so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (described below).
 
@@ -99,8 +98,8 @@ As a reference implementation, we have created a wrapper of NounsDescriptor, [No
 
 ![](https://i.imgur.com/st9ufHK.png)
 
-### On-Chain Vector Editor (WebUI)
+### On-Chain Vector Editor (work in progress)
 
-On-Chain Vector Editor is a WebUI front-end of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe Illustrator, and mint it as a new NFT.
+On-Chain Vector Editor is a **WebUI front-end** of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe Illustrator, and mint it as a new NFT.
 
 On-Chain Vector Editor is still under development as a part of [WebUI front-end of On-Chain AsstStore](https://github.com/Cryptocoders-wtf/assetstore). 
