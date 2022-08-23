@@ -56,13 +56,33 @@ After various prototpyes, we have chosen to compress SVG data in following steps
 
 We always perform this encoding off-chain (typically in TypeScript) before pass the data to the smart contract. Please see compressPath method in [createMethod.ts](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/utils/createAsset.ts). 
 
-The decoding will be typically done on-chain in the "view" method, such as tokenURI() or generateSVGPath(). Even though there is no "gas cost" associated with it, an effient implementation is critical to avoid time-out or gas-limit errors. Please see decodePath method of [SVGPathDecoderA](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/libs/SVGPathDecoderA.sol).  
+The decoding will be typically done on-chain in the "view" method, such as tokenURI() or generateSVGPath(). Even though there is no "gas cost" associated with it, an effient implementation is critical to avoid time-out or gas-limit errors. Please see decodePath method of [SVGPathDecoderA](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/libs/SVGPathDecoderA.sol). 
+
+### On-Chain Asset Store
+
+The On-chain Asset Store is a smart contract, which acts as the public on-chain asset storage service, allowing developers to store and share vector assets.
+
+It stores various vector data in the compressed format described above, and make them available to other smart contracts, just like the asset store for Unity 3D engine. 
+
+Please see [AssetStore.sol](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetStore.sol) for details. 
 
 ### Crowd Minting
 
-### Asset Store
+The "crowd minting" is a method to eliminate a large upfront cost for developers when issueing fully on-chain NFT collection (just like the developer of Cyberbrokers did).
+
+Instead, developrs ask each minter pays a small extra gas fee by uploading a necessary vector data to the block chain during the minting process. 
+
+This is done by calling mintWithAsset() method, which stores the vector data to the On-Chain Asset Store, and issue NFT(s) to the minter.
+
+We have launched three NFT collections using the crowd minting, and managed to upload over 1,000 vector images on-chain. 
+
+![Uploading file..._x7hrvsj55]()
+
+Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/KamonToken.sol) as the reference implementation. 
 
 ### Asset Composer
+
+Asset Composer is a smart contract, which allows developers to create a new vector asset by composing existing vector assets, on On-Chain Asset Store, Asset Composer itself or other asset providers. 
 
 ### Asset Provider
 
