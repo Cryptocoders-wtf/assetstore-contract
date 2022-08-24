@@ -82,7 +82,7 @@ Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cry
 
 ### Asset Composer (work in progress)
 
-Asset Composer is **a smart contract**, which allows developers to create a new vector asset by composing existing vector assets, on On-Chain Asset Store, Asset Composer itself, or other asset providers.
+Asset Composer is **a smart contract**, which allows developers to create a new vector asset by composing existing vector assets, provided by asset providers (described below).
 
 Asset Composer is still under development (not deployed yet), but you can see the working-in-progress version [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
 
