@@ -4,7 +4,7 @@ This is the summary document, which describes the vision & mission of this proje
 
 ## Importance of being Fully On-chain
 
-While decentralization is one of the fundamental values of Web3, most NFTs (including Bluechip NFTs such as Bored Ape and Azuki) are **not fully on-chain**, storing metadata and images on either HTTP server or IPFT. 
+While decentralization is one of the fundamental values of Web3, most NFTs (including Bluechip NFTs such as Bored Ape and Azuki) are **not fully on-chain**, storing metadata and images on either HTTP server or IPFS. 
 
 It means those NFTs will become inaccessible (you can not see their metadata or images) once the NFT providers cease to exist or simply stop supporting them. 
 
@@ -14,7 +14,7 @@ On the other hand, **fully on-chain NFTs** such as Nouns are guaranteed to "exis
 
 It means you are the sole owner of those fully on-chain NFTs and nobody is able to take them away from you. "Fully on-chain NFT" means "decentralized NFT" -- the true Web3 spirit!
 
-You can easily check if your NFTs are fully on-chain or not by calling tokenURI() method on Etherscan. If the URL starts with "http:" or "ipft:", they are not on-chain NFTs. The tokenURI method of a truly decentralized NFT contract will always return "data:" URL, which is the proof that its metadata and image are stored on-chain. 
+You can easily check if your NFTs are fully on-chain or not by calling tokenURI() method on Etherscan. If the URL starts with "http:" or "ipfs:", they are not on-chain NFTs. The tokenURI method of a truly decentralized NFT contract will always return "data:" URL, which is the proof that its metadata and image are stored on-chain. 
 
 ![](https://i.imgur.com/kCfzdsL.png)
 
