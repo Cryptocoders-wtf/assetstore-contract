@@ -102,4 +102,6 @@ As a reference implementation, we have created a wrapper of NounsDescriptor, [No
 
 On-Chain Vector Editor is a **WebUI front-end** of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe Illustrator, and mint it as a new NFT.
 
+![](https://i.imgur.com/C8tIddM.png)
+
 On-Chain Vector Editor is still under development as a part of [WebUI front-end of On-Chain AsstStore](https://github.com/Cryptocoders-wtf/assetstore). 
