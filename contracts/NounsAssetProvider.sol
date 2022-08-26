@@ -105,7 +105,7 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
     */
 
     svgPart = string(abi.encodePacked(
-      '<g id="', tag, '" transform="scale(3.2)">',
+      '<g id="', tag, '" transform="scale(3.2)" shape-rendering="crispEdges">',
       ret,
       '</g>'));
   }
