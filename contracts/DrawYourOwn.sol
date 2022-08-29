@@ -39,6 +39,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   // 1e18 = 1 ether
   uint256 public mintPrice = 5e16; //0.05 ether 
   mapping(uint256 => uint256) public remixBase; // tokenId => base tokenId
+  mapping(uint256 => uint256) public totalEarned; // wei 
 
   uint256 constant _tokensPerAsset = 4;
   mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId (*2+1) or compositionId (*2)
@@ -100,9 +101,11 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     if (baseTokenId > 0) {
       uint256 thisPayout = _payout * 20 / 100; // 20%
       payableTo.transfer(thisPayout);
+      totalEarned[_tokenId] += thisPayout;
       processPayout(baseTokenId - 1, _payout - thisPayout);
     } else {
       payableTo.transfer(_payout);
+      totalEarned[_tokenId] += _payout;
     }
   }
 
@@ -285,6 +288,12 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
               assetStore.getStringValidator().sanitizeJason(_attr.minter) : bytes('(anonymous)'), '"' 
+      '},{'
+        '"trait_type":"Remix",'
+        '"value":"', remixBase[_tokenId] > 0 ? (remixBase[_tokenId] - 1).toString() : "(none)", '"' 
+      '},{'
+        '"trait_type":"Earned",'
+        '"value":"', (totalEarned[_tokenId] / 1e9).toString(), 'Gwei"' 
       '}'
     );
     return pack;
