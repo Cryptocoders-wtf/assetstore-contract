@@ -36,6 +36,9 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   IAssetStoreRegistry public immutable registry;
   IAssetStoreEx public immutable assetStore;
 
+  // 1e18 = 1 ether
+  uint256 public mintPrice = 5e16; //0.05 ether 
+
   uint256 constant _tokensPerAsset = 4;
   mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId (*2+1) or compositionId (*2)
   mapping(uint256 => uint256) uploadedAssetIds; // tokenId / _tokenPerAsset => assetId of uploaded asset
@@ -90,7 +93,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * _remixes specifies the remix tokens (optional). 
    * _layers specifies overlay assets (optional). 
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate, RemixInfo[] memory _remixes, IAssetComposer.AssetLayer[] memory _overlays) external {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate, RemixInfo[] memory _remixes, IAssetComposer.AssetLayer[] memory _overlays) external payable {
     uint256 tokenId = _nextTokenId();
     _assetInfo.group = "Draw Your Own";
     _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
@@ -101,6 +104,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     if (_remixes.length == 0 && _overlays.length == 0) {
       assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
     } else {
+      require(_remixes.length == 0 || msg.value >= mintPrice, 'Must send at least currentPrice');
       uint256 offset = _remixes.length;
       IAssetComposer.AssetLayer[] memory layers = new IAssetComposer.AssetLayer[](offset + 1 + _overlays.length);
       uint256 i;
