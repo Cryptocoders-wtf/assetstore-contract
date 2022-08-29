@@ -108,14 +108,14 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
         RemixInfo memory remix = _remixes[i];        
         uint256 remixAssetId = assetIdOfToken(remix.tokenId);
         if (remixAssetId % 2 ==0) {
-          layers[0].assetId = remixAssetId / 2;
-          layers[0].provider = "comp";
+          layers[i].assetId = remixAssetId / 2;
+          layers[i].provider = "comp";
         } else {
-          layers[0].assetId = remixAssetId / 2 - 1; // Switch it to 0-based
-          layers[0].provider = "asset";
+          layers[i].assetId = remixAssetId / 2 - 1; // Switch it to 0-based
+          layers[i].provider = "asset";
         }
-        layers[0].fill = remix.fill; // optional color
-        layers[0].transform = remix.transform; // optional transform
+        layers[i].fill = remix.fill; // optional color
+        layers[i].transform = remix.transform; // optional transform
       }
       layers[offset].assetId = assetId - 1; // Switch it to 0-based
       layers[offset].provider = "asset";
