@@ -38,6 +38,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
 
   // 1e18 = 1 ether
   uint256 public mintPrice = 5e16; //0.05 ether 
+  mapping(uint256 => uint256) public remixBase; // tokenId => base tokenId
 
   uint256 constant _tokensPerAsset = 4;
   mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId (*2+1) or compositionId (*2)
@@ -87,12 +88,25 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     string transform; // optinal transform
   }
 
+  /**
+   * This function processes the payout to the owner of the token. 
+   * If this token is based on another token (tge base token), 
+   * the owner of this token receive 20% of the payout, 
+   * and the rest will be payed out to the base token (recursively). 
+   */
   function processPayout(uint256 _tokenId, uint256 _payout) internal {
     address payable payableTo = payable(ownerOf(_tokenId));
-    payableTo.transfer(_payout);
+    uint256 baseTokenId = remixBase[_tokenId]; // 1-based
+    if (baseTokenId > 0) {
+      uint256 thisPayout = _payout * 20 / 100; // 20%
+      payableTo.transfer(thisPayout);
+      processPayout(baseTokenId - 1, _payout - thisPayout);
+    } else {
+      payableTo.transfer(_payout);
+    }
   }
 
-  /*
+  /**
    * It registers the specified asset to the AssetStore and mint three tokens to the msg.sender, 
    * and one additional token to either the affiliator, the developer or the owner.
    * _remixes specifies the remix tokens (optional). 
@@ -120,6 +134,10 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
       for (i = 0; i < _remixes.length; i++) {
         RemixInfo memory remix = _remixes[i];
         processPayout(remix.tokenId, payout);
+        if (i == 0) {
+          // We store only the primary remix tokenId
+          remixBase[tokenId] = remix.tokenId + 1; // 1-based
+        }
 
         uint256 remixAssetId = assetIdOfToken(remix.tokenId);
         if (remixAssetId % 2 ==0) {
