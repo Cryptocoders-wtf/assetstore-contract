@@ -87,6 +87,11 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     string transform; // optinal transform
   }
 
+  function processPayout(uint256 _tokenId, uint256 _payout) internal {
+    address payable payableTo = payable(ownerOf(_tokenId));
+    payableTo.transfer(_payout);
+  }
+
   /*
    * It registers the specified asset to the AssetStore and mint three tokens to the msg.sender, 
    * and one additional token to either the affiliator, the developer or the owner.
@@ -104,12 +109,18 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     if (_remixes.length == 0 && _overlays.length == 0) {
       assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
     } else {
-      require(_remixes.length == 0 || msg.value >= mintPrice, 'Must send at least currentPrice');
+      uint256 i;
+      uint256 payout;
+      if (_remixes.length > 0) {
+        require(msg.value >= mintPrice, 'Must send at least currentPrice');
+        payout = (msg.value * 975) / 1000 / _remixes.length;
+      }
       uint256 offset = _remixes.length;
       IAssetComposer.AssetLayer[] memory layers = new IAssetComposer.AssetLayer[](offset + 1 + _overlays.length);
-      uint256 i;
       for (i = 0; i < _remixes.length; i++) {
-        RemixInfo memory remix = _remixes[i];        
+        RemixInfo memory remix = _remixes[i];
+        processPayout(remix.tokenId, payout);
+
         uint256 remixAssetId = assetIdOfToken(remix.tokenId);
         if (remixAssetId % 2 ==0) {
           layers[i].assetId = remixAssetId / 2;
