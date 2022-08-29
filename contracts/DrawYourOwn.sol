@@ -78,14 +78,19 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     return _tokenId % _tokensPerAsset == 0;
   }
 
+  struct RemixInfo {
+    uint256 tokenId; // tokenId (of this NFT)
+    string fill; // optional fill color
+    string transform; // optinal transform
+  }
+
   /*
    * It registers the specified asset to the AssetStore and mint three tokens to the msg.sender, 
    * and one additional token to either the affiliator, the developer or the owner.
-   * _remixid (along with _fill and _transform) specifies the remix token (optional), 
-   * which is rendered under the asset. 
-   * _layers specifies overlay assets or composites (optional). 
+   * _remixes specifies the remix tokens (optional). 
+   * _layers specifies overlay assets (optional). 
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _remixId, string memory _fill, string memory _transform, IAssetComposer.AssetLayer[] memory _overlays) external {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate, RemixInfo[] memory _remixes, IAssetComposer.AssetLayer[] memory _overlays) external {
     uint256 tokenId = _nextTokenId();
     _assetInfo.group = "Draw Your Own";
     _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
@@ -93,13 +98,15 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     uploadedAssetIds[tokenId / _tokensPerAsset] = assetId;
 
     // @notice
-    if (_remixId == 0 && _overlays.length == 0) {
+    if (_remixes.length == 0 && _overlays.length == 0) {
       assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
     } else {
-      uint256 offset = (_remixId == 0) ? 0 : 1;
+      uint256 offset = _remixes.length;
       IAssetComposer.AssetLayer[] memory layers = new IAssetComposer.AssetLayer[](offset + 1 + _overlays.length);
-      if (_remixId > 0) {
-        uint256 remixAssetId = assetIdOfToken(_remixId);
+      uint256 i;
+      for (i = 0; i < _remixes.length; i++) {
+        RemixInfo memory remix = _remixes[i];        
+        uint256 remixAssetId = assetIdOfToken(remix.tokenId);
         if (remixAssetId % 2 ==0) {
           layers[0].assetId = remixAssetId / 2;
           layers[0].provider = "comp";
@@ -107,12 +114,11 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
           layers[0].assetId = remixAssetId / 2 - 1; // Switch it to 0-based
           layers[0].provider = "asset";
         }
-        layers[0].fill = _fill; // optional color
-        layers[0].transform = _transform; // optional transform
+        layers[0].fill = remix.fill; // optional color
+        layers[0].transform = remix.transform; // optional transform
       }
       layers[offset].assetId = assetId - 1; // Switch it to 0-based
       layers[offset].provider = "asset";
-      uint256 i;
       for (i = 0; i < _overlays.length; i++) {
         layers[offset + 1 + i] = _overlays[i];
       }      
@@ -123,8 +129,8 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     _mint(msg.sender, _tokensPerAsset - 1);
 
     // Specified affliate token must be one of the primary tokens and not owned by the minter.
-    if (_remixId > 0) {
-      _mint(ownerOf(_remixId - _remixId % _tokensPerAsset), 1);
+    if (_affiliate > 0 && _isPrimary(_affiliate) && ownerOf(_affiliate) != msg.sender) {
+      _mint(ownerOf(_affiliate), 1);
     } else if ((tokenId / _tokensPerAsset) % 4 == 0) {
       // 1 in 16 tokens of non-affiliated mints go to the developer
       _mint(developer, 1);
