@@ -91,10 +91,11 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     string transform; // optinal transform
   }
 
-  function transferPayout(address payable _to, uint256 _tokenId, uint256 _amount) internal {
-    _to.transfer(_amount);
+  function transferPayout(uint256 _tokenId, uint256 _amount) internal {
+    address payable payableTo = payable(ownerOf(_tokenId));
+    payableTo.transfer(_amount);
     totalEarned[_tokenId] += _amount;
-    emit PayedOut(_to, _tokenId, _amount);    
+    emit PayedOut(payableTo, _tokenId, _amount);    
   }
 
   /**
@@ -104,14 +105,13 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * and the rest will be payed out to the base token (recursively). 
    */
   function processPayout(uint256 _tokenId, uint256 _payout) internal {
-    address payable payableTo = payable(ownerOf(_tokenId));
     uint256 baseTokenId = remixBase[_tokenId]; // 1-based
     if (baseTokenId > 0) {
       uint256 thisPayout = _payout * 20 / 100; // 20%
-      transferPayout(payableTo, _tokenId, thisPayout);
+      transferPayout(_tokenId, thisPayout);
       processPayout(baseTokenId - 1, _payout - thisPayout);
     } else {
-      transferPayout(payableTo, _tokenId, _payout);
+      transferPayout(_tokenId, _payout);
     }
   }
 
