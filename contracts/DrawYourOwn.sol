@@ -33,6 +33,8 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
   using Strings for uint256;
   using Strings for uint16;
 
+  event PayedOut(address payable to, uint256 tokenId, uint256 amount);
+
   IAssetStoreRegistry public immutable registry;
   IAssetStoreEx public immutable assetStore;
 
@@ -89,6 +91,12 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     string transform; // optinal transform
   }
 
+  function transferPayout(address payable _to, uint256 _tokenId, uint256 _amount) internal {
+    _to.transfer(_amount);
+    totalEarned[_tokenId] += _amount;
+    emit PayedOut(_to, _tokenId, _amount);    
+  }
+
   /**
    * This function processes the payout to the owner of the token. 
    * If this token is based on another token (tge base token), 
@@ -100,12 +108,10 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     uint256 baseTokenId = remixBase[_tokenId]; // 1-based
     if (baseTokenId > 0) {
       uint256 thisPayout = _payout * 20 / 100; // 20%
-      payableTo.transfer(thisPayout);
-      totalEarned[_tokenId] += thisPayout;
+      transferPayout(payableTo, _tokenId, thisPayout);
       processPayout(baseTokenId - 1, _payout - thisPayout);
     } else {
-      payableTo.transfer(_payout);
-      totalEarned[_tokenId] += _payout;
+      transferPayout(payableTo, _tokenId, _payout);
     }
   }
 
