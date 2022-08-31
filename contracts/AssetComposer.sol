@@ -161,21 +161,40 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
     bytes memory uses;
     string memory svgPart;
     string memory tagId;
+    bytes32[16] memory hashes;
     for (uint256 i=0; i < layerLength; i++) {
       ProviderAsset memory assetId = assets[_compositionId][i];
       ProviderInfo memory info = getProvider(uint256(assetId.providerId));
       (svgPart, tagId) = info.provider.generateSVGPart(uint256(assetId.assetId));
-      defs = abi.encodePacked(defs, svgPart);
-      uses = abi.encodePacked(uses, ' <use href="#', tagId, '"');
-      bytes memory option = transforms[_compositionId][i];
-      if (option.length > 0) {
-        uses = abi.encodePacked(uses, ' transform="', option, '"');
+      {
+      // Skip if the same asset is already defined
+        bytes32 hash = keccak256(abi.encodePacked(tagId));
+        bool newTag = true;
+        for (uint256 j=0; j<i && j<16; j++) {
+          if (hashes[j] == hash) {
+            newTag = false;
+            break;
+          }
+        }
+        if (newTag) {
+          defs = abi.encodePacked(defs, svgPart);
+          if (i<16) {
+            hashes[i] = hash;
+          }
+        }
       }
-      option = fills[_compositionId][i];
-      if (option.length > 0) {
-        uses = abi.encodePacked(uses, ' fill="', option, '"');
+      {
+        uses = abi.encodePacked(uses, ' <use href="#', tagId, '"');
+        bytes memory option = transforms[_compositionId][i];
+        if (option.length > 0) {
+          uses = abi.encodePacked(uses, ' transform="', option, '"');
+        }
+        option = fills[_compositionId][i];
+        if (option.length > 0) {
+          uses = abi.encodePacked(uses, ' fill="', option, '"');
+        }
+        uses = abi.encodePacked(uses, ' />\n');
       }
-      uses = abi.encodePacked(uses, ' />\n');
     }
     tagId = string(abi.encodePacked('comp', _compositionId.toString()));
     svgPart = string(abi.encodePacked(
