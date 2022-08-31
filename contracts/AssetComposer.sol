@@ -161,26 +161,26 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
     bytes memory uses;
     string memory svgPart;
     string memory tagId;
-    bytes32[16] memory hashes;
+    bytes32[] memory alreadyDefined = new bytes32[](layerLength);
+
     for (uint256 i=0; i < layerLength; i++) {
       ProviderAsset memory assetId = assets[_compositionId][i];
       ProviderInfo memory info = getProvider(uint256(assetId.providerId));
       (svgPart, tagId) = info.provider.generateSVGPart(uint256(assetId.assetId));
+      // extra {} to reduced the total amount of stack variables
       {
-      // Skip if the same asset is already defined
+        // Skip if the same asset has been already defined
         bytes32 hash = keccak256(abi.encodePacked(tagId));
-        bool newTag = true;
-        for (uint256 j=0; j<i && j<16; j++) {
-          if (hashes[j] == hash) {
-            newTag = false;
+        bool isNewTag = true;
+        for (uint256 j=0; j<i; j++) {
+          if (alreadyDefined[j] == hash) {
+            isNewTag = false;
             break;
           }
         }
-        if (newTag) {
+        if (isNewTag) {
           defs = abi.encodePacked(defs, svgPart);
-          if (i<16) {
-            hashes[i] = hash;
-          }
+          alreadyDefined[i] = hash;
         }
       }
       {
