@@ -11,12 +11,12 @@ pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
-import { IAssetProvider } from './interfaces/IAssetComposer.sol';
+import { IAssetProvider, ICategorizedAssetProvider } from './interfaces/IAssetComposer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
 // IAssetProvider wrapper of AssetStore
-contract AssetStoreProvider is IAssetProvider, IERC165, Ownable {
+contract AssetStoreProvider is ICategorizedAssetProvider, IERC165, Ownable {
   IAssetStoreEx public immutable assetStore;
 
   constructor(IAssetStoreEx _assetStore) {
@@ -26,6 +26,7 @@ contract AssetStoreProvider is IAssetProvider, IERC165, Ownable {
   function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
       return
           interfaceId == type(IAssetProvider).interfaceId ||
+          interfaceId == type(ICategorizedAssetProvider).interfaceId ||
           interfaceId == type(IERC165).interfaceId;
   }
 
@@ -45,5 +46,29 @@ contract AssetStoreProvider is IAssetProvider, IERC165, Ownable {
 
   function totalSupply() external view override returns(uint256) {
     return assetStore.getAssetCount();
+  }
+
+  function getGroupCount() external view override returns(uint32) {
+    return assetStore.getGroupCount();
+  }
+
+  function getGroupNameAtIndex(uint32 _groupIndex) external view override returns(string memory) {
+    return assetStore.getGroupNameAtIndex(_groupIndex);
+  }
+
+  function getCategoryCount(string memory _group) external view override returns(uint32) {
+    return assetStore.getCategoryCount(_group);
+  }
+
+  function getCategoryNameAtIndex(string memory _group, uint32 _categoryIndex) external view override returns(string memory) {
+    return assetStore.getCategoryNameAtIndex(_group, _categoryIndex);
+  }
+
+  function getAssetCountInCategory(string memory _group, string memory _category) external view override returns(uint32) {
+    return assetStore.getAssetCountInCategory(_group, _category);
+  }
+
+  function getAssetIdInCategory(string memory _group, string memory _category, uint32 _assetIndex) external view override returns(uint256) {
+    return assetStore.getAssetIdInCategory(_group, _category, _assetIndex) - 1;
   }
 }

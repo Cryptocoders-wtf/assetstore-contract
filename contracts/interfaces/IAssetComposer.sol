@@ -36,6 +36,15 @@ interface IAssetProvider {
   function getOwner() external view returns (address);
 }
 
+interface ICategorizedAssetProvider is IAssetProvider {
+  function getGroupCount() external view returns(uint32);
+  function getGroupNameAtIndex(uint32 _groupIndex) external view returns(string memory);
+  function getCategoryCount(string memory _group) external view returns(uint32);
+  function getCategoryNameAtIndex(string memory _group, uint32 _categoryIndex) external view returns(string memory);
+  function getAssetCountInCategory(string memory _group, string memory _category) external view returns(uint32);
+  function getAssetIdInCategory(string memory _group, string memory _category, uint32 _assetIndex) external view returns(uint256);
+}
+
 /**
  * IAssetProviderRegistry is the interface implemented by AssetCompoer, which allows developers
  * of various asset providers to register those providers to AssetComposer. 
