@@ -105,3 +105,21 @@ On-Chain Vector Editor is a **WebUI front-end** of Asset Composer, which allows 
 ![](https://i.imgur.com/C8tIddM.png)
 
 On-Chain Vector Editor is still under development as a part of [WebUI front-end of On-Chain AsstStore](https://github.com/Cryptocoders-wtf/assetstore). 
+
+### Draw2Earn (work in progress)
+
+During the develpment of the On-Chain Vector Editor described above, we came up with the idea to release it as a *"Draw2Earn"* application.
+
+Here is the rough business model. 
+
+1. Creating a new drawing from scratch and minting it as an NFT is completely free. The minter needs to pay only the gas fee to upload the vector data of the drawing to the blockchain. 
+2. Creating a drawing based on somebody else's drawing (remixing) and minting it as NFT is NOT free. We will charge a small amount (probably 0.02〜0.05ETH), and disribute the most of it (97.5%) to the creator of the base drawing.
+3. If the base drawing is also based on another drawing, we will distribute it recursively, splitting the distribution 20:80 (remixer vs original).
+
+We are aware that the most of X2Earn services introduce their app-specific currencies, which allows developers to keep all the earnings, by paying earnings in the app specific currencty. 
+
+This approach creates a so called *"token echonomy"*, giving the developer a power to act as a central bank.
+
+We chose **NOT** to take that approach because it will turns the service into a pseudo Ponzi-schme, where the infinit growth is required to keep it attractive.
+
+We believe the direct and immediate distribution (97.5% of revenue) is fair to everybody and a better mechanism to sustain the service very long time.
