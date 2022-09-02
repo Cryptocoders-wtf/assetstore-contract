@@ -272,6 +272,7 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
    * Each 16-bit represents the number of possible styles, allowing various combinations.
    */
   function styles() external pure override returns(uint256) {
+    // We just return the number of tokens per asset in lowest 16-bit.
     return _tokensPerAsset;
   }
 
