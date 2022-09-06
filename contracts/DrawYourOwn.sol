@@ -29,10 +29,7 @@ import { IAssetComposer, IAssetProviderRegistry } from './interfaces/IAssetCompo
 import "./AssetComposer.sol";
 import "./AssetStoreProvider.sol";
 
-contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
-  using Strings for uint256;
-  using Strings for uint16;
-
+abstract contract DrawYourOwnCore is Ownable, ERC721A, IAssetStoreToken {
   event PayedOut(address payable to, uint256 tokenId, uint256 amount);
 
   IAssetStoreRegistry public immutable registry;
@@ -85,12 +82,6 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     return _tokenId % _tokensPerAsset == 0;
   }
 
-  struct RemixInfo {
-    uint256 tokenId; // tokenId (of this NFT)
-    string fill; // optional fill color
-    string transform; // optinal transform
-  }
-
   function transferPayout(uint256 _tokenId, uint256 _amount) internal {
     address payable payableTo = payable(ownerOf(_tokenId));
     payableTo.transfer(_amount);
@@ -113,6 +104,25 @@ contract DrawYourOwn is Ownable, ERC721A, IAssetStoreToken {
     } else {
       transferPayout(_tokenId, _payout);
     }
+  }
+}
+
+contract DrawYourOwn is DrawYourOwnCore {
+  using Strings for uint256;
+  using Strings for uint16;
+
+  constructor(
+    IAssetStoreRegistry _registry, 
+    IAssetStoreEx _assetStore,
+    address _developer,
+    IProxyRegistry _proxyRegistry
+  ) DrawYourOwnCore(_registry, _assetStore, _developer, _proxyRegistry) {
+  }
+
+  struct RemixInfo {
+    uint256 tokenId; // tokenId (of this NFT)
+    string fill; // optional fill color
+    string transform; // optinal transform
   }
 
   /**
