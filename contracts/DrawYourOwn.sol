@@ -29,7 +29,7 @@ import { IAssetComposer, IAssetProviderRegistry } from './interfaces/IAssetCompo
 import "./AssetComposer.sol";
 import "./AssetStoreProvider.sol";
 
-abstract contract DrawYourOwnCore is Ownable, ERC721A, IAssetStoreToken {
+abstract contract DrawYourOwnCore is Ownable, ERC721A {
   event PayedOut(address payable to, uint256 tokenId, uint256 amount);
 
   IAssetStoreRegistry public immutable registry;
@@ -107,7 +107,7 @@ abstract contract DrawYourOwnCore is Ownable, ERC721A, IAssetStoreToken {
   }
 }
 
-contract DrawYourOwn is DrawYourOwnCore {
+contract DrawYourOwn is DrawYourOwnCore, IAssetStoreToken {
   using Strings for uint256;
   using Strings for uint16;
 
