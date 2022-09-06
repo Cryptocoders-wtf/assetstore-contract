@@ -30,8 +30,6 @@ import "./AssetComposer.sol";
 import "./AssetStoreProvider.sol";
 
 abstract contract DrawYourOwnCore is ERC721A {
-  event PayedOut(address payable to, uint256 tokenId, uint256 amount);
-
   IAssetStoreRegistry public immutable registry;
   IAssetStoreEx public immutable assetStore;
 
