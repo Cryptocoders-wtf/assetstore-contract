@@ -77,6 +77,6 @@ contract AssetStoreProvider is ICategorizedAssetProvider, IERC165, Ownable {
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(_assetId + 1);
     address payable payableTo = payable(attr.soulbound);
     payableTo.transfer(msg.value);
-    emit PayedOut(providerKey, _assetId, payableTo, msg.value);
+    emit Payout(providerKey, _assetId, payableTo, msg.value);
   }
 }

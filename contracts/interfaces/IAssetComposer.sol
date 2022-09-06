@@ -40,7 +40,7 @@ interface IAssetProvider {
    */
   function processPayout(uint256 _assetId, uint256 _skipIndex) external payable;
 
-  event PayedOut(string providerKey, uint256 assetId, address payable to, uint256 amount);
+  event Payout(string providerKey, uint256 assetId, address payable to, uint256 amount);
 }
 
 interface ICategorizedAssetProvider is IAssetProvider {
