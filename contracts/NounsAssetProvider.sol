@@ -21,7 +21,11 @@ import { INounsDescriptor, INounsSeeder } from './interfaces/INounsDescriptor.so
 contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
   using Strings for uint256;
 
+  string constant providerKey = "nouns";
+
   INounsDescriptor public immutable descriptor;
+  // Nouns multi-sig wallet
+  address public receiver = 0x0BC3807Ec262cB779b38D65b38158acC3bfedE10;
 
   constructor(INounsDescriptor _descriptor) {
     descriptor = _descriptor;
@@ -38,7 +42,7 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function getProviderInfo() external view override returns(ProviderInfo memory) {
-    return ProviderInfo("nouns", "Nouns Descriptor", this);
+    return ProviderInfo(providerKey, "Nouns", this);
   }
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
@@ -68,7 +72,7 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
         )
     });
 
-    tag = string(abi.encodePacked("nouns", _assetId.toString()));
+    tag = string(abi.encodePacked(providerKey, _assetId.toString()));
 
     string memory encodedSvg = descriptor.generateSVGImage(seed);
     bytes memory svg = Base64.decode(encodedSvg);
@@ -114,12 +118,13 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
     return 0; // indicating "dynamically (but deterministically) generated from the given assetId)
   }
 
-  function processPayout(uint256 _assetId, uint256 _skipIndex) external override payable {
-    // no operation (keep it in the contract)
+  function processPayout(uint256 _assetId, uint256) external override payable {
+    address payable payableTo = payable(receiver);
+    payableTo.transfer(msg.value);
+    emit Payout(providerKey, _assetId, payableTo, msg.value);
   }
 
-  function withdraw() external onlyOwner {
-    address payable payableTo = payable(owner());
-    payableTo.transfer(address(this).balance);
+  function setReceiver(address _receiver) onlyOwner external {
+    receiver = _receiver;
   }
 }
