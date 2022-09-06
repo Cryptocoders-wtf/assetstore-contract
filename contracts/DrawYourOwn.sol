@@ -161,8 +161,8 @@ contract DrawYourOwn is DrawYourOwnPayout, IAssetStoreToken {
     } else {
       uint256 i;
       uint256 payout;
-      if (_remixes.length > 0) {
-        require(msg.value >= mintPrice, 'Must send at least currentPrice');
+      if (_remixes.length + _overlays.length > 0) {
+        require(msg.value >= mintPrice, 'Must send the mint price');
         payout = (msg.value * 975) / 1000 / _remixes.length;
       }
       uint256 offset = _remixes.length;

@@ -34,6 +34,11 @@ interface IAssetProvider {
    * Returns the onwer. The registration update is possible only if both contracts have the same owner. 
    */
   function getOwner() external view returns (address);
+
+  /**
+   * Processes the payout
+   */
+  function processPayout(uint256 _assetId, uint256 _skipIndex) external payable;
 }
 
 interface ICategorizedAssetProvider is IAssetProvider {

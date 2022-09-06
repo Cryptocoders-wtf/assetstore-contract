@@ -164,9 +164,9 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
     bytes32[] memory alreadyDefined = new bytes32[](layerLength);
 
     for (uint256 i=0; i < layerLength; i++) {
-      ProviderAsset memory assetId = assets[_compositionId][i];
-      ProviderInfo memory info = getProvider(uint256(assetId.providerId));
-      (svgPart, tagId) = info.provider.generateSVGPart(uint256(assetId.assetId));
+      ProviderAsset memory asset = assets[_compositionId][i];
+      ProviderInfo memory info = getProvider(uint256(asset.providerId));
+      (svgPart, tagId) = info.provider.generateSVGPart(uint256(asset.assetId));
       // extra {} to reduced the total amount of stack variables
       {
         // Skip if the same asset has been already defined
@@ -217,4 +217,29 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
           interfaceId == type(IAssetProvider).interfaceId ||
           interfaceId == type(IERC165).interfaceId;
   }
+
+  /**
+   * Distribute the payout equally among all the asser providers 
+   */
+  function processPayout(uint256 _compositionId, uint256 _skipIndex) external override payable {
+    uint256 layerLength = layerCounts[_compositionId];
+    if (_skipIndex < layerLength) {
+      layerLength -= 1;
+      if (layerLength == 0) {
+        return; // unexpected, but just in case
+      }
+    }
+    uint256 payout = msg.value / layerLength;
+    if (payout == 0) {
+      return;
+    }
+    for (uint256 i=0; i < layerLength; i++) {
+      if (i == _skipIndex) {
+        continue;
+      }
+      ProviderAsset memory asset = assets[_compositionId][i];
+      ProviderInfo memory info = getProvider(uint256(asset.providerId));
+      info.provider.processPayout{value:payout}(asset.assetId, 1e10);
+    }
+  }  
 }

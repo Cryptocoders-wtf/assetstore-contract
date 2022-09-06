@@ -28,9 +28,9 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-      return
-          interfaceId == type(IAssetProvider).interfaceId ||
-          interfaceId == type(IERC165).interfaceId;
+    return
+      interfaceId == type(IAssetProvider).interfaceId ||
+      interfaceId == type(IERC165).interfaceId;
   }
 
   function getOwner() external override view returns (address) {
@@ -112,5 +112,14 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
 
   function totalSupply() external pure override returns(uint256) {
     return 0; // indicating "dynamically (but deterministically) generated from the given assetId)
+  }
+
+  function processPayout(uint256 _assetId, uint256 _skipIndex) external override payable {
+    // no operation (keep it in the contract)
+  }
+
+  function withdraw() external onlyOwner {
+    address payable payableTo = payable(owner());
+    payableTo.transfer(address(this).balance);
   }
 }
