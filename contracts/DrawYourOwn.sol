@@ -79,7 +79,27 @@ abstract contract DrawYourOwnCore is ERC721A {
   function _isPrimary(uint256 _tokenId) internal pure returns(bool) {
     return _tokenId % _tokensPerAsset == 0;
   }
+}
 
+abstract contract DrawYourOwnAdmin is DrawYourOwnCore, Ownable {
+  // 1e18 = 1 ether
+  uint256 public mintPrice = 2e16; //0.02 ether 
+
+  function withdraw() external onlyOwner {
+      address payable payableTo = payable(owner());
+      payableTo.transfer(address(this).balance);
+  }
+
+  function setMintPrice(uint256 _price) external onlyOwner {
+    mintPrice = _price;
+  }
+
+  function setDescription(string memory _description) external onlyOwner {
+      description = _description;
+  }
+}
+
+abstract contract DrawYourOwnPayout is DrawYourOwnAdmin {
   function transferPayout(uint256 _tokenId, uint256 _amount) internal {
     address payable payableTo = payable(ownerOf(_tokenId));
     payableTo.transfer(_amount);
@@ -105,25 +125,7 @@ abstract contract DrawYourOwnCore is ERC721A {
   }
 }
 
-abstract contract DrawYourOwnAdmin is DrawYourOwnCore, Ownable {
-  // 1e18 = 1 ether
-  uint256 public mintPrice = 2e16; //0.02 ether 
-
-  function withdraw() external onlyOwner {
-      address payable payableTo = payable(owner());
-      payableTo.transfer(address(this).balance);
-  }
-
-  function setMintPrice(uint256 _price) external onlyOwner {
-    mintPrice = _price;
-  }
-
-  function setDescription(string memory _description) external onlyOwner {
-      description = _description;
-  }
-}
-
-contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
+contract DrawYourOwn is DrawYourOwnPayout, IAssetStoreToken {
   using Strings for uint256;
   using Strings for uint16;
 
@@ -132,8 +134,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
     IAssetStoreEx _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
-  ) DrawYourOwnCore(_registry, _assetStore, _developer, _proxyRegistry) {
-  }
+  ) DrawYourOwnCore(_registry, _assetStore, _developer, _proxyRegistry) {}
 
   struct RemixInfo {
     uint256 tokenId; // tokenId (of this NFT)
