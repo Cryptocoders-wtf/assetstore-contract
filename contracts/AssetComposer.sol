@@ -223,13 +223,11 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
    */
   function processPayout(uint256 _compositionId, uint256 _skipIndex) external override payable {
     uint256 layerLength = layerCounts[_compositionId];
-    if (_skipIndex < layerLength) {
-      layerLength -= 1;
-      if (layerLength == 0) {
-        return; // unexpected, but just in case
-      }
-    }
     uint256 payout = msg.value / layerLength;
+
+    if (_skipIndex < layerLength && layerLength > 1) {
+      payout = msg.value / (layerLength - 1);
+    }
     if (payout == 0) {
       return;
     }
