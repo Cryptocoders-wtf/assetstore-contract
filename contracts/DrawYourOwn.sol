@@ -35,8 +35,6 @@ abstract contract DrawYourOwnCore is ERC721A {
   IAssetStoreRegistry public immutable registry;
   IAssetStoreEx public immutable assetStore;
 
-  // 1e18 = 1 ether
-  uint256 public mintPrice = 5e16; //0.05 ether 
   mapping(uint256 => uint256) public remixBase; // tokenId => base tokenId
   mapping(uint256 => uint256) public totalEarned; // wei 
 
@@ -108,7 +106,21 @@ abstract contract DrawYourOwnCore is ERC721A {
 }
 
 abstract contract DrawYourOwnAdmin is DrawYourOwnCore, Ownable {
+  // 1e18 = 1 ether
+  uint256 public mintPrice = 2e16; //0.02 ether 
 
+  function withdraw() external onlyOwner {
+      address payable payableTo = payable(owner());
+      payableTo.transfer(address(this).balance);
+  }
+
+  function setMintPrice(uint256 _price) external onlyOwner {
+    mintPrice = _price;
+  }
+
+  function setDescription(string memory _description) external onlyOwner {
+      description = _description;
+  }
 }
 
 contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
@@ -318,10 +330,6 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
       '}'
     );
     return pack;
-  }
-
-  function setDescription(string memory _description) external onlyOwner {
-      description = _description;
   }
 
   function generateSVGPart(uint256 _tokenId) public view returns(string memory, string memory) {
