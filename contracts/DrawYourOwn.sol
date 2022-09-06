@@ -99,6 +99,7 @@ abstract contract DrawYourOwnAdmin is DrawYourOwnCore, Ownable {
   }
 }
 
+/*
 abstract contract DrawYourOwnPayout is DrawYourOwnAdmin {
   function transferPayout(uint256 _tokenId, uint256 _amount) internal {
     address payable payableTo = payable(ownerOf(_tokenId));
@@ -107,12 +108,6 @@ abstract contract DrawYourOwnPayout is DrawYourOwnAdmin {
     emit PayedOut(payableTo, _tokenId, _amount);    
   }
 
-  /**
-   * This function processes the payout to the owner of the token. 
-   * If this token is based on another token (tge base token), 
-   * the owner of this token receive 20% of the payout, 
-   * and the rest will be payed out to the base token (recursively). 
-   */
   function processPayout(uint256 _tokenId, uint256 _payout) internal {
     uint256 baseTokenId = remixBase[_tokenId]; // 1-based
     if (baseTokenId > 0) {
@@ -124,8 +119,9 @@ abstract contract DrawYourOwnPayout is DrawYourOwnAdmin {
     }
   }
 }
+*/
 
-contract DrawYourOwn is DrawYourOwnPayout, IAssetStoreToken {
+contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
   using Strings for uint256;
   using Strings for uint16;
 
@@ -160,16 +156,13 @@ contract DrawYourOwn is DrawYourOwnPayout, IAssetStoreToken {
       assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
     } else {
       uint256 i;
-      uint256 payout;
-      if (_remixes.length + _overlays.length > 0) {
-        require(msg.value >= mintPrice, 'Must send the mint price');
-        payout = (msg.value * 975) / 1000 / _remixes.length;
-      }
       uint256 offset = _remixes.length;
+      if (offset + _overlays.length > 0) {
+        require(msg.value >= mintPrice, 'Must send the mint price');
+      }
       IAssetComposer.AssetLayer[] memory layers = new IAssetComposer.AssetLayer[](offset + 1 + _overlays.length);
       for (i = 0; i < _remixes.length; i++) {
         RemixInfo memory remix = _remixes[i];
-        processPayout(remix.tokenId, payout);
         if (i == 0) {
           // We store only the primary remix tokenId
           remixBase[tokenId] = remix.tokenId + 1; // 1-based
@@ -192,6 +185,7 @@ contract DrawYourOwn is DrawYourOwnPayout, IAssetStoreToken {
         layers[offset + 1 + i] = _overlays[i];
       }      
       uint256 compositionId = assetComposer.registerComposition(layers);
+      assetComposer.processPayout{value:(msg.value * 975) / 1000}(compositionId, offset);
       assetIds[tokenId / _tokensPerAsset] = compositionId * 2; // @notice
     }
 
