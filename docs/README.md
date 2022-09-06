@@ -74,7 +74,9 @@ Instead, developers ask each minter to pay a small extra gas fee by uploading ne
 
 This is done by calling mintWithAsset() method, which stores the vector data to the On-Chain Asset Store and issues NFT(s) to the minter.
 
-We have launched three NFT collections ([Material Icons](https://assetstore.wtf/material), [Kamon Symbols](https://assetstore.wtf/kamon), [Emoji Flags](https://assetstore.wtf/emoji)) using crowd minting and managed to upload over 1,200 vector images on-chain. 
+We have launched three NFT collections ([Material Icons](https://assetstore.wtf/material), [Kamon Symbols](https://assetstore.wtf/kamon), [Emoji Flags](https://assetstore.wtf/emoji)) using crowd minting and managed to upload over 1,300 vector images on-chain. 
+
+We recently came up with an idea to give addtional rewards to those minters. Please see the "Draw2Earn" section below.
 
 ![](https://i.imgur.com/skT6eS5.png)
 
@@ -113,13 +115,13 @@ During the development of the On-Chain Vector Editor described above, we came up
 Here is the rough business model. 
 
 1. Creating a new drawing from scratch and minting it as an NFT is completely free. The minter needs to pay only the gas fee to upload the vector data of the drawing to the blockchain. 
-2. Creating a drawing based on somebody else's drawing (remixing) and minting it as NFT is NOT free. We will charge a small amount (probably 0.02〜0.05ETH), and distribute most of it (97.5%) to the creator of the base drawing.
-3. If the base drawing is also based on another drawing, we will distribute it recursively, splitting the distribution 20:80 (remixer vs original).
+2. Creating a drawing using assets on the asset store (somebody's drawings or the result of crowd-minting) and minting it as NFT is NOT free. We will charge a small amount (probably 〜0.02ETH), and distribute most of it (97.5%) to the creators and minters of those assets.
+3. If the remixed asset is a composition of multiple assets, we will distribute the payout recursively, splitting it equally at each level.
 
 We are aware that most of the "X2Earn" services introduce their app-specific currencies, which allows developers to keep all the earnings, by paying earnings in the app-specific currency. 
 
-This approach creates a so-called *"token economy"*, giving the developer the power to act as a central bank.
+This approach creates a so-called *"token economy"*, giving the developer the power to print money as the central bank of that economy.
 
 We chose **NOT** to take that approach because it will turn the service into a pseudo Ponzi scheme, where the infinite growth is required to keep it attractive.
 
-We believe the direct and immediate distribution (97.5% of revenue) is fair to everybody and a better mechanism to sustain the service very long time.
+We believe the direct and immediate distribution is fair to everybody and a better mechanism to sustain the service very long time.
