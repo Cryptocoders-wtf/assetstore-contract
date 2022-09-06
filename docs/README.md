@@ -125,3 +125,11 @@ This approach creates a so-called *"token economy"*, giving the developer the po
 We chose **NOT** to take that approach because it will turn the service into a pseudo Ponzi scheme, where the infinite growth is required to keep it attractive.
 
 We believe the direct and immediate distribution is fair to everybody and a better mechanism to sustain the service very long time.
+
+### Generative Asset Providers (invitation phase)
+
+As described in the "Asset Provider" section, any smart contract, which supports IAssetProvider can be registered to the Asset Composer as an asset provider to the Draw2Earn application and start earning money.
+
+We would like to invite other developers to create variety of asset providers, most of which would generate vector assets programatically -- just like ones you see in the Art Block project.
+
+If anybody is interesated in it, please join the [On-Chain Asset Store](https://discord.gg/4JGURQujXK) discord. 
