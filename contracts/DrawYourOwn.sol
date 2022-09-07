@@ -34,6 +34,7 @@ abstract contract DrawYourOwnCore is ERC721A {
   IAssetStoreEx public immutable assetStore;
 
   mapping(uint256 => uint256) public remixBase; // tokenId => base tokenId
+  mapping(uint256 => uint256) public totalEarned; // wei 
 
   uint256 constant _tokensPerAsset = 4;
   mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId (*2+1) or compositionId (*2)
@@ -315,12 +316,10 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
               assetStore.getStringValidator().sanitizeJason(_attr.minter) : bytes('(anonymous)'), '"' 
       '},{'
         '"trait_type":"Remix",'
-        '"value":"', remixBase[_tokenId] > 0 ? (remixBase[_tokenId] - 1).toString() : "(none)", '"'
-      /* LATER: Get it from AssetProvider or AssetComposer
+        '"value":"', remixBase[_tokenId] > 0 ? (remixBase[_tokenId] - 1).toString() : "(none)", '"' 
       '},{'
         '"trait_type":"Earned",'
         '"value":"', (totalEarned[_tokenId] / 1e9).toString(), 'Gwei"' 
-      */
       '}'
     );
     return pack;

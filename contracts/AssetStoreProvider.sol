@@ -20,17 +20,15 @@ contract AssetStoreProvider is ICategorizedAssetProvider, IERC165, Ownable {
   IAssetStoreEx public immutable assetStore;
   string constant providerKey = "asset";
 
-  mapping(uint256 => uint256) public totalEarned; // wei 
-
   constructor(IAssetStoreEx _assetStore) {
     assetStore = _assetStore;
   }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-    return
-      interfaceId == type(IAssetProvider).interfaceId ||
-      interfaceId == type(ICategorizedAssetProvider).interfaceId ||
-      interfaceId == type(IERC165).interfaceId;
+      return
+          interfaceId == type(IAssetProvider).interfaceId ||
+          interfaceId == type(ICategorizedAssetProvider).interfaceId ||
+          interfaceId == type(IERC165).interfaceId;
   }
 
   function getOwner() external override view returns (address) {
@@ -79,7 +77,7 @@ contract AssetStoreProvider is ICategorizedAssetProvider, IERC165, Ownable {
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(_assetId + 1);
     address payable payableTo = payable(attr.soulbound);
     payableTo.transfer(msg.value);
-    totalEarned[_assetId] += msg.value;
     emit Payout(providerKey, _assetId, payableTo, msg.value);
   }
 }
+
