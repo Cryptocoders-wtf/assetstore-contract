@@ -219,7 +219,9 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   }
 
   /**
-   * Distribute the payout equally among all the asser providers 
+   * Distribute the payout equally among all the asser providers of a composition.
+   * _compositionId specifies the composition.
+   * _skipIndex optionally specifies the asset to be skipped.  
    */
   function processPayout(uint256 _compositionId, uint256 _skipIndex) external override payable {
     uint256 layerLength = layerCounts[_compositionId];
