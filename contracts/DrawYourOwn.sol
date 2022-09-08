@@ -306,7 +306,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
         '"trait_type":"Category",'
         '"value":"', _attr.category, '"' 
       '},{'
-        '"trait_type":"Name",'
+        '"trait_type":"Drawing Id",'
         '"value":"', _attr.name, '"');
     pack = abi.encodePacked(pack,  
       '},{'
