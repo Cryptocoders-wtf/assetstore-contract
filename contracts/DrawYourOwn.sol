@@ -144,7 +144,6 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate, RemixInfo[] memory _remixes, IAssetComposer.AssetLayer[] memory _overlays) external payable {
     uint256 tokenId = _nextTokenId();
     _assetInfo.group = "Draw Your Own";
-    _assetInfo.name = string(abi.encodePacked("Drawing ", tokenId.toString()));
     uint256 assetId = registry.registerAsset(_assetInfo);
     uploadedAssetIds[tokenId / _tokensPerAsset] = assetId;
 
