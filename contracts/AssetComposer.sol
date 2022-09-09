@@ -102,6 +102,7 @@ abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
 
 contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   using Strings for uint256;
+  using Strings for uint8;
 
   struct ProviderAsset {
     uint128 providerId;
@@ -113,6 +114,7 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   mapping(uint256 => mapping(uint256 => ProviderAsset)) internal assets;
   mapping(uint256 => mapping(uint256 => bytes)) internal transforms; // optional
   mapping(uint256 => mapping(uint256 => bytes)) internal fills; // optinoal
+  mapping(uint256 => mapping(uint256 => uint256)) internal strokes; // optinoal
 
   constructor(IAssetStoreEx _assetStore) AssetComposerAdmin(_assetStore) {
   }
@@ -139,6 +141,9 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
       if (fill.length > 0) {
         require(validator.validate(fill), "register: Invalid fill");
         fills[compositionId][i] = fill;
+      }
+      if (info.stroke > 0) {
+        strokes[compositionId][i] = info.stroke;
       }
     }
     emit CompositionRegistered(msg.sender, compositionId);
@@ -183,8 +188,8 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
           alreadyDefined[i] = hash;
         }
       }
+      uses = abi.encodePacked(uses, ' <use href="#', tagId, '"');
       {
-        uses = abi.encodePacked(uses, ' <use href="#', tagId, '"');
         bytes memory option = transforms[_compositionId][i];
         if (option.length > 0) {
           uses = abi.encodePacked(uses, ' transform="', option, '"');
@@ -193,8 +198,14 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
         if (option.length > 0) {
           uses = abi.encodePacked(uses, ' fill="', option, '"');
         }
-        uses = abi.encodePacked(uses, ' />\n');
       }
+      {
+        uint256 stroke = strokes[_compositionId][i];
+        if (stroke > 0) {
+          uses = abi.encodePacked(uses, ' stroke="black" stroke-linecap="round" stroke-width', uint8(stroke).toString(), 'px"');
+        }
+      }
+      uses = abi.encodePacked(uses, ' />\n');
     }
     tagId = string(abi.encodePacked('comp', _compositionId.toString()));
     svgPart = string(abi.encodePacked(

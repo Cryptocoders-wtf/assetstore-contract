@@ -78,6 +78,7 @@ interface IAssetComposer {
     string provider; // provider key   
     string fill; // optional fill color
     string transform; // optinal transform
+    uint256 stroke; // optional stroke (width)
   }
 
   event CompositionRegistered(address from, uint256 compositionId);
