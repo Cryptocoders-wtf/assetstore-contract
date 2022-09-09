@@ -21,7 +21,7 @@ import { IAssetProvider, IAssetProviderRegistry, IAssetComposer } from './interf
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
-abstract contract AssetProviderRegistry is IAssetProviderRegistry {
+contract AssetProviderRegistry is IAssetProviderRegistry {
   uint256 nextProvider; // 0-based
   mapping(string => uint256) providerIds; // key => providerId+1
   mapping(uint256 => IAssetProvider) providers;
@@ -68,7 +68,7 @@ abstract contract AssetProviderRegistry is IAssetProviderRegistry {
   }
 }
 
-abstract contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
+contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
   // Upgradable admin (only by owner)
   address public admin;
 
@@ -100,9 +100,8 @@ abstract contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
   }
 }
 
-contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider, IERC165 {
+contract AssetComposerCore is AssetComposerAdmin, IAssetComposer {
   using Strings for uint256;
-  using Strings for uint8;
   string constant providerKey = "comp";
 
   struct ProviderAsset {
@@ -148,6 +147,14 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider, IE
       }
     }
     emit CompositionRegistered(msg.sender, compositionId);
+  }
+}
+
+contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
+  using Strings for uint256;
+  using Strings for uint8;
+
+  constructor(IAssetStoreEx _assetStore) AssetComposerCore(_assetStore) {
   }
 
   function getOwner() external override view returns (address) {
