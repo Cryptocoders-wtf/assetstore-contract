@@ -25,7 +25,6 @@ abstract contract AssetComposerCore is IAssetProviderRegistry, IERC165 {
   uint256 nextProvider; // 0-based
   mapping(string => uint256) providerIds; // key => providerId+1
   mapping(uint256 => IAssetProvider) providers;
-  string constant providerKey = "comp";
 
   IAssetStoreEx public immutable assetStore; // for IStringValidator
 
@@ -104,6 +103,7 @@ abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
 contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   using Strings for uint256;
   using Strings for uint8;
+  string constant providerKey = "comp";
 
   struct ProviderAsset {
     uint128 providerId;
