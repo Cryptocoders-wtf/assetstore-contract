@@ -8,6 +8,8 @@ pragma solidity ^0.8.6;
  * 1. Static asset provider, which has a collection of assets (either in the storage or the code) and returns them.
  * 2. Generative provider, which dynamically (but deterministically from the seed) generates assets.
  * 3. Data visualizer, which generates assets based on various data on the blockchain.
+ *
+ * Note: Asset providers MUST implements IERC165 (supportsInterface method) as well. 
  */
 interface IAssetProvider {
   struct ProviderInfo {
@@ -17,7 +19,7 @@ interface IAssetProvider {
   }
   function getProviderInfo() external view returns(ProviderInfo memory);
   /**
-   * This function returns SVGPart and the tag. SVGPart consists of one or more SVG elements.
+   * This function returns SVGPart and the tag. The SVGPart consists of one or more SVG elements.
    * The tag specifies the identifier of the SVG element to be displayed (using <use> tag).
    * The tag is the combination of the provider key and assetId (e.e., "asset123")
    */
@@ -43,6 +45,10 @@ interface IAssetProvider {
   event Payout(string providerKey, uint256 assetId, address payable to, uint256 amount);
 }
 
+/**
+ * This is an extended interface of IAssetProvider for those providers,
+ * which offers categorized assets, such as AssetStoreProvider. 
+ */
 interface ICategorizedAssetProvider is IAssetProvider {
   function getGroupCount() external view returns(uint32);
   function getGroupNameAtIndex(uint32 _groupIndex) external view returns(string memory);
