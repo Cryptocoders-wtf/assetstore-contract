@@ -96,28 +96,6 @@ abstract contract DrawYourOwnAdmin is DrawYourOwnCore, Ownable {
   }
 }
 
-/*
-abstract contract DrawYourOwnPayout is DrawYourOwnAdmin {
-  function transferPayout(uint256 _tokenId, uint256 _amount) internal {
-    address payable payableTo = payable(ownerOf(_tokenId));
-    payableTo.transfer(_amount);
-    totalEarned[_tokenId] += _amount;
-    emit PayedOut(payableTo, _tokenId, _amount);    
-  }
-
-  function processPayout(uint256 _tokenId, uint256 _payout) internal {
-    uint256 baseTokenId = remixBase[_tokenId]; // 1-based
-    if (baseTokenId > 0) {
-      uint256 thisPayout = _payout * 20 / 100; // 20%
-      transferPayout(_tokenId, thisPayout);
-      processPayout(baseTokenId - 1, _payout - thisPayout);
-    } else {
-      transferPayout(_tokenId, _payout);
-    }
-  }
-}
-*/
-
 contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
   using Strings for uint256;
   using Strings for uint16;
