@@ -133,6 +133,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
     uint256 tokenId; // tokenId (of this NFT)
     string fill; // optional fill color
     string transform; // optinal transform
+    uint256 stroke;
   }
 
   /**
@@ -149,7 +150,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
     uploadedAssetIds[tokenId / _tokensPerAsset] = assetId;
 
     // @notice
-    if (_remixes.length == 0 && _overlays.length == 0) {
+    if (_remixes.length == 0 && _overlays.length == 0 && _strokeWidth == 0) {
       assetIds[tokenId / _tokensPerAsset] = assetId * 2 + 1; // @notice
     } else {
       uint256 i;
@@ -175,6 +176,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
         }
         layers[i].fill = remix.fill; // optional color
         layers[i].transform = remix.transform; // optional transform
+        layers[i].stroke = remix.stroke; // optional stroke (width)
       }
       layers[offset].assetId = assetId - 1; // Switch it to 0-based
       layers[offset].provider = "asset";

@@ -202,7 +202,7 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
       {
         uint256 stroke = strokes[_compositionId][i];
         if (stroke > 0) {
-          uses = abi.encodePacked(uses, ' stroke="black" stroke-linecap="round" stroke-width', uint8(stroke).toString(), 'px"');
+          uses = abi.encodePacked(uses, ' stroke="black" stroke-linecap="round" stroke-width="', uint8(stroke).toString(), 'px"');
         }
       }
       uses = abi.encodePacked(uses, ' />\n');
