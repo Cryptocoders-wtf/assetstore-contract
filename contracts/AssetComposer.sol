@@ -21,7 +21,7 @@ import { IAssetProvider, IAssetProviderRegistry, IAssetComposer } from './interf
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
-abstract contract AssetComposerCore is IAssetProviderRegistry, IERC165 {
+abstract contract AssetComposerCore is IAssetProviderRegistry {
   uint256 nextProvider; // 0-based
   mapping(string => uint256) providerIds; // key => providerId+1
   mapping(uint256 => IAssetProvider) providers;
@@ -100,7 +100,7 @@ abstract contract AssetComposerAdmin is AssetComposerCore, Ownable {
   }
 }
 
-contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
+contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider, IERC165 {
   using Strings for uint256;
   using Strings for uint8;
   string constant providerKey = "comp";
