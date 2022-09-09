@@ -234,7 +234,7 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
    * _compositionId specifies the composition.
    * _skipIndex optionally specifies the asset to be skipped.  
    */
-  function processPayout(uint256 _compositionId, uint256 _skipIndex) external override payable {
+  function processPayoutWithSkipIndex(uint256 _compositionId, uint256 _skipIndex) public payable {
     uint256 layerLength = layerCounts[_compositionId];
     uint256 payout = msg.value / layerLength;
 
@@ -250,7 +250,11 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
       }
       ProviderAsset memory asset = assets[_compositionId][i];
       ProviderInfo memory info = getProvider(uint256(asset.providerId));
-      info.provider.processPayout{value:payout}(asset.assetId, 1e10);
+      info.provider.processPayout{value:payout}(asset.assetId);
     }
   }  
+
+  function processPayout(uint256 _assetId) external override payable {
+    return processPayoutWithSkipIndex(_assetId, 1e10);
+  }
 }

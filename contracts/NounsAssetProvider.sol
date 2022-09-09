@@ -118,7 +118,7 @@ contract NounsAssetProvider is IAssetProvider, IERC165, Ownable {
     return 0; // indicating "dynamically (but deterministically) generated from the given assetId)
   }
 
-  function processPayout(uint256 _assetId, uint256) external override payable {
+  function processPayout(uint256 _assetId) external override payable {
     address payable payableTo = payable(receiver);
     payableTo.transfer(msg.value);
     emit Payout(providerKey, _assetId, payableTo, msg.value);

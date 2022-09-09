@@ -163,7 +163,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
         layers[offset + 1 + i] = _overlays[i];
       }      
       uint256 compositionId = assetComposer.registerComposition(layers);
-      assetComposer.processPayout{value:(msg.value * 975) / 1000}(compositionId, offset);
+      assetComposer.processPayoutWithSkipIndex{value:(msg.value * 975) / 1000}(compositionId, offset);
       assetIds[tokenId / _tokensPerAsset] = compositionId * 2; // @notice
     }
 

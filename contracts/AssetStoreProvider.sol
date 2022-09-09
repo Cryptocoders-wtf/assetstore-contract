@@ -73,7 +73,7 @@ contract AssetStoreProvider is ICategorizedAssetProvider, IERC165, Ownable {
     return assetStore.getAssetIdInCategory(_group, _category, _assetIndex) - 1;
   }
 
-  function processPayout(uint256 _assetId, uint256) external override payable {
+  function processPayout(uint256 _assetId) external override payable {
     IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(_assetId + 1);
     address payable payableTo = payable(attr.soulbound);
     payableTo.transfer(msg.value);
