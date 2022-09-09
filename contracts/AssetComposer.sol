@@ -25,6 +25,7 @@ abstract contract AssetComposerCore is IAssetProviderRegistry, IERC165 {
   uint256 nextProvider; // 0-based
   mapping(string => uint256) providerIds; // key => providerId+1
   mapping(uint256 => IAssetProvider) providers;
+  string constant providerKey = "comp";
 
   IAssetStoreEx public immutable assetStore; // for IStringValidator
 
@@ -154,13 +155,13 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
   }
 
   function getProviderInfo() external view override returns(ProviderInfo memory) {
-    return ProviderInfo("comp", "Asset Composer", this);
+    return ProviderInfo(providerKey, "Asset Composer", this);
   }
 
   /**
     * @notice returns a SVG part (and the tag) that represents the specified composition.
     */
-  function generateSVGPart(uint256 _compositionId) public view override(IAssetComposer, IAssetProvider) enabled(_compositionId) returns(string memory, string memory) {
+  function generateSVGPart(uint256 _compositionId) public view override enabled(_compositionId) returns(string memory, string memory) {
     uint256 layerLength = layerCounts[_compositionId];
     bytes memory defs;
     bytes memory uses;
@@ -207,7 +208,7 @@ contract AssetComposer is AssetComposerAdmin, IAssetComposer, IAssetProvider {
       }
       uses = abi.encodePacked(uses, ' />\n');
     }
-    tagId = string(abi.encodePacked('comp', _compositionId.toString()));
+    tagId = string(abi.encodePacked(providerKey, _compositionId.toString()));
     svgPart = string(abi.encodePacked(
       defs,
       '<g id="', tagId, '" >\n',
