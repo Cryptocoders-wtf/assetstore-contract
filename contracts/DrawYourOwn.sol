@@ -141,7 +141,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
    * _remixes specifies the remix tokens (optional). 
    * _layers specifies overlay assets (optional). 
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate, RemixInfo[] memory _remixes, IAssetComposer.AssetLayer[] memory _overlays) external payable {
+  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate, uint256 _strokeWidth, RemixInfo[] memory _remixes, IAssetComposer.AssetLayer[] memory _overlays) external payable {
     uint256 tokenId = _nextTokenId();
     _assetInfo.group = "Draw Your Own";
     _assetInfo.name = tokenId.toString();
@@ -178,6 +178,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
       }
       layers[offset].assetId = assetId - 1; // Switch it to 0-based
       layers[offset].provider = "asset";
+      layers[offset].stroke = _strokeWidth;
       for (i = 0; i < _overlays.length; i++) {
         layers[offset + 1 + i] = _overlays[i];
       }      
