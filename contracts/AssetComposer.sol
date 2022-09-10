@@ -87,11 +87,6 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
   function setDisabledComposition(uint256 _compositionId, bool _status) external onlyAdmin {
     disabledComposition[_compositionId] = _status;
   }
-
-  modifier enabled(uint256 _compositionId) {
-    require(disabledComposition[_compositionId] != true, "AssetComposer: this composition is diabled");
-    _;    
-  }
 }
 
 contract AssetComposerCore is AssetComposerAdmin, IAssetComposer {
@@ -164,7 +159,7 @@ contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
   /**
     * @notice returns a SVG part (and the tag) that represents the specified composition.
     */
-  function generateSVGPart(uint256 _compositionId) public view override enabled(_compositionId) returns(string memory, string memory) {
+  function generateSVGPart(uint256 _compositionId) public view override returns(string memory, string memory) {
     uint256 layerLength = layerCounts[_compositionId];
     bytes memory defs;
     bytes memory uses;
@@ -172,44 +167,46 @@ contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
     string memory tagId;
     bytes32[] memory alreadyDefined = new bytes32[](layerLength);
 
-    for (uint256 i=0; i < layerLength; i++) {
-      ProviderAsset memory asset = assets[_compositionId][i];
-      ProviderInfo memory info = getProvider(uint256(asset.providerId));
-      (svgPart, tagId) = info.provider.generateSVGPart(uint256(asset.assetId));
-      // extra {} to reduced the total amount of stack variables
-      {
-        // Skip if the same asset has been already defined
-        bytes32 hash = keccak256(abi.encodePacked(tagId));
-        bool isNewTag = true;
-        for (uint256 j=0; j<i; j++) {
-          if (alreadyDefined[j] == hash) {
-            isNewTag = false;
-            break;
+    if (!disabledComposition[_compositionId]) {
+      for (uint256 i=0; i < layerLength; i++) {
+        ProviderAsset memory asset = assets[_compositionId][i];
+        ProviderInfo memory info = getProvider(uint256(asset.providerId));
+        (svgPart, tagId) = info.provider.generateSVGPart(uint256(asset.assetId));
+        // extra {} to reduced the total amount of stack variables
+        {
+          // Skip if the same asset has been already defined
+          bytes32 hash = keccak256(abi.encodePacked(tagId));
+          bool isNewTag = true;
+          for (uint256 j=0; j<i; j++) {
+            if (alreadyDefined[j] == hash) {
+              isNewTag = false;
+              break;
+            }
+          }
+          if (isNewTag) {
+            defs = abi.encodePacked(defs, svgPart);
+            alreadyDefined[i] = hash;
           }
         }
-        if (isNewTag) {
-          defs = abi.encodePacked(defs, svgPart);
-          alreadyDefined[i] = hash;
+        uses = abi.encodePacked(uses, ' <use href="#', tagId, '"');
+        {
+          bytes memory option = transforms[_compositionId][i];
+          if (option.length > 0) {
+            uses = abi.encodePacked(uses, ' transform="', option, '"');
+          }
+          option = fills[_compositionId][i];
+          if (option.length > 0) {
+            uses = abi.encodePacked(uses, ' fill="', option, '"');
+          }
         }
+        {
+          uint256 stroke = strokes[_compositionId][i];
+          if (stroke > 0) {
+            uses = abi.encodePacked(uses, ' stroke="black" stroke-linecap="round" stroke-width="', uint8(stroke).toString(), 'px"');
+          }
+        }
+        uses = abi.encodePacked(uses, ' />\n');
       }
-      uses = abi.encodePacked(uses, ' <use href="#', tagId, '"');
-      {
-        bytes memory option = transforms[_compositionId][i];
-        if (option.length > 0) {
-          uses = abi.encodePacked(uses, ' transform="', option, '"');
-        }
-        option = fills[_compositionId][i];
-        if (option.length > 0) {
-          uses = abi.encodePacked(uses, ' fill="', option, '"');
-        }
-      }
-      {
-        uint256 stroke = strokes[_compositionId][i];
-        if (stroke > 0) {
-          uses = abi.encodePacked(uses, ' stroke="black" stroke-linecap="round" stroke-width="', uint8(stroke).toString(), 'px"');
-        }
-      }
-      uses = abi.encodePacked(uses, ' />\n');
     }
     tagId = string(abi.encodePacked(providerKey, _compositionId.toString()));
     svgPart = string(abi.encodePacked(
