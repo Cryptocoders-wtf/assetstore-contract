@@ -1,12 +1,12 @@
 # On-Chain Asset Store and Composer
 
-This is the summary document, which describes the vision & mission of this project and the various technologies and methods we are building. 
+This is the summary document, which describes the vision & mission of this project and the various technologies and methods, such as SVG compression, on-chain asset strore, crowd-Minting and Draw2Earn app, we are building. 
 
 ## Importance of being Fully On-chain
 
-While decentralization is one of the fundamental values of Web3, most NFTs (including Bluechip NFTs such as Bored Ape and Azuki) are **not fully on-chain**, storing metadata and images on either HTTP server or IPFS. 
+While decentralization is one of the fundamental values of Web3, most NFTs (including bluechip NFTs such as Bored Ape and Azuki) are **not fully on-chain**, storing metadata and images on either HTTP server or IPFS. 
 
-It means those NFTs will become inaccessible (you can not see their metadata or images) once the NFT providers cease to exist or simply stop supporting them. 
+Those NFTs will become inaccessible  once the NFT providers cease to exist or simply stop supporting them. 
 
 It means those NFTs are not yours, and they are under the control of NFT providers, just like many Web2 services. They are more like Web 2.5 NFTs. 
 
