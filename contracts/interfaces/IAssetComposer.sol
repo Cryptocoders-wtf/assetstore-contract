@@ -19,7 +19,7 @@ interface IAssetProviderRegistry {
    */
   function registerProvider(IAssetProvider _provider) external returns(uint256);
   function providerCount() external view returns(uint256);
-  function getProvider(uint256 _providerId) external view returns(IAssetProvider.ProviderInfo memory);
+  function getProvider(uint256 _providerId) external view returns(IAssetProvider.ProviderInfo memory, bool);
   function getProviderId(string memory _key) external view returns(uint256);
 }
 

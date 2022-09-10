@@ -25,6 +25,7 @@ contract AssetProviderRegistry is IAssetProviderRegistry {
   uint256 nextProvider; // 0-based
   mapping(string => uint256) providerIds; // key => providerId+1
   mapping(uint256 => IAssetProvider) providers;
+  mapping(uint256 => bool) disabledProvider;
 
   function registerProvider(IAssetProvider _provider) external override returns(uint256 providerId) {
     IAssetProvider.ProviderInfo memory providerInfo = _provider.getProviderInfo();
@@ -50,9 +51,9 @@ contract AssetProviderRegistry is IAssetProviderRegistry {
     return nextProvider;
   }
 
-  function getProvider(uint256 _providerId) public view override returns(IAssetProvider.ProviderInfo memory) {
+  function getProvider(uint256 _providerId) public view override returns(IAssetProvider.ProviderInfo memory, bool) {
     IAssetProvider provider = providers[_providerId];
-    return provider.getProviderInfo();
+    return (provider.getProviderInfo(), disabledProvider[_providerId]);
   }
 
   function getProviderId(string memory _key) public view override returns(uint256) {
@@ -65,12 +66,7 @@ contract AssetProviderRegistry is IAssetProviderRegistry {
 contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
   // Upgradable admin (only by owner)
   address public admin;
-
-  /*
-   * It allows us to disable indivial composer or provider. 
-   */
-  mapping(uint256 => bool) disabledComposition;
-  mapping(uint256 => bool) disabledProvider;
+  mapping(uint256 => bool) public disabledComposition;
 
   constructor() {
     admin = owner();
@@ -91,6 +87,14 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
 
   function setDisabledProvider(uint256 _providerId, bool _status) external onlyAdmin {
     disabledProvider[_providerId] = _status;
+  }
+
+  /**
+   * Just in case.
+   */
+  function withdraw() external onlyOwner {
+    address payable payableTo = payable(owner());
+    payableTo.transfer(address(this).balance);
   }
 }
 
@@ -175,10 +179,10 @@ contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
     if (!disabledComposition[_compositionId]) {
       for (uint256 i=0; i < layerLength; i++) {
         ProviderAsset memory asset = assets[_compositionId][i];
-        if (disabledProvider[uint256(asset.providerId)]) {
+        (ProviderInfo memory info, bool disabled) = getProvider(uint256(asset.providerId));
+        if (disabled) {
           continue;
         }
-        ProviderInfo memory info = getProvider(uint256(asset.providerId));
         (svgPart, tagId) = info.provider.generateSVGPart(uint256(asset.assetId));
         // extra {} to reduced the total amount of stack variables
         {
@@ -258,7 +262,7 @@ contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
         continue;
       }
       ProviderAsset memory asset = assets[_compositionId][i];
-      ProviderInfo memory info = getProvider(uint256(asset.providerId));
+      (ProviderInfo memory info,) = getProvider(uint256(asset.providerId));
       info.provider.processPayout{value:payout}(asset.assetId);
     }
   }  

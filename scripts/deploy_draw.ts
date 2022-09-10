@@ -21,12 +21,12 @@ async function main() {
 
   const count = await composer.providerCount();
   console.log(` providerCount=`, count.toNumber());
-  const info = await composer.getProvider(0);
+  const [info] = await composer.getProvider(0);
   const storeProviderFactory = await ethers.getContractFactory("AssetStoreProvider");
   const storeProvider = storeProviderFactory.attach(info.provider);
   const supply = await storeProvider.totalSupply();
   console.log(` providerInfo=`, info.key, info.name, info.provider, supply.toNumber());
-  const info1 = await composer.getProvider(1);
+  const [info1] = await composer.getProvider(1);
   console.log(` providerInfo=`, info1.key, info1.name, info1.provider);
   //const svgPart = await assetStoreProvider.generateSVGPart(0);
   //console.log(` svgPart=`, svgPart);
