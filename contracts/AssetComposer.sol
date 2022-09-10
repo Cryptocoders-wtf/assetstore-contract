@@ -76,7 +76,7 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
   }
 
   modifier onlyAdmin() {
-    require(owner() == _msgSender() || admin == _msgSender(), "AssetComposer: caller is not the admin");
+    require(owner() == msg.sender || admin == msg.sender, "AssetComposer: caller is not the admin");
     _;
   }
 
