@@ -175,6 +175,9 @@ contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
     if (!disabledComposition[_compositionId]) {
       for (uint256 i=0; i < layerLength; i++) {
         ProviderAsset memory asset = assets[_compositionId][i];
+        if (disabledProvider[uint256(asset.providerId)]) {
+          continue;
+        }
         ProviderInfo memory info = getProvider(uint256(asset.providerId));
         (svgPart, tagId) = info.provider.generateSVGPart(uint256(asset.assetId));
         // extra {} to reduced the total amount of stack variables
