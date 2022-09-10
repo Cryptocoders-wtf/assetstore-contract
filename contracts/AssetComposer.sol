@@ -69,7 +69,7 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
   /*
    * It allows us to disable indivial assets, just in case. 
    */
-  mapping(uint256 => bool) disabled;
+  mapping(uint256 => bool) disabledComposition;
 
   constructor() {
     admin = owner();
@@ -84,12 +84,12 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
     admin = _admin;
   }  
 
-  function setDisabled(uint256 _compositionId, bool _status) external onlyAdmin {
-    disabled[_compositionId] = _status;
+  function setDisabledComposition(uint256 _compositionId, bool _status) external onlyAdmin {
+    disabledComposition[_compositionId] = _status;
   }
 
   modifier enabled(uint256 _compositionId) {
-    require(disabled[_compositionId] != true, "AssetComposer: this composition is diabled");
+    require(disabledComposition[_compositionId] != true, "AssetComposer: this composition is diabled");
     _;    
   }
 }
