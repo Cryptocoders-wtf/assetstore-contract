@@ -26,12 +26,6 @@ contract AssetProviderRegistry is IAssetProviderRegistry {
   mapping(string => uint256) providerIds; // key => providerId+1
   mapping(uint256 => IAssetProvider) providers;
 
-  IAssetStoreEx public immutable assetStore; // for IStringValidator
-
-  constructor(IAssetStoreEx _assetStore) {
-    assetStore = _assetStore;
-  }
-
   function registerProvider(IAssetProvider _provider) external override returns(uint256 providerId) {
     IAssetProvider.ProviderInfo memory providerInfo = _provider.getProviderInfo();
     providerId = providerIds[providerInfo.key];
@@ -77,7 +71,7 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
    */
   mapping(uint256 => bool) disabled;
 
-  constructor(IAssetStoreEx _assetStore) AssetProviderRegistry(_assetStore) {
+  constructor() {
     admin = owner();
   }
 
@@ -103,6 +97,7 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
 contract AssetComposerCore is AssetComposerAdmin, IAssetComposer {
   using Strings for uint256;
   string constant providerKey = "comp";
+  IAssetStoreEx public immutable assetStore; // for IStringValidator
 
   struct ProviderAsset {
     uint128 providerId;
@@ -116,7 +111,8 @@ contract AssetComposerCore is AssetComposerAdmin, IAssetComposer {
   mapping(uint256 => mapping(uint256 => bytes)) internal fills; // optinoal
   mapping(uint256 => mapping(uint256 => uint256)) internal strokes; // optinoal
 
-  constructor(IAssetStoreEx _assetStore) AssetComposerAdmin(_assetStore) {
+  constructor(IAssetStoreEx _assetStore) {
+    assetStore = _assetStore;
   }
 
   /**
