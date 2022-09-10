@@ -67,9 +67,10 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
   address public admin;
 
   /*
-   * It allows us to disable indivial assets, just in case. 
+   * It allows us to disable indivial composer or provider. 
    */
   mapping(uint256 => bool) disabledComposition;
+  mapping(uint256 => bool) disabledProvider;
 
   constructor() {
     admin = owner();
@@ -86,6 +87,10 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
 
   function setDisabledComposition(uint256 _compositionId, bool _status) external onlyAdmin {
     disabledComposition[_compositionId] = _status;
+  }
+
+  function setDisabledProvider(uint256 _providerId, bool _status) external onlyAdmin {
+    disabledProvider[_providerId] = _status;
   }
 }
 
