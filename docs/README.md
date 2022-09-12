@@ -14,19 +14,21 @@ On the other hand, <u>**fully on-chain NFTs** such as Nouns are guaranteed to "e
 
 It means you are the sole owner of those fully on-chain NFTs and nobody is able to take them away from you. "Fully on-chain NFT" means "decentralized NFT" -- the true Web3 spirit!
 
-You can easily check if your NFTs are fully on-chain or not by calling tokenURI() method on Etherscan. If the URL starts with "http:" or "ipfs:", they are not on-chain NFTs. The tokenURI method of a truly decentralized NFT contract will always return "data:" URL, which is the proof that its metadata and image are stored on-chain. 
+You can easily check if your NFTs are fully on-chain or not by calling tokenURI() method on Etherscan. If the URL starts with "http:" or "ipfs:", they are not on-chain NFTs. <u>The tokenURI method of a **truly decentralized NFT contract** will always return "data:" URL, which is the proof that its metadata and image are stored on-chain</u>. 
 
-![](https://i.imgur.com/kCfzdsL.png)
+![](https://i.imgur.com/8vEdlYu.png)
 
 ## Technical Challenges
 
-Despite such an importance, why so many NFTs are not on-chain? The answer is simple, **the gas cost** to store large data on-chain. There are some efforts to work around this problem with generative arts, but there are many technical challenges. 
+Despite such an importance, why so many NFTs are not on-chain? The answer is simple, **the gas cost** to store large data on-chain. 
+
+There are some efforts to work around this problem, but there are many technical challenges.
 
 [Nouns](https://nouns.wtf) is one of a few blue-chip NFTs, which are also fully on-chain. They have managed to do so, by reducing the resolution of images down to 32x32 pixels and storing them as highly compressed binary data on-chain. 
 
 ![](https://i.imgur.com/6BMmUQs.png)
 
-[Cyberbrokers](https://cyberbrokers.io) is the first (and only as far as we know) project which stores rich graphics on-chain, but they needed to spend over $200,000 to upload a large set of SVG data to the blockchain (a [great podcast](https://rephonic.com/episodes/qc6wd-solidity-galaxy-brain-puzzles-games-and-onch) is available about this story).
+[Cyberbrokers](https://cyberbrokers.io) is the first (and probably the only) project which stores rich graphics on-chain, but they needed to spend over $200,000 to upload a large set of SVG data to the blockchain (a [great podcast](https://rephonic.com/episodes/qc6wd-solidity-galaxy-brain-puzzles-games-and-onch) is available about this story).
 
 ![](https://i.imgur.com/Mp9xUwH.jpg)
 
@@ -36,7 +38,9 @@ Despite such an importance, why so many NFTs are not on-chain? The answer is sim
 
 ## Vision and Mission
 
-Considering the current situation, we have determined to create a set of technologies and mechanisms, which will <u>make it easier and affordable to store, share and compose vector images on-chain, enabling fully on-chain NFTs with rich graphics</u>. 
+Considering the current situation, we have determined to create a set of technologies and mechanisms, which will <u>make it easier and affordable to store, share and compose vector images on-chain, enabling fully on-chain NFTs with rich graphics</u>.
+
+We believe that we need to build a decentralized ecosystem (automated by smart contracts), where creators can generate revenue from their creations while enabling and encouraging various remixes and compositions.
 
 ## Our Approach
 
@@ -66,7 +70,7 @@ It stores various vector data in the compressed format described above, and make
 
 Please see [AssetStore.sol](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetStore.sol) for details. 
 
-### Crowd Minting (deployed and on-going)
+### Crowd Minting (deployed)
 
 The "crowd minting" is a *method* to eliminate a large upfront cost for developers when issuing fully on-chain NFT collection (just like the developer of Cyberbrokers did).
 
@@ -86,27 +90,27 @@ Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cry
 
 Asset Composer is a *smart contract*, which allows developers and users to create a new vector asset by composing existing vector assets, provided by asset providers (described below).
 
-Asset Composer is still under development (not deployed yet), but you can see the working-in-progress version [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
+You can see the current version of Asset Composer code [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
 
 ### Asset Providers (beta testing)
 
-Asset Providers are *a set of smart contracts*, which provides a set of vector assets. Those assets are either stored on-chain, dynamically generated, or a combination of those. 
+Asset Providers are *a set of smart contracts*, each of which provides a set of vector assets. Those assets are either stored on-chain, dynamically generated, or a combination of those. 
 
 AssetComposer acts as the registration mechanism of those asset providers so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (described below).
 
-Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetComposer.sol) interface (still under development).
+Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetComposer.sol) interface.
 
 As a reference implementation, we have created a wrapper of NounsDescriptor, [NounsAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/NounsAssetProvider.sol), which offers dynamically generated Nouns characters as assets. 
 
-![](https://i.imgur.com/st9ufHK.png)
+![](https://i.imgur.com/c8ngYmT.png)
 
 ### On-Chain Vector Editor (beta testing)
 
-On-Chain Vector Editor is a *WebUI front-end* of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe Illustrator, and mint it as a new NFT.
+On-Chain Vector Editor is a *WebUI front-end* of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe Illustrator, and mint it as an NFT.
 
-![](https://i.imgur.com/C8tIddM.png)
+![](https://i.imgur.com/lPcTuTz.png)
 
-On-Chain Vector Editor is still under development as a part of [WebUI front-end of On-Chain AsstStore](https://github.com/Cryptocoders-wtf/assetstore). 
+The source code of On-Chain Vector Editor is a part of [WebUI front-end of On-Chain AsstStore](https://github.com/Cryptocoders-wtf/assetstore). 
 
 ### Draw2Earn (beta testing)
 
@@ -124,7 +128,7 @@ This approach creates a so-called *token economy*, giving the developer the powe
 
 We chose **NOT** to take that approach because it will turn the service into a *pseudo Ponzi scheme*, where the infinite growth is required to keep it attractive.
 
-We believe the direct and immediate distribution is fair to everybody and a better mechanism to sustain the service very long time.
+We believe the direct and immediate distribution is fair to everybody and a better mechanism to create a healthy and sustainable ecosystem.
 
 ### CC-Share-Earnings (draft proposal)
 
