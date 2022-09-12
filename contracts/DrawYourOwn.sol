@@ -122,8 +122,9 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
    */
   function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate, uint256 _strokeWidth, RemixInfo[] memory _remixes, IAssetComposer.AssetLayer[] memory _overlays) external payable {
     uint256 tokenId = _nextTokenId();
-    _assetInfo.group = "Draw Your Own";
-    _assetInfo.name = tokenId.toString();
+    _assetInfo.group = "Draw Your Own (CC Share Earnings)";
+    uint256 nextAssetId = assetStore.getAssetCount() + 1; // 1-based
+    _assetInfo.name = nextAssetId.toString();
     uint256 assetId = registry.registerAsset(_assetInfo);
     uploadedAssetIds[tokenId / _tokensPerAsset] = assetId;
 
@@ -287,7 +288,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
         '"trait_type":"Category",'
         '"value":"', _attr.category, '"' 
       '},{'
-        '"trait_type":"Drawing Id",'
+        '"trait_type":"Asset Id",'
         '"value":"', _attr.name, '"');
     pack = abi.encodePacked(pack,  
       '},{'
