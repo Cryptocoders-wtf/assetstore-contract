@@ -1,6 +1,6 @@
 # On-Chain Asset Store and Composer
 
-This is the summary document, which describes the vision & mission of this project and associated technologies and methods, such as SVG compression, on-chain asset strore, crowd-Minting and Draw2Earn app. 
+This is the summary document, which describes the vision & mission of this project and technologies and methods we are building, such as SVG compression, on-chain asset strore, crowd-Minting and Draw2Earn app. 
 
 ## Importance of being Fully On-chain
 
@@ -24,7 +24,7 @@ Despite such an importance, why so many NFTs are not on-chain? The answer is sim
 
 There are some efforts to work around this problem, but there are many technical challenges.
 
-[Nouns](https://nouns.wtf) is one of a few blue-chip NFTs, which are also fully on-chain. They have managed to do so, by reducing the resolution of images down to 32x32 pixels and storing them as highly compressed binary data on-chain. 
+[Nouns](https://nouns.wtf) is one of a few bluechip NFTs, which are also fully on-chain. They have managed to do so, by reducing the resolution of images down to 32x32 pixels and storing them as highly compressed binary data on-chain. 
 
 ![](https://i.imgur.com/6BMmUQs.png)
 
@@ -140,7 +140,7 @@ During the development process of the Draw2Earn business model, we realized that
 
 ### Generative Asset Providers (under development)
 
-As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider to the Draw2Earn application and start earning money.
+As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider and start earning money.
 
 We would like to invite other developers to create variety of asset providers, most of which would generate vector assets programatically -- just like ones you see in the Art Block project.
 
