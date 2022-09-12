@@ -108,7 +108,7 @@ On-Chain Vector Editor is a *WebUI front-end* of Asset Composer, which allows cr
 
 On-Chain Vector Editor is still under development as a part of [WebUI front-end of On-Chain AsstStore](https://github.com/Cryptocoders-wtf/assetstore). 
 
-### Draw2Earn (work in progress)
+### Draw2Earn (beta testing)
 
 During the development of the On-Chain Vector Editor described above, we came up with the idea to release it as a **Draw2Earn** application.
 
