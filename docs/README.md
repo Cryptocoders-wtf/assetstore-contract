@@ -126,13 +126,13 @@ We chose **NOT** to take that approach because it will turn the service into a *
 
 We believe the direct and immediate distribution is fair to everybody and a better mechanism to sustain the service very long time.
 
-### CC-Share Earnings (draft proposal)
+### CC-Share-Earnings (draft proposal)
 
-During the development process of the Draw2Earn business model, we realized that we need a new kind of Creative Commons license, *CC-Share Earnings*, which is suitable to web3 applications.
+During the development process of the Draw2Earn business model, we realized that we need a new kind of Creative Commons license, *CC-Share-Earnings*, which is suitable for on-chain assets (such as vector images, but not limited to them).
 
-<u>This license allows other people to copy or remix it, but the revenue sharing is required if somebody use it to generate revenue</u>.
+<u>This license allows other people to copy or remix it, but revenue sharing is required if somebody uses it to generate revenue</u>.
 
-[IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface has a built-in revenue share mechanism, and we'd like to propose it as the standard mechanism to enable this licensing style.
+[IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface has a built-in revenue-share mechanism (*processPayout* method), and we'd like to propose it as the standard mechanism to share revenue.
 
 ### Generative Asset Providers (under development)
 
