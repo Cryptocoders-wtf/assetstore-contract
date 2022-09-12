@@ -126,9 +126,9 @@ We chose **NOT** to take that approach because it will turn the service into a *
 
 We believe the direct and immediate distribution is fair to everybody and a better mechanism to sustain the service very long time.
 
-### CC-Share Earnings (under development)
+### CC-Share Earnings (draft proposal)
 
-During the development process of the Draw2Earn business model, we concluded that we need to define a new kind of Creative Commons license, *CC-Share Earnings*, which is suitable to web3 applications.
+During the development process of the Draw2Earn business model, we realized that we need a new kind of Creative Commons license, *CC-Share Earnings*, which is suitable to web3 applications.
 
 <u>This license allows other people to copy or remix it, but the revenue sharing is required if somebody use it to generate revenue</u>.
 
