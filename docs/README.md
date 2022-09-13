@@ -58,9 +58,29 @@ After various prototpes, we have chosen to compress SVG data in the following st
 4. We compress a series of data (commands and their parameters) in the "d" attribute into a series of 12-bit bytecodes.
 5. In this byte code, commands (such as "M" and "C") will be simply expanded to 12-bit (higher 4-bits will be all zero), while parameters (numbers ranging from -1023 to 1023) will be converted to N+1024+256 (higher 4-bits will be non-zero).
 
-We always perform this encoding off-chain (typically in TypeScript) before passing the data to the smart contract. Please see compressPath() method in [createMethod.ts](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/utils/createAsset.ts). 
+```
+// Original (368 bytes)
+<svg viewBox="0 0 793 793"  xmlns="http://www.w3.org/2000/svg">
+  <path d="m 478.845,139.593 c -26.052,-8.349 -53.836,-12.844 -82.656,-12.844 -26.844,0 -52.789,3.901 -77.278,11.177 l 18.825,60.5 c 18.536,-5.409 38.164,-8.306 58.453,-8.306 21.796,0 42.836,3.352 62.601,9.568 z"
+   style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+</svg>
 
-The decoding will be done on-chain in the "view" method, such as tokenURI() or generateSVGPart(). Even though there is no "gas cost" associated with it, an efficient implementation is critical to avoid time-out or gas-limit errors. Please see decodePath() method of [SVGPathDecoderA](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/libs/SVGPathDecoderA.sol). 
+// Integer-Normalized (263 bytes)
+<svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg">
+  <path d="m 618 180 c -34 -11 -70 -17 -107 -17 -35 0 -68 5 -100 14 l 24 78 c 24 -7 49 -11 75 -11 28 0 55 4 81 12 z" 
+   style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+</svg>
+
+// Path Extracted (105 bytes)
+"m 618 180 c -34 -11 -70 -17 -107 -17 -35 0 -68 5 -100 14 l 24 78 c 24 -7 49 -11 75 -11 28 0 55 4 81 12 z"
+
+// Bytecode (50bytes)
+0x6d,0x70,0x6a,0xb4,0x5,0x63,0xde,0x44,0xf5,0xba,0x44,0xef,0x95,0x44,0xef,0xdd,0x54,0x0,0xbc,0x54,0x5,0x9c,0x54,0xe,0x6c,0x50,0x18,0x4e,0x5,0x63,0x18,0x45,0xf9,0x31,0x45,0xf5,0x4b,0x45,0xf5,0x1c,0x55,0x0,0x37,0x55,0x4,0x51,0x55,0xc,0x7a,0x0
+```
+
+We perform this encoding off-chain (in TypeScript) before passing the data to the smart contract. Please see *compressPath* method in [createMethod.ts](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/utils/createAsset.ts). 
+
+The decoding will be done on-chain in "view" methods, such as *tokenURI* or *generateSVGPart* (in Solidity). Even though there is no "gas cost" associated with it, an efficient implementation is critical to avoid time-out or gas-limit errors. Please see decodePath() method of [SVGPathDecoderA](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/libs/SVGPathDecoderA.sol). 
 
 ### On-Chain Asset Store (deployed)
 
