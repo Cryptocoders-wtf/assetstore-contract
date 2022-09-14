@@ -16,7 +16,7 @@ library Random {
     uint256 value;
   }
 
-  function random(Random.RandomSeed memory seed, uint256 max) public pure returns (uint256 ret, Random.RandomSeed memory updateSeed) {
+  function random(Random.RandomSeed memory seed, uint256 max) internal pure returns (Random.RandomSeed memory updateSeed, uint256 ret) {
     updateSeed = seed;
     if (updateSeed.value < max * 256) {
       updateSeed.seed = uint256(keccak256(abi.encodePacked(updateSeed.seed)));
@@ -30,6 +30,7 @@ library Random {
 contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   using Strings for uint32;
   using Strings for uint256;
+  using Random for Random.RandomSeed;
   using Trigonometry for uint16;
 
   string constant providerKey = "splt";
@@ -68,6 +69,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
+    Random.RandomSeed memory seed = Random.RandomSeed(_assetId, 0);
     uint count = 30;
     int r0 = 280;
     int alt = 0;
@@ -75,7 +77,9 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     for (uint i = 0; i < count; i++) {
       int r = r0;
       if (alt == 0) {
-        r += r0 / 5;
+        uint multiple;
+        (seed, multiple) = seed.random(10);
+        r += int(multiple) * r0 / 20;
       }
       uint16 angle = uint16(i * 0x4000 / count);
       points[i].x = int32(512 + angle.cos() * r / 0x8000);
