@@ -75,6 +75,17 @@ library Trigonometry {
      * @return The sine result as a number in the range -32767 to 32767.
      */
     function sin(uint16 _angle) internal pure returns (int) {
+        if (_angle < 0x1000) {
+            return sinQuarter(_angle);
+        } else if (_angle < 0x2000) {
+            return sinQuarter(0x2000 - _angle);
+        } else if (_angle < 0x3000) {
+            return -sinQuarter(_angle - 0x2000);
+        }
+        return -sinQuarter(0x4000 - _angle);
+    }
+
+    function sinQuarter(uint16 _angle) internal pure returns (int) {
         uint interp = bits(_angle, INTERP_WIDTH, INTERP_OFFSET);
         uint index = bits(_angle, INDEX_WIDTH, INDEX_OFFSET);
 

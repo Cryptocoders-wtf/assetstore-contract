@@ -8,6 +8,7 @@ import { IAssetProvider } from './interfaces/IAssetProvider.sol';
 import './libs/trigonometry.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
+import "hardhat/console.sol";
 
 library Random {
   struct RandomSeed {
@@ -66,16 +67,21 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     receiver = _receiver;
   }
 
-  function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
-    uint256 count = 10;
-    int32 arc = 300;
+  function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
+    uint256 count = 16;
+    int32 arc = 100;
     Point[] memory points = new Point[](count);
     for (uint256 i = 0; i < count; i++) {
       uint16 angle = uint16(i * 16384 / count);
-      points[i].x = 512 + int32(angle.cos()) * arc / 32768;
-      points[i].y = 512 + int32(angle.sin()) * arc / 32768;
+      console.log("***", i, uint256(500 + angle.sin() * arc / 32767), uint256(500 + angle.cos() * arc / 32767));
+    }
+    /*
+      uint16 angle = uint16(i * 16384 / count);
+      points[i].x = int32(512 + angle.cos() * arc / 32768);
+      points[i].y = int32(512 + angle.sin() * arc / 32768);
       points[i].c = true;
     }
+    */
     svgPart = PathFromPoints(points);
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
   }
