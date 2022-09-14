@@ -74,7 +74,7 @@ library Trigonometry {
      *               angle units, instead of the standard 360 degrees.
      * @return The sine result as a number in the range -32767 to 32767.
      */
-    function sin(uint16 _angle) public pure returns (int) {
+    function sin(uint16 _angle) internal pure returns (int) {
         uint interp = bits(_angle, INTERP_WIDTH, INTERP_OFFSET);
         uint index = bits(_angle, INDEX_WIDTH, INDEX_OFFSET);
 
@@ -108,7 +108,7 @@ library Trigonometry {
      * It functions just like the sin() method but uses the trigonometric
      * identity sin(x + pi/2) = cos(x) to quickly calculate the cos.
      */
-    function cos(uint16 _angle) public pure returns (int) {
+    function cos(uint16 _angle) internal pure returns (int) {
         if (_angle > ANGLES_IN_CYCLE - QUADRANT_LOW_MASK) {
             _angle = QUADRANT_LOW_MASK - ANGLES_IN_CYCLE - _angle;
         } else {
