@@ -17,6 +17,21 @@ async function main() {
   const contract = await factory.deploy();
   await contract.deployed();
   console.log(`      contract="${contract.address}"`);
+
+  const roundRect = [
+    { x: 1024 / 4, y: 1024 / 4, c: false, r: 566 },
+    { x: 1024 - 1024 / 4, y: 1024 / 4, c: false, r: 566 },
+    {
+      x: 1024 - 1024 / 4,
+      y: 1024 - 1024 / 4,
+      c: false,
+      r: 566,
+    },
+    { x: 1024 / 4, y: 1024 - 1024 / 4, c: false, r: 566 },
+  ];
+
+  const result0 = await contract.functions.PathFromPoints(roundRect);
+  console.log(result0);
 /*
   const composerFactory = await ethers.getContractFactory("AssetComposer");
   const composer = composerFactory.attach(composerAddress);

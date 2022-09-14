@@ -9,12 +9,12 @@ import { Trigonometry } from './libs/trigonometry.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract SplatterProvider {
-  using Strings for uint16;
+  using Strings for uint32;
   struct Point {
-    uint16 x;
-    uint16 y;
+    int32 x;
+    int32 y;
     bool c;   // true:line, false:bezier
-    uint16 r; // ratio (0 to 1)
+    int32 r; // ratio (0 to 1024)
   }
 /*
 export interface Point {
@@ -46,31 +46,31 @@ export const pathFromPoints = (points: Point[]) => {
 };
 */
 
-  function PathFromPoints(Point[] memory points) public pure returns(bytes memory) {
+  function PathFromPoints(Point[] memory points) public pure returns(string memory) {
     bytes memory ret;
     uint256 length = points.length;
     for(uint256 i = 0; i < length; i++) {
       Point memory point = points[i];
       Point memory prev = points[(i + length - 1) % length];
-      uint16 sx = (point.x + prev.x) / 2;
-      uint16 sy = (point.y + prev.y) / 2;
+      int32 sx = (point.x + prev.x) / 2;
+      int32 sy = (point.y + prev.y) / 2;
       if (i == 0) {
-        ret = abi.encodePacked("M", sx.toString(), ",", sy.toString());
+        ret = abi.encodePacked("M", uint32(sx).toString(), ",", uint32(sy).toString());
       }
       if (point.c) {
-        ret = abi.encodePacked(ret, "L", point.x.toString(), ",", point.y.toString());
+        ret = abi.encodePacked(ret, "L", uint32(point.x).toString(), ",", uint32(point.y).toString());
       } else {
         Point memory next = points[(i + 1) % length];
-        uint16 ex = (point.x + next.x) / 2;
-        uint16 ey = (point.y + next.y) / 2;
-        abi.encodePacked(ret, "C",
-          (sx + point.r * (point.x - sx)).toString(), ",",
-          (sy + point.r * (point.y - sy)).toString(), ",",
-          (ex + point.r * (point.x - sx)).toString(), ",",
-          (ey + point.r * (point.x - sx)).toString(), ",",
-          ex.toString(), ",", ey.toString());
+        int32 ex = (point.x + next.x) / 2;
+        int32 ey = (point.y + next.y) / 2;
+        ret = abi.encodePacked(ret, "C",
+          uint32(sx + point.r * (point.x - sx) / 1024).toString(), ",",
+          uint32(sy + point.r * (point.y - sy) / 1024).toString(), ",",
+          uint32(ex + point.r * (point.x - sx) / 1024).toString(), ",",
+          uint32(ey + point.r * (point.x - sx) / 1024).toString(), ",",
+          uint32(ex).toString(), ",", uint32(ey).toString());
       }
     }
-    return ret;
+    return string(ret);
   }  
 }
