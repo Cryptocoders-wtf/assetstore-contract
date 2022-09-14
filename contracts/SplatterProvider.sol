@@ -7,44 +7,58 @@ import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetProvider } from './interfaces/IAssetProvider.sol';
 import { Trigonometry } from './libs/trigonometry.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
+import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
-contract SplatterProvider {
+contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   using Strings for uint32;
+  using Strings for uint256;
+
+  string constant providerKey = "splt";
+  address public receiver;
+
+  constructor() {
+    receiver = owner();
+  }
+
+  function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+    return
+      interfaceId == type(IAssetProvider).interfaceId ||
+      interfaceId == type(IERC165).interfaceId;
+  }
+
+  function getOwner() external override view returns (address) {
+    return owner();
+  }
+
+  function getProviderInfo() external view override returns(ProviderInfo memory) {
+    return ProviderInfo(providerKey, "Splatter", this);
+  }
+
+  function totalSupply() external pure override returns(uint256) {
+    return 0; // indicating "dynamically (but deterministically) generated from the given assetId)
+  }
+
+  function processPayout(uint256 _assetId) external override payable {
+    address payable payableTo = payable(receiver);
+    payableTo.transfer(msg.value);
+    emit Payout(providerKey, _assetId, payableTo, msg.value);
+  }
+
+  function setReceiver(address _receiver) onlyOwner external {
+    receiver = _receiver;
+  }
+
+  function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
+    svgPart = "";
+    tag = string(abi.encodePacked(providerKey, _assetId.toString()));
+  }
+
   struct Point {
     int32 x;
     int32 y;
     bool c;   // true:line, false:bezier
     int32 r; // ratio (0 to 1024)
   }
-/*
-export interface Point {
-  x: number;
-  y: number;
-  c: boolean; // true:line, false:bezier
-  r: number; // ratio (0 to 1)
-}
-export const pathFromPoints = (points: Point[]) => {
-  const length = points.length;
-  return points.reduce((path, cursor, index) => {
-    const prev = points[(index + length - 1) % length];
-    const next = points[(index + 1) % length];
-    const sx = (cursor.x + prev.x) / 2;
-    const sy = (cursor.y + prev.y) / 2;
-    const head = index == 0 ? `M${sx},${sy},` : "";
-    const ex = (cursor.x + next.x) / 2;
-    const ey = (cursor.y + next.y) / 2;
-    const last = `${ex},${ey}`;
-    if (cursor.c) {
-      return path + head + `L${cursor.x},${cursor.y},` + last;
-    }
-    const c1x = sx + cursor.r * (cursor.x - sx);
-    const c1y = sy + cursor.r * (cursor.y - sy);
-    const c2x = ex + cursor.r * (cursor.x - ex);
-    const c2y = ey + cursor.r * (cursor.y - ey);
-    return path + head + `C${c1x},${c1y},${c2x},${c2y},` + last;
-  }, "");
-};
-*/
 
   function PathFromPoints(Point[] memory points) public pure returns(string memory) {
     bytes memory ret;
