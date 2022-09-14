@@ -35,14 +35,13 @@ async function main() {
   */
   const result0 = await contract.functions.generateSVGPart(0);
   console.log(result0);
-/*
+
   const composerFactory = await ethers.getContractFactory("AssetComposer");
   const composer = composerFactory.attach(composerAddress);
 
   const tx = await composer.functions.registerProvider(contract.address);
   const result = await tx.wait();
   console.log("events", result.events);
-*/
 }
 
 main().catch((error) => {

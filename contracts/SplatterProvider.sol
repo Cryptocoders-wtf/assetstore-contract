@@ -75,10 +75,15 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
       uint16 angle = uint16(i * 16384 / count);
       points[i].x = int32(500 + angle.cos() * arc / 32768);
       points[i].y = int32(500 + angle.sin() * arc / 32768);
-      points[i].c = true;
+      points[i].c = false;
+      points[i].r = 566;
     }
-    svgPart = PathFromPoints(points);
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
+    svgPart = string(abi.encodePacked(
+      '<g id="', tag, '">\n'
+      '<path d="', PathFromPoints(points), '"/>\n'
+      '</g>\n'
+    ));
   }
 
   struct Point {
@@ -88,7 +93,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     int32 r; // ratio (0 to 1024)
   }
 
-  function PathFromPoints(Point[] memory points) public pure returns(string memory) {
+  function PathFromPoints(Point[] memory points) public pure returns(bytes memory) {
     bytes memory ret;
     uint256 length = points.length;
     for(uint256 i = 0; i < length; i++) {
@@ -113,6 +118,6 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
           uint32(ex).toString(), ",", uint32(ey).toString());
       }
     }
-    return string(ret);
+    return ret;
   }  
 }
