@@ -79,6 +79,8 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     Random.RandomSeed memory seed = Random.RandomSeed(_assetId, 0);
     uint count = 30;
     uint length = 60;
+    (seed, count) = seed.randomize(count, 50); // +/- 50%
+    (seed, length) = seed.randomize(length, 50); // +/- 50%
     int r0 = 280;
     int alt = 0;
     Point[] memory points = new Point[](count);
