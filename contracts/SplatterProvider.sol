@@ -67,7 +67,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     receiver = _receiver;
   }
 
-  function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
+  function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
     uint256 count = 16;
     int32 arc = 200;
     Point[] memory points = new Point[](count);
