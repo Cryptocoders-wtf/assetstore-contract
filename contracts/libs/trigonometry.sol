@@ -74,18 +74,19 @@ library Trigonometry {
      *               angle units, instead of the standard 360 degrees.
      * @return The sine result as a number in the range -32767 to 32767.
      */
-    function sin(uint16 _angle) internal pure returns (int) {
-        if (_angle < 0x1000) {
-            return sinQuarter(_angle);
-        } else if (_angle < 0x2000) {
-            return sinQuarter(0x2000 - _angle);
+    function sin(uint256 _angle) internal pure returns (int) {
+        uint256 angle = _angle % 0x4000;
+        if (angle < 0x1000) {
+            return sinQuarter(angle);
+        } else if (angle < 0x2000) {
+            return sinQuarter(0x2000 - angle);
         } else if (_angle < 0x3000) {
-            return -sinQuarter(_angle - 0x2000);
+            return -sinQuarter(angle - 0x2000);
         }
-        return -sinQuarter(0x4000 - _angle);
+        return -sinQuarter(0x4000 - angle);
     }
 
-    function sinQuarter(uint16 _angle) internal pure returns (int) {
+    function sinQuarter(uint256 _angle) internal pure returns (int) {
         uint interp = bits(_angle, INTERP_WIDTH, INTERP_OFFSET);
         uint index = bits(_angle, INDEX_WIDTH, INDEX_OFFSET);
 
@@ -119,13 +120,8 @@ library Trigonometry {
      * It functions just like the sin() method but uses the trigonometric
      * identity sin(x + pi/2) = cos(x) to quickly calculate the cos.
      */
-    function cos(uint16 _angle) internal pure returns (int) {
-        if (_angle > ANGLES_IN_CYCLE - QUADRANT_LOW_MASK) {
-            _angle = QUADRANT_LOW_MASK - ANGLES_IN_CYCLE - _angle;
-        } else {
-            _angle += QUADRANT_LOW_MASK;
-        }
-        return sin(_angle);
+    function cos(uint256 _angle) internal pure returns (int) {
+        return sin(_angle + 0x1000);
     }
 
 }
