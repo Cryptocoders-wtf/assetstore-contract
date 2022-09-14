@@ -16,14 +16,21 @@ library Random {
     uint256 value;
   }
 
-  function random(Random.RandomSeed memory seed, uint256 max) internal pure returns (Random.RandomSeed memory updateSeed, uint256 ret) {
-    updateSeed = seed;
-    if (updateSeed.value < max * 256) {
-      updateSeed.seed = uint256(keccak256(abi.encodePacked(updateSeed.seed)));
-      updateSeed.value = updateSeed.seed;
+  function random(Random.RandomSeed memory seed, uint256 max) internal pure returns (Random.RandomSeed memory updatedSeed, uint256 ret) {
+    updatedSeed = seed;
+    if (updatedSeed.value < max * 256) {
+      updatedSeed.seed = uint256(keccak256(abi.encodePacked(updatedSeed.seed)));
+      updatedSeed.value = updatedSeed.seed;
     }
-    ret = updateSeed.value % max;
-    updateSeed.value /= max;
+    ret = updatedSeed.value % max;
+    updatedSeed.value /= max;
+  }
+
+  function randomize(Random.RandomSeed memory seed, uint256 max, uint256 ratio) internal pure returns (Random.RandomSeed memory updatedSeed, uint256 ret) {
+    uint256 delta = max * ratio / 100;
+    uint256 value;
+    (updatedSeed, value) = random(seed, delta * 2);
+    ret = max - delta + value;
   }
 }
 
@@ -71,15 +78,16 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
     Random.RandomSeed memory seed = Random.RandomSeed(_assetId, 0);
     uint count = 30;
+    uint length = 60;
     int r0 = 280;
     int alt = 0;
     Point[] memory points = new Point[](count);
     for (uint i = 0; i < count; i++) {
       int r = r0;
       if (alt == 0) {
-        uint multiple;
-        (seed, multiple) = seed.random(10);
-        r += int(multiple) * r0 / 20;
+        uint256 extra;
+        (seed, extra) = seed.randomize(length, 100);
+        r += int(extra);
       }
       uint16 angle = uint16(i * 0x4000 / count);
       points[i].x = int32(512 + angle.cos() * r / 0x8000);
