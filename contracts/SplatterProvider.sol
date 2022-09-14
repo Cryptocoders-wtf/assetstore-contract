@@ -66,8 +66,8 @@ export const pathFromPoints = (points: Point[]) => {
         ret = abi.encodePacked(ret, "C",
           uint32(sx + point.r * (point.x - sx) / 1024).toString(), ",",
           uint32(sy + point.r * (point.y - sy) / 1024).toString(), ",",
-          uint32(ex + point.r * (point.x - sx) / 1024).toString(), ",",
-          uint32(ey + point.r * (point.x - sx) / 1024).toString(), ",",
+          uint32(ex + point.r * (point.x - ex) / 1024).toString(), ",",
+          uint32(ey + point.r * (point.y - ey) / 1024).toString(), ",",
           uint32(ex).toString(), ",", uint32(ey).toString());
       }
     }
