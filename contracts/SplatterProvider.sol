@@ -45,6 +45,7 @@ export const pathFromPoints = (points: Point[]) => {
   }, "");
 };
 */
+
   function PathFromPoints(Point[] memory points) public pure returns(bytes memory) {
     bytes memory ret;
     uint256 length = points.length;
