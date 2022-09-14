@@ -87,32 +87,15 @@ library Trigonometry {
     }
 
     function sinQuarter(uint256 _angle) internal pure returns (int) {
+        if (_angle == 0x1000) {
+            return 0x7fff;
+        }
         uint interp = bits(_angle, INTERP_WIDTH, INTERP_OFFSET);
         uint index = bits(_angle, INDEX_WIDTH, INDEX_OFFSET);
-
-        bool is_odd_quadrant = (_angle & QUADRANT_LOW_MASK) == 0;
-        bool is_negative_quadrant = (_angle & QUADRANT_HIGH_MASK) != 0;
-
-        if (!is_odd_quadrant) {
-            index = SINE_TABLE_SIZE - 1 - index;
-        }
-
         uint x1 = sin_table_lookup(index);
         uint x2 = sin_table_lookup(index + 1);
         uint approximation = ((x2 - x1) * interp) / (2 ** INTERP_WIDTH);
-
-        int sine;
-        if (is_odd_quadrant) {
-            sine = int(x1) + int(approximation);
-        } else {
-            sine = int(x2) - int(approximation);
-        }
-
-        if (is_negative_quadrant) {
-            sine *= -1;
-        }
-
-        return sine;
+        return int(x1 + approximation);
     }
 
     /**
