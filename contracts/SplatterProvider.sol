@@ -69,19 +69,14 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
     uint256 count = 16;
-    int32 arc = 100;
+    int32 arc = 200;
     Point[] memory points = new Point[](count);
     for (uint256 i = 0; i < count; i++) {
       uint16 angle = uint16(i * 16384 / count);
-      console.log("***", i, uint256(500 + angle.sin() * arc / 32767), uint256(500 + angle.cos() * arc / 32767));
-    }
-    /*
-      uint16 angle = uint16(i * 16384 / count);
-      points[i].x = int32(512 + angle.cos() * arc / 32768);
-      points[i].y = int32(512 + angle.sin() * arc / 32768);
+      points[i].x = int32(500 + angle.cos() * arc / 32768);
+      points[i].y = int32(500 + angle.sin() * arc / 32768);
       points[i].c = true;
     }
-    */
     svgPart = PathFromPoints(points);
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
   }
