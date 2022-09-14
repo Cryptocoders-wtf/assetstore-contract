@@ -9,6 +9,23 @@ import { Trigonometry } from './libs/trigonometry.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
+library Random {
+  struct RandomSeed {
+    uint256 seed;
+    uint256 value;
+  }
+
+  function random(Random.RandomSeed memory seed, uint256 max) public pure returns (uint256 ret, Random.RandomSeed memory updateSeed) {
+    updateSeed = seed;
+    if (updateSeed.value < max * 256) {
+      updateSeed.seed = uint256(keccak256(abi.encodePacked(updateSeed.seed)));
+      updateSeed.value = updateSeed.seed;
+    }
+    ret = updateSeed.value % max;
+    updateSeed.value /= max;
+  }
+}
+
 contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   using Strings for uint32;
   using Strings for uint256;
