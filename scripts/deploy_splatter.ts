@@ -18,6 +18,7 @@ async function main() {
   await contract.deployed();
   console.log(`      contract="${contract.address}"`);
 
+  /*
   const roundRect = [
     { x: 1024 / 4, y: 1024 / 4, c: false, r: 566 },
     { x: 1024 - 1024 / 4, y: 1024 / 4, c: false, r: 566 },
@@ -31,6 +32,8 @@ async function main() {
   ];
 
   const result0 = await contract.functions.PathFromPoints(roundRect);
+  */
+  const result0 = await contract.functions.generateSVGPart(0);
   console.log(result0);
 /*
   const composerFactory = await ethers.getContractFactory("AssetComposer");

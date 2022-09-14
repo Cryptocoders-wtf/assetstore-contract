@@ -5,7 +5,7 @@ pragma solidity ^0.8.6;
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetProvider } from './interfaces/IAssetProvider.sol';
-import { Trigonometry } from './libs/trigonometry.sol';
+import './libs/trigonometry.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
@@ -29,6 +29,7 @@ library Random {
 contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   using Strings for uint32;
   using Strings for uint256;
+  using Trigonometry for uint16;
 
   string constant providerKey = "splt";
   address public receiver;
@@ -66,7 +67,16 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
-    svgPart = "";
+    uint256 count = 10;
+    int32 arc = 300;
+    Point[] memory points = new Point[](count);
+    for (uint256 i = 0; i < count; i++) {
+      uint16 angle = uint16(i * 16384 / count);
+      points[i].x = 512 + int32(angle.cos()) * arc / 32768;
+      points[i].y = 512 + int32(angle.sin()) * arc / 32768;
+      points[i].c = true;
+    }
+    svgPart = PathFromPoints(points);
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
   }
 
