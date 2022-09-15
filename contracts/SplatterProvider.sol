@@ -118,38 +118,38 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
 
           points[j].x = int32(500 + (angle - arc).cos() * int(r1) / 0x8000);
           points[j].y = int32(500 + (angle - arc).sin() * int(r1) / 0x8000);
-          points[j].c = true;
+          points[j].c = false;
           points[j].r = 566;
           j++;
           points[j].x = int32(500 + (angle - arc).cos() * int(r1 + extra) / 0x8000);
           points[j].y = int32(500 + (angle - arc).sin() * int(r1 + extra) / 0x8000);
-          points[j].c = true;
+          points[j].c = false;
           points[j].r = 566;
           j++;
           points[j].x = int32(500 + (angle - 100).cos() * int(r1 + extra + arc * 2) / 0x8000);
           points[j].y = int32(500 + (angle - 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
-          points[j].c = true;
+          points[j].c = false;
           points[j].r = 566;
           j++;
           points[j].x = int32(500 + (angle + 100).cos() * int(r1 + extra + arc * 2)  / 0x8000);
           points[j].y = int32(500 + (angle + 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
-          points[j].c = true;
+          points[j].c = false;
           points[j].r = 566;
           j++;
           points[j].x = int32(500 + (angle + arc).cos() * int(r1 + extra) / 0x8000);
           points[j].y = int32(500 + (angle + arc).sin() * int(r1 + extra) / 0x8000);
-          points[j].c = true;
+          points[j].c = false;
           points[j].r = 566;
           j++;
           points[j].x = int32(500 + (angle + arc).cos() * int(r1) / 0x8000);
           points[j].y = int32(500 + (angle + arc).sin() * int(r1) / 0x8000);
-          points[j].c = true;
+          points[j].c = false;
           points[j].r = 566;
           j++;
         } else {
           points[j].x = int32(500 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(500 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = true;
+          points[j].c = false;
           points[j].r = 566;
           j++;
         }
