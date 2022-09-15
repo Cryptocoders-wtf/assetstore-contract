@@ -78,6 +78,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     (seed, count) = seed.randomize(count, 50); // +/- 50%
     (seed, length) = seed.randomize(length, 50); // +/- 50%
     count = count / 3 * 3; // always multiple of 3
+    count = 9; // debug
     uint[] memory degrees = new uint[](count);
     uint total;
     for (uint i = 0; i < count; i++) {
@@ -100,38 +101,38 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
           (seed, extra) = seed.randomize(length, 100);
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
           points[j].x = int32(512 + angle.cos() * int(r1 + extra) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1 + extra)  / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
           points[j].x = int32(512 + angle.cos() * int(r1 + extra)  / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1 + extra)  / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
         } else {
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
         }
