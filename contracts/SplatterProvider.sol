@@ -81,6 +81,15 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     uint length = 60;
     (seed, count) = seed.randomize(count, 50); // +/- 50%
     (seed, length) = seed.randomize(length, 50); // +/- 50%
+    uint[] memory degrees = new uint[](count);
+    uint total;
+    for (uint i = 0; i < count; i++) {
+      uint degree;
+      (seed, degree) = seed.randomize(100, 90);
+      degrees[i] = total;
+      total += degree;
+    }
+
     int r0 = 280;
     int alt = 0;
     Point[] memory points = new Point[](count);
@@ -91,7 +100,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
         (seed, extra) = seed.randomize(length, 100);
         r += int(extra);
       }
-      uint16 angle = uint16(i * 0x4000 / count);
+      uint16 angle = uint16(degrees[i] * 0x4000 / total);
       points[i].x = int32(512 + angle.cos() * r / 0x8000);
       points[i].y = int32(512 + angle.sin() * r / 0x8000);
       points[i].c = false;
