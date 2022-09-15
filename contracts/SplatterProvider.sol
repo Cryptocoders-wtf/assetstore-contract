@@ -94,7 +94,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
           points[j].x = int32(512 + (angle - 30).cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + (angle - 30).sin() * int(r1) / 0x8000);
           points[j].c = false;
-          points[j].r = 566;
+          points[j].r = 1024;
           j++;
           points[j].x = int32(512 + (angle - 30).cos() * int(r1 + extra) / 0x8000);
           points[j].y = int32(512 + (angle - 30).sin() * int(r1 + extra) / 0x8000);
@@ -119,7 +119,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
           points[j].x = int32(512 + (angle + 30).cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + (angle + 30).sin() * int(r1) / 0x8000);
           points[j].c = false;
-          points[j].r = 566;
+          points[j].r = 1024;
           j++;
         } else {
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
