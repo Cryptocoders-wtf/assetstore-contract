@@ -89,19 +89,16 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     (seed, count) = seed.randomize(count, 50); // +/- 50%
     (seed, length) = seed.randomize(length, 50); // +/- 50%
     count = count / 3 * 3; // always multiple of 3
-    count = 9; // debug
     uint[] memory degrees = new uint[](count);
     uint total;
     for (uint i = 0; i < count; i++) {
       uint degree;
       (seed, degree) = seed.randomize(100, 90);
-      degree = 100; // debug
       degrees[i] = total;
       total += degree;
     }
 
     uint r0 = 280;
-    r0 = 200; // debug
     uint r1 = r0;
     int alt = 0;
     Point[] memory points = new Point[](count  + count /3 * 5);
@@ -112,43 +109,42 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
         if (alt == 0) {
           uint extra;
           (seed, extra) = seed.randomize(length, 100);
-          extra = 99; // debug
           uint arc;
           arc = 10; // LATER: randomize
 
-          points[j].x = int32(500 + (angle - arc).cos() * int(r1) / 0x8000);
-          points[j].y = int32(500 + (angle - arc).sin() * int(r1) / 0x8000);
+          points[j].x = int32(512 + (angle - arc).cos() * int(r1) / 0x8000);
+          points[j].y = int32(512 + (angle - arc).sin() * int(r1) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle - arc).cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(500 + (angle - arc).sin() * int(r1 + extra) / 0x8000);
+          points[j].x = int32(512 + (angle - arc).cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(512 + (angle - arc).sin() * int(r1 + extra) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle - 100).cos() * int(r1 + extra + arc * 2) / 0x8000);
-          points[j].y = int32(500 + (angle - 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
+          points[j].x = int32(512 + (angle - 100).cos() * int(r1 + extra + arc * 2) / 0x8000);
+          points[j].y = int32(512 + (angle - 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle + 100).cos() * int(r1 + extra + arc * 2)  / 0x8000);
-          points[j].y = int32(500 + (angle + 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
+          points[j].x = int32(512 + (angle + 100).cos() * int(r1 + extra + arc * 2)  / 0x8000);
+          points[j].y = int32(512 + (angle + 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle + arc).cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(500 + (angle + arc).sin() * int(r1 + extra) / 0x8000);
+          points[j].x = int32(512 + (angle + arc).cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(512 + (angle + arc).sin() * int(r1 + extra) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle + arc).cos() * int(r1) / 0x8000);
-          points[j].y = int32(500 + (angle + arc).sin() * int(r1) / 0x8000);
+          points[j].x = int32(512 + (angle + arc).cos() * int(r1) / 0x8000);
+          points[j].y = int32(512 + (angle + arc).sin() * int(r1) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
         } else {
-          points[j].x = int32(500 + angle.cos() * int(r1) / 0x8000);
-          points[j].y = int32(500 + angle.sin() * int(r1) / 0x8000);
+          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
+          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
@@ -159,7 +155,6 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
         uint r2;
         (seed, r2) = seed.randomize(r1, 20);
         r1 = (r2 * 2 + r0) / 3;
-        r1 = r0; // debug
       }
     }
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
