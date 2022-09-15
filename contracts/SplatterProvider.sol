@@ -90,11 +90,12 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
       total += degree;
     }
 
-    int r0 = 280;
+    uint r0 = 280;
+    uint r1 = r0;
     int alt = 0;
     Point[] memory points = new Point[](count);
     for (uint i = 0; i < count; i++) {
-      int r = r0;
+      int r = int(r1);
       if (alt == 0) {
         uint256 extra;
         (seed, extra) = seed.randomize(length, 100);
@@ -107,6 +108,9 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
       points[i].r = 566;
 
       alt = (alt + 1) % 3;
+      uint r2;
+      (seed, r2) = seed.randomize(r1, 20);
+      r1 = (r2 * 2 + r0) / 3;
     }
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
     svgPart = string(abi.encodePacked(
