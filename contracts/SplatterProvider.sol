@@ -110,35 +110,35 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
           uint extra;
           (seed, extra) = seed.randomize(length, 100);
           uint arc;
-          arc = 10; // LATER: randomize
+          arc = 100; // LATER: randomize
 
-          points[j].x = int32(512 + (angle - arc).cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + (angle - arc).sin() * int(r1) / 0x8000);
+          points[j].x = int32(512 + (angle - 30).cos() * int(r1) / 0x8000);
+          points[j].y = int32(512 + (angle - 30).sin() * int(r1) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + (angle - arc).cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(512 + (angle - arc).sin() * int(r1 + extra) / 0x8000);
+          points[j].x = int32(512 + (angle - 30).cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(512 + (angle - 30).sin() * int(r1 + extra) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + (angle - 100).cos() * int(r1 + extra + arc * 2) / 0x8000);
-          points[j].y = int32(512 + (angle - 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
+          points[j].x = int32(512 + (angle - arc).cos() * int(r1 + extra * (150 + arc) / 150) / 0x8000);
+          points[j].y = int32(512 + (angle - arc).sin() * int(r1 + extra * (150 + arc) / 150)  / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + (angle + 100).cos() * int(r1 + extra + arc * 2)  / 0x8000);
-          points[j].y = int32(512 + (angle + 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
+          points[j].x = int32(512 + (angle + arc).cos() * int(r1 + extra * (150 + arc) / 150)  / 0x8000);
+          points[j].y = int32(512 + (angle + arc).sin() * int(r1 + extra * (150 + arc) / 150)  / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + (angle + arc).cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(512 + (angle + arc).sin() * int(r1 + extra) / 0x8000);
+          points[j].x = int32(512 + (angle + 30).cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(512 + (angle + 30).sin() * int(r1 + extra) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + (angle + arc).cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + (angle + arc).sin() * int(r1) / 0x8000);
+          points[j].x = int32(512 + (angle + 30).cos() * int(r1) / 0x8000);
+          points[j].y = int32(512 + (angle + 30).sin() * int(r1) / 0x8000);
           points[j].c = false;
           points[j].r = 566;
           j++;
