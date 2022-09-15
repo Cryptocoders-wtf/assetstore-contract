@@ -84,6 +84,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     for (uint i = 0; i < count; i++) {
       uint degree;
       (seed, degree) = seed.randomize(100, 90);
+      degree = 100; // debug
       degrees[i] = total;
       total += degree;
     }
@@ -99,39 +100,39 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
         if (alt == 0) {
           uint256 extra;
           (seed, extra) = seed.randomize(length, 100);
-          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
+          points[j].x = int32(500 + angle.cos() * int(r1) / 0x8000);
+          points[j].y = int32(500 + angle.sin() * int(r1) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
+          points[j].x = int32(500 + angle.cos() * int(r1) / 0x8000);
+          points[j].y = int32(500 + angle.sin() * int(r1) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + angle.cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1 + extra)  / 0x8000);
+          points[j].x = int32(500 + angle.cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(500 + angle.sin() * int(r1 + extra)  / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + angle.cos() * int(r1 + extra)  / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1 + extra)  / 0x8000);
+          points[j].x = int32(500 + angle.cos() * int(r1 + extra)  / 0x8000);
+          points[j].y = int32(500 + angle.sin() * int(r1 + extra)  / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
+          points[j].x = int32(500 + angle.cos() * int(r1) / 0x8000);
+          points[j].y = int32(500 + angle.sin() * int(r1) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
+          points[j].x = int32(500 + angle.cos() * int(r1) / 0x8000);
+          points[j].y = int32(500 + angle.sin() * int(r1) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
         } else {
-          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
+          points[j].x = int32(500 + angle.cos() * int(r1) / 0x8000);
+          points[j].y = int32(500 + angle.sin() * int(r1) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
@@ -142,6 +143,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
         uint r2;
         (seed, r2) = seed.randomize(r1, 20);
         r1 = (r2 * 2 + r0) / 3;
+        r1 = r0; // debug
       }
     }
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
