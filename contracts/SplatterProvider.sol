@@ -67,7 +67,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     svgHelper = _svgHelper;
   }
 
-  function generatePoints(Randomizer.Seed memory _seed, uint _count, uint _length, uint _dot) pure internal returns(Randomizer.Seed memory, Point[] memory) {
+  function generatePoints(Randomizer.Seed memory _seed, uint _count, uint _length, uint _dot) pure internal returns(Randomizer.Seed memory, ISVGHelper.Point[] memory) {
     Randomizer.Seed memory seed = _seed;
     uint[] memory degrees = new uint[](_count);
     uint total;
@@ -80,7 +80,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
 
     uint r0 = 220;
     uint r1 = r0;
-    Point[] memory points = new Point[](_count  + _count /3 * 5);
+    ISVGHelper.Point[] memory points = new ISVGHelper.Point[](_count  + _count /3 * 5);
     uint j = 0;
     for (uint i = 0; i < _count; i++) {
       {
@@ -138,7 +138,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     return (seed, points);
   }
 
-  function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
+  function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
     Randomizer.Seed memory seed = Randomizer.Seed(_assetId, 0);
     uint count = 30;
     uint length = 40;
@@ -148,49 +148,14 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     (seed, dot) = seed.randomize(dot, 50);
     count = count / 3 * 3; // always multiple of 3
 
-    Point[] memory points;
+    ISVGHelper.Point[] memory points;
     (seed, points) = generatePoints(seed, count, length, dot);
 
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
     svgPart = string(abi.encodePacked(
       '<g id="', tag, '">\n'
-      '<path d="', PathFromPoints(points), '"/>\n'
+      '<path d="', svgHelper.PathFromPoints(points), '"/>\n'
       '</g>\n'
     ));
   }
-
-  struct Point {
-    int32 x;
-    int32 y;
-    bool c;   // true:line, false:bezier
-    int32 r; // ratio (0 to 1024)
-  }
-
-  function PathFromPoints(Point[] memory points) public pure returns(bytes memory) {
-    bytes memory ret;
-    uint256 length = points.length;
-    for(uint256 i = 0; i < length; i++) {
-      Point memory point = points[i];
-      Point memory prev = points[(i + length - 1) % length];
-      int32 sx = (point.x + prev.x) / 2;
-      int32 sy = (point.y + prev.y) / 2;
-      if (i == 0) {
-        ret = abi.encodePacked("M", uint32(sx).toString(), ",", uint32(sy).toString());
-      }
-      if (point.c) {
-        ret = abi.encodePacked(ret, "L", uint32(point.x).toString(), ",", uint32(point.y).toString());
-      } else {
-        Point memory next = points[(i + 1) % length];
-        int32 ex = (point.x + next.x) / 2;
-        int32 ey = (point.y + next.y) / 2;
-        ret = abi.encodePacked(ret, "C",
-          uint32(sx + point.r * (point.x - sx) / 1024).toString(), ",",
-          uint32(sy + point.r * (point.y - sy) / 1024).toString(), ",",
-          uint32(ex + point.r * (point.x - ex) / 1024).toString(), ",",
-          uint32(ey + point.r * (point.y - ey) / 1024).toString(), ",",
-          uint32(ex).toString(), ",", uint32(ey).toString());
-      }
-    }
-    return ret;
-  }  
 }
