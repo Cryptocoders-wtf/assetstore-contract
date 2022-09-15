@@ -97,7 +97,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     uint j = 0;
     for (uint i = 0; i < count; i++) {
       {
-        uint16 angle = uint16(degrees[i] * 0x4000 / total);
+        uint16 angle = uint16(degrees[i] * 0x4000 / total) + 0x4000;
         if (alt == 0) {
           uint256 extra;
           (seed, extra) = seed.randomize(length, 100);

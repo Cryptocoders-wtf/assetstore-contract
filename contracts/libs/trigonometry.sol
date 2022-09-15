@@ -53,7 +53,7 @@ library Trigonometry {
         if (angle < 0x2000) {
             return sinQuarter(angle < 0x1000 ? angle : 0x2000 - angle);
         }
-        return -sinQuarter(_angle < 0x3000 ? angle - 0x2000 : 0x4000 - angle);
+        return -sinQuarter(angle < 0x3000 ? angle - 0x2000 : 0x4000 - angle);
     }
 
     function sinQuarter(uint _angle) internal pure returns (int) {
