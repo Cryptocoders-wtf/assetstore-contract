@@ -90,7 +90,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     }
 
     uint r0 = 280;
-    r0 = 100; // debug
+    r0 = 200; // debug
     uint r1 = r0;
     int alt = 0;
     Point[] memory points = new Point[](count  + count /3 * 5);
@@ -112,13 +112,13 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + angle.cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(500 + angle.sin() * int(r1 + extra)  / 0x8000);
+          points[j].x = int32(500 + (angle - 100).cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(500 + (angle - 100).sin() * int(r1 + extra)  / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + angle.cos() * int(r1 + extra)  / 0x8000);
-          points[j].y = int32(500 + angle.sin() * int(r1 + extra)  / 0x8000);
+          points[j].x = int32(500 + (angle + 100).cos() * int(r1 + extra)  / 0x8000);
+          points[j].y = int32(500 + (angle + 100).sin() * int(r1 + extra)  / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
