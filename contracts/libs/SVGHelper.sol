@@ -9,21 +9,15 @@
 pragma solidity ^0.8.6;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "../interfaces/ISVGHelper.sol";
 
-contract SVGHelper {
+contract SVGHelper is ISVGHelper {
   using Strings for uint32;
-
-  struct Point {
-    int32 x;
-    int32 y;
-    bool c;   // true:line, false:bezier
-    int32 r; // ratio (0 to 1024)
-  }
 
   /**
    * Generate a SVG path from series of Points
    */
-  function PathFromPoints(Point[] memory points) public pure returns(bytes memory) {
+  function PathFromPoints(Point[] memory points) external override pure returns(bytes memory) {
     bytes memory ret;
     uint256 length = points.length;
     for(uint256 i = 0; i < length; i++) {
