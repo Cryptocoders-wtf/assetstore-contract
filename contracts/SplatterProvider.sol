@@ -13,38 +13,15 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetProvider } from './interfaces/IAssetProvider.sol';
 import './libs/trigonometry.sol';
+import './libs/Randomizer.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 import "hardhat/console.sol";
 
-library Random {
-  struct RandomSeed {
-    uint256 seed;
-    uint256 value;
-  }
-
-  function random(Random.RandomSeed memory seed, uint256 max) internal pure returns (Random.RandomSeed memory updatedSeed, uint256 ret) {
-    updatedSeed = seed;
-    if (updatedSeed.value < max * 256) {
-      updatedSeed.seed = uint256(keccak256(abi.encodePacked(updatedSeed.seed)));
-      updatedSeed.value = updatedSeed.seed;
-    }
-    ret = updatedSeed.value % max;
-    updatedSeed.value /= max;
-  }
-
-  function randomize(Random.RandomSeed memory seed, uint256 max, uint256 ratio) internal pure returns (Random.RandomSeed memory updatedSeed, uint256 ret) {
-    uint256 delta = max * ratio / 100;
-    uint256 value;
-    (updatedSeed, value) = random(seed, delta * 2);
-    ret = max - delta + value;
-  }
-}
-
 contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   using Strings for uint32;
   using Strings for uint256;
-  using Random for Random.RandomSeed;
+  using Randomizer for Randomizer.Seed;
   using Trigonometry for uint;
 
   string constant providerKey = "splt";
@@ -82,8 +59,8 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     receiver = _receiver;
   }
 
-  function generatePoints(Random.RandomSeed memory _seed, uint _count, uint _length, uint _dot) pure internal returns(Random.RandomSeed memory, Point[] memory) {
-    Random.RandomSeed memory seed = _seed;
+  function generatePoints(Randomizer.Seed memory _seed, uint _count, uint _length, uint _dot) pure internal returns(Randomizer.Seed memory, Point[] memory) {
+    Randomizer.Seed memory seed = _seed;
     uint[] memory degrees = new uint[](_count);
     uint total;
     for (uint i = 0; i < _count; i++) {
@@ -154,7 +131,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
-    Random.RandomSeed memory seed = Random.RandomSeed(_assetId, 0);
+    Randomizer.Seed memory seed = Randomizer.Seed(_assetId, 0);
     uint count = 30;
     uint length = 40;
     uint dot = 100;
