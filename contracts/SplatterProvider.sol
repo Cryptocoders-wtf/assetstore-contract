@@ -1,3 +1,14 @@
+// SPDX-License-Identifier: MIT
+
+/*
+ * NounsAssetProvider is a wrapper around NounsDescriptor so that it offers
+ * various characters as assets to compose (not individual parts).
+ *
+ * Created by Satoshi Nakajima (@snakajima)
+ */
+
+pragma solidity ^0.8.6;
+
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetProvider } from './interfaces/IAssetProvider.sol';
@@ -34,7 +45,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   using Strings for uint32;
   using Strings for uint256;
   using Random for Random.RandomSeed;
-  using Trigonometry for uint16;
+  using Trigonometry for uint;
 
   string constant providerKey = "splt";
   address public receiver;
@@ -97,41 +108,41 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     uint j = 0;
     for (uint i = 0; i < count; i++) {
       {
-        uint16 angle = uint16(degrees[i] * 0x4000 / total) + 0x4000;
+        uint angle = degrees[i] * 0x4000 / total + 0x4000;
         if (alt == 0) {
-          uint256 extra;
+          uint extra;
           (seed, extra) = seed.randomize(length, 100);
           extra = 99; // debug
-          uint256 arc;
-          arc = 20; // LATER: randomize
+          uint arc;
+          arc = 10; // LATER: randomize
 
-          points[j].x = int32(500 + (angle - 20).cos() * int(r1) / 0x8000);
-          points[j].y = int32(500 + (angle - 20).sin() * int(r1) / 0x8000);
+          points[j].x = int32(500 + (angle - arc).cos() * int(r1) / 0x8000);
+          points[j].y = int32(500 + (angle - arc).sin() * int(r1) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle - 20).cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(500 + (angle - 20).sin() * int(r1 + extra) / 0x8000);
+          points[j].x = int32(500 + (angle - arc).cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(500 + (angle - arc).sin() * int(r1 + extra) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle - 100).cos() * int(r1 + extra + arc) / 0x8000);
-          points[j].y = int32(500 + (angle - 100).sin() * int(r1 + extra + arc)  / 0x8000);
+          points[j].x = int32(500 + (angle - 100).cos() * int(r1 + extra + arc * 2) / 0x8000);
+          points[j].y = int32(500 + (angle - 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle + 100).cos() * int(r1 + extra + arc)  / 0x8000);
-          points[j].y = int32(500 + (angle + 100).sin() * int(r1 + extra + arc)  / 0x8000);
+          points[j].x = int32(500 + (angle + 100).cos() * int(r1 + extra + arc * 2)  / 0x8000);
+          points[j].y = int32(500 + (angle + 100).sin() * int(r1 + extra + arc * 2)  / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle + 20).cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(500 + (angle + 20).sin() * int(r1 + extra) / 0x8000);
+          points[j].x = int32(500 + (angle + arc).cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(500 + (angle + arc).sin() * int(r1 + extra) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
-          points[j].x = int32(500 + (angle + 20).cos() * int(r1) / 0x8000);
-          points[j].y = int32(500 + (angle + 20).sin() * int(r1) / 0x8000);
+          points[j].x = int32(500 + (angle + arc).cos() * int(r1) / 0x8000);
+          points[j].y = int32(500 + (angle + arc).sin() * int(r1) / 0x8000);
           points[j].c = true;
           points[j].r = 566;
           j++;
