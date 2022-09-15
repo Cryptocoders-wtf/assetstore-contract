@@ -82,16 +82,11 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     receiver = _receiver;
   }
 
-  function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
-    Random.RandomSeed memory seed = Random.RandomSeed(_assetId, 0);
-    uint count = 30;
-    uint length = 40;
-    (seed, count) = seed.randomize(count, 60); // +/- 60%
-    (seed, length) = seed.randomize(length, 50); // +/- 50%
-    count = count / 3 * 3; // always multiple of 3
-    uint[] memory degrees = new uint[](count);
+  function generatePoints(Random.RandomSeed memory _seed, uint _count, uint _length, uint _dot) pure internal returns(Random.RandomSeed memory, Point[] memory) {
+    Random.RandomSeed memory seed = _seed;
+    uint[] memory degrees = new uint[](_count);
     uint total;
-    for (uint i = 0; i < count; i++) {
+    for (uint i = 0; i < _count; i++) {
       uint degree;
       (seed, degree) = seed.randomize(100, 90);
       degrees[i] = total;
@@ -100,16 +95,16 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
 
     uint r0 = 220;
     uint r1 = r0;
-    Point[] memory points = new Point[](count  + count /3 * 5);
+    Point[] memory points = new Point[](_count  + _count /3 * 5);
     uint j = 0;
-    for (uint i = 0; i < count; i++) {
+    for (uint i = 0; i < _count; i++) {
       {
         uint angle = degrees[i] * 0x4000 / total + 0x4000;
         if (i % 3 == 0) {
           uint extra;
-          (seed, extra) = seed.randomize(length, 100);
+          (seed, extra) = seed.randomize(_length, 100);
           uint arc;
-          (seed, arc) = seed.randomize(150, 50); // LATER 150=dot
+          (seed, arc) = seed.randomize(_dot, 50); 
 
           points[j].x = int32(512 + (angle - 30).cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + (angle - 30).sin() * int(r1) / 0x8000);
@@ -155,6 +150,22 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
         r1 = (r2 * 2 + r0) / 3;
       }
     }
+    return (seed, points);
+  }
+
+  function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
+    Random.RandomSeed memory seed = Random.RandomSeed(_assetId, 0);
+    uint count = 30;
+    uint length = 40;
+    uint dot = 150;
+    (seed, count) = seed.randomize(count, 60); // +/- 60%
+    (seed, length) = seed.randomize(length, 50); // +/- 50%
+    (seed, dot) = seed.randomize(dot, 50);
+    count = count / 3 * 3; // always multiple of 3
+
+    Point[] memory points;
+    (seed, points) = generatePoints(seed, count, length, dot);
+
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
     svgPart = string(abi.encodePacked(
       '<g id="', tag, '">\n'
