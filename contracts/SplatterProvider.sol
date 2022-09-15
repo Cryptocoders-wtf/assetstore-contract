@@ -79,72 +79,76 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     Random.RandomSeed memory seed = Random.RandomSeed(_assetId, 0);
     uint count = 30;
     uint length = 60;
+    length *= 3; // debug
     (seed, count) = seed.randomize(count, 50); // +/- 50%
-    (seed, length) = seed.randomize(length, 50); // +/- 50%
+    // debug (seed, length) = seed.randomize(length, 50); // +/- 50%
     count = count / 3 * 3; // always multiple of 3
+    
+    // debug
+    count = 9;
+
     uint[] memory degrees = new uint[](count);
     uint total;
     for (uint i = 0; i < count; i++) {
-      uint degree;
-      (seed, degree) = seed.randomize(100, 90);
+      uint degree = 100;
+      // debug (seed, degree) = seed.randomize(degree, 90);
       degrees[i] = total;
       total += degree;
     }
 
     uint r0 = 280;
     uint r1 = r0;
-    int alt = 0;
     Point[] memory points = new Point[](count  + count /3 * 5);
     uint j = 0;
     for (uint i = 0; i < count; i++) {
       {
-        uint16 angle = uint16(degrees[i] * 0x4000 / total);
-        if (alt == 0) {
+        uint16 angle = uint16(degrees[i] * 0x4000 / total + 0x4000);
+        if (i % 3 == 0) {
           uint256 extra;
           (seed, extra) = seed.randomize(length, 100);
+          extra = length; // debug
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
-          points[j].r = 566;
-          j++;
-          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
-          points[j].r = 566;
-          j++;
-          points[j].x = int32(512 + angle.cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1 + extra)  / 0x8000);
-          points[j].c = false;
-          points[j].r = 566;
-          j++;
-          points[j].x = int32(512 + angle.cos() * int(r1 + extra)  / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1 + extra)  / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
+          points[j].r = 566;
+          j++;
+          points[j].x = int32(512 + (angle - 100).cos() * int(r1 + extra) / 0x8000);
+          points[j].y = int32(512 + (angle - 100).sin() * int(r1 + extra)  / 0x8000);
+          points[j].c = true;
+          points[j].r = 566;
+          j++;
+          points[j].x = int32(512 + (angle + 100).cos() * int(r1 + extra)  / 0x8000);
+          points[j].y = int32(512 + (angle + 100).sin() * int(r1 + extra)  / 0x8000);
+          points[j].c = true;
           points[j].r = 566;
           j++;
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
+          points[j].r = 566;
+          j++;
+          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
+          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
+          points[j].c = true;
           points[j].r = 566;
           j++;
         } else {
           points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
+          points[j].c = true;
           points[j].r = 566;
           j++;
         }
       }
       {
-        alt = (alt + 1) % 3;
         uint r2;
         (seed, r2) = seed.randomize(r1, 20);
-        r1 = (r2 * 2 + r0) / 3;
+        // debug r1 = (r2 * 2 + r0) / 3;
       }
     }
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
