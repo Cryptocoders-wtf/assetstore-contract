@@ -90,6 +90,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     }
 
     uint r0 = 280;
+    r0 = 100; // debug
     uint r1 = r0;
     int alt = 0;
     Point[] memory points = new Point[](count  + count /3 * 5);
@@ -100,6 +101,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
         if (alt == 0) {
           uint256 extra;
           (seed, extra) = seed.randomize(length, 100);
+          extra = 99; // debug
           points[j].x = int32(500 + angle.cos() * int(r1) / 0x8000);
           points[j].y = int32(500 + angle.sin() * int(r1) / 0x8000);
           points[j].c = true;
