@@ -85,7 +85,7 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   function generateSVGPart(uint256 _assetId) external pure override returns(string memory svgPart, string memory tag) {
     Random.RandomSeed memory seed = Random.RandomSeed(_assetId, 0);
     uint count = 30;
-    uint length = 60;
+    uint length = 50;
     (seed, count) = seed.randomize(count, 50); // +/- 50%
     (seed, length) = seed.randomize(length, 50); // +/- 50%
     count = count / 3 * 3; // always multiple of 3
@@ -98,19 +98,18 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
       total += degree;
     }
 
-    uint r0 = 280;
+    uint r0 = 250;
     uint r1 = r0;
-    int alt = 0;
     Point[] memory points = new Point[](count  + count /3 * 5);
     uint j = 0;
     for (uint i = 0; i < count; i++) {
       {
         uint angle = degrees[i] * 0x4000 / total + 0x4000;
-        if (alt == 0) {
+        if (i % 3 == 0) {
           uint extra;
           (seed, extra) = seed.randomize(length, 100);
           uint arc;
-          arc = 100; // LATER: randomize
+          (seed, arc) = seed.randomize(150, 50);
 
           points[j].x = int32(512 + (angle - 30).cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + (angle - 30).sin() * int(r1) / 0x8000);
@@ -151,7 +150,6 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
         }
       }
       {
-        alt = (alt + 1) % 3;
         uint r2;
         (seed, r2) = seed.randomize(r1, 20);
         r1 = (r2 * 2 + r0) / 3;
