@@ -12,8 +12,10 @@ pragma solidity ^0.8.6;
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
 import { IAssetProvider } from './interfaces/IAssetProvider.sol';
+import { ISVGHelper } from './interfaces/ISVGHelper.sol';
 import './libs/trigonometry.sol';
 import './libs/Randomizer.sol';
+import './libs/SVGHelper.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 import "hardhat/console.sol";
@@ -26,9 +28,11 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
 
   string constant providerKey = "splt";
   address public receiver;
+  ISVGHelper svgHelper;
 
   constructor() {
     receiver = owner();
+    svgHelper = new SVGHelper(); // default helper
   }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
@@ -57,6 +61,10 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
 
   function setReceiver(address _receiver) onlyOwner external {
     receiver = _receiver;
+  }
+
+  function setHelper(ISVGHelper _svgHelper) external onlyOwner {
+    svgHelper = _svgHelper;
   }
 
   function generatePoints(Randomizer.Seed memory _seed, uint _count, uint _length, uint _dot) pure internal returns(Randomizer.Seed memory, Point[] memory) {
