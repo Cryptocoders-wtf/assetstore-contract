@@ -120,7 +120,7 @@ Asset Providers are *a new category of smart contracts*, each of which provides 
 
 Asset Composer acts as the registration mechanism of those asset providers so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (described below).
 
-Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetComposer.sol) interface. This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
+Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface. This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
 
 As a reference implementation, we have created a wrapper of NounsDescriptor, [NounsAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/NounsAssetProvider.sol), which offers dynamically generated Nouns characters as assets. 
 
