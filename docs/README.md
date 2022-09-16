@@ -40,7 +40,7 @@ There are some efforts to work around this problem, but there are many technical
 
 Considering the current situation, we have determined to create a set of technologies and mechanisms, which will <u>make it easier and affordable to store, share and compose vector images on-chain, enabling fully on-chain NFTs with rich graphics</u>.
 
-We believe that we need to build a decentralized ecosystem (automated by smart contracts), where creators can generate revenue from their creations while enabling and encouraging various remixes and compositions.
+We believe that we need to build a **decentralized marketplace** (automated by smart contracts), where creators can generate revenue from their creations while enabling and encouraging various remixes and compositions.
 
 ## Our Approach
 
@@ -53,8 +53,8 @@ While SVG is the industry standard to exchange vector data, raw SVG data is quit
 After various prototpes, we have chosen to compress SVG data in the following steps. 
 
 1. We convert all SVG elements to "path" elements, eliminating the need to specify element types (such as "rect" and "circle").
-2. We convert all floating points to integers by having a large and fixed view area (1024 x 1024).
-3. We extract only the "d" attribute of those path elements, eliminating SVG tags entirely.
+2. We convert all floating points to integers by having a large and fixed view area (integer normolization).
+3. We extract only the "d" attribute of those "path" elements, eliminating SVG tags entirely.
 4. We compress a series of data (commands and their parameters) in the "d" attribute into a series of 12-bit bytecodes.
 5. In this byte code, commands (such as "M" and "C") will be simply expanded to 12-bit (higher 4-bits will be all zero), while parameters (numbers ranging from -1023 to 1023) will be converted to N+1024+256 (higher 4-bits will be non-zero).
 
@@ -78,7 +78,7 @@ After various prototpes, we have chosen to compress SVG data in the following st
 0x6d,0x70,0x6a,0xb4,0x5,0x63,0xde,0x44,0xf5,0xba,0x44,0xef,0x95,0x44,0xef,0xdd,0x54,0x0,0xbc,0x54,0x5,0x9c,0x54,0xe,0x6c,0x50,0x18,0x4e,0x5,0x63,0x18,0x45,0xf9,0x31,0x45,0xf5,0x4b,0x45,0xf5,0x1c,0x55,0x0,0x37,0x55,0x4,0x51,0x55,0xc,0x7a,0x0
 ```
 
-We perform this encoding off-chain (in TypeScript) before passing the data to the smart contract. Please see *compressPath* method in [createMethod.ts](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/utils/createAsset.ts). 
+We perform this encoding off-chain (in TypeScript) before passing the data to the smart contract (on-chain asset store, described below). Please see *compressPath* method in [createMethod.ts](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/utils/createAsset.ts). 
 
 The decoding will be done on-chain in "view" methods, such as *tokenURI* or *generateSVGPart* (in Solidity). Even though there is no "gas cost" associated with it, an efficient implementation is critical to avoid time-out or gas-limit errors. Please see decodePath() method of [SVGPathDecoderA](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/libs/SVGPathDecoderA.sol). 
 
@@ -110,13 +110,15 @@ Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cry
 
 Asset Composer is a *smart contract*, which allows developers and users to create a new vector asset by composing existing vector assets, provided by asset providers (described below).
 
+Asset Composer is also act as an asset provider, providing compositions as assets. When a composition receives a revenue (from the marketplace), Asset Composer will distribute it to appropriate asset providers autonomously.  
+
 You can see the current version of Asset Composer code [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
 
 ### Asset Providers (beta testing)
 
 Asset Providers are *a new category of smart contracts*, each of which provides a set of vector assets. Those assets are either stored on-chain, dynamically generated, or a combination of those.
 
-AssetComposer acts as the registration mechanism of those asset providers so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (described below).
+Asset Composer acts as the registration mechanism of those asset providers so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (described below).
 
 Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetComposer.sol) interface. This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
 
@@ -139,16 +141,16 @@ During the development of the On-Chain Vector Editor described above, we came up
 Here is the business model. 
 
 1. Creating a new drawing from scratch and minting it as an NFT is free. The minter needs to pay only the gas fee to upload the vector data of the drawing to the blockchain. 
-2. Creating a drawing using assets on the asset store (somebody's drawings or the result of crowd-minting) and minting it as NFT is NOT free. <u>We will charge a small amount (probably 〜0.02ETH), and distribute most of it (97.5%) to the creators and minters of those assets</u>.
+2. Creating a drawing using assets provided by *asset providers* and minting it as NFT is NOT free. <u>We will charge a small amount (probably 〜0.02ETH), and distribute most of it (97.5%) to the creators and minters of those assets</u> via *asset providers*.
 3. If the remixed asset is a composition of multiple assets, we will distribute the payout recursively, splitting it equally at each level.
 
-We are aware that most of the *X2Earn* services introduce their app-specific currencies, which allows developers to keep all the earnings, by paying earnings in the app-specific currency. 
+We are aware that most of the *X2Earn* services introduce their app-specific currencies, which allows developers to keep all the earnings, by paying rewards to users in the app-specific currency. 
 
 This approach creates a so-called *token economy*, giving the developer the power to print money as the central bank of that economy.
 
 We chose **NOT** to take that approach because it will turn the service into a *pseudo Ponzi scheme*, where the infinite growth is required to keep it attractive.
 
-We believe the direct and immediate distribution is fair to everybody and a better mechanism to create a healthy and sustainable ecosystem.
+We believe the direct and immediate distribution of revenue to creators (using the autonomous revenue sharing mechanism) is fair to everybody and a better mechanism to create a healthy and sustainable ecosystem.
 
 ### CC-Share-Earnings (draft proposal)
 
