@@ -154,14 +154,20 @@ We believe the direct and immediate distribution is fair to everybody and a bett
 
 During the development process of the Draw2Earn business model, we realized that we need a new kind of Creative Commons license, *CC-Share-Earnings*, which is suitable for on-chain assets (such as vector images, but not limited to them).
 
-<u>This license allows other people to copy or remix it, but revenue sharing is required if somebody uses it to generate revenue</u>.
+<u>This license allows other people to copy or remix it just like regular Creative Commons, but revenue sharing is required if somebody uses it to generate revenue</u>.
 
-[IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface has a built-in revenue-share mechanism (*processPayout* method), and we'd like to propose it as the standard mechanism to share revenue.
+As described above, [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface has a built-in revenue-sharing mechanism (*processPayout* method), and <u>it allows us to create **autonomous marketplace** to buy and sell vector assets</u>. 
 
-### Generative Asset Providers (under development)
+We'd like to propose it as the standard mechanism to share revenue for various on-chain contents (not only images, but music and videos eventually).
+
+### Generative Asset Providers (work in progress)
 
 As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider and start earning money.
 
-We would like to invite other developers to create variety of asset providers, most of which would generate vector assets programatically -- just like ones you see in the Art Block project.
+This is a new business opportunity for developers, who are interested in creating generative arts.
 
-If anybody is interesated in it, please join the [On-Chain Asset Store](https://discord.gg/4JGURQujXK) discord. 
+In order to make it easy for developers to get into this market, we are building libraries and sample code. [SplatterProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/SplatterProvider.sol) is one of sample smart contract, which generates images programatically (see below).
+
+![](https://i.imgur.com/HVAIajb.png)
+
+We would like to invite other developers to join this effort. If anybody is interested in it, please join the [On-Chain Asset Store](https://discord.gg/4JGURQujXK) discord. 
