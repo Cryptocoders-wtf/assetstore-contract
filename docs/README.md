@@ -178,6 +178,8 @@ We would like to invite other developers to join this effort. If anybody is inte
 
 As described above, we are designing and implementing the world-first **decentralized autonomous marketplace (DAM)** of digital assets, where designers, remixers, crowd-minters, and developers can earn money.
 
+![](https://i.imgur.com/zzcR4rv.png)
+
 Because of the high gas cost to store a large amount of data on the blockchain (Ethereum mainnet), the role this marketplace can play is limited at this moment (2022).
 
 We, however, believe that this issue will be solved eventually, and this decentralized autonomous marketplace can play an important role to create a healthy ecosystem of on-chain digital assets.
