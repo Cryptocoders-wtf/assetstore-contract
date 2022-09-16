@@ -40,7 +40,7 @@ There are some efforts to work around this problem, but there are many technical
 
 Considering the current situation, we have determined to create a set of technologies and mechanisms, which will <u>make it easier and affordable to store, share and compose vector images on-chain, enabling fully on-chain NFTs with rich graphics</u>.
 
-We believe that we need to build a **decentralized marketplace** (automated by smart contracts), where creators can generate revenue from their creations while enabling and encouraging various remixes and compositions.
+We believe that we need to build a **decentralized autonomous marketplace** (automated by smart contracts), where creators can generate revenue from their creations while enabling and encouraging remixes and compositions.
 
 ## Our Approach
 
@@ -173,3 +173,11 @@ In order to make it easy for developers to get into this market, we are building
 ![](https://i.imgur.com/HVAIajb.png)
 
 We would like to invite other developers to join this effort. If anybody is interested in it, please join the [On-Chain Asset Store](https://discord.gg/4JGURQujXK) discord. 
+
+## Decentralized Autonomous Marketplace
+
+As described above, we are designing and implementing the world-first **decentralized autonomous marketplace (DAM)** of digital assets, where designers, remixers, crowd-minters, and developers can earn money.
+
+Because of the high gas cost to store a large amount of data on the blockchain (Ethereum mainnet), the role this marketplace can play is limited at this moment (2022).
+
+We, however, believe that this issue will be solved eventually, and this decentralized autonomous marketplace can play an important role to create a healthy ecosystem of on-chain digital assets.
