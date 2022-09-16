@@ -150,7 +150,7 @@ This approach creates a so-called *token economy*, giving the developer the powe
 
 We chose **NOT** to take that approach because it will turn the service into a *pseudo Ponzi scheme*, where the infinite growth is required to keep it attractive.
 
-We believe the direct and immediate distribution of revenue to creators (using the autonomous revenue sharing mechanism) is fair to everybody and a better mechanism to create a healthy and sustainable ecosystem.
+We believe the direct and immediate distribution of revenue to creators (using the *autonomous revenue sharing mechanism*) is fair to everybody and a better mechanism to create a healthy and sustainable ecosystem.
 
 ### CC-Share-Earnings (draft proposal)
 
@@ -166,7 +166,7 @@ We'd like to propose it as the standard mechanism to share revenue for various o
 
 As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider and start earning money.
 
-This is a new business opportunity for developers, who are interested in creating generative arts.
+<u>This is a new business opportunity for developers, who are interested in creating **generative arts**</u>.
 
 In order to make it easy for developers to get into this market, we are building libraries and sample code. [SplatterProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/SplatterProvider.sol) is one of sample smart contract, which generates images programatically (see below).
 
