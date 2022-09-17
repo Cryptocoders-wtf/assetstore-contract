@@ -4,18 +4,13 @@
  * Solidity library offering the functionality of basic trigonometry functions
  * with both input and output being integer approximated.
  *
- * This is useful since:
- * - At the moment no floating/fixed point math can happen in solidity
- * - Should be (?) cheaper than the actual operations using floating point
- *   if and when they are implemented.
+ * This code was originally written by Lefteris Karapetsas
+ * https://github.com/Sikorkaio/sikorka/blob/master/contracts/trigonometry.sol
  *
- * The implementation is based off Dave Dribin's trigint C library
- * http://www.dribin.org/dave/trigint/
- * Which in turn is based from a now deleted article which can be found in
- * the internet wayback machine:
- * http://web.archive.org/web/20120301144605/http://www.dattalo.com/technical/software/pic/picsine.html
+ * I made several changes to make it easy for me to manage and use. 
  *
- * @author Lefteris Karapetsas
+ * @author Lefteris Karapetsas 
+ * @author Satoshi Nakajima (snakajima)
  * @license BSD3
  */
 
