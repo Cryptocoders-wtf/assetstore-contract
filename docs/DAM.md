@@ -2,19 +2,19 @@
 
 Satoshi Nakajima - Sep 17, 2022
 
-The blockchain is a gift from Satoshi Nakamoto, but we still haven't found the killer appplication, 
-which offers huge values to our society and changes our business practices or even our lifestyle. 
+The blockchain is a gift from Satoshi Nakamoto, but we still haven't found the killer application, 
+which offers huge value to our society and changes our business practices or even our lifestyle. 
 
-I'd like to propose one idea, Decentralized Autonomous Marketplace (DAM), 
+I'd like to present one idea, Decentralized Autonomous Marketplace (DAM), 
 which has a potential to become such a killer application. 
 
-Here is the definition of Decentralized Autonomous Marketplace (DAM).
+Here is the definition of a Decentralized Autonomous Marketplace (DAM).
 
-1. A DAM is a marketplace of digital assets (= contents), such as images, videos, music, 3d models or even data sets.
+1. A DAM is a marketplace of digital assets (= contents), such as images, videos, music, 3d models, or even data sets.
 2. All sales transactions on a DAM are processed by its smart contract autonomously. 
-3. Its smart contract defines the revenue distribution ruls (among creators and other contributers).
-4. The revenue distibution will be done immediately as the part of each sales transaction.
-5. All the required gas fee (including the revenue distribution) will be paid by the buyer. 
+3. Its smart contract defines the revenue distribution rules (among creators and other contributors).
+4. The revenue distribution will be done immediately as part of each sales transaction.
+5. All the required gas fees (including the revenue distribution) will be paid by the buyer. 
 6. The payee of a revenue distribution might be another smart contract, which has its own revenue distribution mechanism (nested revenue distribution). 
 
 Because all the sales transactions and associated revenue distributions are processed by smart contract autonomously, a DAM has several advantages over existing marketplaces. 
