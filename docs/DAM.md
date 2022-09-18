@@ -6,7 +6,7 @@ The blockchain is a gift from Satoshi Nakamoto, but we still haven't found the k
 which offers huge value to our society and changes our business practices or even our lifestyle. 
 
 I'd like to present one idea, Decentralized Autonomous Marketplace (DAM), 
-which has a potential to become such a killer application. 
+which has the potential to become such a killer application. 
 
 Here is the definition of a Decentralized Autonomous Marketplace (DAM).
 
@@ -17,15 +17,20 @@ Here is the definition of a Decentralized Autonomous Marketplace (DAM).
 5. All the required gas fees (including the revenue distribution) will be paid by the buyer. 
 6. The payee of a revenue distribution might be another smart contract, which has its own revenue distribution mechanism (nested revenue distribution). 
 
-Because all the sales transactions and associated revenue distributions are processed by smart contract autonomously, a DAM has several advantages over existing marketplaces. 
+Because all the sales transactions and associated revenue distributions are processed by its smart contract autonomously, a DAM has several advantages over existing marketplaces. 
 
 1. Zero labor cost
 2. No middle man
-3. Transparent revenue distibution rules
-4. Public record of revenue disributions
-5. Zero audit cost
-6. No operator (fully decentralized)
-7. Perpetual
+3. No server cost
+4. No operator (fully decentralized)
+5. Transparent revenue distribution rules
+6. Immediate revenue distributions
+7. Public record of revenue distributions
+8. Zero audit cost
+9. Perpetual service (as long as the blockchain exists)
 
-I am in the process of developing the first instance of DAM, which allows creators to publish their drawings to the on-chain asset store and generate revenue from them (Draw2Earn application).
+I believe it has a potential to create a "creator centric" ecosystem, where creators (artists, musicians, film makers, evelopers, and etc.) can earn significant income from it, while encouraging consumers to enjoy permissionless remix culture of Web3 and Creative Commons. 
+
+I am developing the first instance of DAM, which allows creators to publish their vector drawings to the on-chain asset store and generate revenue from them (Draw2Earn application).
+
 Please see [On-Chain Asset Store, Composer and Decentralized Autonomous Marketplace](https://hackmd.io/@snakajima/HJva6n-Jj) for details.  
