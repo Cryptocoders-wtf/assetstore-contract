@@ -15,7 +15,7 @@ Here is the definition of a Decentralized Autonomous Marketplace (DAM).
 3. Its smart contract defines the revenue distribution rules (among creators and other contributors).
 4. The revenue distribution will be done immediately as part of each sales transaction.
 5. All the required gas fees (including the revenue distribution) will be paid by the buyer. 
-6. The payee of a revenue distribution might be another smart contract, which has its own revenue distribution mechanism (nested revenue distribution). 
+6. The payee of a revenue distribution could be another smart contract, which has its own revenue distribution rules (nested revenue distributions).
 
 Because all the sales transactions and associated revenue distributions are processed by its smart contract autonomously, a DAM has several advantages over existing marketplaces. 
 
