@@ -27,4 +27,5 @@ Because all the sales transactions and associated revenue distributions are proc
 6. No operator (fully decentralized)
 7. Perpetual
 
-(still writing...)
+I am in the process of developing the first instance of DAM, which allows creators to publish their drawings to the on-chain asset store and generate revenue from them (Draw2Earn application).
+Please see [On-Chain Asset Store, Composer and Decentralized Autonomous Marketplace](https://hackmd.io/@snakajima/HJva6n-Jj) for details.  
