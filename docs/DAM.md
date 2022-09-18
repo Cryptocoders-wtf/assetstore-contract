@@ -19,16 +19,15 @@ Here is the definition of a Decentralized Autonomous Marketplace (DAM).
 
 Because all the sales transactions and associated revenue distributions are processed by its smart contract autonomously, a DAM has several advantages over existing marketplaces. 
 
-1. Zero labor cost
+1. No operation cost
 2. No middle man
 3. No server cost
-4. No operation cost
-5. No central authority (fully decentralized)
-6. Transparent revenue distribution rules
-7. Immediate revenue distributions
-8. Public record of revenue distributions
-9. Zero audit cost
-10. Perpetual service (as long as the blockchain exists)
+4. No central authority (fully decentralized)
+5. Transparent revenue distribution rules
+6. Immediate revenue distributions
+7. Public record of revenue distributions
+8. Zero audit cost
+9. Perpetual service (as long as the blockchain exists)
 
 I believe it has a potential to create a "creator centric" ecosystem, where creators (artists, musicians, film makers, evelopers, and etc.) can earn significant income from it, while encouraging consumers to enjoy permissionless remix culture of Web3 and Creative Commons. 
 
