@@ -81,29 +81,21 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
     count = count / 3 * 3; // always multiple of 3
 
     bytes memory path;
-    (seed, path) = splatter.generatePath(seed, count, length, dot);
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
     uint256 style = _assetId % stylesPerSeed;
     bytes memory body;
-    bytes memory path2;
-    bytes memory path3;
-    bytes memory path4;
-
     string[] memory scheme;
     (seed, scheme) = getColorScheme(seed);
 
     if (style == 0) {
-      body = abi.encodePacked('<path d="', path, '" fill="', scheme[0], '" />\n');
+    (seed, path) = splatter.generatePath(seed, count, length, dot);
+      body = abi.encodePacked('<path d="', path, '" fill="#', scheme[0], '" />\n');
     } else if (style == 1) {
-      (seed,path2) = splatter.generatePath(seed, count, length, dot);
-      (seed,path3) = splatter.generatePath(seed, count, length, dot);
-      (seed,path4) = splatter.generatePath(seed, count, length, dot);
-      body = abi.encodePacked(
-        '<path d="', path, '" fill="#', scheme[0], '" transform="translate (0, 0) scale(0.667, 0.667)" />\n'
-        '<path d="', path2, '" fill="#', scheme[1], '" transform="translate (341, 0) scale(0.667, 0.667)" />\n');
-      body = abi.encodePacked(body,
-        '<path d="', path3, '" fill="#', scheme[2], '" transform="translate (0, 341) scale(0.667, 0.667)" />\n'
-        '<path d="', path4, '" fill="#', scheme[3], '" transform="translate (341, 341) scale(0.667, 0.667)" />\n');
+      uint colorLength = scheme.length;
+      for (uint i = 0; i < colorLength; i++) {
+        (seed, path) = splatter.generatePath(seed, count, length, dot);
+        body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i], '" />\n');
+      }
     }
 
     svgPart = string(abi.encodePacked(
