@@ -16,32 +16,26 @@ async function main() {
   const factory = await ethers.getContractFactory("SplatterProvider");
   const contract = await factory.deploy();
   await contract.deployed();
-  console.log(`      contract="${contract.address}"`);
+  console.log(`      splatter="${contract.address}"`);
+  const result0 = await contract.functions.generateSVGPart(0);
+  // console.log(result0);
 
   /*
-  const roundRect = [
-    { x: 1024 / 4, y: 1024 / 4, c: false, r: 566 },
-    { x: 1024 - 1024 / 4, y: 1024 / 4, c: false, r: 566 },
-    {
-      x: 1024 - 1024 / 4,
-      y: 1024 - 1024 / 4,
-      c: false,
-      r: 566,
-    },
-    { x: 1024 / 4, y: 1024 - 1024 / 4, c: false, r: 566 },
-  ];
-
-  const result0 = await contract.functions.PathFromPoints(roundRect);
+  const factoryArt = await ethers.getContractFactory("SplatterArtProvider");
+  const contractArt = await factoryArt.deploy(contract.address);
+  await contractArt.deployed();
+  console.log(`      contract="${contractArt.address}"`);
   */
-  const result0 = await contract.functions.generateSVGPart(0);
-  console.log(result0);
 
   const composerFactory = await ethers.getContractFactory("AssetComposer");
   const composer = composerFactory.attach(composerAddress);
 
   const tx = await composer.functions.registerProvider(contract.address);
   const result = await tx.wait();
-  console.log("events", result.events);
+  const event = result.events && result.events[0];
+  if (event) {
+    console.log("Splatter event", event.event);
+  }
 }
 
 main().catch((error) => {
