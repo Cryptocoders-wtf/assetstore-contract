@@ -28,6 +28,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   using Trigonometry for uint;
 
   string constant providerKey = "spltart";
+  uint constant imagesPerSeed = 4;
   SplatterProvider public splatter;
 
   constructor(SplatterProvider _splatter) {
@@ -57,7 +58,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
-    Randomizer.Seed memory seed = Randomizer.Seed(_assetId/4, 0);
+    Randomizer.Seed memory seed = Randomizer.Seed(_assetId/imagesPerSeed, 0);
     uint count = 30;
     uint length = 40;
     uint dot = 100;
@@ -70,9 +71,22 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
     (,path) = splatter.generatePath(seed, count, length, dot);
 
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
+    uint256 style = _assetId % imagesPerSeed;
+    bytes memory body;
+
+    if (style == 0) {
+      body = abi.encodePacked('<path d="', path, '" fill="green" />\n');
+    } else if (style == 1) {
+      body = abi.encodePacked('<path d="', path, '" fill="red" />\n');
+    } else if (style == 2) {
+      body = abi.encodePacked('<path d="', path, '" fill="blue" />\n');
+    } else if (style == 3) {
+      body = abi.encodePacked('<path d="', path, '" fill="#80ff40" />\n');
+    }
+
     svgPart = string(abi.encodePacked(
-      '<g id="', tag, '">\n'
-      '<path d="', path, '" fill="green" />\n'
+      '<g id="', tag, '">\n',
+      body,
       '</g>\n'
     ));
   }
