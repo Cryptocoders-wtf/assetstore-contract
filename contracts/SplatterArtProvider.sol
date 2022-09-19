@@ -60,12 +60,21 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   function getColorScheme(Randomizer.Seed memory _seed) internal pure returns(Randomizer.Seed memory, string[] memory) {
     Randomizer.Seed memory seed = _seed;
 
-    string[5] memory love =["E9B4DB", "6160B0", "EB77A6", "3E3486", "E23D80"];
+    string[5] memory source;
+    uint i;
+    (seed, i) = seed.random(3);
+    if (i == 0) {
+      source =["E9B4DB", "6160B0", "EB77A6", "3E3486", "E23D80"]; // love
+    } else if (i == 1) {
+      source =["FFDE91", "FF9D75", "DE6868", "494580", "BDA8FF"]; // bright
+    } else {
+      source =["5A261B", "C81125", "F15B4A", "FFAB63", "FADB6A"]; // fall
+    }
     string[] memory scheme = new string[](5);
     uint offset;
-    (seed, offset) = seed.random(5);
+    (seed, offset) = seed.random(scheme.length);
     for (uint i = 0; i < 5 ; i++) {
-      scheme[i] = love[(i + offset) % 5];
+      scheme[i] = source[(i + offset) % 5];
     }
     return (seed, scheme);
   }
