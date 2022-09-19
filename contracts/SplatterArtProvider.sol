@@ -50,7 +50,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function totalSupply() external pure override returns(uint256) {
-    return 30; 
+    return 100; 
   }
 
   function processPayout(uint256 _assetId) external override payable {
@@ -60,21 +60,26 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   function getColorScheme(Randomizer.Seed memory _seed) internal pure returns(Randomizer.Seed memory, string[] memory) {
     Randomizer.Seed memory seed = _seed;
 
-    string[5] memory source;
-    uint i;
-    (seed, i) = seed.random(3);
-    if (i == 0) {
-      source =["E9B4DB", "6160B0", "EB77A6", "3E3486", "E23D80"]; // love
-    } else if (i == 1) {
-      source =["FFDE91", "FF9D75", "DE6868", "494580", "BDA8FF"]; // bright
-    } else {
-      source =["5A261B", "C81125", "F15B4A", "FFAB63", "FADB6A"]; // fall
-    }
+    string[5][11] memory schemes = [
+      ["E9B4DB", "6160B0", "EB77A6", "3E3486", "E23D80"], // love
+      ["FFDE91", "FF9D75", "DE6868", "494580", "BDA8FF"], // bright
+      ["EDC9AF", "A0E2BD", "53CBCF", "0DA3BA", "046E94"], // beach
+      ["FFE889", "88E7C5", "53BD99", "01767D", "034F4D"], // jungle
+      ["D7F9F8", "FFFFEA", "FFF0D5", "FBE0E0", "E5D4EF"], // light
+      ["801818", "3D0C02", "631934", "79224D", "682860"], // hair
+      ["B3617B", "494C7D", "D0CEAC", "9BB797", "5C9A95"], // retro
+      ["159F67", "66CA96", "EBFFF4", "F9BDB3", "F39385"], // sprint
+      ["F9CC6C", "FD9A9C", "FEE4C6", "9DD067", "3D7F97"], // summer
+      ["627AA3", "D8D0C5", "DAAE46", "7AAB9C", "9F4F4C"], // vintage
+      ["5A261B", "C81125", "F15B4A", "FFAB63", "FADB6A"] // fall
+    ];
+    uint schemeIndex;
+    (seed, schemeIndex) = seed.random(schemes.length);
     string[] memory scheme = new string[](5);
     uint offset;
     (seed, offset) = seed.random(scheme.length);
-    for (i = 0; i < 5 ; i++) {
-      scheme[i] = source[(i + offset) % 5];
+    for (uint i = 0; i < 5 ; i++) {
+      scheme[i] = schemes[schemeIndex][(i + offset) % 5];
     }
     return (seed, scheme);
   }
