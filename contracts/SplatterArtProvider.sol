@@ -73,7 +73,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
     string[] memory scheme = new string[](5);
     uint offset;
     (seed, offset) = seed.random(scheme.length);
-    for (uint i = 0; i < 5 ; i++) {
+    for (i = 0; i < 5 ; i++) {
       scheme[i] = source[(i + offset) % 5];
     }
     return (seed, scheme);
@@ -105,9 +105,9 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
         uint256 angle = 0x4000 * i / colorLength;
         (seed, path) = splatter.generatePath(seed, count, length, dot);
         body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i], '" transform="translate(',
-          uint256(170 + 170 * angle.cos() / 0x7fff).toString(), ',',
-          uint256(170 + 170 * angle.sin() / 0x7fff).toString(),
-          ') scale(0.667, 0.6677)" />\n');
+          uint256(212 + 212 * angle.cos() / 0x7fff).toString(), ',',
+          uint256(212 + 212 * angle.sin() / 0x7fff).toString(),
+          ') scale(0.586, 0.586)" />\n');
       }
     }
 
