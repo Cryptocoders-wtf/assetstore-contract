@@ -93,8 +93,12 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
     } else if (style == 1) {
       uint colorLength = scheme.length;
       for (uint i = 0; i < colorLength; i++) {
+        uint256 angle = 0x4000 * i / colorLength;
         (seed, path) = splatter.generatePath(seed, count, length, dot);
-        body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i], '" />\n');
+        body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i], '" transform="translate(',
+          uint256(170 + 170 * angle.cos() / 0x7fff).toString(), ',',
+          uint256(170 + 170 * angle.sin() / 0x7fff).toString(),
+          ') scale(0.667, 0.6677)" />\n');
       }
     }
 
