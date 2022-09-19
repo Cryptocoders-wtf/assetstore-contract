@@ -57,6 +57,23 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
-    return splatter.generateSVGPart(_assetId / 2);
+    Randomizer.Seed memory seed = Randomizer.Seed(_assetId/4, 0);
+    uint count = 30;
+    uint length = 40;
+    uint dot = 100;
+    (seed, count) = seed.randomize(count, 50); // +/- 50%
+    (seed, length) = seed.randomize(length, 50); // +/- 50%
+    (seed, dot) = seed.randomize(dot, 50);
+    count = count / 3 * 3; // always multiple of 3
+
+    bytes memory path;
+    (,path) = splatter.generatePath(seed, count, length, dot);
+
+    tag = string(abi.encodePacked(providerKey, _assetId.toString()));
+    svgPart = string(abi.encodePacked(
+      '<g id="', tag, '">\n'
+      '<path d="', path, '" fill="green" />\n'
+      '</g>\n'
+    ));
   }
 }
