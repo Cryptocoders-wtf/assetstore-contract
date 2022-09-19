@@ -68,20 +68,38 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
     count = count / 3 * 3; // always multiple of 3
 
     bytes memory path;
-    (,path) = splatter.generatePath(seed, count, length, dot);
-
+    (seed,path) = splatter.generatePath(seed, count, length, dot);
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
     uint256 style = _assetId % imagesPerSeed;
     bytes memory body;
+    bytes memory path2;
+    bytes memory path3;
+    bytes memory path4;
 
     if (style == 0) {
       body = abi.encodePacked('<path d="', path, '" fill="green" />\n');
     } else if (style == 1) {
-      body = abi.encodePacked('<path d="', path, '" fill="red" />\n');
+      (seed,path2) = splatter.generatePath(seed, count, length, dot);
+      (seed,path3) = splatter.generatePath(seed, count, length, dot);
+      (seed,path4) = splatter.generatePath(seed, count, length, dot);
+      body = abi.encodePacked(
+        '<path d="', path, '" fill="#FFA630" transform="translate (0, 0) scale(0.75, 0.75)" />\n'
+        '<path d="', path2, '" fill="#D7E8BA" transform="translate (256, 0) scale(0.75, 0.75)" />\n'
+        '<path d="', path3, '" fill="#4DA1A9" transform="translate (0, 256) scale(0.75, 0.75)" />\n'
+        '<path d="', path4, '" fill="#2E5077" transform="translate (256, 256) scale(0.75, 0.75)" />\n');
     } else if (style == 2) {
-      body = abi.encodePacked('<path d="', path, '" fill="blue" />\n');
+      (seed,path2) = splatter.generatePath(seed, count, length, dot);
+      (seed,path3) = splatter.generatePath(seed, count, length, dot);
+      (seed,path4) = splatter.generatePath(seed, count, length, dot);
+      body = abi.encodePacked(
+        '<path d="', path, '" fill="#FFA630" transform="translate (0, 0) scale(0.667, 0.667)" />\n'
+        '<path d="', path2, '" fill="#D7E8BA" transform="translate (341, 0) scale(0.667, 0.667)" />\n'
+        '<path d="', path3, '" fill="#4DA1A9" transform="translate (0, 341) scale(0.667, 0.667)" />\n'
+        '<path d="', path4, '" fill="#2E5077" transform="translate (341, 341) scale(0.667, 0.667)" />\n');
     } else if (style == 3) {
-      body = abi.encodePacked('<path d="', path, '" fill="#80ff40" />\n');
+      (seed,path2) = splatter.generatePath(seed, count, length, dot);
+      body = abi.encodePacked('<path d="', path, '" fill="green" transform="scale(0.5, 0.5)" />\n'
+      '<path d="', path2, '" fill="#80ff40" transform="scale(0.5, 0.5) translate (512, 512)" />\n');
     }
 
     svgPart = string(abi.encodePacked(
