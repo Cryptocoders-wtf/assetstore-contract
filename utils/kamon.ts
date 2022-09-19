@@ -17,7 +17,7 @@ categories.map(category => {
   }
   let files = readdirSync(`${root}/${category}`);
   //console.log(category, files.length);
-  if (category == 'koma') {
+  if (category == 'sakura') {
     let files = readdirSync(`${root}/${category}`);
     //console.log(files);
     const items = files.filter((file, index) => {
