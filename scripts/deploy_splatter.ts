@@ -20,12 +20,10 @@ async function main() {
   const result0 = await contract.functions.generateSVGPart(0);
   // console.log(result0);
 
-  /*
   const factoryArt = await ethers.getContractFactory("SplatterArtProvider");
   const contractArt = await factoryArt.deploy(contract.address);
   await contractArt.deployed();
-  console.log(`      contract="${contractArt.address}"`);
-  */
+  console.log(`      splatter_art="${contractArt.address}"`);
 
   const composerFactory = await ethers.getContractFactory("AssetComposer");
   const composer = composerFactory.attach(composerAddress);
@@ -36,6 +34,14 @@ async function main() {
   if (event) {
     console.log("Splatter event", event.event);
   }
+
+  const tx2 = await composer.functions.registerProvider(contractArt.address);
+  const result2 = await tx2.wait();
+  const event2 = result2.events && result2.events[0];
+  if (event2) {
+    console.log("Splatter event", event2.event);
+  }
+
 }
 
 main().catch((error) => {
