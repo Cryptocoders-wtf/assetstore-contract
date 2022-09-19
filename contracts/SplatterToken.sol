@@ -19,21 +19,15 @@ pragma solidity ^0.8.6;
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "erc721a/contracts/ERC721A.sol";
-import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
-import { IAssetStoreToken } from './interfaces/IAssetStoreToken.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
 
-contract SplatterToken is Ownable, ERC721A, IAssetStoreToken {
+contract SplatterToken is Ownable, ERC721A {
   using Strings for uint256;
   using Strings for uint16;
 
-  IAssetStoreRegistry public immutable registry;
-  IAssetStore public immutable assetStore;
-
   uint256 constant _tokensPerAsset = 10;
-  mapping(uint256 => uint256) assetIds; // tokenId / _tokensPerAsset => assetId
 
   // description
   string public description = "This is one of effts to create (On-Chain Asset Store)[https://assetstore.wtf]. "
@@ -45,17 +39,12 @@ contract SplatterToken is Ownable, ERC721A, IAssetStoreToken {
   // OpenSea's Proxy Registry
   IProxyRegistry public immutable proxyRegistry;
 
-  /*
-   * @notice both _registry and _assetStore points to the AssetStore.
+  /**
    */
   constructor(
-    IAssetStoreRegistry _registry, 
-    IAssetStore _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
   ) ERC721A("Kamon Symbols by Hakko Daiodo", "KAMON") {
-    registry = _registry;
-    assetStore = _assetStore;
     developer = _developer;
     proxyRegistry = _proxyRegistry;
   }
@@ -64,17 +53,10 @@ contract SplatterToken is Ownable, ERC721A, IAssetStoreToken {
     return _tokenId % _tokensPerAsset == 0;
   }
 
-  /*
-   * It registers the specified asset to the AssetStore and
-   * mint three tokens to the msg.sender, and one additional
-   * token to either the affiliator, the developer or the owner.npnkda
+  /**
    */
-  function mintWithAsset(IAssetStoreRegistry.AssetInfo memory _assetInfo, uint256 _affiliate) external {
-    _assetInfo.group = "Hakko Daiodo (CC-BY equivalent)";
-    uint256 assetId = registry.registerAsset(_assetInfo);
+  function mint(uint256 _affiliate) external {
     uint256 tokenId = _nextTokenId(); 
-
-    assetIds[tokenId / _tokensPerAsset] = assetId;
     _mint(msg.sender, _tokensPerAsset - 1);
 
     // Specified affliate token must be one of the primary tokens and not owned by the minter.
@@ -114,7 +96,7 @@ contract SplatterToken is Ownable, ERC721A, IAssetStoreToken {
    * A function of IAssetStoreToken interface.
    * It generates SVG with the specified style, using the given "SVG Part".
    */
-  function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure override returns (string memory) {
+  function generateSVG(string memory _svgPart, uint256 _style, string memory _tag) public pure returns (string memory) {
     // Constants of non-value type not yet implemented by Solidity
     string[10] memory backColors = [
       "black", "white", "#EFE8AC", "#EFE5AF", "#5B3319", "#BF2E16", "#0963AD", "#3D5943", "black", "url(#gold)" 
@@ -146,41 +128,11 @@ contract SplatterToken is Ownable, ERC721A, IAssetStoreToken {
     return string(image);
   }
 
-  /*
-   * A function of IAssetStoreToken interface.
-   * It returns the assetId, which this token uses.
-   */
-  function assetIdOfToken(uint256 _tokenId) public view override returns(uint256) {
-    require(_exists(_tokenId), 'KamonToken.assetIdOfToken: nonexistent token');
-    return assetIds[_tokenId / _tokensPerAsset];
-  }
-
-  /*
-   * A function of IAssetStoreToken interface.
-   * Each 16-bit represents the number of possible styles, allowing various combinations.
-   */
-  function styles() external pure override returns(uint256) {
-    return _tokensPerAsset;
-  }
-
-  function _generateTraits(uint256 _tokenId, IAssetStore.AssetAttributes memory _attr) internal view returns (bytes memory) {
+  function _generateTraits(uint256 _tokenId) internal view returns (bytes memory) {
     return abi.encodePacked(
       '{'
         '"trait_type":"Primary",'
         '"value":"', _isPrimary(_tokenId) ? 'Yes':'No', '"' 
-      '},{'
-        '"trait_type":"Group",'
-        '"value":"', _attr.group, '"' 
-      '},{'
-        '"trait_type":"Category",'
-        '"value":"', _attr.category, '"' 
-      '},{'
-        '"trait_type":"Name",'
-        '"value":"', _attr.name, '"' 
-      '},{'
-        '"trait_type":"Minter",'
-        '"value":"', (bytes(_attr.minter).length > 0)?
-              assetStore.getStringValidator().sanitizeJason(_attr.minter) : bytes('(anonymous)'), '"' 
       '}'
     );
   }
@@ -195,10 +147,8 @@ contract SplatterToken is Ownable, ERC721A, IAssetStoreToken {
     */
   function tokenURI(uint256 _tokenId) public view override returns (string memory) {
     require(_exists(_tokenId), 'KamonToken.tokenURI: nonexistent token');
-    uint256 assetId = assetIdOfToken(_tokenId);
-    IAssetStore.AssetAttributes memory attr = assetStore.getAttributes(assetId);
-    string memory svgPart = assetStore.generateSVGPart(assetId, attr.tag);
-    bytes memory image = bytes(generateSVG(svgPart, _tokenId % _tokensPerAsset, attr.tag));
+    string memory svgPart = "xxx";
+    bytes memory image = bytes(generateSVG(svgPart, _tokenId % _tokensPerAsset, "xxx"));
 
     return string(
       abi.encodePacked(
@@ -206,9 +156,9 @@ contract SplatterToken is Ownable, ERC721A, IAssetStoreToken {
         Base64.encode(
           bytes(
             abi.encodePacked(
-              '{"name":"', attr.name, 
+              '{"name":"', "xxx", 
                 '","description":"', description, 
-                '","attributes":[', _generateTraits(_tokenId, attr), 
+                '","attributes":[', _generateTraits(_tokenId), 
                 '],"image":"data:image/svg+xml;base64,', 
                 Base64.encode(image), 
               '"}')
