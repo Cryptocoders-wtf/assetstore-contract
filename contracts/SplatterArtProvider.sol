@@ -28,14 +28,10 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   using Trigonometry for uint;
 
   string constant providerKey = "spltart";
-  address public receiver;
-  ISVGHelper svgHelper;
   SplatterProvider public splatter;
 
   constructor(SplatterProvider _splatter) {
     splatter = _splatter;
-    receiver = owner();
-    svgHelper = new SVGHelper(); // default helper
   }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
@@ -57,108 +53,10 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function processPayout(uint256 _assetId) external override payable {
-    address payable payableTo = payable(receiver);
-    payableTo.transfer(msg.value);
-    emit Payout(providerKey, _assetId, payableTo, msg.value);
-  }
-
-  function setReceiver(address _receiver) onlyOwner external {
-    receiver = _receiver;
-  }
-
-  function setHelper(ISVGHelper _svgHelper) external onlyOwner {
-    svgHelper = _svgHelper;
-  }
-
-  function generatePoints(Randomizer.Seed memory _seed, uint _count, uint _length, uint _dot) pure internal returns(Randomizer.Seed memory, ISVGHelper.Point[] memory) {
-    Randomizer.Seed memory seed = _seed;
-    uint[] memory degrees = new uint[](_count);
-    uint total;
-    for (uint i = 0; i < _count; i++) {
-      uint degree;
-      (seed, degree) = seed.randomize(100, 90);
-      degrees[i] = total;
-      total += degree;
-    }
-
-    uint r0 = 220;
-    uint r1 = r0;
-    ISVGHelper.Point[] memory points = new ISVGHelper.Point[](_count  + _count /3 * 5);
-    uint j = 0;
-    for (uint i = 0; i < _count; i++) {
-      {
-        uint angle = degrees[i] * 0x4000 / total + 0x4000;
-        if (i % 3 == 0) {
-          uint extra;
-          (seed, extra) = seed.randomize(_length, 100);
-          uint arc;
-          (seed, arc) = seed.randomize(_dot, 50); 
-
-          points[j].x = int32(512 + (angle - 30).cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + (angle - 30).sin() * int(r1) / 0x8000);
-          points[j].c = false;
-          points[j].r = 1024;
-          j++;
-          points[j].x = int32(512 + (angle - 30).cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(512 + (angle - 30).sin() * int(r1 + extra) / 0x8000);
-          points[j].c = false;
-          points[j].r = 566;
-          j++;
-          points[j].x = int32(512 + (angle - arc).cos() * int(r1 + extra * (150 + arc) / 150) / 0x8000);
-          points[j].y = int32(512 + (angle - arc).sin() * int(r1 + extra * (150 + arc) / 150)  / 0x8000);
-          points[j].c = false;
-          points[j].r = 566;
-          j++;
-          points[j].x = int32(512 + (angle + arc).cos() * int(r1 + extra * (150 + arc) / 150)  / 0x8000);
-          points[j].y = int32(512 + (angle + arc).sin() * int(r1 + extra * (150 + arc) / 150)  / 0x8000);
-          points[j].c = false;
-          points[j].r = 566;
-          j++;
-          points[j].x = int32(512 + (angle + 30).cos() * int(r1 + extra) / 0x8000);
-          points[j].y = int32(512 + (angle + 30).sin() * int(r1 + extra) / 0x8000);
-          points[j].c = false;
-          points[j].r = 566;
-          j++;
-          points[j].x = int32(512 + (angle + 30).cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + (angle + 30).sin() * int(r1) / 0x8000);
-          points[j].c = false;
-          points[j].r = 1024;
-          j++;
-        } else {
-          points[j].x = int32(512 + angle.cos() * int(r1) / 0x8000);
-          points[j].y = int32(512 + angle.sin() * int(r1) / 0x8000);
-          points[j].c = false;
-          points[j].r = 566;
-          j++;
-        }
-      }
-      {
-        uint r2;
-        (seed, r2) = seed.randomize(r1, 20);
-        r1 = (r2 * 2 + r0) / 3;
-      }
-    }
-    return (seed, points);
+    splatter.processPayout(_assetId);
   }
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
-    Randomizer.Seed memory seed = Randomizer.Seed(_assetId, 0);
-    uint count = 30;
-    uint length = 40;
-    uint dot = 100;
-    (seed, count) = seed.randomize(count, 50); // +/- 50%
-    (seed, length) = seed.randomize(length, 50); // +/- 50%
-    (seed, dot) = seed.randomize(dot, 50);
-    count = count / 3 * 3; // always multiple of 3
-
-    ISVGHelper.Point[] memory points;
-    (seed, points) = generatePoints(seed, count, length, dot);
-
-    tag = string(abi.encodePacked(providerKey, _assetId.toString()));
-    svgPart = string(abi.encodePacked(
-      '<g id="', tag, '">\n'
-      '<path d="', svgHelper.PathFromPoints(points), '"/>\n'
-      '</g>\n'
-    ));
+    return splatter.generateSVGPart(_assetId / 2);
   }
 }
