@@ -138,6 +138,12 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     return (seed, points);
   }
 
+  function generatePath(Randomizer.Seed memory _seed, uint _count, uint _length, uint _dot) public view returns(Randomizer.Seed memory seed, bytes memory svgPart) {
+    ISVGHelper.Point[] memory points;
+    (seed, points) = generatePoints(_seed, _count, _length, _dot);
+    svgPart = svgHelper.PathFromPoints(points);
+  }
+
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
     Randomizer.Seed memory seed = Randomizer.Seed(_assetId, 0);
     uint count = 30;
@@ -148,13 +154,13 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     (seed, dot) = seed.randomize(dot, 50);
     count = count / 3 * 3; // always multiple of 3
 
-    ISVGHelper.Point[] memory points;
-    (seed, points) = generatePoints(seed, count, length, dot);
+    bytes memory path;
+    (,path) = generatePath(seed, count, length, dot);
 
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
     svgPart = string(abi.encodePacked(
       '<g id="', tag, '">\n'
-      '<path d="', svgHelper.PathFromPoints(points), '"/>\n'
+      '<path d="', path, '"/>\n'
       '</g>\n'
     ));
   }
