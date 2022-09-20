@@ -57,9 +57,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
     splatter.processPayout(_assetId);
   }
 
-  function getColorScheme(Randomizer.Seed memory _seed) internal pure returns(Randomizer.Seed memory, string[] memory) {
-    Randomizer.Seed memory seed = _seed;
-
+  function getColorScheme(Randomizer.Seed memory _seed) internal pure returns(Randomizer.Seed memory seed, string[] memory scheme) {
     string[5][11] memory schemes = [
       ["E9B4DB", "6160B0", "EB77A6", "3E3486", "E23D80"], // love
       ["FFDE91", "FF9D75", "DE6868", "494580", "BDA8FF"], // bright
@@ -74,14 +72,13 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
       ["5A261B", "C81125", "F15B4A", "FFAB63", "FADB6A"] // fall
     ];
     uint schemeIndex;
-    (seed, schemeIndex) = seed.random(schemes.length);
-    string[] memory scheme = new string[](5);
+    (seed, schemeIndex) = _seed.random(schemes.length);
+    scheme = new string[](5);
     uint offset;
     (seed, offset) = seed.random(scheme.length);
     for (uint i = 0; i < 5 ; i++) {
       scheme[i] = schemes[schemeIndex][(i + offset) % 5];
     }
-    return (seed, scheme);
   }
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
