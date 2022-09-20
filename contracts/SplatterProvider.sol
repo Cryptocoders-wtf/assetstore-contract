@@ -150,13 +150,19 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     svgPart = svgHelper.PathFromPoints(points);
   }
 
-  function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
-    Randomizer.Seed memory seed = Randomizer.Seed(_assetId, 0);
-    Props memory props = Props(30, 40, 100);
+  function generateProps(Randomizer.Seed memory _seed) public pure returns(Randomizer.Seed memory seed, Props memory props) {
+    seed = _seed;
+    props = Props(30, 40, 100);
     (seed, props.count) = seed.randomize(props.count, 50); // +/- 50%
     (seed, props.length) = seed.randomize(props.length, 50); // +/- 50%
     (seed, props.dot) = seed.randomize(props.dot, 50);
     props.count = props.count / 3 * 3; // always multiple of 3
+  }
+
+  function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
+    Randomizer.Seed memory seed = Randomizer.Seed(_assetId, 0);
+    Props memory props;
+    (seed, props) = generateProps(seed);
 
     bytes memory path;
     (,path) = generatePath(seed, props);
