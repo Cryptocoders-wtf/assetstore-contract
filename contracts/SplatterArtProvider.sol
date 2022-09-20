@@ -28,7 +28,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   using Trigonometry for uint;
 
   string constant providerKey = "spltart";
-  uint constant stylesPerSeed = 2;
+  uint constant stylesPerSeed = 3;
   SplatterProvider public splatter;
 
   constructor(SplatterProvider _splatter) {
@@ -113,6 +113,21 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
           uint256(212 + 212 * angle.cos() / 0x7fff).toString(), ',',
           uint256(212 + 212 * angle.sin() / 0x7fff).toString(),
           ') scale(0.586, 0.586)" />\n');
+      }
+    } else if (style == 2) {
+      for (uint i = 0; i < 10; i++) {
+        uint size;
+        (seed, size) = seed.random(400);
+        size += 100;
+        uint margin = (1024 - 1024 * size / 1000) / 2;
+        uint x;
+        uint y;
+        (seed, x) = seed.randomize(margin, 100);
+        (seed, y) = seed.randomize(margin, 100);
+        (seed, path) = splatter.generatePath(seed, count, length, dot);
+        body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i % scheme.length], '" transform="translate(',
+          x.toString(), ',', y.toString(),
+          ') scale(0.',size.toString(),', 0.',size.toString(),')" />\n');
       }
     }
 
