@@ -113,26 +113,21 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
           ') scale(0.586, 0.586)" />\n');
       }
     } else if (style == 2) {
-      for (uint i = 0; i < 20; i++) {
-        {
-          uint colorIndex;
-          (seed, colorIndex) = seed.random(scheme.length);
-          (seed, path) = splatter.generatePath(seed, props);
-          body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[colorIndex]);
-        }
-        {
-          uint size;
-          (seed, size) = seed.random(400);
-          size += 100;
-          uint margin = (1024 - 1024 * size / 1000) / 2;
-          uint x;
-          uint y;
-          (seed, x) = seed.randomize(margin, 100);
-          (seed, y) = seed.randomize(margin, 100);
-          body = abi.encodePacked(body, '" transform="translate(',
-            x.toString(), ',', y.toString(),
-            ') scale(0.',size.toString(),', 0.',size.toString(),')" />\n');
-        }
+      for (uint i = 0; i < scheme.length * 6; i++) {
+        (seed, path) = splatter.generatePath(seed, props);
+        body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i / 6]);
+
+        uint size;
+        (seed, size) = seed.random(400);
+        size += 100;
+        uint margin = (1024 - 1024 * size / 1000) / 2;
+        uint x;
+        uint y;
+        (seed, x) = seed.randomize(margin, 100);
+        (seed, y) = seed.randomize(margin, 100);
+        body = abi.encodePacked(body, '" transform="translate(',
+          x.toString(), ',', y.toString(),
+          ') scale(0.',size.toString(),', 0.',size.toString(),')" />\n');
       }
     }
 
