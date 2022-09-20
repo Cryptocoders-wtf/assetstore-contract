@@ -28,7 +28,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   using Trigonometry for uint;
 
   string constant providerKey = "spltart";
-  uint constant stylesPerSeed = 3;
+  uint constant stylesPerSeed = 4;
   SplatterProvider public splatter;
 
   constructor(SplatterProvider _splatter) {
@@ -94,28 +94,18 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
 
     bytes memory path;
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
-    uint256 style = _assetId % stylesPerSeed;
     bytes memory body;
     string[] memory scheme;
     (seed, scheme) = getColorScheme(seed);
 
-    if (style == 0) {
-    (seed, path) = splatter.generatePath(seed, props);
+    if (_assetId % stylesPerSeed == 0) {
+      (seed, path) = splatter.generatePath(seed, props);
       body = abi.encodePacked('<path d="', path, '" fill="#', scheme[0], '" />\n');
-    } else if (style == 1) {
-      uint colorLength = scheme.length;
-      for (uint i = 0; i < colorLength; i++) {
-        uint256 angle = 0x4000 * i / colorLength;
+    } else {
+      seed = Randomizer.Seed(_assetId, 0);
+      for (uint i = 0; i < scheme.length * 10; i++) {
         (seed, path) = splatter.generatePath(seed, props);
-        body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i], '" transform="translate(',
-          uint256(212 + 212 * angle.cos() / 0x7fff).toString(), ',',
-          uint256(212 + 212 * angle.sin() / 0x7fff).toString(),
-          ') scale(0.586, 0.586)" />\n');
-      }
-    } else if (style == 2) {
-      for (uint i = 0; i < scheme.length * 6; i++) {
-        (seed, path) = splatter.generatePath(seed, props);
-        body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i / 6]);
+        body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i / 10]);
 
         uint size;
         (seed, size) = seed.random(400);
