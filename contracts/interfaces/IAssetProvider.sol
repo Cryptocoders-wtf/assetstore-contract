@@ -18,12 +18,14 @@ interface IAssetProvider {
     IAssetProvider provider;
   }
   function getProviderInfo() external view returns(ProviderInfo memory);
+
   /**
    * This function returns SVGPart and the tag. The SVGPart consists of one or more SVG elements.
    * The tag specifies the identifier of the SVG element to be displayed (using <use> tag).
    * The tag is the combination of the provider key and assetId (e.e., "asset123")
    */
-  function generateSVGPart(uint256 _assetId) external view returns(string memory, string memory);
+  function generateSVGPart(uint256 _assetId) external view returns(string memory svgPart, string memory tag);
+
   /**
    * This function returns the number of assets available from this provider. 
    * If the total supply is 100, assetIds of available assets are 0,1,...99.
@@ -38,7 +40,7 @@ interface IAssetProvider {
   function getOwner() external view returns (address);
 
   /**
-   * Processes the payout
+   * This function processes the royalty payment from the decentralized autonomous marketplace. 
    */
   function processPayout(uint256 _assetId) external payable;
 
