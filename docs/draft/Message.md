@@ -13,7 +13,7 @@ As the second step, I am building a Decentralized Autonomous Marketplace (DAM), 
 - **Asset Provider**: An interface, which allows smart contracts to provide vector assets and receive royalty payments (beta)
 - **On-Chain Vector Editor**: A WebUI front-end, which allows the user to edit vector data and perform compositions of existing assets (beta)
 - **CC Share-Earnings**: A new type of Creative Commons license, which enables autonomous revenue sharing (draft proposal)
-- **Generative Asset Providers**: Any smart contracts which act as an Asset Provider (work in progress)
+- **Generative Asset Providers**: Any smart contracts which generate arts and offer tham via the Asset Provider interface (beta)
 - **Decentralized Autonomous Marketplace**: A marketplace that allows Asset Providers to offer their vector assets and receive royalties from generated revenue autonomously (beta)
 
 The full document is available at [On-Chain Asset Store, Composer and Decentralized Autonomous Marketplace](https://hackmd.io/@snakajima/HJva6n-Jj).
