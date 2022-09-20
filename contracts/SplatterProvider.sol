@@ -26,6 +26,12 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
   using Randomizer for Randomizer.Seed;
   using Trigonometry for uint;
 
+  struct Props {
+    uint count; // number of control points
+    uint length; // average length fo arm
+    uint dot; // average size of dot
+  }
+
   string constant providerKey = "splt";
   address public receiver;
   ISVGHelper svgHelper;
@@ -67,11 +73,11 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     svgHelper = _svgHelper;
   }
 
-  function generatePoints(Randomizer.Seed memory _seed, uint _count, uint _length, uint _dot) pure internal returns(Randomizer.Seed memory, ISVGHelper.Point[] memory) {
+  function generatePoints(Randomizer.Seed memory _seed, Props memory _props) pure internal returns(Randomizer.Seed memory, ISVGHelper.Point[] memory) {
     Randomizer.Seed memory seed = _seed;
-    uint[] memory degrees = new uint[](_count);
+    uint[] memory degrees = new uint[](_props.count);
     uint total;
-    for (uint i = 0; i < _count; i++) {
+    for (uint i = 0; i < _props.count; i++) {
       uint degree;
       (seed, degree) = seed.randomize(100, 90);
       degrees[i] = total;
@@ -80,16 +86,16 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
 
     uint r0 = 220;
     uint r1 = r0;
-    ISVGHelper.Point[] memory points = new ISVGHelper.Point[](_count  + _count /3 * 5);
+    ISVGHelper.Point[] memory points = new ISVGHelper.Point[](_props.count  + _props.count /3 * 5);
     uint j = 0;
-    for (uint i = 0; i < _count; i++) {
+    for (uint i = 0; i < _props.count; i++) {
       {
         uint angle = degrees[i] * 0x4000 / total + 0x4000;
         if (i % 3 == 0) {
           uint extra;
-          (seed, extra) = seed.randomize(_length, 100);
+          (seed, extra) = seed.randomize(_props.length, 100);
           uint arc;
-          (seed, arc) = seed.randomize(_dot, 50); 
+          (seed, arc) = seed.randomize(_props.dot, 50); 
 
           points[j].x = int32(512 + (angle - 30).cos() * int(r1) / 0x8000);
           points[j].y = int32(512 + (angle - 30).sin() * int(r1) / 0x8000);
@@ -138,24 +144,22 @@ contract SplatterProvider is IAssetProvider, IERC165, Ownable {
     return (seed, points);
   }
 
-  function generatePath(Randomizer.Seed memory _seed, uint _count, uint _length, uint _dot) public view returns(Randomizer.Seed memory seed, bytes memory svgPart) {
+  function generatePath(Randomizer.Seed memory _seed, Props memory _props) public view returns(Randomizer.Seed memory seed, bytes memory svgPart) {
     ISVGHelper.Point[] memory points;
-    (seed, points) = generatePoints(_seed, _count, _length, _dot);
+    (seed, points) = generatePoints(_seed, _props);
     svgPart = svgHelper.PathFromPoints(points);
   }
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
     Randomizer.Seed memory seed = Randomizer.Seed(_assetId, 0);
-    uint count = 30;
-    uint length = 40;
-    uint dot = 100;
-    (seed, count) = seed.randomize(count, 50); // +/- 50%
-    (seed, length) = seed.randomize(length, 50); // +/- 50%
-    (seed, dot) = seed.randomize(dot, 50);
-    count = count / 3 * 3; // always multiple of 3
+    Props memory props = Props(30, 40, 100);
+    (seed, props.count) = seed.randomize(props.count, 50); // +/- 50%
+    (seed, props.length) = seed.randomize(props.length, 50); // +/- 50%
+    (seed, props.dot) = seed.randomize(props.dot, 50);
+    props.count = props.count / 3 * 3; // always multiple of 3
 
     bytes memory path;
-    (,path) = generatePath(seed, count, length, dot);
+    (,path) = generatePath(seed, props);
 
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
     svgPart = string(abi.encodePacked(

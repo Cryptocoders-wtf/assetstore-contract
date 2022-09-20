@@ -86,13 +86,11 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
 
   function generateSVGPart(uint256 _assetId) external view override returns(string memory svgPart, string memory tag) {
     Randomizer.Seed memory seed = Randomizer.Seed(_assetId/stylesPerSeed, 0);
-    uint count = 30;
-    uint length = 40;
-    uint dot = 100;
-    (seed, count) = seed.randomize(count, 50); // +/- 50%
-    (seed, length) = seed.randomize(length, 50); // +/- 50%
-    (seed, dot) = seed.randomize(dot, 50);
-    count = count / 3 * 3; // always multiple of 3
+    SplatterProvider.Props memory props = SplatterProvider.Props(30, 40, 100);
+    (seed, props.count) = seed.randomize(props.count, 50); // +/- 50%
+    (seed, props.length) = seed.randomize(props.length, 50); // +/- 50%
+    (seed, props.dot) = seed.randomize(props.dot, 50);
+    props.count = props.count / 3 * 3; // always multiple of 3
 
     bytes memory path;
     tag = string(abi.encodePacked(providerKey, _assetId.toString()));
@@ -102,13 +100,13 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
     (seed, scheme) = getColorScheme(seed);
 
     if (style == 0) {
-    (seed, path) = splatter.generatePath(seed, count, length, dot);
+    (seed, path) = splatter.generatePath(seed, props);
       body = abi.encodePacked('<path d="', path, '" fill="#', scheme[0], '" />\n');
     } else if (style == 1) {
       uint colorLength = scheme.length;
       for (uint i = 0; i < colorLength; i++) {
         uint256 angle = 0x4000 * i / colorLength;
-        (seed, path) = splatter.generatePath(seed, count, length, dot);
+        (seed, path) = splatter.generatePath(seed, props);
         body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[i], '" transform="translate(',
           uint256(212 + 212 * angle.cos() / 0x7fff).toString(), ',',
           uint256(212 + 212 * angle.sin() / 0x7fff).toString(),
@@ -119,7 +117,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
         {
           uint colorIndex;
           (seed, colorIndex) = seed.random(scheme.length);
-          (seed, path) = splatter.generatePath(seed, count, length, dot);
+          (seed, path) = splatter.generatePath(seed, props);
           body = abi.encodePacked(body, '<path d="', path, '" fill="#', scheme[colorIndex]);
         }
         {
