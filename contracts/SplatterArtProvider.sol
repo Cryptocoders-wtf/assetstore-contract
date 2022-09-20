@@ -50,7 +50,7 @@ contract SplatterArtProvider is IAssetProvider, IERC165, Ownable {
   }
 
   function totalSupply() external pure override returns(uint256) {
-    return 100; 
+    return 0; 
   }
 
   function processPayout(uint256 _assetId) external override payable {
