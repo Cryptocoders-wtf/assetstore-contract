@@ -1,12 +1,15 @@
 import { ethers, network } from "hardhat";
 import { token_addresses as local_addresses } from '../cache/addresses_draw_localhost';
 import { token_addresses as rinkeby_addresses } from '../cache/addresses_draw_rinkeby';
+import { token_addresses as goerli_addresses } from '../cache/addresses_draw_rinkeby';
 
 const getComposerAddress = () => {
   if (network.name == "localhost") {
     return local_addresses.composerAddress;
   } else if (network.name == "rinkeby") {
     return rinkeby_addresses.composerAddress;
+  } else if (network.name == "goerli") {
+    return goerli_addresses.composerAddress;
   }
   return "error";
 };
