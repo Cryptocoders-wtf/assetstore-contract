@@ -180,7 +180,7 @@ We would like to invite other developers to join this effort. If anybody is inte
 
 ## Decentralized Autonomous Marketplace
 
-As described above, we are designing and implementing the **decentralized autonomous marketplace (DAM)** of digital assets, where designers, remixers, crowd-minters, and developers can earn money.
+As described above, we are designing and implementing a **decentralized autonomous marketplace (DAM)** of digital assets, where designers, remixers, crowd-minters, and developers can earn money.
 
 ![](https://i.imgur.com/zzcR4rv.png)
 
