@@ -110,7 +110,11 @@ Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cry
 
 Asset Composer is a *smart contract*, which allows developers and users to create a new vector asset by composing existing vector assets, provided by asset providers (described below).
 
-Asset Composer is also act as an asset provider, providing compositions as assets. When a composition receives a revenue (from the marketplace), Asset Composer will distribute it to appropriate asset providers autonomously.  
+Asset Composer is also act as an asset provider, providing compositions as assets. When a composition receives a revenue (from the marketplace), Asset Composer will distribute it to appropriate asset providers autonomously.
+
+![](https://i.imgur.com/9ZlNoM8.png)
+
+![](https://i.imgur.com/ddhwxA7.png)
 
 You can see the current version of Asset Composer code [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
 
@@ -176,7 +180,7 @@ We would like to invite other developers to join this effort. If anybody is inte
 
 ## Decentralized Autonomous Marketplace
 
-As described above, we are designing and implementing the world-first **decentralized autonomous marketplace (DAM)** of digital assets, where designers, remixers, crowd-minters, and developers can earn money.
+As described above, we are designing and implementing the **decentralized autonomous marketplace (DAM)** of digital assets, where designers, remixers, crowd-minters, and developers can earn money.
 
 ![](https://i.imgur.com/zzcR4rv.png)
 
