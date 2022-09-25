@@ -3,15 +3,15 @@ import { ChainId, getContractAddressesForChainOrThrow, getContractsForChainOrThr
 import { token_addresses as local_addresses } from '../cache/addresses_draw_localhost';
 import { token_addresses as rinkeby_addresses } from '../cache/addresses_draw_rinkeby';
 
-const getComposerAddress = () => {
+const getRegistryAddress = () => {
   if (network.name == "localhost") {
-    return local_addresses.composerAddress;
+    return local_addresses.registryAddress;
   } else if (network.name == "rinkeby") {
-    return rinkeby_addresses.composerAddress;
+    return rinkeby_addresses.registryAddress;
   }
   return "error";
 };
-const composerAddress = getComposerAddress();
+const registryAddress = getRegistryAddress();
 
 const chainId = (network.name == "rinkeby") ? ChainId.Rinkeby : ChainId.Mainnet;
 console.log("network", network.name, chainId);
@@ -24,10 +24,10 @@ async function main() {
   await nounsProvider.deployed();
   console.log(`      nounsProvider="${nounsProvider.address}"`);
 
-  const composerFactory = await ethers.getContractFactory("AssetComposer");
-  const composer = composerFactory.attach(composerAddress);
+  const registryFactory = await ethers.getContractFactory("AssetProviderRegistry");
+  const registry = registryFactory.attach(registryAddress);
 
-  const tx = await composer.functions.registerProvider(nounsProvider.address);
+  const tx = await registry.functions.registerProvider(nounsProvider.address);
   const result = await tx.wait();
   console.log("events", result.events);
 }
