@@ -3,17 +3,16 @@ import { token_addresses as local_addresses } from '../cache/addresses_draw_loca
 import { token_addresses as rinkeby_addresses } from '../cache/addresses_draw_rinkeby';
 import { token_addresses as goerli_addresses } from '../cache/addresses_draw_rinkeby';
 
-const getComposerAddress = () => {
+const getRegistryAddress = () => {
   if (network.name == "localhost") {
-    return local_addresses.composerAddress;
+    return local_addresses.registryAddress;
   } else if (network.name == "rinkeby") {
-    return rinkeby_addresses.composerAddress;
-  } else if (network.name == "goerli") {
-    return goerli_addresses.composerAddress;
+    return rinkeby_addresses.registryAddress;
   }
   return "error";
 };
-const composerAddress = getComposerAddress();
+
+const registryAddress = getRegistryAddress();
 
 async function main() {
   const factory = await ethers.getContractFactory("SplatterProvider");
@@ -28,17 +27,17 @@ async function main() {
   await contractArt.deployed();
   console.log(`      splatter_art="${contractArt.address}"`);
 
-  const composerFactory = await ethers.getContractFactory("AssetComposer");
-  const composer = composerFactory.attach(composerAddress);
+  const registryFactory = await ethers.getContractFactory("AssetProviderRegistry");
+  const registry = registryFactory.attach(registryAddress);
 
-  const tx = await composer.functions.registerProvider(contract.address);
+  const tx = await registry.functions.registerProvider(contract.address);
   const result = await tx.wait();
   const event = result.events && result.events[0];
   if (event) {
     console.log("Splatter event", event.event);
   }
 
-  const tx2 = await composer.functions.registerProvider(contractArt.address);
+  const tx2 = await registry.functions.registerProvider(contractArt.address);
   const result2 = await tx2.wait();
   const event2 = result2.events && result2.events[0];
   if (event2) {
