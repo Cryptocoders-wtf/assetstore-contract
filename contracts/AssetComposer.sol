@@ -21,7 +21,7 @@ import { IAssetProvider, IAssetProviderRegistry, IAssetComposer } from './interf
 import "@openzeppelin/contracts/utils/Strings.sol";
 import '@openzeppelin/contracts/interfaces/IERC165.sol';
 
-contract AssetProviderRegistry is IAssetProviderRegistry {
+contract AssetProviderRegistry is IAssetProviderRegistry, Ownable {
   uint256 nextProvider; // 0-based
   mapping(string => uint256) providerIds; // key => providerId+1
   mapping(uint256 => IAssetProvider) providers;
@@ -61,9 +61,23 @@ contract AssetProviderRegistry is IAssetProviderRegistry {
     require(idPlusOne > 0, string(abi.encodePacked("AssestComposer:getProviderId, the provider does not exist:", _key)));
     return idPlusOne - 1;
   }
+
+  address public admin;
+  modifier onlyAdmin() {
+    require(owner() == msg.sender || admin == msg.sender, "AssetComposer: caller is not the admin");
+    _;
+  }
+
+  function setAdmin(address _admin) external onlyOwner {
+    admin = _admin;
+  }  
+
+  function setDisabledProvider(uint256 _providerId, bool _status) external onlyAdmin {
+    disabledProvider[_providerId] = _status;
+  }
 }
 
-contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
+abstract contract AssetComposerAdmin is Ownable {
   // Upgradable admin (only by owner)
   address public admin;
   mapping(uint256 => bool) public disabledComposition;
@@ -85,10 +99,6 @@ contract AssetComposerAdmin is AssetProviderRegistry, Ownable {
     disabledComposition[_compositionId] = _status;
   }
 
-  function setDisabledProvider(uint256 _providerId, bool _status) external onlyAdmin {
-    disabledProvider[_providerId] = _status;
-  }
-
   /**
    * Just in case.
    */
@@ -102,6 +112,7 @@ contract AssetComposerCore is AssetComposerAdmin, IAssetComposer {
   using Strings for uint256;
   string constant providerKey = "comp";
   IAssetStoreEx public immutable assetStore; // for IStringValidator
+  IAssetProviderRegistry public immutable registry;
 
   struct ProviderAsset {
     uint128 providerId;
@@ -115,8 +126,9 @@ contract AssetComposerCore is AssetComposerAdmin, IAssetComposer {
   mapping(uint256 => mapping(uint256 => bytes)) internal fills; // optinoal
   mapping(uint256 => mapping(uint256 => uint256)) internal strokes; // optinoal
 
-  constructor(IAssetStoreEx _assetStore) {
+  constructor(IAssetStoreEx _assetStore, IAssetProviderRegistry _registry) {
     assetStore = _assetStore;
+    registry = _registry;
   }
 
   /**
@@ -130,7 +142,7 @@ contract AssetComposerCore is AssetComposerAdmin, IAssetComposer {
     for (uint256 i=0; i<_layers.length; i++) {
       AssetLayer memory info = _layers[i];
       uint256 assetId = info.assetId;
-      uint256 providerId = getProviderId(info.provider);
+      uint256 providerId = registry.getProviderId(info.provider);
       assets[compositionId][i] = ProviderAsset(uint128(providerId), uint128(assetId)); 
       bytes memory transform = bytes(info.transform);
       if (transform.length > 0) {
@@ -154,7 +166,8 @@ contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
   using Strings for uint256;
   using Strings for uint8;
 
-  constructor(IAssetStoreEx _assetStore) AssetComposerCore(_assetStore) {
+  constructor(IAssetStoreEx _assetStore, IAssetProviderRegistry _registry) 
+    AssetComposerCore(_assetStore, _registry) {
   }
 
   function getOwner() external override view returns (address) {
@@ -179,7 +192,7 @@ contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
     if (!disabledComposition[_compositionId]) {
       for (uint256 i=0; i < layerLength; i++) {
         ProviderAsset memory asset = assets[_compositionId][i];
-        (ProviderInfo memory info, bool disabled) = getProvider(uint256(asset.providerId));
+        (ProviderInfo memory info, bool disabled) = registry.getProvider(uint256(asset.providerId));
         if (disabled) {
           continue;
         }
@@ -262,7 +275,7 @@ contract AssetComposer is AssetComposerCore, IAssetProvider, IERC165 {
         continue;
       }
       ProviderAsset memory asset = assets[_compositionId][i];
-      (ProviderInfo memory info,) = getProvider(uint256(asset.providerId));
+      (ProviderInfo memory info,) = registry.getProvider(uint256(asset.providerId));
       info.provider.processPayout{value:payout}(asset.assetId);
     }
   }  

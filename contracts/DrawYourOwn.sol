@@ -64,11 +64,12 @@ abstract contract DrawYourOwnCore is ERC721A {
     developer = _developer;
     proxyRegistry = _proxyRegistry;
 
-    AssetComposer composer = new AssetComposer(_assetStore);
+    IAssetProviderRegistry providerRegistry = new AssetProviderRegistry();
+    AssetComposer composer = new AssetComposer(_assetStore, providerRegistry);
     composer.transferOwnership(msg.sender);
     IAssetProvider assetProvider = new AssetStoreProvider(_assetStore);
-    composer.registerProvider(assetProvider);
-    composer.registerProvider(composer);
+    providerRegistry.registerProvider(assetProvider);
+    providerRegistry.registerProvider(composer);
 
     assetComposer = composer;
   }
