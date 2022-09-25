@@ -38,7 +38,7 @@ async function main() {
 
   const addresses = `export const token_addresses = {\n`
   + `  customTokenAddress:"${tokenContract.address}",\n`
-  + `  composerAddress:"${composer.address},"\n`
+  + `  composerAddress:"${composer.address}",\n`
   + `  registryAddress:"${registry.address}"\n`
   + `}\n`;
   await writeFile(`./cache/addresses_draw_${network.name}.ts`, addresses, ()=>{});
