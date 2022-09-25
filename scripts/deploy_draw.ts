@@ -19,14 +19,18 @@ async function main() {
   const composerFactory = await ethers.getContractFactory("AssetComposer");
   const composer = composerFactory.attach(composerAddress);
 
-  const count = await composer.providerCount();
+  const registryAddress = await composer.registry();
+  const registryFactory = await ethers.getContractFactory("AssetProviderRegistry");
+  const registry = registryFactory.attach(registryAddress);
+
+  const count = await registry.providerCount();
   console.log(` providerCount=`, count.toNumber());
-  const [info] = await composer.getProvider(0);
+  const [info] = await registry.getProvider(0);
   const storeProviderFactory = await ethers.getContractFactory("AssetStoreProvider");
   const storeProvider = storeProviderFactory.attach(info.provider);
   const supply = await storeProvider.totalSupply();
   console.log(` providerInfo=`, info.key, info.name, info.provider, supply.toNumber());
-  const [info1] = await composer.getProvider(1);
+  const [info1] = await registry.getProvider(1);
   console.log(` providerInfo=`, info1.key, info1.name, info1.provider);
   //const svgPart = await assetStoreProvider.generateSVGPart(0);
   //console.log(` svgPart=`, svgPart);
@@ -34,7 +38,8 @@ async function main() {
 
   const addresses = `export const token_addresses = {\n`
   + `  customTokenAddress:"${tokenContract.address}",\n`
-  + `  composerAddress:"${composer.address}"\n`
+  + `  composerAddress:"${composer.address},"\n`
+  + `  registryAddress:"${registry.address}"\n`
   + `}\n`;
   await writeFile(`./cache/addresses_draw_${network.name}.ts`, addresses, ()=>{});
 }
