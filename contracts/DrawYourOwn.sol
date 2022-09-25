@@ -26,6 +26,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
 import { IAssetComposer, IAssetProviderRegistry } from './interfaces/IAssetComposer.sol';
 
+import "./AssetProviderRegistry.sol";
 import "./AssetComposer.sol";
 import "./AssetStoreProvider.sol";
 
