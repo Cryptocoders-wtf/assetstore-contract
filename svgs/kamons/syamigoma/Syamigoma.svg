@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg11589"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Syamigoma.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs11593">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath11744">
+      <path
+         d="m -309.0078,445.9281 h 595.276 v -841.89 h -595.276 z"
+         id="path11746"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview11591"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg11589">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page11595"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="m 412.01,430.571 h -31.588 c -20.717,0 -37.512,-16.795 -37.512,-37.511 0,-20.722 16.795,-37.517 37.512,-37.517 h 31.588 c 20.717,0 37.512,16.795 37.512,37.517 0,20.716 -16.795,37.511 -37.512,37.511 m 224.001,51.885 C 567.599,454.18 534.755,430.459 506.996,404.222 c -14.938,-14.123 -24.238,-34.135 -24.238,-56.317 0,-28.456 15.338,-53.332 38.194,-66.823 h -62.077 l -0.053,9.728 c 0,2.265 -1.843,4.099 -4.111,4.099 -2.265,0 -4.104,-1.838 -4.104,-4.104 l 0.059,-9.723 h -50.372 v 9.728 c 0,2.265 -1.839,4.099 -4.105,4.099 -2.266,0 -4.11,-1.834 -4.11,-4.099 v -9.728 h -50.367 l 0.053,9.723 c 0,2.266 -1.839,4.104 -4.104,4.104 -2.267,0 -4.105,-1.834 -4.105,-4.099 l -0.054,-9.728 h -62.076 c 22.848,13.491 38.184,38.367 38.184,66.823 0,22.182 -9.294,42.194 -24.234,56.317 -27.763,26.237 -60.603,49.958 -129.019,78.234 -58.6249,24.235 -82.0995,29.648 -82.0995,29.648 H 718.109 c 0,0 -23.469,-5.413 -82.098,-29.648"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path11609" />
+</svg>
