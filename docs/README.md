@@ -172,7 +172,7 @@ As described in the Asset Provider section, any smart contract, which supports [
 
 <u>This is a new business opportunity for developers, who are interested in creating **generative arts**</u>.
 
-In order to make it easy for developers to get into this market, we are building libraries and sample code. [SplatterProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/SplatterProvider.sol) is one of sample smart contract, which generates images programatically (see below).
+In order to make it easy for developers to get into this market, we are building libraries and sample code. [SplatterProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/SplatterProvider.sol) is one of sample smart contracts (see below).
 
 ![](https://i.imgur.com/HVAIajb.png)
 
