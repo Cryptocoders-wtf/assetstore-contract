@@ -7,7 +7,7 @@ async function main() {
   const storeFactory = await ethers.getContractFactory("AssetStore");
   const assetStore = storeFactory.attach(storeAddress);
 
-  const factory = await ethers.getContractFactory("DrawYourOwn");
+  const factory = await ethers.getContractFactory("OnChainCanvas");
   const tokenContract = await factory.deploy(storeAddress, storeAddress, developer, proxy);
   await tokenContract.deployed();
   console.log(`      tokenAddress="${tokenContract.address}"`);

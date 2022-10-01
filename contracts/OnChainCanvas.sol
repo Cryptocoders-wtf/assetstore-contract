@@ -30,7 +30,7 @@ import "./AssetProviderRegistry.sol";
 import "./AssetComposer.sol";
 import "./AssetStoreProvider.sol";
 
-abstract contract DrawYourOwnCore is ERC721A {
+abstract contract OnChainCanvasCore is ERC721A {
   IAssetStoreRegistry public immutable registry;
   IAssetStoreEx public immutable assetStore;
 
@@ -80,7 +80,7 @@ abstract contract DrawYourOwnCore is ERC721A {
   }
 }
 
-abstract contract DrawYourOwnAdmin is DrawYourOwnCore, Ownable {
+abstract contract OnChainCanvasAdmin is OnChainCanvasCore, Ownable {
   // 1e18 = 1 ether
   uint256 public mintPrice = 2e16; //0.02 ether 
 
@@ -98,7 +98,7 @@ abstract contract DrawYourOwnAdmin is DrawYourOwnCore, Ownable {
   }
 }
 
-contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
+contract OnChainCanvas is OnChainCanvasAdmin, IAssetStoreToken {
   using Strings for uint256;
   using Strings for uint16;
 
@@ -107,7 +107,7 @@ contract DrawYourOwn is DrawYourOwnAdmin, IAssetStoreToken {
     IAssetStoreEx _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
-  ) DrawYourOwnCore(_registry, _assetStore, _developer, _proxyRegistry) {}
+  ) OnChainCanvasCore(_registry, _assetStore, _developer, _proxyRegistry) {}
 
   struct RemixInfo {
     uint256 tokenId; // tokenId (of this NFT)
