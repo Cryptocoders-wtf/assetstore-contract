@@ -59,7 +59,7 @@ abstract contract OnChainCanvasCore is ERC721A {
     IAssetStoreEx _assetStore,
     address _developer,
     IProxyRegistry _proxyRegistry
-  ) ERC721A("Draw Your Own NFT", "DrawNFT") {
+  ) ERC721A("On-Chain Canvas", "CANVAS") {
     registry = _registry;
     assetStore = _assetStore;
     developer = _developer;

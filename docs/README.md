@@ -38,7 +38,7 @@ There are some efforts to work around this problem, but there are many technical
 
 ## Vision and Mission
 
-Considering the current situation, we have determined to create a set of technologies and mechanisms, which will <u>make it easier and affordable to store, share and compose vector images on-chain, enabling fully on-chain NFTs with rich graphics</u>.
+Considering the current situation, we have determined to create a set of technologies and mechanisms, which will <u>make it easier and affordable to store, share, generate and compose vector images on-chain, enabling fully on-chain NFTs with rich graphics</u>.
 
 We believe that we need to build a **decentralized autonomous marketplace** (automated by smart contracts), where creators can generate revenue from their creations while enabling and encouraging remixes and compositions.
 
