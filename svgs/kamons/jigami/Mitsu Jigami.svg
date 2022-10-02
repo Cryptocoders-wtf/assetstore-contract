@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1728"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Mitsu Jigami.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1732">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1911">
+      <path
+         d="m -297.1377,321.9618 h 595.276 v -841.89 h -595.276 z"
+         id="path1913"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1917">
+      <path
+         d="m -382.4043,469.6449 h 595.276 v -841.89 h -595.276 z"
+         id="path1919"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1923">
+      <path
+         d="m -211.8745,469.6449 h 595.27599 v -841.89 H -211.8745 Z"
+         id="path1925"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview1730"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1728">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page1734"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="m 396.184,267.282 c 40.729,0 77.129,18.536 101.224,47.629 L 697.521,219.925 C 636.459,117.193 524.364,48.349 396.184,48.349 c -128.18,0 -240.277,68.844 -301.3379,171.576 l 200.1129,94.986 c 24.096,-29.093 60.496,-47.629 101.225,-47.629"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path1748" />
+  <path
+     d="M 282.499,464.193 C 262.135,428.922 259.984,388.129 273.135,352.712 L 90.8141,226.912 C 32.3823,331.149 28.8063,462.66 92.8995,573.659 156.986,684.666 272.652,747.32 392.153,748.838 L 374.359,528.04 c -37.244,-6.319 -71.495,-28.574 -91.86,-63.847"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path1752" />
+  <path
+     d="m 509.872,464.193 c -20.364,35.273 -54.621,57.528 -91.864,63.847 l -17.789,220.792 c 119.494,-1.512 235.171,-64.17 299.253,-175.173 64.093,-111.005 60.51,-242.51 2.08,-346.753 l -182.32,125.806 c 13.148,35.417 11,76.21 -9.36,111.481"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path1756" />
+</svg>

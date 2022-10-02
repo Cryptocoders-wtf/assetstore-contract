@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1210"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Tyuukage Mitsujigami.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1214">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1393">
+      <path
+         d="m -297.3423,302.2489 h 595.276 v -841.89 h -595.276 z"
+         id="path1395"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1399">
+      <path
+         d="M -516.8398,547.5902 H 78.436194 v -841.89 H -516.8398 Z"
+         id="path1401"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1405">
+      <path
+         d="M -77.436002,547.5902 H 517.84 v -841.89 H -77.436002 Z"
+         id="path1407"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview1212"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1210">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page1216"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="m 396.456,238.999 c -42.189,0 -80.876,16.776 -108.98,43.976 L 119.685,203.339 C 180.522,115.922 281.623,58.735 396.184,58.743 510.733,58.735 611.835,115.919 672.681,203.334 L 504.89,282.978 C 476.786,255.776 438.645,238.999 396.456,238.999 M 396.184,36.848 c -131.178,0 -245.894,70.453 -308.3766,175.586 l 204.7886,97.205 c 24.658,-29.775 61.907,-48.741 103.588,-48.741 41.68,0 78.93,18.966 103.586,48.741 L 704.562,212.434 C 642.077,107.301 527.361,36.848 396.184,36.848"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path1230" />
+  <path
+     d="M 103.248,566.12 C 45.9655,466.922 44.9401,350.773 90.2214,254.374 L 243.09,359.865 c -9.502,37.935 -4.965,79.357 16.131,115.893 21.093,36.535 54.958,61.649 92.577,72.391 l 14.923,185.127 C 260.596,724.296 160.52,665.334 103.248,566.12 m 269.075,-35.737 c -38.11,-6.467 -73.162,-29.242 -94.003,-65.34 -20.84,-36.095 -23.043,-77.837 -9.584,-114.081 L 82.1627,222.213 C 22.3509,328.895 18.6949,463.47 84.2894,577.069 149.873,690.67 268.244,754.789 390.539,756.34 Z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path1234" />
+  <path
+     d="M 689.12,566.12 C 631.852,665.324 531.776,724.29 425.657,733.276 l 14.92,-185.133 c 37.606,-10.736 71.21,-35.38 92.301,-71.916 21.092,-36.535 25.909,-78.421 16.409,-116.368 l 152.86,-105.493 c 45.288,96.4 44.262,212.545 -13.027,311.754 m 21.091,-343.91 -186.58,128.752 c 13.461,36.244 11.257,77.986 -9.584,114.081 -20.839,36.098 -55.888,58.873 -94.002,65.34 l -18.216,225.951 c 122.294,-1.545 240.666,-65.669 306.255,-179.267 65.588,-113.6 61.932,-248.174 2.127,-354.857"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path1238" />
+</svg>

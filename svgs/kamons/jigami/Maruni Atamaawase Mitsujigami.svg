@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg2978"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Maruni Atamaawase Mitsujigami.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2982">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3175">
+      <path
+         d="m -461.7246,276.3802 h 595.276 v -841.89 h -595.276 z"
+         id="path3177"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3181">
+      <path
+         d="M -91.577102,348.3417 H 503.6989 v -841.89 H -91.577102 Z"
+         id="path3183"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3187">
+      <path
+         d="m -338.0928,633.4203 h 595.276 v -841.89 h -595.276 z"
+         id="path3189"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3193">
+      <path
+         d="m -136.2744,259.5873 h 595.27599 v -841.89 H -136.2744 Z"
+         id="path3195"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview2980"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2978">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page2984"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="M 615.633,206.507 C 580.58,293.311 495.529,354.564 396.17,354.564 c -99.359,0 -184.377,-61.273 -219.44,-148.073 l 129.296,-74.654 c 17.992,31.107 51.617,52.035 90.144,52.035 38.517,0 72.142,-20.928 90.134,-52.027 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path2998" />
+  <path
+     d="m 122.103,302.456 c 92.704,-13.041 188.273,29.983 237.955,116.034 49.683,86.052 39.131,190.315 -18.516,264.07 L 212.241,607.927 c 17.944,-31.148 19.252,-70.732 0,-104.09 -19.258,-33.36 -54.198,-52.013 -90.127,-52.048 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path3002" />
+  <path
+     d="M 450.79,682.56 C 393.145,608.806 382.62,504.516 432.307,418.473 481.989,332.424 577.559,289.43 670.259,302.468 l 0.004,149.301 c -35.94,0.034 -70.876,18.688 -90.133,52.041 -19.263,33.362 -17.948,72.945 -0.011,104.086 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path3006" />
+  <path
+     d="M 181.699,184.116 C 126.774,239.1 92.8872,314.744 92.8766,398.597 c 0.0106,83.85 33.8974,159.495 88.8224,214.473 54.989,54.923 130.633,88.817 214.486,88.833 83.848,-0.016 159.496,-33.91 214.476,-88.833 54.925,-54.978 88.823,-130.623 88.834,-214.473 C 699.484,314.744 665.586,239.1 610.661,184.116 555.681,129.191 480.033,95.298 396.185,95.284 312.332,95.298 236.688,129.191 181.699,184.116 M 35.394,398.597 C 35.4167,199.325 196.911,37.831 396.185,37.807 595.453,37.831 756.943,199.325 756.97,398.597 756.943,597.866 595.453,759.356 396.185,759.379 196.911,759.356 35.4167,597.866 35.394,398.597"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path3010" />
+</svg>

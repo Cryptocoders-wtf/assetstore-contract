@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg2734"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Kasane Jigami.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2738">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2903">
+      <path
+         d="M -552.1768,460.305 H 43.099201 v -841.89 H -552.1768 Z"
+         id="path2905"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2909">
+      <path
+         d="M -527.7393,412.8973 H 67.536699 v -841.89 H -527.7393 Z"
+         id="path2911"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview2736"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2734">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page2740"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="M 736.236,463.74 C 670.525,343.486 542.87,261.927 396.174,261.927 c -146.689,0 -274.328,81.561 -340.0403,201.808 L 247.423,655.01 c 28.862,-52.434 84.67,-87.948 148.751,-87.948 64.083,0 119.868,35.544 148.737,87.98 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path2754" />
+  <path
+     d="m 703.652,400.53 32.584,-32.573 C 670.524,247.702 542.868,166.145 396.174,166.145 c -146.69,0 -274.329,81.56 -340.0417,201.806 l 32.4879,32.555 C 161.12,310.934 271.965,253.718 396.174,253.718 c 124.174,0 234.989,57.272 307.478,146.812"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path2758" />
+</svg>

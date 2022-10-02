@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg3282"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Maruni Kagenokasane Jigami.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3286">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3465">
+      <path
+         d="m -133.8677,257.1669 h 595.276 v -841.89 h -595.276 z"
+         id="path3467"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3471">
+      <path
+         d="m -382.1729,464.5492 h 595.276 v -841.89 h -595.276 z"
+         id="path3473"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3477">
+      <path
+         d="m -463.8799,443.3714 h 595.276 v -841.89 h -595.276 z"
+         id="path3479"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview3284"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3282">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page3288"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="m 509.564,459.399 c -25.089,-36.14 -66.529,-59.771 -113.358,-59.777 -46.823,0 -88.268,23.626 -113.347,59.769 L 146.26,379.118 C 189.203,282.195 284.837,214.764 395.971,214.693 l 0.565,0.068 0.162,-0.068 c 111.015,0.177 206.5,67.624 249.41,164.446 z M 671.39,380.73 C 627.442,269.921 520.809,191.718 396.206,191.696 271.602,191.718 164.936,269.898 120.984,380.722 l -3.26,8.196 7.536,4.424 165.371,97.188 4.992,-8.798 c 20.108,-35.349 57.587,-59.122 100.583,-59.106 42.996,-0.016 80.475,23.757 100.594,59.117 l 4.992,8.796 172.853,-101.605 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path3302" />
+  <path
+     d="m 618.507,431.162 19.712,-11.56 c 13.277,19.039 24.464,39.748 33.172,61.7 l 3.255,8.207 -172.853,101.606 -4.992,-8.797 C 476.682,546.956 439.202,523.186 396.206,523.2 353.21,523.186 315.732,546.956 295.624,582.307 l -4.992,8.797 -165.372,-97.19 -7.536,-4.421 3.26,-8.198 c 8.719,-21.982 19.9,-42.677 33.199,-61.732 l 19.706,11.568 c -10.728,15.119 -20.012,31.372 -27.629,48.562 l 136.6,80.274 c 25.078,-36.144 66.524,-59.775 113.346,-59.775 46.829,0.011 88.269,23.642 113.359,59.782 l 136.543,-80.26 c -7.612,-17.175 -16.88,-33.443 -27.601,-48.552"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path3306" />
+  <path
+     d="m 178.49,182.889 c -55.765,55.801 -90.1704,132.6 -90.1811,217.698 0.0107,85.113 34.4161,161.9 90.1811,217.698 55.803,55.748 132.589,90.159 217.705,90.159 85.092,0 161.895,-34.411 217.691,-90.159 55.76,-55.798 90.16,-132.585 90.171,-217.698 C 704.046,315.489 669.646,238.69 613.886,182.889 558.09,127.136 481.287,92.732 396.195,92.721 311.079,92.732 234.293,127.136 178.49,182.889 M 37.6797,400.587 C 37.701,202.581 198.181,42.112 396.195,42.091 594.185,42.112 754.663,202.581 754.686,400.587 754.663,598.596 594.185,759.074 396.195,759.096 198.181,759.074 37.701,598.596 37.6797,400.587"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path3310" />
+</svg>

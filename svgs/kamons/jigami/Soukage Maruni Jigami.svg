@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg542"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Soukage Maruni Jigami.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs546">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath725">
+      <path
+         d="m -135.6733,258.9833 h 595.276 v -841.89 h -595.276 z"
+         id="path727"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath731">
+      <path
+         d="m -116.8081,240.1156 h 595.276 v -841.89 h -595.276 z"
+         id="path733"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath737">
+      <path
+         d="m -384.4551,514.9222 h 595.276 v -841.89 h -595.276 z"
+         id="path739"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview544"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg542">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page548"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="M 512.607,524.563 658.093,439.039 C 613.735,336.645 513.2,265.125 396.209,265.149 279.214,265.125 178.644,336.613 134.291,439.017 l 145.533,85.533 c 25.305,-37.848 68.005,-62.722 116.385,-62.722 48.382,0.011 91.089,24.878 116.398,62.735 m -396.555,-71.969 -7.792,-4.575 3.373,-8.474 c 45.443,-114.59 155.732,-195.428 284.576,-195.449 128.835,0.021 239.092,80.883 284.536,195.457 l 3.367,8.484 -178.726,105.059 -5.164,-9.098 c -20.803,-36.56 -59.555,-61.139 -104.013,-61.124 -44.462,-0.015 -83.214,24.564 -104.005,61.116 l -5.164,9.1 z"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path562" />
+  <path
+     d="M 180.898,183.311 C 125.795,238.436 91.7316,314.5 91.7316,398.593 c 0,84.093 34.0634,160.166 89.1664,215.276 55.119,55.107 131.188,89.166 215.286,89.166 84.089,0 160.166,-34.059 215.278,-89.166 55.107,-55.11 89.172,-131.183 89.172,-215.276 0,-84.093 -34.065,-160.157 -89.172,-215.282 C 556.35,128.206 480.273,94.15 396.184,94.139 312.086,94.15 236.017,128.206 180.898,183.311 M 78.0489,398.593 C 78.0489,222.891 220.483,80.47 396.184,80.457 571.882,80.47 714.317,222.891 714.317,398.593 714.317,574.303 571.882,716.719 396.184,716.73 220.483,716.719 78.0489,574.303 78.0489,398.593"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path566" />
+  <path
+     d="m 155.744,158.154 c -61.5478,61.561 -99.5838,146.521 -99.5944,240.447 0.0106,93.913 38.0466,178.876 99.5944,240.433 61.559,61.532 146.518,99.579 240.43,99.579 93.929,0 178.888,-38.047 240.453,-99.579 61.53,-61.557 99.577,-146.52 99.577,-240.433 0,-93.926 -38.047,-178.886 -99.577,-240.447 C 575.062,96.617 490.103,58.573 396.174,58.562 302.262,58.573 217.303,96.617 155.744,158.154 M 42.4669,398.601 C 42.4669,203.245 200.835,44.89 396.174,44.88 591.535,44.89 749.889,203.245 749.9,398.601 749.889,593.949 591.535,752.295 396.174,752.306 200.835,752.295 42.4669,593.949 42.4669,398.601"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path570" />
+</svg>
