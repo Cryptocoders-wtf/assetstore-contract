@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg27376"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Shiriawase Mitsusuhama.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs27380">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath27559">
+      <path
+         d="m -309.3447,320.8197 h 595.276 v -841.89 h -595.276 z"
+         id="path27561"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath27565">
+      <path
+         d="m -167.3706,523.5365 h 595.276 v -841.89 h -595.276 z"
+         id="path27567"
+         style="stroke-width:0.999998" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath27571">
+      <path
+         d="m -413.918,545.1254 h 595.276 v -841.89 h -595.276 z"
+         id="path27573"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview27378"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg27376">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page27382"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="m 412.46,269.76 c -5.975,-2.151 -11.587,-5.096 -16.697,-8.675 -5.186,3.622 -10.872,6.542 -16.923,8.699 8.525,12.46 13.481,27.497 13.481,43.733 0,42.871 -34.754,77.648 -77.643,77.648 -42.888,0 -77.652,-34.777 -77.652,-77.648 0,-31.792 19.108,-59.129 46.46,-71.14 -0.43,-3.906 -0.632,-7.881 -0.632,-11.89 0,-62.019 50.276,-112.288 112.299,-112.288 61.998,0 112.279,50.269 112.279,112.288 0,3.74 -0.204,7.433 -0.547,11.076 27.965,11.729 47.603,39.392 47.603,71.637 0,42.866 -34.775,77.64 -77.657,77.64 -42.884,0 -77.648,-34.774 -77.648,-77.64 0,-16.079 4.908,-31.04 13.277,-43.44"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path27396" />
+  <path
+     d="m 223.161,540.049 c 1.128,6.256 1.384,12.58 0.844,18.785 5.725,2.683 11.101,6.146 15.992,10.307 6.521,-13.605 17.083,-25.423 31.129,-33.535 37.121,-21.441 84.639,-8.72 106.073,28.414 21.434,37.144 8.707,84.642 -28.416,106.078 -27.542,15.897 -60.766,13.011 -84.841,-4.66 -3.174,2.313 -6.504,4.484 -9.982,6.488 C 200.252,702.939 131.568,684.53 100.572,630.813 69.5601,577.112 87.9573,508.436 141.66,477.434 c 3.239,-1.876 6.541,-3.546 9.877,-5.062 -3.817,-30.077 10.316,-60.924 38.244,-77.045 37.131,-21.434 84.611,-8.707 106.06,28.432 21.433,37.133 8.718,84.626 -28.413,106.059 -13.93,8.042 -29.334,11.28 -44.267,10.231"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path27400" />
+  <path
+     d="m 551.891,568.834 c 4.855,-4.104 10.204,-7.485 15.864,-10.124 -0.551,-6.293 -0.245,-12.681 0.92,-19.001 -15.041,1.153 -30.552,-2.074 -44.621,-10.192 -37.122,-21.434 -49.848,-68.925 -28.414,-106.065 21.444,-37.14 68.94,-49.867 106.072,-28.427 27.533,15.897 41.653,46.116 38.373,75.797 3.602,1.594 7.151,3.4 10.614,5.404 53.708,31.004 72.116,99.688 41.093,153.403 -31.001,53.698 -99.668,72.107 -153.37,41.101 -3.239,-1.876 -6.35,-3.898 -9.322,-6.026 -24.138,18.356 -57.918,21.531 -85.842,5.411 -37.136,-21.441 -49.847,-68.937 -28.413,-106.07 21.433,-37.14 68.929,-49.86 106.055,-28.419 13.935,8.033 24.438,19.757 30.991,33.208"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path27404" />
+</svg>

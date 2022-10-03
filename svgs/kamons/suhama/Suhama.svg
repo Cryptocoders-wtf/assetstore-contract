@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg25672"
+   width="793.70135"
+   height="793.70099"
+   viewBox="0 0 793.70135 793.70097"
+   sodipodi:docname="Suhama.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs25676">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath25827">
+      <path
+         d="m -320.4453,441.4906 h 595.276 v -841.89 h -595.276 z"
+         id="path25829"
+         style="stroke-width:0.999998" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview25674"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.21024124"
+     inkscape:cx="-470.88764"
+     inkscape:cy="561.26002"
+     inkscape:window-width="1419"
+     inkscape:window-height="456"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg25672">
+    <inkscape:page
+       x="0"
+       y="0"
+       id="page25678"
+       width="793.70135"
+       height="793.70099" />
+  </sodipodi:namedview>
+  <path
+     d="m 427.26,428.654 c -11.123,-4.005 -21.552,-9.479 -31.076,-16.141 -9.632,6.737 -20.215,12.177 -31.481,16.194 15.852,23.18 25.094,51.183 25.094,81.399 0,79.796 -64.718,144.545 -144.537,144.545 -79.822,0 -144.539,-64.749 -144.539,-144.545 0,-59.176 35.56,-110.067 86.461,-132.427 -0.759,-7.27 -1.155,-14.657 -1.155,-22.129 0,-115.433 93.581,-209.013 209.013,-209.013 115.43,0 209.012,93.58 209.012,209.013 0,6.96 -0.363,13.839 -1.027,20.624 52.068,21.845 88.622,73.311 88.622,133.341 0,79.801 -64.729,144.532 -144.541,144.532 -79.827,0 -144.537,-64.731 -144.537,-144.532 0,-29.933 9.106,-57.782 24.691,-80.861"
+     style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     id="path25692" />
+</svg>
