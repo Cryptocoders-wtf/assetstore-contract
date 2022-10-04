@@ -1,0 +1,25 @@
+{
+  "name": "assetstore.sol",
+  "version": "1.0.1",
+  "description": "Interface to the On-chain AssetStore",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cryptocoders-wtf/assetstore-contract.git"
+  },
+  "keywords": [
+    "solidity",
+    "svg",
+    "asset",
+    "store"
+  ],
+  "author": "snakajima",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cryptocoders-wtf/assetstore-contract/issues"
+  },
+  "homepage": "https://github.com/Cryptocoders-wtf/assetstore-contract#readme"
+}
