@@ -26,7 +26,8 @@
 pragma solidity ^0.8.6;
 
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
-import { IAssetStoreRegistry, IAssetStore } from './interfaces/IAssetStore.sol';
+import { IAssetStore } from './interfaces/IAssetStore.sol';
+import { IAssetStoreRegistry } from './interfaces/IAssetStoreRegistry.sol';
 import { IStringValidator } from './interfaces/IStringValidator.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import './libs/StringValidator.sol';
