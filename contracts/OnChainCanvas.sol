@@ -20,11 +20,12 @@ import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "erc721a/contracts/ERC721A.sol";
 import { IAssetStoreRegistry, IAssetStore, IAssetStoreEx } from './interfaces/IAssetStore.sol';
+import { IAssetProviderRegistry } from './interfaces/IAssetProviderRegistry.sol';
 import { IAssetStoreToken } from './interfaces/IAssetStoreToken.sol';
 import { Base64 } from 'base64-sol/base64.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";
 import { IProxyRegistry } from './external/opensea/IProxyRegistry.sol';
-import { IAssetComposer, IAssetProviderRegistry } from './interfaces/IAssetComposer.sol';
+import { IAssetComposer } from './interfaces/IAssetComposer.sol';
 
 import "./AssetProviderRegistry.sol";
 import "./AssetComposer.sol";
