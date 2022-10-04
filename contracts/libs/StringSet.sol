@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.6;
 
-import { IStringValidator } from '../interfaces/IStringValidator.sol';
+import "assetstore.sol/IStringValidator.sol";
 
 /*
  * StringSet stores a set of names (or either group or catalog in AssetStore). 

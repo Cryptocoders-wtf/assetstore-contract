@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.6;
 
-import { IAssetStore } from '../interfaces/IAssetStore.sol';
+import "assetstore.sol/IAssetStore.sol";
 
 contract Benchmark {
   IAssetStore assetStore;
