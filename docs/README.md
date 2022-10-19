@@ -100,7 +100,7 @@ Instead, we ask each NFT minter to pay a small extra gas fee which is required t
 
 This is done by calling mintWithAsset() method, which stores the vector data to the On-Chain Asset Store and issues NFT(s) to the minter.
 
-We have launched three NFT collections ([Material Icons](https://assetstore.wtf/material), [Kamon Symbols](https://assetstore.wtf/kamon), [Emoji Flags](https://assetstore.wtf/emoji)) using crowd minting and <u>managed to upload over 1,400 vector images on the Ethereum blockchain</u>. 
+We have launched three NFT collections ([Material Icons](https://assetstore.wtf/material), [Kamon Symbols](https://assetstore.wtf/kamon), [Emoji Flags](https://assetstore.wtf/emoji)) using crowd minting and <u>managed to upload over 1,500 vector images on the Ethereum blockchain</u>.
 
 We also came up with an idea to give addtional rewards to those minters. Please see the "Draw2Earn" section below.
 
@@ -120,7 +120,7 @@ Asset Composer is also act as an asset provider, providing compositions as asset
 
 You can see the current version of Asset Composer code [here](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/AssetComposer.sol). 
 
-### Asset Providers (beta testing)
+### Asset Providers (deployed)
 
 Asset Providers are *a new category of smart contracts*, each of which provides a set of vector assets. Those assets are either stored on-chain, dynamically generated, or a combination of those.
 
@@ -168,7 +168,7 @@ As described above, [IAssetProvider](https://github.com/Cryptocoders-wtf/assetst
 
 We'd like to propose it as the standard mechanism to share revenue for various on-chain contents (not only images, but music and videos eventually).
 
-### Generative Asset Providers (work in progress)
+### Generative Asset Providers (deployed)
 
 As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider and start earning money.
 
@@ -178,7 +178,9 @@ In order to make it easy for developers to get into this market, we are building
 
 ![](https://i.imgur.com/HVAIajb.png)
 
-We would like to invite other developers to join this effort. If anybody is interested in it, please join the [On-Chain Asset Store](https://discord.gg/4JGURQujXK) discord. 
+We would like to invite other developers to join this effort. If anybody is interested in it, please join the [On-Chain Asset Store](https://discord.gg/4JGURQujXK) discord.
+
+We have release our first fully on-chain generative art NFT collection, [On-Chain Splatter](https://opensea.io/collection/on-chain-splatter) on October 17th, 2022, which was sold out within a few hours.
 
 ## Decentralized Autonomous Marketplace
 
