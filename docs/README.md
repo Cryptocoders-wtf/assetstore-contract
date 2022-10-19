@@ -166,7 +166,7 @@ During the development process of the Draw2Earn business model, we realized that
 
 <u>This license allows other people to copy or remix it just like regular Creative Commons, but revenue sharing is required if somebody uses it to generate revenue</u>.
 
-As described above, [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface has a built-in revenue-sharing mechanism (*processPayout* method), and <u>it allows us to create **autonomous marketplace** to buy and sell vector assets</u>. 
+As described above, [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/interfaces/IAssetProvider.sol) interface has a built-in revenue-sharing mechanism (*processPayout* method), and <u>it allows us to create **autonomous marketplace** to buy and sell vector assets</u>. 
 
 We'd like to propose it as the standard mechanism to share revenue for various on-chain contents (not only images, but music and videos eventually).
 
