@@ -14,6 +14,8 @@ On the other hand, <u>**fully on-chain NFTs** such as Nouns are guaranteed to "e
 
 It means you are the sole owner of those fully on-chain NFTs and nobody is able to take them away from you. "Fully on-chain NFT" means "decentralized NFT" -- the true Web3 spirit!
 
+In addition, fully on-chain NFTs are **composable**. They allow other smart contracts to extra images from them and create a new set of generative arts from them. <u>This composability enables new types of creative art and creates new types of revenues to artists and developers</u>.
+
 You can easily check if your NFTs are fully on-chain or not by calling tokenURI() method on Etherscan. If the URL starts with "http:" or "ipfs:", they are not on-chain NFTs. <u>The tokenURI method of a **truly decentralized NFT contract** will always return "data:" URL, which is the proof that its metadata and image are stored on-chain</u>. 
 
 ![](https://i.imgur.com/8vEdlYu.png)
