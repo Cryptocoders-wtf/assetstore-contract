@@ -126,9 +126,9 @@ Asset Providers are *a new category of smart contracts*, each of which provides 
 
 Asset Composer acts as the registration mechanism of those asset providers so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (described below).
 
-Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface (protocol). This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
+Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/interfaces/IAssetProvider.sol) interface (protocol). This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
 
-As a reference implementation, we have created a wrapper of NounsDescriptor, [NounsAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/NounsAssetProvider.sol), which offers dynamically generated Nouns characters as assets. 
+As a reference implementation, we have created a wrapper of NounsDescriptor, [NounsAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/NounsAssetProvider.sol), which offers dynamically generated Nouns characters as assets. 
 
 ![](https://i.imgur.com/c8ngYmT.png)
 
@@ -172,15 +172,15 @@ We'd like to propose it as the standard mechanism to share revenue for various o
 
 ### Generative Asset Providers (deployed)
 
-As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider and start earning money.
+As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/interfaces/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider and start earning money.
 
 <u>This is a new business opportunity for developers, who are interested in creating **generative arts**</u>.
 
-In order to make it easy for developers to get into this market, we are building libraries and sample code. [SplatterProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/SplatterProvider.sol) is one of sample smart contracts (see below).
+In order to make it easy for developers to get into this market, we are building libraries and sample code. [SplatterProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/SplatterProvider.sol) is one of sample smart contracts (see below).
 
 ![](https://i.imgur.com/HVAIajb.png)
 
-We would like to invite other developers to join this effort. If anybody is interested in it, please join the [On-Chain Asset Store](https://discord.gg/4JGURQujXK) discord.
+We would like to invite other developers to join this effort. If anybody is interested in it, please join the [Fully On-Chain](https://discord.gg/4JGURQujXK) discord.
 
 We have released our first fully on-chain generative art NFT collection, [On-Chain Splatter](https://opensea.io/collection/on-chain-splatter) on October 17th, 2022, which was sold out within a few hours.
 
