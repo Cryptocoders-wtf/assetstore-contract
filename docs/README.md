@@ -182,11 +182,11 @@ In order to make it easy for developers to get into this market, we are building
 
 We would like to invite other developers to join this effort. If anybody is interested in it, please join the [On-Chain Asset Store](https://discord.gg/4JGURQujXK) discord.
 
-We have release our first fully on-chain generative art NFT collection, [On-Chain Splatter](https://opensea.io/collection/on-chain-splatter) on October 17th, 2022, which was sold out within a few hours.
+We have released our first fully on-chain generative art NFT collection, [On-Chain Splatter](https://opensea.io/collection/on-chain-splatter) on October 17th, 2022, which was sold out within a few hours.
 
 ## Decentralized Autonomous Marketplace
 
-As described above, we are designing and implementing a **decentralized autonomous marketplace (DAM)** of digital assets, where designers, remixers, crowd-minters, and developers can earn money.
+As described above, we are designing and implementing a **decentralized autonomous marketplace (DAM)** of digital assets, where artists, remixers, crowd-minters, and developers can earn money.
 
 ![](https://i.imgur.com/Drxt6Iu.png)
 
