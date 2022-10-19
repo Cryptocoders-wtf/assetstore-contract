@@ -1,12 +1,12 @@
 # On-Chain Asset Store, Composer and Decentralized Autonomous Marketplace
 
-This is the summary document, which describes the vision & mission of this project and technologies and methods we are building, such as SVG compression, on-chain asset strore, crowd-Minting and Draw2Earn app. 
+This is the summary document, which describes the vision & mission of this project and technologies, protocols and methods we are building, such as SVG compression, on-chain asset strore, crowd-Minting, asset providers and Draw2Earn app. 
 
 ## Importance of being Fully On-chain
 
 While **decentralization** is one of the fundamental values of Web3, <u>most NFTs (including bluechip NFTs such as BAYC and Azuki) are **not fully on-chain**</u>, storing metadata and images on either HTTP server or IPFS. 
 
-Those NFTs will become inaccessible  once the NFT providers cease to exist or simply stop supporting them. 
+Those NFTs will become inaccessible once the NFT providers cease to exist or simply stop supporting them. 
 
 It means those NFTs are not yours, and they are under the control of NFT providers, just like many Web2 services. They are more like Web 2.5 NFTs. 
 
@@ -14,7 +14,7 @@ On the other hand, <u>**fully on-chain NFTs** such as Nouns are guaranteed to "e
 
 It means you are the sole owner of those fully on-chain NFTs and nobody is able to take them away from you. "Fully on-chain NFT" means "decentralized NFT" -- the true Web3 spirit!
 
-In addition, fully on-chain NFTs are **composable**. They allow other smart contracts to extra images from them and create a new set of generative arts from them. <u>This composability enables new types of creative art and creates new types of revenues to artists and developers</u>.
+In addition, fully on-chain NFTs are **composable**. They allow other smart contracts to extra images from them and create a new set of generative arts from them. <u>This composability enables new types of creative art and creates new types of revenue opportunities for artists and developers</u>.
 
 You can easily check if your NFTs are fully on-chain or not by calling tokenURI() method on Etherscan. If the URL starts with "http:" or "ipfs:", they are not on-chain NFTs. <u>The tokenURI method of a **truly decentralized NFT contract** will always return "data:" URL, which is the proof that its metadata and image are stored on-chain</u>. 
 
@@ -34,19 +34,19 @@ There are some efforts to work around this problem, but there are many technical
 
 ![](https://i.imgur.com/Mp9xUwH.jpg)
 
-[Art Blocks](https://www.artblocks.io/) is a great platform to publish generative arts, but Solidity is not an ideal platform for generative arts (yet). As the compromise, they use Javascript to generate arts off-chain, store those scripts on chain (which never run on-chain) and use an HTTP server to store metadata and generated images. 
+[Art Blocks](https://www.artblocks.io/) is a great platform to publish generative arts, but Solidity is not an ideal platform for generative arts (yet). As the compromise, <u>they use Javascript to generate arts off-chain</u>, store those scripts on chain (which never run on-chain) and use an HTTP server to store metadata and generated images. 
 
 ![](https://i.imgur.com/NxissZu.png)
 
 ## Vision and Mission
 
-Considering the current situation, we have determined to create a set of technologies and mechanisms, which will <u>make it easier and affordable to store, share, generate and compose vector images on-chain, enabling fully on-chain NFTs with rich graphics</u>.
+Considering the current situation, we have determined to create a set of technologies, protocols and mechanisms, which will <u>make it easy and affordable to store, share, generate and compose images on-chain, enabling fully on-chain NFTs with rich graphics</u>.
 
-We believe that we need to build a **decentralized autonomous marketplace** (automated by smart contracts), where creators can generate revenue from their creations while enabling and encouraging remixes and compositions.
+We also believe that we need to build a **decentralized autonomous marketplace** (automated by smart contracts), where creators can generate revenue from their creations while enabling and encouraging remixes and compositions.
 
 ## Our Approach
 
-Here is the list of technologies and mechanisms we are building. 
+Here is the list of technologies, protocols and mechanisms we are building. 
 
 ### SVG Compression (deployed)
 
@@ -86,7 +86,7 @@ The decoding will be done on-chain in "view" methods, such as *tokenURI* or *gen
 
 ### On-Chain Asset Store (deployed)
 
-The On-chain Asset Store is a *smart contract*, which acts as the public on-chain asset storage service, allowing developers to store and share vector assets.
+The On-chain Asset Store is a *smart contract*, which acts as **the public on-chain asset storage service**, allowing developers to store and share vector assets.
 
 It stores various vector data in the compressed format described above, and makes them available to other smart contracts, just like the asset store for Unity 3D engine. 
 
@@ -110,7 +110,7 @@ Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cry
 
 ### Asset Composer (beta testing)
 
-Asset Composer is a *smart contract*, which allows developers and users to create a new vector asset by composing existing vector assets, provided by asset providers (described below).
+Asset Composer is a *smart contract*, which allows developers and users to create a new vector asset by composing existing vector assets, provided by various asset providers (described below).
 
 Asset Composer is also act as an asset provider, providing compositions as assets. When a composition receives a revenue (from the marketplace), Asset Composer will distribute it to appropriate asset providers autonomously.
 
@@ -126,23 +126,25 @@ Asset Providers are *a new category of smart contracts*, each of which provides 
 
 Asset Composer acts as the registration mechanism of those asset providers so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (described below).
 
-Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface. This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
+Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/interfaces/IAssetProvider.sol) interface (protocol). This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
 
 As a reference implementation, we have created a wrapper of NounsDescriptor, [NounsAssetProvider](https://github.com/Cryptocoders-wtf/assetstore-contract/blob/main/contracts/NounsAssetProvider.sol), which offers dynamically generated Nouns characters as assets. 
 
 ![](https://i.imgur.com/c8ngYmT.png)
 
-### On-Chain Vector Editor (beta testing)
+### On-Chain Canvas (beta testing)
 
-On-Chain Vector Editor is a *WebUI front-end* of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe Illustrator, and mint it as an NFT.
+On-Chain Canvas is a *WebUI front-end* of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe Illustrator, and mint it as an NFT.
+
+[The beta version of On-Chain Canvas](https://onchaincanvas.xyz) on Goerli network is available for the beta testing. 
 
 ![](https://i.imgur.com/lPcTuTz.png)
 
-The source code of On-Chain Vector Editor is a part of [WebUI front-end of On-Chain AsstStore](https://github.com/Cryptocoders-wtf/assetstore). 
+The source code of On-Chain Canvas is available [here](https://github.com/Cryptocoders-wtf/onchaincanvas). 
 
 ### Draw2Earn (beta testing)
 
-During the development of the On-Chain Vector Editor described above, we came up with the idea to release it as a **Draw2Earn** application.
+During the development of the On-Chain Canvas described above, we came up with the idea to release it as a **Draw2Earn** application.
 
 Here is the business model. 
 
