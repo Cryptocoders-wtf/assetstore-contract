@@ -16,6 +16,8 @@ It means you are the sole owner of those fully on-chain NFTs and nobody is able 
 
 In addition, fully on-chain NFTs are **composable**. They allow other smart contracts to extra images from them and create a new set of generative arts from them. <u>This composability enables new types of creative art and creates new types of revenue opportunities for artists and developers</u>.
 
+![](https://i.imgur.com/R9aTx5N.png)
+
 You can easily check if your NFTs are fully on-chain or not by calling tokenURI() method on Etherscan. If the URL starts with "http:" or "ipfs:", they are not on-chain NFTs. <u>The tokenURI method of a **truly decentralized NFT contract** will always return "data:" URL, which is the proof that its metadata and image are stored on-chain</u>. 
 
 ![](https://i.imgur.com/8vEdlYu.png)
