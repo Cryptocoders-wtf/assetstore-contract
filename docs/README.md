@@ -126,7 +126,7 @@ Asset Providers are *a new category of smart contracts*, each of which provides 
 
 Asset Composer acts as the registration mechanism of those asset providers so that the user can easily discover available assets when authoring new images using the On-chain Vector Editor (described below).
 
-Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/interfaces/IAssetProvider.sol) interface (protocol). This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
+Each Asset Provider implements [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/packages/assetProvider/IAssetProvider.sol) interface (protocol). This interface allows other smart contracts to retrieve vector assets from the asset provider. <u>It also has a payment mechanism, for autonomous marketplace</u>, such as Draw2Earn application described below.
 
 As a reference implementation, we have created a wrapper of NounsDescriptor, [NounsAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/NounsAssetProvider.sol), which offers dynamically generated Nouns characters as assets. 
 
@@ -166,13 +166,13 @@ During the development process of the Draw2Earn business model, we realized that
 
 <u>This license allows other people to copy or remix it just like regular Creative Commons, but revenue sharing is required if somebody uses it to generate revenue</u>.
 
-As described above, [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/interfaces/IAssetProvider.sol) interface has a built-in revenue-sharing mechanism (*processPayout* method), and <u>it allows us to create **autonomous marketplace** to buy and sell vector assets</u>. 
+As described above, [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/packages/assetProvider/IAssetProvider.sol) interface has a built-in revenue-sharing mechanism (*processPayout* method), and <u>it allows us to create **autonomous marketplace** to buy and sell vector assets</u>. 
 
 We'd like to propose it as the standard mechanism to share revenue for various on-chain contents (not only images, but music and videos eventually).
 
 ### Generative Asset Providers (deployed)
 
-As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/interfaces/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider and start earning money.
+As described in the Asset Provider section, any smart contract, which supports [IAssetProvider](https://github.com/Cryptocoders-wtf/generative/blob/main/contract/contracts/packages/assetProvider/IAssetProvider.sol) interface can be registered to the Asset Composer as an asset provider and start earning money.
 
 <u>This is a new business opportunity for developers, who are interested in creating **generative arts**</u>.
 
