@@ -1,4 +1,4 @@
-# On-Chain Asset Store, Composer and Decentralized Autonomous Marketplace
+# On-Chain Asset Store, Asset Provider, Composer and Decentralized Autonomous Marketplace
 
 This is the summary document, which describes the vision & mission of this project and technologies, protocols and methods we are building, such as SVG compression, on-chain asset strore, crowd-Minting, asset providers and Draw2Earn app. 
 
