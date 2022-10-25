@@ -75,6 +75,12 @@ const config: HardhatUserConfig = {
       gasMultiplier: 1.5,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    matic: {
+      url: "https://polygon-mainnet.g.alchemyapi.io/v2/" + process.env.ALCHEMY_API_KEY,
+      gasMultiplier: 1.5,
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     }
   },
   gasReporter: {
