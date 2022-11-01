@@ -74,3 +74,14 @@ The buyer accepts this offer by calling the *acceptOffer* method of the ERC721P2
 
 The autonomous marketplace calls back the *purhase* method with the money from the buyer, and let it complete the transaction.
 
+## ERC721 compatibility
+
+For the smooth transition, it makes sense to make the new protocol compatible to ERC721, simply inheriting it. We, however, need to disable (or particially disable) *approval* and *approvalForAll* method, in order to prevent transactions on royalty-free marketplace.
+
+During the transition period, it makese sense to have a whitelist of marketplaces, so that traditional "approval and transfer" style transactions can happen only on trusted marketplaces which pay royalities appropriately.
+
+We don't need to disable the *transfer* method, which allows token owners to transfer their tokens to other wallets. We don't need to eliminate off-the-market transactions compoletely.
+
+## Security Concerns
+
+With this change, scam sites will attempt to let the user call the *acceptOffer* method with very low price. We certainly needs a special UI on the wallet (such as Metamask), which clearly presents the meaning of this transaction (the NFT and the offer price). 
