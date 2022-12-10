@@ -195,7 +195,7 @@ contract EmojiFlagToken is Ownable, ERC721A, IAssetStoreToken {
       '},{'
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
-              assetStore.getStringValidator().sanitizeJason(_attr.minter) : bytes('(anonymous)'), '"' 
+              assetStore.getStringValidator().sanitizeJson(_attr.minter) : bytes('(anonymous)'), '"' 
       '}'
     );
   }
