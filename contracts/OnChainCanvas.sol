@@ -298,7 +298,7 @@ contract OnChainCanvas is OnChainCanvasAdmin, IAssetStoreToken {
       '},{'
         '"trait_type":"Minter",'
         '"value":"', (bytes(_attr.minter).length > 0)?
-              assetStore.getStringValidator().sanitizeJason(_attr.minter) : bytes('(anonymous)'), '"' 
+              assetStore.getStringValidator().sanitizeJson(_attr.minter) : bytes('(anonymous)'), '"' 
       '},{'
         '"trait_type":"Remix",'
         '"value":"', remixBase[_tokenId] > 0 ? (remixBase[_tokenId] - 1).toString() : "(none)", '"' 

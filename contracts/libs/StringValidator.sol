@@ -26,7 +26,7 @@ contract StringValidator is IStringValidator {
     return true;
   }
 
-  function sanitizeJason(string memory _str) external override pure returns(bytes memory) {
+  function sanitizeJson(string memory _str) external override pure returns(bytes memory) {
     bytes memory src = bytes(_str);
     bytes memory res;
     uint i;
