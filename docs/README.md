@@ -134,6 +134,36 @@ As a reference implementation, we have created a wrapper of NounsDescriptor, [No
 
 ![](https://i.imgur.com/c8ngYmT.png)
 
+### Solidity Graphics library
+
+During the development of various fully on-chain generative art in Solidity, I've realized that directly manipulating SVG string is difficult and not efficient (because the string manipulation is expensive).
+
+To solve these problems, I have created a graphics library, [fully-on-chain.sol](https://www.npmjs.com/package/fully-on-chain.sol), which allows developers to generate SVG in the following style:
+
+```
+SVG.rect(256, 256, 512, 512)
+  .fill("yellow")
+  .stroke("blue", 10)
+  .transform("rotate(30 512 512)");
+```
+
+![](https://i.imgur.com/MLEUGD5.png)
+
+### On-Chain Font
+
+Displaying text is not possible without fonts. Therefore, I have decided to start uploading various fonts to the Ethereum mainnet. 
+
+The very first one is [Londrina Solid](https://fonts.google.com/specimen/Londrina+Solid), one of open source Google Fonts. Considering the gas cost, only ASCII characters (0x20-0x7e) are supported. 
+
+```
+IFontProvider font = new LondrinaSolid();
+SVG.group([
+  SVG.text(font, "hello"),
+  SVG.text(font, "nouns").transform('translate(0 1024)')
+]).transform('scale(0.4)');
+```
+![](https://i.imgur.com/XNwvVfI.png)
+
 ### On-Chain Canvas (beta testing)
 
 On-Chain Canvas is a *WebUI front-end* of Asset Composer, which allows creative people to author new images by drawing and combining existing vector assets, just like Adobe Illustrator, and mint it as an NFT.
