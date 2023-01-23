@@ -1,23 +1,23 @@
 # On-chain asset Store
 
-On-chain asset store, which allows multiple smart contracts to shara vector assets.
+On-chain asset store, which allows multiple smart contracts to share vector assets.
 
 All assets registered to this store will be treated as cc0 (public domain),
 CC-BY(attribution), Apache 2.0 or MIT (should be specified in the "group").
 In case of CC-BY, the creater's name should be in the "group", "category" or "name".
 
 All registered assets will be available to other smart contracts for free, including
-commecial services. Therefore, it is not allowed to register assets that require
+commercial services. Therefore, it is not allowed to register assets that require
 any form of commercial licenses.
 
-Once an asset is registed with group/category/name, it is NOT possible to update,
-which guaranttees the availability in future.
+Once an asset is registered with group/category/name, it is NOT possible to update,
+which guarantees the availability in future.
 
 Created by Satoshi Nakajima (@snakajima)
 
 ## WebUI repository
 
-The corresponding WebUI respository assumes that it can access this repository via "../contract" to access some generated contents in the "cache" folder. 
+The corresponding WebUI repository assumes that it can access this repository via "../contract" to access some generated contents in the "cache" folder. 
 
 ## Setup package
 
