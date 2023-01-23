@@ -29,7 +29,7 @@ Because all the sales transactions and associated revenue distributions are proc
 8. Zero audit cost
 9. Perpetual service (as long as the blockchain exists)
 
-I believe it has a potential to create a "creator centric" ecosystem, where creators (artists, musicians, film makers, evelopers, and etc.) can earn significant income from it, while encouraging consumers to enjoy permissionless remix culture of Web3 and Creative Commons. 
+I believe it has the potential to create a "creator centric" ecosystem, where creators (artists, musicians, filmmakers, developers, etc.) can earn significant income from it, while encouraging consumers to enjoy permissionless remix culture of Web3 and Creative Commons. 
 
 I am developing the first instance of DAM, which allows creators to publish their vector drawings to the on-chain asset store and generate revenue from them (Draw2Earn application).
 

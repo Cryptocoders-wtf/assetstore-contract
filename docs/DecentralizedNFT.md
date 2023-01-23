@@ -72,7 +72,7 @@ The seller (or other buyers) can see the current best offer (on that particular 
 
 The buyer accepts this offer by calling the *acceptOffer* method of the ERC721P2P contract, which matches the asking price to the offer price, and calls the *acceptOffer* method of the specified autonomous marketplace.
 
-The autonomous marketplace calls back the *purhase* method with the money from the buyer, and let it complete the transaction.
+The autonomous marketplace calls back the *purchase* method with the money from the buyer, and let it complete the transaction.
 
 ## ERC721 compatibility
 
@@ -86,7 +86,7 @@ We don't need to disable the *transfer* method, which allows token owners to tra
 
 With this change, scam sites will attempt to let the user call the *acceptOffer* method at a very low price. We certainly need a special UI on the wallet (such as Metamask), which presents the meaning of this transaction (the NFT and the offer price).
 
-## Incentive for Marketplave
+## Incentive for Marketplace
 
 A few people have pointed out that we need to come up with an incentive mechanism for existing marketplaces to continue to serve their roles. 
 
@@ -97,6 +97,6 @@ function purchase(uint256 _tokenId, address _wallet, address _facilitator) exter
 
 ## WithdrawAnOffer abuse
 
-Although it makes sense to immediately cancel the existig offer when a higher bid was made to the same contract, this implementation allows hackers to make a very high offer to kick the current offer out, then, withdraw that offer immediately and make a lower offer. 
+Although it makes sense to immediately cancel the existing offer when a higher bid was made to the same contract, this implementation allows hackers to make a very high offer to kick the current offer out, then, withdraw that offer immediately and make a lower offer. 
 
 We can prevent this behavior by adding a certain period (such as 24 hours), which does not allow the bidder to withdraw the bit.
