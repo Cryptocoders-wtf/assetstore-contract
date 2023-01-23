@@ -54,10 +54,10 @@ Here is the list of technologies, protocols and mechanisms we are building.
 
 While SVG is the industry standard to exchange vector data, raw SVG data is quite verbose and not suitable as the storage format on the blockchain.
 
-After various prototpes, we have chosen to compress SVG data in the following steps. 
+After various prototypes, we have chosen to compress SVG data in the following steps. 
 
 1. We convert all SVG elements to "path" elements, eliminating the need to specify element types (such as "rect" and "circle").
-2. We convert all floating points to integers by having a large and fixed view area (integer normolization).
+2. We convert all floating points to integers by having a large and fixed view area (integer normalization).
 3. We extract only the "d" attribute of those "path" elements, eliminating SVG tags entirely.
 4. We compress a series of data (commands and their parameters) in the "d" attribute into a series of 12-bit bytecodes.
 5. In this byte code, commands (such as "M" and "C") will be simply expanded to 12-bit (higher 4-bits will be all zero), while parameters (numbers ranging from -1023 to 1023) will be converted to N+1024+256 (higher 4-bits will be non-zero).
@@ -104,7 +104,7 @@ This is done by calling mintWithAsset() method, which stores the vector data to 
 
 We have launched three NFT collections ([Material Icons](https://assetstore.wtf/material), [Kamon Symbols](https://assetstore.wtf/kamon), [Emoji Flags](https://assetstore.wtf/emoji)) using crowd minting and <u>managed to upload over 1,500 vector images on the Ethereum blockchain</u>.
 
-We also came up with an idea to give addtional rewards to those minters. Please see the "Draw2Earn" section below.
+We also came up with an idea to give additional rewards to those minters. Please see the "Draw2Earn" section below.
 
 ![](https://i.imgur.com/skT6eS5.png)
 
@@ -114,7 +114,7 @@ Please see the mintWithAsset() method of [KamonToken.sol](https://github.com/Cry
 
 Asset Composer is a *smart contract*, which allows developers and users to create a new vector asset by composing existing vector assets, provided by various asset providers (described below).
 
-Asset Composer is also act as an asset provider, providing compositions as assets. When a composition receives a revenue (from the marketplace), Asset Composer will distribute it to appropriate asset providers autonomously.
+Asset Composer also acts as an asset provider, providing compositions as assets. When a composition receives a revenue (from the marketplace), Asset Composer will distribute it to appropriate asset providers autonomously.
 
 ![](https://i.imgur.com/9ZlNoM8.png)
 
